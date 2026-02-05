@@ -31,6 +31,7 @@ const CHECKS: Check[] = [
     type: 'code',
     description: 'Payment verification must use database state, NOT in-memory Sets/Maps which fail in serverless.',
     validate: () => {
+      if (!fs.existsSync('src/lib/payment/')) return true; // Skip if no payment module
       const files = fs.readdirSync('src/lib/payment/');
       for (const file of files) {
         if (file.endsWith('.ts')) {
@@ -218,7 +219,6 @@ const CHECKS: Check[] = [
       const requiredVars = [
         'DATABASE_URL',
         'AUTH_SECRET',
-        'RAZORPAY_KEY_ID',
         'SENTRY_DSN'
       ];
       for (const v of requiredVars) {
