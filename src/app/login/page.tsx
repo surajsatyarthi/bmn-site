@@ -50,7 +50,7 @@ export default function LoginPage() {
 
         {/* Login Card */}
         <div className="bg-white border border-bmn-border rounded-lg p-8">
-          <h1 className="font-display text-2xl font-bold text-bmn-dark-blue mb-6">
+          <h1 className="font-display text-2xl font-bold text-text-primary mb-6">
             Welcome Back
           </h1>
 

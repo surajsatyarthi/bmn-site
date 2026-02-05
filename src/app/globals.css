@@ -1,9 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
-  /* BMN Brand Tokens - Minimalist */
+  /* BMN Brand Tokens */
   --color-bmn-blue: #2046f5;
-  --color-bmn-dark-blue: #1a3a99;
+  --color-bmn-gold: #FF8C00;
   --color-bmn-light-bg: #fafbfc;
   --color-bmn-border: #e5e7eb;
   --color-text-primary: #0f172a;
@@ -33,6 +33,11 @@ body {
   }
 
   .btn-primary {
-    @apply bg-bmn-blue text-white font-semibold rounded-lg px-6 py-3 transition-all hover:bg-bmn-dark-blue focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2;
+    background: linear-gradient(135deg, #2046f5, #FF8C00);
+    @apply text-white font-semibold rounded-lg px-6 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #1a3be0, #e67e00);
   }
 }

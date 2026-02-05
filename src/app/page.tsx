@@ -10,7 +10,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="pt-24 pb-20 md:pt-32 md:pb-28">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl md:text-6xl font-display font-bold tracking-tight mb-6 text-bmn-dark-blue">
+          <h1 className="text-5xl md:text-6xl font-display font-bold tracking-tight mb-6 text-text-primary">
             Connect. Grow. <span className="text-bmn-blue">Succeed.</span>
           </h1>
 
@@ -39,7 +39,7 @@ export default function HomePage() {
       <section className="py-24 bg-bmn-light-bg">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-display font-bold text-bmn-dark-blue mb-4">Why Choose BMN</h2>
+            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Why Choose BMN</h2>
             <p className="text-text-secondary text-lg max-w-2xl mx-auto">
               We replace manual verification with AI-driven trust, enabling faster and safer global transactions.
             </p>
@@ -82,7 +82,7 @@ function FeatureCard({ icon, title, description }: { icon: React.ReactNode; titl
       <div className="mb-4 text-bmn-blue">
         {icon}
       </div>
-      <h3 className="text-lg font-bold text-bmn-dark-blue mb-2">{title}</h3>
+      <h3 className="text-lg font-bold text-text-primary mb-2">{title}</h3>
       <p className="text-text-secondary text-sm leading-relaxed">
         {description}
       </p>

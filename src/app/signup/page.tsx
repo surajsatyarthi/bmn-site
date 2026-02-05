@@ -61,7 +61,7 @@ export default function SignupPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="font-display text-2xl font-bold text-bmn-dark-blue mb-2">
+            <h2 className="font-display text-2xl font-bold text-text-primary mb-2">
               Account Created!
             </h2>
             <p className="text-text-secondary mb-4">
@@ -87,7 +87,7 @@ export default function SignupPage() {
 
         {/* Signup Card */}
         <div className="bg-white border border-bmn-border rounded-lg p-8">
-          <h1 className="font-display text-2xl font-bold text-bmn-dark-blue mb-2">
+          <h1 className="font-display text-2xl font-bold text-text-primary mb-2">
             Join BMN Today
           </h1>
           <p className="text-sm text-text-secondary mb-6">
