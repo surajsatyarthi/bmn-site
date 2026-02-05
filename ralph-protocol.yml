@@ -1,0 +1,641 @@
+# 🦅 RALPH PROTOCOL v5.0 - UNIFIED SPECIFICATION
+# The Single Source of Truth for FAANG-Standard Quality Gates
+#
+# This file is the ONLY authoritative source for:
+# - Gate definitions
+# - Required artifacts
+# - Automated checks
+# - Enforcement rules
+#
+# All tooling (CLI, hooks, CI/CD) MUST read from this file.
+
+version: "5.0.0"
+name: "Ralph Protocol - FAANG Standard Quality Gates"
+description: "Architecturally enforced end-to-end development process with integrated security scanning"
+effective_date: "2026-02-02"
+status: "ACTIVE"
+
+# ============================================
+# CORE PRINCIPLES
+# ============================================
+principles:
+  fail_safe_by_default: true  # Missing validation = blocked
+  single_source_of_truth: true  # This file is the authority
+  architectural_enforcement: true  # Make violations impossible, not discouraged
+  evidence_based: true  # Every gate requires verifiable proof
+  faang_security_integration: true  # Catches real vulnerabilities, not theater
+
+# ============================================
+# THE 11 COMMANDMENTS (Non-Negotiable Laws)
+# ============================================
+commandments:
+  1:
+    law: "Limit Law"
+    rule: "All SELECT queries must include a LIMIT clause"
+    severity: "P0"
+    automated_check: "grep -r 'SELECT.*FROM' src/ | grep -v 'LIMIT' | grep -v 'test'"
+
+  2:
+    law: "Security Law"
+    rule: "Never use dangerouslySetInnerHTML without DOMPurify"
+    severity: "P0"
+    automated_check: "grep -r 'dangerouslySetInnerHTML' src/ | grep -v 'dompurify' | grep -v 'DOMPurify'"
+
+  3:
+    law: "JSON-LD Law"
+    rule: "Always use the safeJsonLd() utility"
+    severity: "P0"
+    automated_check: "grep -r 'type=\"application/ld+json\"' src/ | grep -v 'safeJsonLd'"
+
+  4:
+    law: "Revenue Law"
+    rule: "All payment code must use database for state, not in-memory"
+    severity: "P0"
+    automated_check: "grep -r 'new Set\\|new Map' src/**/payment/** | grep -v 'test'"
+
+  5:
+    law: "Sequential Law"
+    rule: "All 11 Gates must be followed in strict chronological order"
+    severity: "P0"
+    automated_check: "ralph-cli verify-sequence"
+
+  6:
+    law: "Proof Law"
+    rule: "Evidence = Artifacts + Automated Check Results + Git Hash"
+    severity: "P0"
+    automated_check: "ralph-cli verify-artifacts"
+
+  7:
+    law: "Air-Gap Law"
+    rule: "Database writes only via safe server-side functions"
+    severity: "P0"
+    automated_check: "grep -r 'db.execute\\|db.run' src/app/ | grep -v 'server.ts'"
+
+  8:
+    law: "Context Law"
+    rule: "All reports must anchor to Git HEAD commit hash"
+    severity: "P1"
+    automated_check: "ralph-cli verify-git-context"
+
+  9:
+    law: "Semantic Law"
+    rule: "Every commit must reference TASK_ID or ISSUE_ID"
+    severity: "P1"
+    automated_check: "git log -1 --pretty=%B | grep -E 'TASK-[0-9]+|ISSUE-[0-9]+|#[0-9]+'"
+
+  10:
+    law: "Integrity Law"
+    rule: "All reports must pass schema validation"
+    severity: "P1"
+    automated_check: "ralph-cli validate-reports"
+
+  11:
+    law: "RFC Law"
+    rule: "No code without approved plan that lists alternatives considered"
+    severity: "P0"
+    automated_check: "ralph-cli verify-plan-exists"
+
+# ============================================
+# THE 11 QUALITY GATES
+# ============================================
+gates:
+  # ========================================
+  # PHASE 1: ASSESSMENT (Understanding)
+  # ========================================
+  1:
+    name: "Physical Audit & State Verification"
+    phase: "ASSESSMENT"
+    description: "Verify current state of code and production via direct observation"
+    required_artifacts:
+      - path: "docs/reports/phase_1_assessment_report_TASK_{TASK_ID}.md"
+        template: ".ralph/templates/GATE_1_PHYSICAL_AUDIT.md"
+        required_sections:
+          - "Current State Analysis"
+          - "Git History Review"
+          - "Production Verification"
+          - "Dependency Analysis"
+    automated_checks:
+      - name: "Artifact exists"
+        command: "test -f docs/reports/phase_1_assessment_report_TASK_*.md"
+        required: true
+      - name: "Artifact not empty"
+        command: "[ $(wc -l < docs/reports/phase_1_assessment_report_TASK_*.md) -gt 50 ]"
+        required: true
+      - name: "Contains git HEAD"
+        command: "grep -q '$(git rev-parse HEAD)' docs/reports/phase_1_assessment_report_TASK_*.md"
+        required: true
+    can_skip: false
+    estimated_time: "1-2 hours"
+
+  2:
+    name: "Logic Mapping & Deep Research"
+    phase: "ASSESSMENT"
+    description: "Identify all consumers, dependencies, and edge cases"
+    required_artifacts:
+      - path: "docs/reports/phase_1_assessment_report_TASK_{TASK_ID}.md"
+        required_sections:
+          - "Consumer Analysis"
+          - "Dependency Map"
+          - "Edge Cases"
+          - "External Research"
+          - "Minimum 3 Web Searches Documented"
+    automated_checks:
+      - name: "External research documented"
+        command: "grep -c 'Source:' docs/reports/phase_1_assessment_report_TASK_*.md | awk '$1 >= 3'"
+        required: true
+      - name: "Dependency graph present"
+        command: "grep -q 'graph\\|flowchart\\|mermaid' docs/reports/phase_1_assessment_report_TASK_*.md"
+        required: false
+    can_skip: false
+    estimated_time: "2-3 hours"
+
+  # ========================================
+  # PHASE 2: PLANNING (Design)
+  # ========================================
+  3:
+    name: "Blueprint & RFC (Request for Comments)"
+    phase: "PLANNING"
+    description: "Create implementation plan with alternatives considered, obtain user approval"
+    required_artifacts:
+      - path: "docs/reports/phase_2_execution_report_TASK_{TASK_ID}.md"
+        template: ".ralph/templates/GATE_3_BLUEPRINT_RFC.md"
+        required_sections:
+          - "Problem Statement"
+          - "Proposed Solution"
+          - "Alternatives Considered"
+          - "Trade-offs Analysis"
+          - "User Approval"
+    automated_checks:
+      - name: "Plan exists"
+        command: "test -f docs/reports/phase_2_execution_report_TASK_*.md"
+        required: true
+      - name: "Alternatives section present"
+        command: "grep -q '## Alternatives Considered' docs/reports/phase_2_execution_report_TASK_*.md"
+        required: true
+      - name: "User approval documented"
+        command: "grep -qE 'APPROVED|USER_APPROVED|✅ Approved' docs/reports/phase_2_execution_report_TASK_*.md"
+        required: true
+    can_skip: false
+    estimated_time: "1-2 hours"
+
+  # ========================================
+  # PHASE 3: EXECUTION (Building)
+  # ========================================
+  4:
+    name: "Implementation"
+    phase: "EXECUTION"
+    description: "Execute approved changes with no scope creep"
+    required_artifacts:
+      - path: "docs/reports/phase_2_execution_report_TASK_{TASK_ID}.md"
+        required_sections:
+          - "Implementation Log"
+          - "Files Changed"
+          - "Git Diff Summary"
+    automated_checks:
+      - name: "Git has staged changes"
+        command: "! git diff --cached --quiet"
+        required: true
+      - name: "Files changed match plan"
+        command: "ralph-cli verify-scope"
+        required: true
+    can_skip: false
+    estimated_time: "Varies by task"
+
+  5:
+    name: "Security Audit (FAANG P0 Issue Scanner)"
+    phase: "EXECUTION"
+    description: "Scan for critical security vulnerabilities from FAANG audit"
+    required_artifacts:
+      - path: "docs/reports/security_scan_TASK_{TASK_ID}.md"
+        template: ".ralph/templates/GATE_5_SECURITY_AUDIT.md"
+    automated_checks:
+      - name: "Security scanner runs"
+        command: "pnpm ralph:security-scan"
+        required: true
+      - name: "No P0 issues"
+        command: "pnpm ralph:security-scan --format=json | jq '.p0_issues | length' | awk '$1 == 0'"
+        required: true
+      - name: "Scan covers FAANG audit items"
+        command: "ralph-cli verify-faang-coverage"
+        required: true
+    security_checks:
+      - id: "SEC-001"
+        name: "Payment Replay Attack"
+        check: "Verify payment verification uses database, not in-memory Set/Map"
+        command: "grep -r 'new Set\\|new Map' src/**/payment/**/*.ts | grep -v 'test' && exit 1 || exit 0"
+        severity: "P0"
+
+      - id: "SEC-002"
+        name: "Mock Data in Production"
+        check: "Verify no mock data fallbacks in production code"
+        command: "grep -r 'catch.*mock' src/ | grep -v 'test' | grep -v '__tests__' && exit 1 || exit 0"
+        severity: "P0"
+
+      - id: "SEC-003"
+        name: "XSS via dangerouslySetInnerHTML"
+        check: "Verify DOMPurify used with dangerouslySetInnerHTML"
+        command: "grep -r 'dangerouslySetInnerHTML' src/ | grep -v 'dompurify' | grep -v 'test' && exit 1 || exit 0"
+        severity: "P0"
+
+      - id: "SEC-004"
+        name: "SQL Injection Risk"
+        check: "Verify parameterized queries, no string concatenation"
+        command: "grep -rE 'db\\.(execute|run).*\\$\\{|\\+.*WHERE' src/ | grep -v 'test' && exit 1 || exit 0"
+        severity: "P0"
+
+      - id: "SEC-005"
+        name: "Rate Limiting Missing"
+        check: "Verify POST endpoints have rate limiting"
+        command: "ralph-cli check-rate-limits"
+        severity: "P1"
+
+      - id: "SEC-006"
+        name: "Environment Variable Validation"
+        check: "Verify src/lib/env.ts exists with Zod validation"
+        command: "test -f src/lib/env.ts && grep -q 'z.object' src/lib/env.ts"
+        severity: "P0"
+
+      - id: "SEC-007"
+        name: "Error Tracking Setup"
+        check: "Verify Sentry or error tracking configured"
+        command: "test -f sentry.server.config.ts || grep -q 'SENTRY_DSN' .env.example"
+        severity: "P0"
+
+    can_skip: false
+    estimated_time: "30 minutes (automated)"
+
+  6:
+    name: "Performance Audit"
+    phase: "EXECUTION"
+    description: "Verify performance standards met"
+    required_artifacts:
+      - path: "docs/reports/performance_audit_TASK_{TASK_ID}.md"
+    automated_checks:
+      - name: "Lighthouse score > 90"
+        command: "pnpm ralph:lighthouse --min-score=90"
+        required: true
+      - name: "Bundle size check"
+        command: "pnpm ralph:bundle-size"
+        required: true
+      - name: "No performance regressions"
+        command: "pnpm ralph:performance-compare"
+        required: false
+    can_skip: false
+    estimated_time: "30 minutes"
+
+  7:
+    name: "Code Quality & Build Verification"
+    phase: "EXECUTION"
+    description: "Verify code builds, passes linting, and follows conventions"
+    required_artifacts:
+      - path: "docs/reports/phase_2_execution_report_TASK_{TASK_ID}.md"
+        required_sections:
+          - "Build Output"
+          - "Lint Results"
+          - "Type Check Results"
+    automated_checks:
+      - name: "Linting passes"
+        command: "pnpm lint"
+        required: true
+      - name: "Type check passes"
+        command: "pnpm tsc --noEmit"
+        required: true
+      - name: "Build succeeds"
+        command: "pnpm build"
+        required: true
+      - name: "No console.log in production"
+        command: "grep -r 'console\\.log' src/ | grep -v 'test' | grep -v 'logger' && exit 1 || exit 0"
+        required: false
+    can_skip: false
+    estimated_time: "5-10 minutes"
+
+  8:
+    name: "TDD Proof (Test-Driven Development)"
+    phase: "EXECUTION"
+    description: "Verify tests exist, pass, and provide adequate coverage"
+    required_artifacts:
+      - path: "docs/reports/test_results_TASK_{TASK_ID}.md"
+        template: ".ralph/templates/GATE_8_TDD_PROOF.md"
+        required_sections:
+          - "Unit Test Results"
+          - "E2E Test Results"
+          - "Coverage Report"
+          - "Bug Reproduction Test (if bug fix)"
+    automated_checks:
+      - name: "Unit tests pass"
+        command: "pnpm test"
+        required: true
+      - name: "E2E tests pass"
+        command: "pnpm test:e2e"
+        required: true
+      - name: "Coverage > 80%"
+        command: "pnpm test --coverage | grep 'All files' | awk '{print $4}' | sed 's/%//' | awk '$1 >= 80'"
+        required: false
+      - name: "Reproduction test exists (if bug fix)"
+        command: "ralph-cli verify-bug-reproduction"
+        required: false
+    can_skip: false
+    estimated_time: "2-4 hours (writing tests)"
+
+  9:
+    name: "Accessibility Audit"
+    phase: "EXECUTION"
+    description: "Verify WCAG 2.1 AA compliance"
+    required_artifacts:
+      - path: "docs/reports/accessibility_audit_TASK_{TASK_ID}.md"
+    automated_checks:
+      - name: "Axe accessibility scan"
+        command: "pnpm ralph:a11y-scan"
+        required: true
+      - name: "Keyboard navigation tested"
+        command: "ralph-cli verify-keyboard-nav"
+        required: false
+      - name: "Screen reader compatible"
+        command: "ralph-cli verify-aria-labels"
+        required: false
+    can_skip: true
+    skip_conditions:
+      - "No UI changes"
+      - "Backend-only task"
+    estimated_time: "1 hour"
+
+  # ========================================
+  # PHASE 4: VERIFICATION (Shipping)
+  # ========================================
+  10:
+    name: "Deployment Verification (Staging)"
+    phase: "VERIFICATION"
+    description: "Verify deployment succeeds in staging environment"
+    required_artifacts:
+      - path: "docs/reports/deployment_verification_TASK_{TASK_ID}.md"
+        required_sections:
+          - "Build Status"
+          - "Deployment Status"
+          - "Environment Variables Verified"
+          - "Smoke Tests"
+    automated_checks:
+      - name: "Build artifacts exist"
+        command: "test -d .next || test -d dist"
+        required: true
+      - name: "Environment variables validated"
+        command: "test -f src/lib/env.ts && pnpm tsx src/lib/env.ts"
+        required: true
+      - name: "Deployment health check"
+        command: "ralph-cli verify-deployment-health --env=staging"
+        required: false
+    can_skip: false
+    estimated_time: "15-30 minutes"
+
+  11:
+    name: "Production Verification"
+    phase: "VERIFICATION"
+    description: "Verify changes live in production with physical proof"
+    required_artifacts:
+      - path: "docs/reports/production_verification_TASK_{TASK_ID}.md"
+        template: ".ralph/templates/GATE_11_PRODUCTION_VERIFICATION.md"
+        required_sections:
+          - "Deployment Timestamp"
+          - "Vercel Deployment ID"
+          - "Production URL Verification"
+          - "Screenshot with Timestamp"
+          - "Health Check Results"
+    automated_checks:
+      - name: "Production is reachable"
+        command: "curl -f -s -o /dev/null -w '%{http_code}' $PRODUCTION_URL | grep -q '200'"
+        required: true
+      - name: "Production health check"
+        command: "curl -f $PRODUCTION_URL/api/health | jq -e '.status == \"ok\"'"
+        required: true
+      - name: "Deployment matches git commit"
+        command: "ralph-cli verify-deployment-commit"
+        required: true
+      - name: "Screenshot captured"
+        command: "test -f docs/reports/screenshots/production_TASK_*.png"
+        required: true
+    monitoring_requirements:
+      - hour_0: "Immediate verification after deploy"
+      - hour_6: "Check error rates, verify no spikes"
+      - hour_24: "Final verification, document in post-mortem"
+    can_skip: false
+    estimated_time: "30-60 minutes + 24hr monitoring"
+
+  # ========================================
+  # PHASE 5: DOCUMENTATION (Closing)
+  # ========================================
+  12:
+    name: "Documentation & Walkthrough"
+    phase: "DOCUMENTATION"
+    description: "Document changes and create walkthrough for team"
+    required_artifacts:
+      - path: "docs/walkthroughs/walkthrough_TASK_{TASK_ID}.md"
+        template: ".ralph/templates/GATE_12_WALKTHROUGH.md"
+        required_sections:
+          - "What Changed"
+          - "Why It Changed"
+          - "How to Use"
+          - "Rollback Procedure"
+          - "Known Issues"
+    automated_checks:
+      - name: "Walkthrough exists"
+        command: "test -f docs/walkthroughs/walkthrough_TASK_*.md"
+        required: true
+      - name: "MASTER_TASK_LIST updated"
+        command: "grep -q 'TASK_{TASK_ID}' MASTER_TASK_LIST.md"
+        required: true
+      - name: "User-facing docs updated"
+        command: "ralph-cli verify-docs-updated"
+        required: false
+    can_skip: false
+    estimated_time: "30 minutes"
+
+# ============================================
+# ENFORCEMENT CONFIGURATION
+# ============================================
+enforcement:
+  pre_commit_hook:
+    enabled: true
+    fail_safe: true  # Exit 1 if validation cannot run
+    gates_to_check: [1, 3, 4, 5, 7, 8]
+    command: "./scripts/ralph-validator.sh"
+
+  pre_push_hook:
+    enabled: true
+    fail_safe: true
+    gates_to_check: [1, 3, 4, 5, 7, 8, 10]
+    command: "./scripts/ralph-validator.sh --check-push"
+
+  ci_cd:
+    enabled: true
+    workflow_file: ".github/workflows/ralph-enforce.yml"
+    gates_to_check: [1, 5, 6, 7, 8, 10, 11, 12]
+    required_for_merge: true
+
+  audit_trail:
+    enabled: true
+    immutable: true
+    hash_algorithm: "sha256"
+    include_file_hashes: true
+    verify_against_git: true
+
+# ============================================
+# ARTIFACT TEMPLATES
+# ============================================
+templates:
+  base_path: ".ralph/templates"
+  available:
+    - GATE_1_PHYSICAL_AUDIT.md
+    - GATE_3_BLUEPRINT_RFC.md
+    - GATE_5_SECURITY_AUDIT.md
+    - GATE_8_TDD_PROOF.md
+    - GATE_11_PRODUCTION_VERIFICATION.md
+    - GATE_12_WALKTHROUGH.md
+
+# ============================================
+# TOOLING
+# ============================================
+cli:
+  command: "pnpm ralph"
+  subcommands:
+    - name: "task start <id> <name>"
+      description: "Register new task and initialize gate tracking"
+    - name: "gate start <N>"
+      description: "Start gate N (validates sequence)"
+    - name: "gate complete <N>"
+      description: "Complete gate N (runs automated checks)"
+    - name: "verify"
+      description: "Verify all gates complete for current task"
+    - name: "security-scan"
+      description: "Run FAANG audit security scanner"
+    - name: "audit"
+      description: "Show audit trail"
+
+scripts:
+  validator: "./scripts/ralph-validator.sh"
+  security_scanner: "./scripts/ralph-security-scanner.ts"
+  performance_check: "./scripts/ralph-performance-check.ts"
+  a11y_scan: "./scripts/ralph-a11y-scan.ts"
+
+# ============================================
+# BYPASS PREVENTION
+# ============================================
+bypass_prevention:
+  - mechanism: "Pre-commit hook with fail-safe"
+    prevents: "Committing without gate validation"
+
+  - mechanism: "Artifact existence check"
+    prevents: "Claiming gate complete without creating files"
+
+  - mechanism: "Automated security scanner"
+    prevents: "Shipping code with FAANG audit P0 issues"
+
+  - mechanism: "CI/CD required checks"
+    prevents: "Merging PRs without passing all gates"
+
+  - mechanism: "File content hashing"
+    prevents: "Creating empty artifact files"
+
+  - mechanism: "Git commit verification"
+    prevents: "Claiming production deploy without actual deploy"
+
+# ============================================
+# FAANG AUDIT INTEGRATION
+# ============================================
+faang_audit_integration:
+  audit_file: "ANTIGRAVITY_CRITICAL_AUDIT_2026-02-02.md"
+  p0_issues:
+    - id: "ISSUE-001"
+      name: "Payment Replay Attack"
+      gate: 5
+      check: "SEC-001"
+      status: "BLOCKS_GATE_5"
+
+    - id: "ISSUE-002"
+      name: "Mock Data Fallbacks"
+      gate: 8
+      check: "SEC-002"
+      status: "BLOCKS_GATE_8"
+
+    - id: "ISSUE-003"
+      name: "No Error Tracking"
+      gate: 11
+      check: "SEC-007"
+      status: "BLOCKS_GATE_11"
+
+    - id: "ISSUE-004"
+      name: "No Env Validation"
+      gate: 10
+      check: "SEC-006"
+      status: "BLOCKS_GATE_10"
+
+# ============================================
+# EXEMPTIONS & EXCEPTIONS
+# ============================================
+exemptions:
+  - gate: 9
+    condition: "No UI changes"
+    requires_approval: false
+
+  - gate: 6
+    condition: "Performance not affected (backend-only change)"
+    requires_approval: true
+
+  - gate: 11
+    condition: "Hotfix for P0 production incident"
+    requires_approval: true
+    documentation_required: "Post-incident COE report within 48 hours"
+
+# ============================================
+# SUCCESS METRICS
+# ============================================
+success_metrics:
+  - metric: "No gate can be completed without passing automated checks"
+    measured_by: "CLI exit code"
+    target: "100% enforcement"
+
+  - metric: "Zero P0 security issues reach production"
+    measured_by: "Security scanner blocks"
+    target: "0 P0 issues in prod"
+
+  - metric: "100% of automatable gates enforced in CI"
+    measured_by: "CI workflow coverage"
+    target: "9 of 12 gates automated"
+
+  - metric: "Pre-commit hook cannot be bypassed"
+    measured_by: "Fail-safe validation"
+    target: "Exit 1 if validator missing"
+
+# ============================================
+# MIGRATION PLAN
+# ============================================
+migration:
+  from_version: "4.0"
+  to_version: "5.0"
+  breaking_changes:
+    - "Gate count standardized to 12 (was 10-11 inconsistent)"
+    - "Pre-commit hook now fail-safe (was pass-by-default)"
+    - "Security scanner mandatory (was optional)"
+    - "Artifact validation required (was honor system)"
+
+  migration_steps:
+    1: "Archive old files: RALPH_PROTOCOL_PLAYBOOK.md → docs/archive/"
+    2: "Run: pnpm ralph migrate-v5"
+    3: "Update .git/hooks/pre-commit with fail-safe version"
+    4: "Update .github/workflows/ralph-enforce.yml"
+    5: "Install security scanner: pnpm add -D @ralph/security-scanner"
+    6: "Run: pnpm ralph verify (should pass on clean repo)"
+
+# ============================================
+# CONTACTS
+# ============================================
+maintainer:
+  name: "Antigravity Engineering"
+  contact: "engineering@googleantigravity.directory"
+
+escalation:
+  p0_bypass_attempt: "Block commit immediately, notify maintainer"
+  security_scanner_failure: "Block gate 5, provide remediation steps"
+  production_verification_failure: "Rollback deploy, initiate incident response"
+
+---
+# END OF RALPH PROTOCOL v5.0 SPECIFICATION
+# This file is the single source of truth. All other Ralph files are deprecated.

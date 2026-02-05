@@ -31,8 +31,9 @@ export default function LoginPage() {
       // Redirect to homepage on successful login
       router.push('/')
       router.refresh()
-    } catch (err: any) {
-      setError(err.message || 'An error occurred during login')
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred during login'
+      setError(errorMessage)
     } finally {
       setLoading(false)
     }
@@ -114,7 +115,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-text-muted">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link href="/signup" className="text-bmn-blue font-semibold hover:underline">
                 Sign Up
               </Link>
