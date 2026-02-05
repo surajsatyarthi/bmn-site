@@ -1,28 +1,22 @@
 @import 'tailwindcss';
 
 @theme {
-  /* BMN Brand Tokens - Light Mode First */
+  /* BMN Brand Tokens - Minimalist */
   --color-bmn-blue: #2046f5;
-  --color-bmn-dark-blue: #003366;
-  --color-bmn-orange: #FF8C00;
-  --color-bmn-light-bg: #F8F9FA;
-  --color-bmn-border: #DEE2E6;
-  --color-text-primary: #212529;
-  --color-text-secondary: #6C757D;
+  --color-bmn-dark-blue: #1a3a99;
+  --color-bmn-light-bg: #fafbfc;
+  --color-bmn-border: #e5e7eb;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
 
   /* Font Families */
   --font-sans: var(--font-inter);
   --font-display: var(--font-oswald);
-
-  /* Gradients */
-  --image-gradient-primary: linear-gradient(to right, #2046f5, #003366);
-  --image-gradient-footer: linear-gradient(to bottom, #ffffff, #F8F9FA);
 }
 
 :root {
-  /* Default to Light Mode */
   --background: #ffffff;
-  --foreground: #212529;
+  --foreground: #0f172a;
 }
 
 body {
@@ -33,37 +27,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Antigravity-style Utilities applied to BMN */
 @layer utilities {
   .glass-header {
-    @apply bg-white/90 backdrop-blur-md border-b border-bmn-border;
+    @apply border-b border-bmn-border bg-white;
   }
-  
+
   .btn-primary {
-    @apply bg-gradient-to-r from-bmn-blue to-bmn-dark-blue text-white font-bold uppercase rounded-md px-6 py-3 transition-all hover:shadow-lg hover:shadow-blue-500/30;
+    @apply bg-bmn-blue text-white font-semibold rounded-lg px-6 py-3 transition-all hover:bg-bmn-dark-blue focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2;
   }
-}
-
-/* Animations from Antigravity (Adapted) */
-@keyframes logo-shine {
-  0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
-  10%, 20% { opacity: 1; }
-  35%, 100% { transform: translateX(250%) skewX(-25deg); opacity: 0; }
-}
-
-.animate-logo-shine {
-  position: relative;
-  overflow: hidden;
-}
-
-.animate-logo-shine::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -150%;
-  width: 40%;
-  height: 200%;
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
-  animation: logo-shine 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
 }

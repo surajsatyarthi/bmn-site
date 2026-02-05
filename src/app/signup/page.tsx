@@ -53,21 +53,21 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-bmn-light-bg px-4">
+      <div className="min-h-screen flex items-center justify-center bg-white px-4">
         <div className="max-w-md w-full text-center">
-          <div className="bg-white border border-bmn-border rounded-lg p-8 shadow-sm">
+          <div className="bg-white border border-bmn-border rounded-lg p-8">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="font-display text-2xl font-bold uppercase text-bmn-blue mb-2">
+            <h2 className="font-display text-2xl font-bold text-bmn-dark-blue mb-2">
               Account Created!
             </h2>
-            <p className="text-text-muted mb-4">
+            <p className="text-text-secondary mb-4">
               Please check your email to verify your account.
             </p>
-            <p className="text-sm text-text-muted">
+            <p className="text-sm text-text-secondary">
               Redirecting to login...
             </p>
           </div>
@@ -77,32 +77,22 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-bmn-light-bg px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center bg-white px-4 py-12">
       <div className="max-w-md w-full">
         {/* Logo/Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center mb-4">
-            <svg viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mr-3">
-              <path d="M2.5 13.5L8.5 4L13.5 11.5L21.5 2" stroke="#2046f5" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="text-3xl font-extrabold text-bmn-blue">BMN</span>
-          </div>
-          <p className="text-xs uppercase tracking-widest text-text-secondary font-display font-bold">Business Market Network</p>
+          <span className="text-3xl font-display font-bold text-bmn-blue">BMN</span>
+          <p className="text-xs uppercase tracking-widest text-text-secondary font-display font-bold mt-2">Business Market Network</p>
         </div>
 
         {/* Signup Card */}
-        <div className="bg-white border border-bmn-border rounded-lg p-8 shadow-sm">
-          <div className="mb-6">
-            <div className="inline-block bg-gradient-primary text-white px-3 py-1 text-xs font-bold uppercase rounded mb-4 shadow-md">
-              Create Account
-            </div>
-            <h1 className="font-display text-2xl font-bold uppercase text-bmn-blue">
-              Join BMN Today
-            </h1>
-            <p className="text-sm text-text-muted mt-2">
-              Connect with global businesses across 200+ countries
-            </p>
-          </div>
+        <div className="bg-white border border-bmn-border rounded-lg p-8">
+          <h1 className="font-display text-2xl font-bold text-bmn-dark-blue mb-2">
+            Join BMN Today
+          </h1>
+          <p className="text-sm text-text-secondary mb-6">
+            Connect with global businesses across 200+ countries
+          </p>
 
           {error && (
             <div className="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded">
@@ -113,7 +103,7 @@ export default function SignupPage() {
 
           <form onSubmit={handleSignup} className="space-y-5">
             <div>
-              <label htmlFor="fullName" className="block text-xs font-bold uppercase text-text-muted tracking-wide mb-2">
+              <label htmlFor="fullName" className="block text-sm font-semibold text-text-primary mb-2">
                 Full Name
               </label>
               <input
@@ -122,14 +112,14 @@ export default function SignupPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm bg-white text-text-primary placeholder:text-text-secondary"
+                className="w-full px-4 py-2 border border-bmn-border rounded-lg focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2 text-sm text-text-primary placeholder:text-text-secondary"
                 placeholder="John Doe"
                 disabled={loading}
               />
             </div>
 
             <div>
-              <label htmlFor="companyName" className="block text-xs font-bold uppercase text-text-muted tracking-wide mb-2">
+              <label htmlFor="companyName" className="block text-sm font-semibold text-text-primary mb-2">
                 Company Name
               </label>
               <input
@@ -138,14 +128,14 @@ export default function SignupPage() {
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm bg-white text-text-primary placeholder:text-text-secondary"
+                className="w-full px-4 py-2 border border-bmn-border rounded-lg focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2 text-sm text-text-primary placeholder:text-text-secondary"
                 placeholder="Your Company Ltd."
                 disabled={loading}
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-xs font-bold uppercase text-text-muted tracking-wide mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-text-primary mb-2">
                 Email Address
               </label>
               <input
@@ -154,14 +144,14 @@ export default function SignupPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm bg-white text-text-primary placeholder:text-text-secondary"
+                className="w-full px-4 py-2 border border-bmn-border rounded-lg focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2 text-sm text-text-primary placeholder:text-text-secondary"
                 placeholder="you@company.com"
                 disabled={loading}
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-xs font-bold uppercase text-text-muted tracking-wide mb-2">
+              <label htmlFor="password" className="block text-sm font-semibold text-text-primary mb-2">
                 Password
               </label>
               <input
@@ -171,24 +161,24 @@ export default function SignupPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={6}
-                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm bg-white text-text-primary placeholder:text-text-secondary"
+                className="w-full px-4 py-2 border border-bmn-border rounded-lg focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2 text-sm text-text-primary placeholder:text-text-secondary"
                 placeholder="Minimum 6 characters"
                 disabled={loading}
               />
-              <p className="text-xs text-text-muted mt-1">Must be at least 6 characters</p>
+              <p className="text-xs text-text-secondary mt-1">Must be at least 6 characters</p>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-primary text-white py-3 px-6 rounded-md font-bold text-sm uppercase hover:shadow-lg hover:shadow-blue-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-primary py-2 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-text-muted">
+            <p className="text-sm text-text-secondary">
               Already have an account?{' '}
               <Link href="/login" className="text-bmn-blue font-semibold hover:underline">
                 Sign In
@@ -197,7 +187,7 @@ export default function SignupPage() {
           </div>
         </div>
 
-        <p className="text-center text-xs text-text-muted mt-6">
+        <p className="text-center text-xs text-text-secondary mt-8">
           © 2026 Business Market Network. All Rights Reserved.
         </p>
       </div>
