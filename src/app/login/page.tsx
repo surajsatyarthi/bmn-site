@@ -50,13 +50,13 @@ export default function LoginPage() {
             </svg>
             <span className="text-3xl font-extrabold text-bmn-blue">BMN</span>
           </div>
-          <p className="text-xs uppercase tracking-widest text-text-muted">Business Market Network</p>
+          <p className="text-xs uppercase tracking-widest text-text-secondary font-display font-bold">Business Market Network</p>
         </div>
 
         {/* Login Card */}
         <div className="bg-white border border-bmn-border rounded-lg p-8 shadow-sm">
           <div className="mb-6">
-            <div className="inline-block bg-bmn-blue text-white px-3 py-1 text-xs font-bold uppercase rounded mb-4">
+            <div className="inline-block bg-gradient-primary text-white px-3 py-1 text-xs font-bold uppercase rounded mb-4 shadow-md">
               Sign In
             </div>
             <h1 className="font-display text-2xl font-bold uppercase text-bmn-blue">
@@ -82,7 +82,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm"
+                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm bg-white text-text-primary placeholder:text-text-secondary"
                 placeholder="you@example.com"
                 disabled={loading}
               />
@@ -98,7 +98,7 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm"
+                className="w-full px-4 py-3 border border-bmn-border rounded-md focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:border-transparent text-sm bg-white text-text-primary placeholder:text-text-secondary"
                 placeholder="Enter your password"
                 disabled={loading}
               />
@@ -107,7 +107,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-bmn-blue text-white py-3 px-6 rounded-md font-bold text-sm uppercase hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-primary text-white py-3 px-6 rounded-md font-bold text-sm uppercase hover:shadow-lg hover:shadow-blue-500/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing In...' : 'Sign In'}
             </button>
