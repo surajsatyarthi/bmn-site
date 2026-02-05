@@ -33,11 +33,11 @@ body {
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, #2046f5, #FF8C00);
+    background: linear-gradient(135deg, #2046f5, #4b6ff7);
     @apply text-white font-semibold rounded-lg px-6 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2;
   }
 
   .btn-primary:hover {
-    background: linear-gradient(135deg, #1a3be0, #e67e00);
+    background: linear-gradient(135deg, #1a3be0, #2046f5);
   }
 }
