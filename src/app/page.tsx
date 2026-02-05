@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Header } from '@/components/layout/Header';
 import { ArrowRight, Globe2, ShieldCheck, Zap } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 export default function HomePage() {
   return (
@@ -16,7 +15,7 @@ export default function HomePage() {
           </h1>
 
           <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
-            The world's first verified marketplace connecting exporters, importers, and manufacturers with AI-driven trust.
+            The world&apos;s first verified marketplace connecting exporters, importers, and manufacturers with AI-driven trust.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
