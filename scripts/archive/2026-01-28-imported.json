@@ -1,0 +1,11 @@
+[
+  {
+    "title": "Test Email Notification Resource",
+    "description": "This is a test resource to verify email notifications are working correctly",
+    "url": "https://github.com/test/test-email-verification",
+    "category": "mcp-servers",
+    "stars": 100,
+    "source": "manual-test",
+    "approved": true
+  }
+]

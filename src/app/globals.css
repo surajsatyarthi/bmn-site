@@ -1,19 +1,69 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+  /* BMN Brand Tokens - Light Mode First */
+  --color-bmn-blue: #2046f5;
+  --color-bmn-dark-blue: #003366;
+  --color-bmn-orange: #FF8C00;
+  --color-bmn-light-bg: #F8F9FA;
+  --color-bmn-border: #DEE2E6;
+  --color-text-primary: #212529;
+  --color-text-secondary: #6C757D;
+
+  /* Font Families */
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-oswald);
+
+  /* Gradients */
+  --image-gradient-primary: linear-gradient(to right, #2046f5, #003366);
+  --image-gradient-footer: linear-gradient(to bottom, #ffffff, #F8F9FA);
+}
 
 :root {
+  /* Default to Light Mode */
   --background: #ffffff;
-  --foreground: #1e293b; /* text-primary (Slate 800) */
+  --foreground: #212529;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-}
-
-/* Enforcing light mode to align with BMN Invoice Design System */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Antigravity-style Utilities applied to BMN */
+@layer utilities {
+  .glass-header {
+    @apply bg-white/90 backdrop-blur-md border-b border-bmn-border;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-bmn-blue to-bmn-dark-blue text-white font-bold uppercase rounded-md px-6 py-3 transition-all hover:shadow-lg hover:shadow-blue-500/30;
+  }
+}
+
+/* Animations from Antigravity (Adapted) */
+@keyframes logo-shine {
+  0% { transform: translateX(-150%) skewX(-25deg); opacity: 0; }
+  10%, 20% { opacity: 1; }
+  35%, 100% { transform: translateX(250%) skewX(-25deg); opacity: 0; }
+}
+
+.animate-logo-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-logo-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -150%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: logo-shine 6s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
 }
