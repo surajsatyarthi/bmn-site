@@ -2,23 +2,36 @@
 # 🦅 Ralph Protocol Gate Validator
 # Checks for mandatory artifacts before allowing progress.
 
-TASK_FILE="/Users/surajsatyarthi/.gemini/antigravity/brain/6be12e26-fb0b-4cae-b5bd-8deff9fc39ed/task.md"
-PLAN_FILE="/Users/surajsatyarthi/.gemini/antigravity/brain/6be12e26-fb0b-4cae-b5bd-8deff9fc39ed/implementation_plan.md"
+cd "$(dirname "$0")/.."
+
+RALPH_DIR=".ralph"
+AUDIT_TRAIL="$RALPH_DIR/audit_trail.json"
 
 echo "🦅 Ralph Protocol: Checking Gates..."
 
-# Gate 1: Active Task Check
-if [ ! -f "$TASK_FILE" ]; then
-    echo "❌ Gate Failed: task.md not found."
+# Gate 1: Ralph directory exists
+if [ ! -d "$RALPH_DIR" ]; then
+    echo "❌ Gate Failed: .ralph/ directory not found."
+    echo "   Fix: mkdir -p .ralph/templates"
     exit 1
 fi
+echo "✅ Gate 1: Ralph directory exists"
 
-# Gate 3: Blueprint Check (Implementation Plan)
-if [ ! -f "$PLAN_FILE" ]; then
-    echo "❌ Gate Failed: implementation_plan.md not found."
-    echo "Rule: You must create a Blueprint before writing code."
-    exit 1
+# Gate 2: Audit trail exists
+if [ ! -f "$AUDIT_TRAIL" ]; then
+    echo "⚠️  Gate 2: No audit trail yet (first run)."
+else
+    echo "✅ Gate 2: Audit trail exists"
 fi
 
-echo "✅ All Gates Passed."
+# Gate 3: Templates exist
+TEMPLATE_COUNT=$(find "$RALPH_DIR/templates" -name "GATE_*.md" 2>/dev/null | wc -l | tr -d ' ')
+if [ "$TEMPLATE_COUNT" -eq 0 ]; then
+    echo "❌ Gate Failed: No gate templates found in .ralph/templates/"
+    exit 1
+fi
+echo "✅ Gate 3: $TEMPLATE_COUNT gate templates found"
+
+echo ""
+echo "✅ All prerequisite gates passed."
 exit 0

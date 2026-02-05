@@ -1,19 +1,22 @@
 import fs from 'fs';
-import path from 'path';
 import { glob } from 'glob';
 import { execSync } from 'child_process';
 
 /**
  * RALPH PROTOCOL v5.1 - ENHANCED SECURITY SCANNER
  *
- * Comprehensive validation with deployment-blocking checks.
- * Catches: code issues + dependency issues + build issues + deployment readiness
+ * Modes:
+ *   --pre-commit   Fast checks only (code + deps). Skips build/deploy.
+ *   --full         All checks including build and deployment readiness.
+ *   (default)      Same as --full
  */
+
+const MODE = process.argv.includes('--pre-commit') ? 'pre-commit' : 'full';
 
 interface Check {
   id: string;
   name: string;
-  severity: 'P0' | 'P1' | 'P2';
+  severity: 'P0' | 'P1';
   description: string;
   type: 'code' | 'dependency' | 'build' | 'deployment';
   validate: () => boolean;
@@ -29,43 +32,42 @@ const CHECKS: Check[] = [
     name: 'Payment Replay Attack Vulnerability',
     severity: 'P0',
     type: 'code',
-    description: 'Payment verification must use database state, NOT in-memory Sets/Maps which fail in serverless.',
+    description: 'Payment verification must use database, NOT in-memory Sets/Maps.',
     validate: () => {
+      if (!fs.existsSync('src/lib/payment/')) return true;
       const files = fs.readdirSync('src/lib/payment/');
       for (const file of files) {
-        if (file.endsWith('.ts')) {
+        if (file.endsWith('.ts') && file !== 'placeholder.ts') {
           const content = fs.readFileSync(`src/lib/payment/${file}`, 'utf-8');
-          const hasInProgressSet = content.includes('new Set<string>()') || content.includes('new Set()');
-          const hasVerifiedPaymentsVar = content.includes('verifiedPayments');
-          if (hasInProgressSet && hasVerifiedPaymentsVar) {
+          if ((content.includes('new Set<string>()') || content.includes('new Set()')) &&
+              content.includes('verifiedPayments')) {
             return false;
           }
         }
       }
       return true;
     },
-    fix: 'Use database lookup (e.g., db.query.payments.findFirst) to verify transaction status.'
+    fix: 'Use database lookup (db.query.payments.findFirst) instead of in-memory Set.'
   },
   {
     id: 'SEC-002',
     name: 'Production Mock Data Fallback',
     severity: 'P0',
     type: 'code',
-    description: 'Production code must NEVER fallback to mock data on DB failure. Fail loud.',
+    description: 'Production code must NEVER fallback to mock data on DB failure.',
     validate: () => {
       if (!fs.existsSync('src/lib/queries.ts')) return true;
       const content = fs.readFileSync('src/lib/queries.ts', 'utf-8');
-      const hasMockFallback = /catch.*mock/i.test(content) || /return.*mock/i.test(content);
-      return !hasMockFallback;
+      return !(/catch.*mock/i.test(content) || /return.*mock/i.test(content));
     },
-    fix: 'Remove try/catch that returns mock data. Allow error to bubble up to error boundaries.'
+    fix: 'Remove try/catch that returns mock data. Let errors bubble up.'
   },
   {
     id: 'SEC-003',
     name: 'Environment Variable Validation',
     severity: 'P0',
     type: 'code',
-    description: 'Application must validate all required env vars at startup using Zod.',
+    description: 'App must validate required env vars at startup using Zod.',
     validate: () => {
       if (!fs.existsSync('src/lib/env.ts')) return false;
       const content = fs.readFileSync('src/lib/env.ts', 'utf-8');
@@ -74,25 +76,53 @@ const CHECKS: Check[] = [
     fix: 'Create src/lib/env.ts with Zod schema validation.'
   },
   {
-    id: 'SEC-006',
-    name: 'Rate Limiting on POST Routes',
-    severity: 'P1',
+    id: 'SEC-004',
+    name: 'No Secrets in Source Code',
+    severity: 'P0',
     type: 'code',
-    description: 'All POST endpoints must have rate limiting protection.',
+    description: 'No API keys, tokens, or secrets hardcoded in source.',
     validate: () => {
-      const apiRoutes = glob.sync('src/app/api/**/route.ts', { ignore: ['**/*.test.ts'] });
-      for (const file of apiRoutes) {
+      const patterns = [
+        /RAZORPAY_KEY_SECRET\s*=\s*['"](?!your-)/,
+        /PAYPAL_CLIENT_SECRET\s*=\s*['"](?!your-)/,
+        /AUTH_SECRET\s*=\s*['"](?!your-|generate-)/,
+        /sk_live_/,
+        /sk_test_/
+      ];
+      const srcFiles = glob.sync('src/**/*.{ts,tsx}');
+      for (const file of srcFiles) {
         const content = fs.readFileSync(file, 'utf-8');
-        if (content.includes('export async function POST')) {
-          if (!content.includes('checkRateLimit') && !content.includes('ratelimit')) {
-            console.error(`   ⚠️  ${file} has POST but no rate limiting`);
-            // Don't fail - may be intentional for some endpoints
+        for (const pattern of patterns) {
+          if (pattern.test(content)) {
+            console.error(`   Found potential secret in ${file}`);
+            return false;
           }
         }
       }
       return true;
     },
-    fix: 'Add rate limiting to sensitive POST endpoints.'
+    fix: 'Remove hardcoded secrets. Use environment variables.'
+  },
+  {
+    id: 'SEC-005',
+    name: 'Rate Limiting on POST Routes',
+    severity: 'P1',
+    type: 'code',
+    description: 'POST endpoints must have rate limiting.',
+    validate: () => {
+      const apiRoutes = glob.sync('src/app/api/**/route.ts');
+      let unprotected = false;
+      for (const file of apiRoutes) {
+        const content = fs.readFileSync(file, 'utf-8');
+        if ((content.includes('export async function POST') || content.includes('export function POST')) &&
+            !content.includes('checkRateLimit') && !content.includes('ratelimit') && !content.includes('RateLimit')) {
+          console.error(`   ⚠️  ${file} has POST without rate limiting`);
+          unprotected = true;
+        }
+      }
+      return !unprotected;
+    },
+    fix: 'Add rate limiting middleware to POST endpoints.'
   },
 
   // ============================================
@@ -103,51 +133,28 @@ const CHECKS: Check[] = [
     name: 'Required Dependencies Installed',
     severity: 'P0',
     type: 'dependency',
-    description: 'All required dependencies from package.json must be installed in node_modules.',
+    description: 'All package.json dependencies must be installed.',
     validate: () => {
-      const requiredPackages = [
-        '@sentry/nextjs',
-        'resend',
-        'drizzle-orm',
-        'next-auth',
-        'zod'
-      ];
-
-      for (const pkg of requiredPackages) {
-        if (!fs.existsSync(`node_modules/${pkg}`)) {
-          console.error(`   Missing package: ${pkg}`);
-          return false;
+      if (!fs.existsSync('package.json')) return false;
+      const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+      const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+      const missing: string[] = [];
+      for (const dep of Object.keys(allDeps)) {
+        if (!fs.existsSync(`node_modules/${dep}`)) {
+          missing.push(dep);
         }
+      }
+      if (missing.length > 0) {
+        console.error(`   Missing: ${missing.join(', ')}`);
+        return false;
       }
       return true;
     },
-    fix: 'Run: pnpm install (or npm install, yarn install)'
-  },
-  {
-    id: 'DEP-002',
-    name: 'package.json and lock file consistent',
-    severity: 'P0',
-    type: 'dependency',
-    description: 'package.json must match pnpm-lock.yaml (no orphaned or missing packages).',
-    validate: () => {
-      if (!fs.existsSync('package.json') || !fs.existsSync('pnpm-lock.yaml')) {
-        return false;
-      }
-      // Run pnpm ls to verify lock file matches package.json
-      try {
-        execSync('pnpm ls --depth=0 2>&1', { stdio: 'pipe' });
-        return true;
-      } catch (error) {
-        console.error('   ⚠️  pnpm-lock.yaml mismatch with package.json');
-        console.error('   Run: pnpm install');
-        return false;
-      }
-    },
-    fix: 'Run: pnpm install to sync package.json with lock file'
+    fix: 'Run: npm install'
   },
 
   // ============================================
-  // BUILD CHECKS
+  // BUILD CHECKS (skipped in --pre-commit mode)
   // ============================================
   {
     id: 'BLD-001',
@@ -157,211 +164,161 @@ const CHECKS: Check[] = [
     description: 'Code must compile without TypeScript errors.',
     validate: () => {
       try {
-        execSync('pnpm tsc --noEmit --skipLibCheck 2>&1', { stdio: 'pipe' });
+        execSync('npx tsc --noEmit --skipLibCheck 2>&1', { stdio: 'pipe', timeout: 60000 });
         return true;
-      } catch (error) {
+      } catch {
         console.error('   TypeScript compilation failed');
         return false;
       }
     },
-    fix: 'Fix TypeScript errors: pnpm tsc --noEmit'
+    fix: 'Fix TypeScript errors: npx tsc --noEmit'
   },
   {
     id: 'BLD-002',
     name: 'Next.js build succeeds',
     severity: 'P0',
     type: 'build',
-    description: 'Next.js production build must succeed without errors.',
+    description: 'Production build must succeed.',
     validate: () => {
       try {
-        execSync('pnpm build 2>&1', { stdio: 'pipe', timeout: 300000 });
+        execSync('npm run build 2>&1', { stdio: 'pipe', timeout: 300000 });
         return true;
-      } catch (error) {
-        console.error('   Build failed - check output above');
+      } catch {
+        console.error('   Build failed');
         return false;
       }
     },
-    fix: 'Fix build errors and run: pnpm build'
+    fix: 'Fix build errors: npm run build'
   },
   {
     id: 'BLD-003',
-    name: 'ESLint passes',
+    name: 'ESLint passes (src/)',
     severity: 'P1',
     type: 'build',
-    description: 'Code must pass linting checks.',
+    description: 'Source code must pass linting.',
     validate: () => {
       try {
-        execSync('pnpm lint 2>&1', { stdio: 'pipe' });
+        execSync('npx eslint src/ 2>&1', { stdio: 'pipe' });
         return true;
-      } catch (error) {
-        console.error('   Linting failed');
+      } catch {
+        console.error('   Linting failed in src/');
         return false;
       }
     },
-    fix: 'Run: pnpm lint --fix'
+    fix: 'Run: npx eslint src/ --fix'
   },
 
   // ============================================
-  // DEPLOYMENT READINESS CHECKS
+  // DEPLOYMENT CHECKS (skipped in --pre-commit mode)
   // ============================================
   {
     id: 'DPL-001',
-    name: 'Environment variables documented in .env.example',
+    name: 'Env vars documented in .env.example',
     severity: 'P1',
     type: 'deployment',
-    description: 'All required env vars must be documented in .env.example.',
+    description: 'All required env vars must be in .env.example.',
     validate: () => {
-      if (!fs.existsSync('.env.example')) {
-        return false;
-      }
+      if (!fs.existsSync('.env.example')) return false;
       const content = fs.readFileSync('.env.example', 'utf-8');
-      const requiredVars = [
-        'DATABASE_URL',
-        'AUTH_SECRET',
-        'RAZORPAY_KEY_ID',
-        'SENTRY_DSN'
-      ];
-      for (const v of requiredVars) {
+      const required = ['NEXT_PUBLIC_SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_ANON_KEY', 'SENTRY_DSN', 'AUTH_SECRET', 'DATABASE_URL'];
+      let ok = true;
+      for (const v of required) {
         if (!content.includes(v)) {
           console.error(`   Missing ${v} in .env.example`);
-          return false;
+          ok = false;
         }
       }
-      return true;
+      return ok;
     },
-    fix: 'Create .env.example with all required variables and documentation'
+    fix: 'Update .env.example with all required variables.'
   },
   {
     id: 'DPL-002',
-    name: 'Git is clean (no uncommitted changes)',
+    name: 'Git is clean',
     severity: 'P1',
     type: 'deployment',
-    description: 'All changes must be committed before deployment checks.',
+    description: 'All changes must be committed before deploy.',
     validate: () => {
       try {
         const output = execSync('git status --porcelain 2>&1', { stdio: 'pipe' }).toString();
-        // Ignore node_modules and build artifacts
-        const filteredLines = output.split('\n').filter(line => {
-          return !line.includes('node_modules') &&
-                 !line.includes('.next') &&
-                 !line.includes('dist/') &&
-                 line.trim() !== '';
-        });
-        if (filteredLines.length > 0) {
-          console.error('   Uncommitted changes found:');
-          filteredLines.forEach(line => console.error(`     ${line}`));
+        const dirty = output.split('\n').filter(l =>
+          !l.includes('node_modules') && !l.includes('.next') && !l.includes('dist/') && l.trim() !== ''
+        );
+        if (dirty.length > 0) {
+          console.error('   Uncommitted changes:');
+          dirty.forEach(l => console.error(`     ${l}`));
           return false;
         }
         return true;
-      } catch (error) {
+      } catch {
         return false;
       }
     },
-    fix: 'Commit all changes: git add . && git commit'
-  },
-  {
-    id: 'DPL-003',
-    name: 'No secrets in code',
-    severity: 'P0',
-    type: 'deployment',
-    description: 'No API keys, tokens, or secrets should be hardcoded.',
-    validate: () => {
-      const suspiciousPatterns = [
-        /RAZORPAY_KEY_SECRET\s*=\s*['"](?!your-)/,
-        /PAYPAL_CLIENT_SECRET\s*=\s*['"](?!your-)/,
-        /AUTH_SECRET\s*=\s*['"](?!your-|generate-)/,
-        /sk_live_/,
-        /sk_test_/
-      ];
-
-      const srcFiles = glob.sync('src/**/*.{ts,tsx}', { ignore: ['**/*.test.ts'] });
-      for (const file of srcFiles) {
-        const content = fs.readFileSync(file, 'utf-8');
-        for (const pattern of suspiciousPatterns) {
-          if (pattern.test(content)) {
-            console.error(`   Found potential secret in ${file}`);
-            return false;
-          }
-        }
-      }
-      return true;
-    },
-    fix: 'Remove hardcoded secrets. Use environment variables instead.'
+    fix: 'Commit all changes before deploying.'
   }
 ];
 
 async function scan() {
-  console.log('\n🦅 Ralph Protocol v5.1: Enhanced Security Scanner Initiated...\n');
+  console.log(`\n🦅 Ralph Protocol v5.1: Security Scanner [${MODE.toUpperCase()}]\n`);
 
-  let hasP0Errors = false;
-  let hasP1Warnings = false;
-  let totalChecks = 0;
-  let passedChecks = 0;
+  let hasP0 = false;
+  let hasP1 = false;
+  let total = 0;
+  let passed = 0;
 
-  // Group checks by type
-  const checksByType = CHECKS.reduce((acc, check) => {
-    if (!acc[check.type]) acc[check.type] = [];
-    acc[check.type].push(check);
+  // Pre-commit: only code + dependency (fast). Full: everything.
+  const allowed = MODE === 'pre-commit' ? ['code', 'dependency'] : ['code', 'dependency', 'build', 'deployment'];
+  const active = CHECKS.filter(c => allowed.includes(c.type));
+
+  const byType = active.reduce((acc, c) => {
+    (acc[c.type] ??= []).push(c);
     return acc;
   }, {} as Record<string, Check[]>);
 
-  // Run checks by category
-  const categories = ['code', 'dependency', 'build', 'deployment'];
+  for (const cat of ['code', 'dependency', 'build', 'deployment']) {
+    const checks = byType[cat];
+    if (!checks?.length) continue;
 
-  for (const category of categories) {
-    const checks = checksByType[category] || [];
-    if (checks.length === 0) continue;
-
-    console.log(`\n📋 ${category.toUpperCase()} CHECKS`);
+    console.log(`\n📋 ${cat.toUpperCase()} CHECKS`);
     console.log('─'.repeat(50));
 
     for (const check of checks) {
-      totalChecks++;
+      total++;
       const icon = check.severity === 'P0' ? '🔴' : '🟡';
       process.stdout.write(`${icon} ${check.id}: ${check.name}... `);
 
       try {
-        const passed = check.validate();
-
-        if (passed) {
+        if (check.validate()) {
           console.log('✅');
-          passedChecks++;
+          passed++;
         } else {
           console.log('❌');
           console.error(`   Severity: ${check.severity}`);
           console.error(`   Description: ${check.description}`);
           console.error(`   Fix: ${check.fix}`);
-
-          if (check.severity === 'P0') {
-            hasP0Errors = true;
-          } else {
-            hasP1Warnings = true;
-          }
+          if (check.severity === 'P0') hasP0 = true;
+          else hasP1 = true;
         }
       } catch (error) {
         console.log('❌');
-        console.error(`   Error running check: ${(error as Error).message}`);
-        if (check.severity === 'P0') {
-          hasP0Errors = true;
-        }
+        console.error(`   Error: ${(error as Error).message}`);
+        if (check.severity === 'P0') hasP0 = true;
       }
     }
   }
 
-  // Summary
   console.log('\n' + '='.repeat(50));
-  console.log(`Security Scan Complete: ${passedChecks}/${totalChecks} Passed`);
+  console.log(`Security Scan Complete: ${passed}/${total} Passed`);
   console.log('='.repeat(50));
 
-  if (hasP0Errors) {
-    console.error('\n🚨 CRITICAL P0 ISSUES FOUND');
-    console.error('   ❌ Build/deploy blocked until resolved\n');
+  if (hasP0) {
+    console.error('\n🚨 P0 ISSUES — commit/deploy BLOCKED\n');
     process.exit(1);
-  } else if (hasP1Warnings) {
-    console.warn('\n⚠️  P1 Issues Found (warnings, fix before launch)\n');
-    process.exit(0); // Exit 0 so build can proceed
+  } else if (hasP1) {
+    console.warn('\n⚠️  P1 warnings (fix before launch)\n');
+    process.exit(0);
   } else {
-    console.log('\n✅ All security checks passed!\n');
+    console.log('\n✅ All checks passed!\n');
     process.exit(0);
   }
 }

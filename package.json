@@ -7,8 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "ralph:scan": "npx tsx scripts/ralph-security-scanner.ts",
-    "validate:gates": "./scripts/validate-ralph-gates.sh"
+    "ralph:scan": "npx tsx scripts/ralph-security-scanner.ts --pre-commit",
+    "ralph:full": "npx tsx scripts/ralph-security-scanner.ts --full",
+    "validate:gates": "./scripts/validate-ralph-gates.sh",
+    "pm:validate": "./scripts/pm-validator.sh"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
