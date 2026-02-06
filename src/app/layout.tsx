@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Oswald } from "next/font/google";
 import "./globals.css";
+import { GradientDefinitions } from "@/components/ui/GradientDefinitions";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${oswald.variable} font-sans antialiased bg-bmn-light-bg text-text-primary`}
       >
+        <GradientDefinitions />
         {children}
       </body>
     </html>

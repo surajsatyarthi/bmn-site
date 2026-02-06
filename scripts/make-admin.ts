@@ -1,40 +1,84 @@
 #!/usr/bin/env tsx
 
-/**
- * Direct database update to make user admin
- * Uses the DATABASE_URL connection string
- */
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, '../.env.local') });
 import { db } from '../src/lib/db';
-import { users } from '../src/drizzle/schema';
+import { profiles } from '../src/lib/db/schema';
 import { eq } from 'drizzle-orm';
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+if (!SUPABASE_URL || !SERVICE_ROLE_KEY) {
+  console.error('❌ Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+  process.exit(1);
+}
+
+const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false
+  }
+});
 
 async function makeAdmin() {
+  const email = process.argv[2];
+
+  if (!email) {
+    console.error('❌ Please provide an email address: npx tsx scripts/make-admin.ts <email>');
+    process.exit(1);
+  }
+
   try {
-    console.log('\n🔍 Making directoryantigravity@gmail.com an admin...\n');
+    console.log(`\n🔍 Looking up user: ${email}...`);
+
+    // 1. Find user in Supabase Auth
+    const { data: { users }, error } = await supabase.auth.admin.listUsers();
+    
+    if (error) throw error;
+
+    const user = users.find(u => u.email?.toLowerCase() === email.toLowerCase());
+
+    if (!user) {
+      console.error('❌ User not found in Supabase Auth.');
+      process.exit(1);
+    }
+
+    console.log(`✅ Found Auth User: ${user.id}`);
+
+    // 2. Update Profile
+    console.log('🔄 Updating profile to admin...');
     
     const result = await db
-      .update(users)
+      .update(profiles)
       .set({ 
-        role: 'ADMIN',
+        isAdmin: true,
         updatedAt: new Date()
       })
-      .where(eq(users.email, 'directoryantigravity@gmail.com'))
+      .where(eq(profiles.id, user.id))
       .returning();
 
     if (result.length > 0) {
-      console.log('✅ SUCCESS! You are now an admin!');
-      console.log(`   Email: ${result[0].email}`);
-      console.log(`   Role: ${result[0].role}`);
-      console.log(`   Name: ${result[0].name || 'Not set'}\n`);
-      console.log('🚀 Refresh http://localhost:3000/dashboard to see Edward\'s panel!\n');
+      console.log('✅ SUCCESS! User is now an admin.');
+      console.log(`   Email: ${email}`);
+      console.log(`   User ID: ${user.id}`);
+      console.log(`   Profile Name: ${result[0].fullName}`);
+      console.log(`   Is Admin: ${result[0].isAdmin}\n`);
     } else {
-      console.log('❌ No user found with that email. Make sure you\'ve signed in at least once.\n');
+      console.error('❌ Profile not found in database (even though Auth user exists).');
+      console.error('   The user might need to complete onboarding or sign in first.');
     }
     
     process.exit(0);
-  } catch (error: any) {
-    console.error('❌ Error:', error.message);
+  } catch (error: unknown) {
+    console.error('❌ Error:', error instanceof Error ? error.message : String(error));
     process.exit(1);
   }
 }

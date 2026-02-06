@@ -1,8 +1,10 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 @theme {
   /* BMN Brand Tokens */
-  --color-bmn-blue: #2046f5;
+  --color-bmn-blue: #2563eb;
+  --color-bmn-navy: #0B1120;
   --color-bmn-gold: #FF8C00;
   --color-bmn-light-bg: #fafbfc;
   --color-bmn-border: #e5e7eb;
@@ -12,6 +14,21 @@
   /* Font Families */
   --font-sans: var(--font-inter);
   --font-display: var(--font-oswald);
+
+  /* BMN Gradients */
+  --gradient-primary: linear-gradient(135deg, #2563eb, #1e40af);
+
+  /* Animations */
+  --animate-shimmer: shimmer 8s linear infinite;
+
+  @keyframes shimmer {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
 }
 
 :root {
@@ -33,11 +50,30 @@ body {
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, #2046f5, #4b6ff7);
+    background: var(--gradient-primary);
     @apply text-white font-semibold rounded-lg px-6 py-3 transition-all focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2;
   }
 
   .btn-primary:hover {
-    background: linear-gradient(135deg, #1a3be0, #2046f5);
+    background: linear-gradient(135deg, #1e40af, #1e3a8a); /* Darker shift for hover */
+  }
+
+  /* Gradient Text Utility */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Gradient Background Utility */
+  .bg-gradient-primary {
+    background: var(--gradient-primary) !important;
+  }
+  
+  /* Icon Gradient Utility */
+  .icon-gradient-primary {
+    stroke: url(#gradient-primary);
   }
 }

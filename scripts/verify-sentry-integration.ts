@@ -59,7 +59,7 @@ async function verifySentryIntegration() {
     const page = await context.newPage();
 
     // Listen for network requests (to verify Sentry endpoint is called)
-    let sentryErrors: any[] = [];
+    const sentryErrors: any[] = [];
     page.on('response', (response: any) => {
       if (response.url().includes('sentry.io')) {
         sentryErrors.push({
