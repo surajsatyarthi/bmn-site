@@ -1,3 +1,10 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms and Conditions | BMN',
+  description: 'Read the terms and conditions for using the Business Market Network platform and services.',
+};
+
 export default function TermsPage() {
     return (
       <div className="prose prose-lg prose-blue max-w-none text-text-secondary">

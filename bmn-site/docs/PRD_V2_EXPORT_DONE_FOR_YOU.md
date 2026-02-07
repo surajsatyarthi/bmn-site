@@ -1077,20 +1077,55 @@ These phases move manual ops work into the platform.
 
 ---
 
-### Phase 8: Deal Flow Integration
-**Goal:** Move offline deal stages into the platform for full visibility.
+### Phase 8: Deal Flow Integration (13-Step Pipeline)
+**Goal:** Track complete export deal lifecycle from product selection to payment with clear USER ACTION vs. BMN AUTOMATION visibility.
 
-| # | Task | Priority |
-|---|------|----------|
-| 8.1 | Lead status pipeline (interested → intro → meeting → negotiation → closed) | P0 |
-| 8.2 | Meeting scheduler (Calendly/Google Calendar integration) | P1 |
-| 8.3 | Document sharing (upload catalogs, specs) | P1 |
-| 8.4 | Sample shipment tracker (basic status updates) | P2 |
-| 8.5 | In-app messaging / deal room | P2 |
-| 8.6 | Order/invoice generation | P3 |
-| 8.7 | Payment tracking | P3 |
+**Architecture:** Kanban board at `/deals` with 6 stages mapped to 13 process steps.
 
-**Phase 8 Report:** Full deal flow demo, client walkthrough.
+#### 13-Step Export Deal Process (Source: table.csv)
+
+| Step | Description | Owner | Kanban Stage |
+|:-----|:------------|:------|:-------------|
+| 1 | Finalize Product and Target Country | Backend AI | Lead Gen |
+| 2 | Conduct Compliance Check | Backend AI | Lead Gen |
+| 3 | Find Leads from Databases | Backend AI | Lead Gen |
+| 4 | Build a Prospect List | Backend AI | Lead Gen |
+| 5 | Send Initial Emails or Inquiries | Backend AI (Phase 7) | Outreach |
+| 6 | Set Up Meetings | Backend AI (Phase 7) | Outreach |
+| **7** | **Conduct Discussions** | **USER ACTION** | **Discussion** |
+| **8** | **Agree on Price and Terms** | **USER ACTION** | **Negotiation** |
+| **9** | **Send Samples** | **USER ACTION** | **Negotiation** |
+| 10 | Finalize Contract | Backend AI | Contract |
+| 11 | Arrange Production and Quality Control | Backend AI | Fulfillment |
+| 12 | Handle Logistics and Shipping | Backend AI | Fulfillment |
+| 13 | Manage Payment and Follow-Up | Backend AI | Fulfillment |
+
+**USER ACTION steps (7-9):** Platform shows "🔴 Action Required" banner with clear instructions.
+
+#### Phase 8A: Deal Pipeline UI (P0)
+
+| # | Task | Priority | Notes |
+|---|------|----------|-------|
+| 8A.1 | Schema: `deals` table with stage, current_step, user_action_required | P0 | Links to matches table |
+| 8A.2 | `/deals` route with Kanban board (6 columns) | P0 | Drag-and-drop between stages |
+| 8A.3 | Deal detail page `/deals/[id]` with vertical timeline | P0 | Shows all 13 steps with status badges |
+| 8A.4 | Dashboard integration: "Active Deals" stat card + "Action Required" alerts | P0 | |
+| 8A.5 | USER ACTION forms: Meeting scheduler (Step 7), Terms input (Step 8), Sample tracker (Step 9) | P0 | |
+| 8A.6 | Match → Deal conversion flow ("Start Deal" button on match detail) | P0 | Only for revealed matches |
+
+#### Phase 8B: Deal Automation Hooks (P1)
+
+| # | Task | Priority | Notes |
+|---|------|----------|-------|
+| 8B.1 | Stage 1-4: Auto-populate from Matches engine | P1 | Run on deal creation |
+| 8B.2 | Stage 5-6: Trigger cold email campaigns via Manyreach | P1 | Requires Phase 7 |
+| 8B.3 | Stage 10: Contract PDF generation | P2 | Template + merge fields |
+| 8B.4 | Stage 11-13: Production/logistics workflow triggers | P2 | External integrations |
+| 8B.5 | Email notifications on stage change | P1 | Requires Phase 6 |
+
+**Prerequisites:** Phase 6 (Emails) + Phase 7 (Cold Email) must complete first.
+
+**Phase 8 Report:** Full deal flow demo showing USER ACTION steps vs. automated stages, client walkthrough.
 
 ---
 

@@ -1,3 +1,10 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Refund Policy | BMN',
+  description: 'Information regarding refunds for BMN service tiers and upcoming Pro plans.',
+};
+
 export default function RefundPage() {
     return (
       <div className="prose prose-lg prose-blue max-w-none text-text-secondary">

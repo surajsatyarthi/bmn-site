@@ -5,7 +5,7 @@ interface RateLimitEntry {
 
 const store = new Map<string, RateLimitEntry>();
 
-export function rateLimit(key: string, limit: number, windowMs: number): { success: boolean; remaining: number } {
+export function checkRateLimit(key: string, limit: number, windowMs: number): { success: boolean; remaining: number } {
   const now = Date.now();
   const entry = store.get(key);
 

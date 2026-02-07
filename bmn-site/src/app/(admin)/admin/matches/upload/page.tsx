@@ -1,9 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-// Removed unused useRouter
 import { Upload, FileText, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils'; // Assuming utils exists
+import { cn } from '@/lib/utils';
 
 interface UserOption {
   id: string;
@@ -13,7 +12,6 @@ interface UserOption {
 }
 
 export default function MatchUploadPage() {
-  // Removed unused router
   const [mode, setMode] = useState<'single' | 'bulk'>('single');
   const [users, setUsers] = useState<UserOption[]>([]);
   const [loading, setLoading] = useState(false);

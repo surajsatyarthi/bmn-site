@@ -1,0 +1,99 @@
+
+> bmn-site@0.1.0 ralph:full
+> npx tsx scripts/ralph-security-scanner.ts --full
+
+
+🦅 Ralph Protocol v5.1: Security Scanner [FULL]
+
+
+📋 CODE CHECKS
+──────────────────────────────────────────────────
+🔴 SEC-001: Payment Replay Attack Vulnerability... ✅
+🔴 SEC-002: Production Mock Data Fallback... ✅
+🔴 SEC-003: Environment Variable Validation... ✅
+🔴 SEC-004: No Secrets in Source Code... ✅
+🟡 SEC-005: Rate Limiting on POST Routes... ✅
+
+📋 DEPENDENCY CHECKS
+──────────────────────────────────────────────────
+🔴 DEP-001: Required Dependencies Installed... ✅
+
+📋 BUILD CHECKS
+──────────────────────────────────────────────────
+🔴 BLD-001: TypeScript compilation succeeds... ✅
+🔴 BLD-002: Next.js build succeeds... ✅
+🟡 BLD-003: ESLint passes (src/)... ✅
+
+📋 DEPLOYMENT CHECKS
+──────────────────────────────────────────────────
+🟡 DPL-001: Env vars documented in .env.example... ✅
+🟡 DPL-002: Git is clean...    Uncommitted changes:
+      M .github/workflows/ci.yml
+      M .husky/pre-commit
+      M .husky/pre-push
+      M bmn-site/docs/PRD_V2_EXPORT_DONE_FOR_YOU.md
+      D bmn-site/docs/evidence/block-5.1/gates.txt
+      D bmn-site/docs/evidence/block-5.1/make-admin-output.txt
+      D bmn-site/docs/evidence/block-5.1/screenshot-admin-redirect.png
+      D bmn-site/docs/evidence/block-5.1/screenshot-login-toggle.png
+      D bmn-site/docs/evidence/block-5.1/screenshot-login.png
+      D bmn-site/docs/evidence/block-5.1/screenshot-signup-confirm.png
+      M bmn-site/src/app/(admin)/admin/matches/upload/page.tsx
+      M bmn-site/src/app/(dashboard)/campaigns/page.tsx
+      M bmn-site/src/app/(dashboard)/dashboard/page.tsx
+      M bmn-site/src/app/(dashboard)/matches/page.tsx
+      M bmn-site/src/app/(dashboard)/profile/page.tsx
+      M bmn-site/src/app/(legal)/contact/page.tsx
+      M bmn-site/src/app/(legal)/privacy/page.tsx
+      M bmn-site/src/app/(legal)/refund/page.tsx
+      M bmn-site/src/app/(legal)/terms/page.tsx
+      M bmn-site/src/app/api/matches/[id]/reveal/route.ts
+      M bmn-site/src/lib/rate-limit.ts
+      M bmn-site/src/middleware.ts
+     A  bmn-site/test-lint-fail.ts
+      M bmn-site/tests/lib/rate-limit.test.ts
+      M docs/evidence/block-S0.2/gates.txt
+      M docs/evidence/block-S0.2/git-status.txt
+      M docs/evidence/block-S0.2/precommit-test.txt
+      M docs/evidence/block-S0.2/prepush-test.txt
+      M docs/evidence/block-S0.2/test-output.txt
+      M docs/governance/project_ledger.md
+     ?? .claude/
+     ?? bmn-site/docs/evidence/block-4.0/
+     ?? bmn-site/tests/e2e/e2e-walkthrough.test.ts
+     ?? docs/DEAL_PIPELINE_ARCHITECTURE.md
+     ?? docs/PM_PROTOCOL.md
+     ?? docs/evidence/block-4.0/
+     ?? docs/evidence/block-5.1/admin_dashboard.png
+     ?? docs/evidence/block-5.1/api-admin-match-upload.txt
+     ?? docs/evidence/block-5.1/api-admin-user-detail.txt
+     ?? docs/evidence/block-5.1/api-admin-users.txt
+     ?? docs/evidence/block-5.1/gates.txt
+     ?? docs/evidence/block-5.1/make-admin-output.txt
+     ?? docs/evidence/block-5.1/match_upload.png
+     ?? docs/evidence/block-5.1/screenshot-admin-redirect.png
+     ?? docs/evidence/block-5.1/screenshot-login-toggle.png
+     ?? docs/evidence/block-5.1/screenshot-login.png
+     ?? docs/evidence/block-5.1/screenshot-signup-confirm.png
+     ?? docs/evidence/block-5.1/test-output.txt
+     ?? docs/evidence/block-5.1/user_detail.png
+     ?? docs/evidence/block-5.1/user_list.png
+     ?? docs/evidence/block-S0.2/pre-submission-gate.txt
+     ?? docs/governance/VIOLATION_REPORT_2026-02-07_PROCESS_BYPASS.md
+     ?? docs/governance/deployment-readiness.md
+     ?? docs/governance/gap-analysis-2026-02-07.md
+     ?? docs/governance/risk-register.md
+     ?? docs/tasks/task-4.0.md
+     ?? package-lock.json
+     ?? package.json
+❌
+   Severity: P1
+   Description: All changes must be committed before deploy.
+   Fix: Commit all changes before deploying.
+
+==================================================
+Security Scan Complete: 10/11 Passed
+==================================================
+
+⚠️  P1 warnings (fix before launch)
+

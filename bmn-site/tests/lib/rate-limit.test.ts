@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { rateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 
-describe('rateLimit', () => {
+describe('checkRateLimit', () => {
   const windowMs = 1000;
   const limit = 3;
 
@@ -13,29 +13,29 @@ describe('rateLimit', () => {
 
   it('should allow first request', () => {
     const key = 'test-1';
-    const result = rateLimit(key, limit, windowMs);
+    const result = checkRateLimit(key, limit, windowMs);
     expect(result.success).toBe(true);
     expect(result.remaining).toBe(limit - 1);
   });
 
   it('should block requests over limit', () => {
     const key = 'test-2';
-    rateLimit(key, limit, windowMs); // 1 used
-    rateLimit(key, limit, windowMs); // 2 used
-    rateLimit(key, limit, windowMs); // 3 used (limit reached)
+    checkRateLimit(key, limit, windowMs); // 1 used
+    checkRateLimit(key, limit, windowMs); // 2 used
+    checkRateLimit(key, limit, windowMs); // 3 used (limit reached)
     
-    const result = rateLimit(key, limit, windowMs); // 4th request
+    const result = checkRateLimit(key, limit, windowMs); // 4th request
     expect(result.success).toBe(false);
     expect(result.remaining).toBe(0);
   });
 
   it('should reset after window expires', () => {
     const key = 'test-3';
-    rateLimit(key, limit, windowMs); // 1 used
+    checkRateLimit(key, limit, windowMs); // 1 used
     
     vi.advanceTimersByTime(windowMs + 100);
     
-    const result = rateLimit(key, limit, windowMs);
+    const result = checkRateLimit(key, limit, windowMs);
     expect(result.success).toBe(true);
     expect(result.remaining).toBe(limit - 1); // Counter reset to 1
   });

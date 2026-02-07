@@ -7,6 +7,13 @@ import Link from 'next/link';
 import { Mail, MessageSquare, BarChart3 } from 'lucide-react';
 import CampaignCard from '@/components/campaigns/CampaignCard';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Your Campaigns | BMN',
+  description: 'Track the status of outreach campaigns BMN runs on your behalf to connect with global buyers.',
+};
+
 export default async function CampaignsPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

@@ -5,6 +5,13 @@ import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import { Ship, Globe, RefreshCw, ExternalLink, Package, MapPin, Building2, Award } from 'lucide-react';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Your Trade Profile | BMN',
+  description: 'Manage and update your export business details, products, and target markets.',
+};
+
 export default async function ProfilePage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

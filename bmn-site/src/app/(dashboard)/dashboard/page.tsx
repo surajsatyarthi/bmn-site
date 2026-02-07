@@ -19,6 +19,13 @@ const tierLabels = {
   good: 'Good',
 };
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard | BMN',
+  description: 'Manage your trade profile, view your matches, and track your active outreach campaigns.',
+};
+
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

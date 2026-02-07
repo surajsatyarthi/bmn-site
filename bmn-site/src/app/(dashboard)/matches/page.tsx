@@ -5,6 +5,13 @@ import { eq, desc } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import MatchesList from './MatchesList';
 
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Your Matches | BMN',
+  description: 'View verified international buyers matched to your products and trade interests.',
+};
+
 export default async function MatchesPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

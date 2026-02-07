@@ -1,3 +1,10 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Contact Us | BMN',
+  description: 'Get in touch with BMN for any questions regarding international trade matching, pricing, or partnerships.',
+};
+
 export default function ContactPage() {
   return (
     <div className="prose prose-lg prose-blue max-w-none text-text-secondary">

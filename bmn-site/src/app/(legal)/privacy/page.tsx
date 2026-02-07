@@ -1,3 +1,10 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | BMN',
+  description: 'Understand how BMN collects, uses, and protects your business and personal information.',
+};
+
 export default function PrivacyPage() {
     return (
       <div className="prose prose-lg prose-blue max-w-none text-text-secondary">

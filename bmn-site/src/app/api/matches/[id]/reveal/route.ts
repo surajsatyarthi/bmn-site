@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { rateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/lib/rate-limit';
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
 import { matches, matchReveals, profiles } from '@/lib/db/schema';
@@ -24,10 +24,10 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { success } = rateLimit(`reveal:${user.id}`, 10, 60 * 1000);
+    const { success } = checkRateLimit(`reveal:${user.id}`, 10, 60 * 1000);
     if (!success) {
       return NextResponse.json(
-        { error: 'Too many requests', code: 'RATE_LIMITED' },
+        { error: 'Rate limit exceeded', code: 'RATE_LIMITED' },
         { status: 429, headers: { 'Retry-After': '60' } }
       );
     }
