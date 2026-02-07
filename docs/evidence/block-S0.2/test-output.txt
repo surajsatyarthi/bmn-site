@@ -18,13 +18,14 @@
     at trace [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4mvitest[24m/dist/chunks/test.B8ej_ZHS.js:239:21[90m)[39m
     at runTest [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1653:12[90m)[39m
 
- [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 96[2mms[22m[39m
- [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 307[2mms[22m[39m
- [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 239[2mms[22m[39m
- [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 69[2mms[22m[39m
+ [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 813[2mms[22m[39m
+     [33m[2m✓[22m[39m should validate correct client env [33m 785[2mms[22m[39m
+ [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 618[2mms[22m[39m
+ [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 111[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
 [2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
-[2m   Start at [22m 17:32:11
-[2m   Duration [22m 5.12s[2m (transform 332ms, setup 1.10s, import 1.09s, tests 712ms, environment 7.49s)[22m
+[2m   Start at [22m 22:33:45
+[2m   Duration [22m 15.78s[2m (transform 648ms, setup 3.20s, import 2.52s, tests 1.58s, environment 27.53s)[22m
 

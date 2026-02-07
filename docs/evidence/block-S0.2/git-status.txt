@@ -1,60 +1,52 @@
 On branch main
-Your branch is ahead of 'origin/main' by 2 commits.
+Your branch is ahead of 'origin/main' by 3 commits.
   (use "git push" to publish your local commits)
 
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
-	new file:   test-lint-error.ts
+	new file:   src/lint-test.ts
+	new file:   test-lint-fail.ts
 
 Changes not staged for commit:
   (use "git add/rm <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
-	modified:   package-lock.json
-	modified:   package.json
-	modified:   playwright.config.ts
-	modified:   src/app/(admin)/admin/page.tsx
-	modified:   src/app/(auth)/forgot-password/page.tsx
-	modified:   src/app/(auth)/login/page.tsx
-	modified:   src/app/(auth)/signup/page.tsx
-	modified:   src/app/(auth)/verify-email/page.tsx
-	modified:   src/app/(dashboard)/layout.tsx
-	deleted:    src/app/(dashboard)/onboarding/layout.tsx
-	deleted:    src/app/(dashboard)/onboarding/page.tsx
-	modified:   src/app/(legal)/contact/page.tsx
-	modified:   src/app/api/admin/matches/route.ts
-	modified:   src/app/page.tsx
-	modified:   src/components/dashboard/DashboardNav.tsx
-	modified:   src/components/layout/Header.tsx
-	modified:   src/components/onboarding/HSCodeSearch.tsx
-	modified:   src/components/onboarding/OnboardingWizard.tsx
-	modified:   src/components/onboarding/TradeRoleStep.tsx
-	modified:   src/lib/data/hs-codes.json
-	modified:   src/lib/db/index.ts
+	modified:   ../.github/workflows/ci.yml
+	modified:   ../.husky/pre-commit
+	modified:   ../.husky/pre-push
+	modified:   docs/PRD_V2_EXPORT_DONE_FOR_YOU.md
+	deleted:    docs/evidence/block-5.1/gates.txt
+	deleted:    docs/evidence/block-5.1/make-admin-output.txt
+	deleted:    docs/evidence/block-5.1/screenshot-admin-redirect.png
+	deleted:    docs/evidence/block-5.1/screenshot-login-toggle.png
+	deleted:    docs/evidence/block-5.1/screenshot-login.png
+	deleted:    docs/evidence/block-5.1/screenshot-signup-confirm.png
+	modified:   src/app/(admin)/admin/matches/upload/page.tsx
 	modified:   src/middleware.ts
-	deleted:    test-lint-error.ts
+	modified:   ../docs/evidence/block-S0.2/gates.txt
+	modified:   ../docs/evidence/block-S0.2/git-status.txt
+	modified:   ../docs/evidence/block-S0.2/precommit-test.txt
+	modified:   ../docs/evidence/block-S0.2/prepush-test.txt
+	modified:   ../docs/evidence/block-S0.2/test-output.txt
+	modified:   ../docs/governance/project_ledger.md
 
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
-	.github/
-	.husky/
-	docs/evidence/
-	docs/reports/phase_1_assessment_report_TASK_1_9.md
-	docs/reports/phase_2_execution_report_TASK_1_9.md
-	drizzle.config.ts
-	drizzle/
-	gates.txt
-	scripts/capture-evidence.ts
-	scripts/check-auth-access.ts
-	scripts/confirm-user.ts
-	scripts/create-user-db.ts
-	scripts/make-admin-sql.ts
-	scripts/seed-users.ts
-	src/app/onboarding/
-	src/components/dashboard/UserMenu.tsx
-	src/components/layout/Footer.tsx
-	src/components/ui/FeatureIcon.tsx
-	src/components/ui/SelectableCard.tsx
-	src/lib/auth-errors.ts
-	tests/e2e/
-	tests/onboarding/
+	../docs/DEAL_PIPELINE_ARCHITECTURE.md
+	../docs/evidence/block-5.1/admin_dashboard.png
+	../docs/evidence/block-5.1/api-admin-match-upload.txt
+	../docs/evidence/block-5.1/api-admin-user-detail.txt
+	../docs/evidence/block-5.1/api-admin-users.txt
+	../docs/evidence/block-5.1/gates.txt
+	../docs/evidence/block-5.1/make-admin-output.txt
+	../docs/evidence/block-5.1/match_upload.png
+	../docs/evidence/block-5.1/screenshot-admin-redirect.png
+	../docs/evidence/block-5.1/screenshot-login-toggle.png
+	../docs/evidence/block-5.1/screenshot-login.png
+	../docs/evidence/block-5.1/screenshot-signup-confirm.png
+	../docs/evidence/block-5.1/test-output.txt
+	../docs/evidence/block-5.1/user_detail.png
+	../docs/evidence/block-5.1/user_list.png
+	../docs/governance/VIOLATION_REPORT_2026-02-07_PROCESS_BYPASS.md
+	../package-lock.json
+	../package.json
 

@@ -1,6 +1,84 @@
 
+> bmn-site@0.1.0 test
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site[39m
+
+[90mstderr[2m | tests/lib/api-error.test.ts[2m > [22m[2mhandleApiError[2m > [22m[2mshould handle unknown errors as 500
+[22m[39mUnhandled error: Error: Something went wrong
+    at [90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mtests/lib/api-error.test.ts:34:19
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:145:11
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:915:26
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1209:10[90m)[39m
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1653:37
+    at Traces.$ [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4mvitest[24m/dist/chunks/traces.CCmnQaNT.js:142:27[90m)[39m
+    at trace [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4mvitest[24m/dist/chunks/test.B8ej_ZHS.js:239:21[90m)[39m
+    at runTest [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1653:12[90m)[39m
+
+ [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 813[2mms[22m[39m
+     [33m[2m✓[22m[39m should validate correct client env [33m 785[2mms[22m[39m
+ [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[33m 618[2mms[22m[39m
+ [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 111[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 22:33:45
+[2m   Duration [22m 15.78s[2m (transform 648ms, setup 3.20s, import 2.52s, tests 1.58s, environment 27.53s)[22m
+
+
+--- LINT --- 
+
+> bmn-site@0.1.0 lint
+> eslint
+
+
+--- RALPH --- 
+
+> bmn-site@0.1.0 ralph:scan
+> npx tsx scripts/ralph-security-scanner.ts --pre-commit
+
+
+🦅 Ralph Protocol v5.1: Security Scanner [PRE-COMMIT]
+
+
+📋 CODE CHECKS
+──────────────────────────────────────────────────
+🔴 SEC-001: Payment Replay Attack Vulnerability... ✅
+🔴 SEC-002: Production Mock Data Fallback... ✅
+🔴 SEC-003: Environment Variable Validation... ✅
+🔴 SEC-004: No Secrets in Source Code... ✅
+🟡 SEC-005: Rate Limiting on POST Routes...    ⚠️  src/app/api/matches/[id]/reveal/route.ts has POST without rate limiting
+❌
+   Severity: P1
+   Description: POST endpoints must have rate limiting.
+   Fix: Add rate limiting middleware to POST endpoints.
+
+📋 DEPENDENCY CHECKS
+──────────────────────────────────────────────────
+🔴 DEP-001: Required Dependencies Installed... ✅
+
+==================================================
+Security Scan Complete: 5/6 Passed
+==================================================
+
+⚠️  P1 warnings (fix before launch)
+
+
+--- BUILD --- 
+
 > bmn-site@0.1.0 build
 > next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/surajsatyarthi/Projects/active/BMN/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/surajsatyarthi/Projects/active/BMN/bmn-site/pnpm-lock.yaml
 
 ▲ Next.js 16.1.6 (Turbopack)
 - Environments: .env.local
@@ -9,16 +87,16 @@
 
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 32.7s
+✓ Compiled successfully in 51s
   Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 1237ms
+✓ Completed runAfterProductionCompile in 1645ms
   Running TypeScript ...
   Collecting page data using 3 workers ...
   Generating static pages using 3 workers (0/28) ...
   Generating static pages using 3 workers (7/28) 
   Generating static pages using 3 workers (14/28) 
   Generating static pages using 3 workers (21/28) 
-✓ Generating static pages using 3 workers (28/28) in 2.1s
+✓ Generating static pages using 3 workers (28/28) in 2.5s
   Finalizing page optimization ...
 
 Route (app)
@@ -62,75 +140,4 @@ Route (app)
 
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
-
-
-> bmn-site@0.1.0 lint
-> eslint
-
-
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/page.tsx
-  36:7  warning  'STATS_BAR' is assigned a value but never used  @typescript-eslint/no-unused-vars
-
-✖ 1 problem (0 errors, 1 warning)
-
-
-> bmn-site@0.1.0 ralph:scan
-> npx tsx scripts/ralph-security-scanner.ts --pre-commit
-
-
-🦅 Ralph Protocol v5.1: Security Scanner [PRE-COMMIT]
-
-
-📋 CODE CHECKS
-──────────────────────────────────────────────────
-🔴 SEC-001: Payment Replay Attack Vulnerability... ✅
-🔴 SEC-002: Production Mock Data Fallback... ✅
-🔴 SEC-003: Environment Variable Validation... ✅
-🔴 SEC-004: No Secrets in Source Code... ✅
-🟡 SEC-005: Rate Limiting on POST Routes...    ⚠️  src/app/api/matches/[id]/reveal/route.ts has POST without rate limiting
-❌
-   Severity: P1
-   Description: POST endpoints must have rate limiting.
-   Fix: Add rate limiting middleware to POST endpoints.
-
-📋 DEPENDENCY CHECKS
-──────────────────────────────────────────────────
-🔴 DEP-001: Required Dependencies Installed... ✅
-
-==================================================
-Security Scan Complete: 5/6 Passed
-==================================================
-
-⚠️  P1 warnings (fix before launch)
-
-
-> bmn-site@0.1.0 test
-> vitest run
-
-
-[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site[39m
-
-[90mstderr[2m | tests/lib/api-error.test.ts[2m > [22m[2mhandleApiError[2m > [22m[2mshould handle unknown errors as 500
-[22m[39mUnhandled error: Error: Something went wrong
-    at [90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mtests/lib/api-error.test.ts:34:19
-    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:145:11
-    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:915:26
-    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1243:20
-    at new Promise (<anonymous>)
-    at runWithTimeout [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1209:10[90m)[39m
-    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1653:37
-    at Traces.$ [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4mvitest[24m/dist/chunks/traces.CCmnQaNT.js:142:27[90m)[39m
-    at trace [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4mvitest[24m/dist/chunks/test.B8ej_ZHS.js:239:21[90m)[39m
-    at runTest [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m@vitest[24m/runner/dist/index.js:1653:12[90m)[39m
-
- [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 66[2mms[22m[39m
- [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 498[2mms[22m[39m
-     [33m[2m✓[22m[39m should validate correct client env [33m 478[2mms[22m[39m
- [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 237[2mms[22m[39m
- [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 12[2mms[22m[39m
-
-[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
-[2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
-[2m   Start at [22m 17:31:55
-[2m   Duration [22m 6.95s[2m (transform 323ms, setup 1.14s, import 1.44s, tests 813ms, environment 11.67s)[22m
 
