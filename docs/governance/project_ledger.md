@@ -241,6 +241,7 @@ This document serves as the immutable record of progress, quality audits, and re
 | Event Date | Action | Performed By | Status | Details |
 | :--- | :--- | :--- | :--- | :--- |
 | 2026-02-08 | RECOVERY | Antigravity | 🟢 PASSED | Deployment recovered. Git author + Root Dir + Dotenv fixed. Live smoke test PASSED. |
+| 2026-02-08 | DOMAIN MIGRATION | Antigravity | 🟢 PASSED | Hostinger WP uninstalled. Domain `businessmarket.network` connected to Vercel. SSL verified. |
 
 #### PM AUDIT NOTES (BLOCK 4.0)
 > [!IMPORTANT]
