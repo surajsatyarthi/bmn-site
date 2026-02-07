@@ -1,0 +1,1 @@
+SKIPPED: Supabase disconnected, cannot generate auth token for rate limit test.

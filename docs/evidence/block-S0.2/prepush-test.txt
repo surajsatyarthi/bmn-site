@@ -1,0 +1,104 @@
+husky - DEPRECATED
+
+Please remove the following two lines from .husky/pre-push:
+
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+They WILL FAIL in v10.0.0
+
+
+> bmn-site@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · clientTraceMetadata
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 35.4s
+  Running next.config.js provided runAfterProductionCompile ...
+✓ Completed runAfterProductionCompile in 1657ms
+  Running TypeScript ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/28) ...
+  Generating static pages using 3 workers (7/28) 
+  Generating static pages using 3 workers (14/28) 
+  Generating static pages using 3 workers (21/28) 
+✓ Generating static pages using 3 workers (28/28) in 1488.8ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /admin
+├ ƒ /admin/campaigns
+├ ƒ /admin/matches/upload
+├ ƒ /admin/users
+├ ƒ /admin/users/[id]
+├ ƒ /api/admin/matches
+├ ƒ /api/admin/users
+├ ƒ /api/admin/users/[id]
+├ ƒ /api/campaigns
+├ ƒ /api/campaigns/[id]
+├ ƒ /api/health
+├ ƒ /api/matches
+├ ƒ /api/matches/[id]
+├ ƒ /api/matches/[id]/reveal
+├ ƒ /api/profile
+├ ƒ /api/profile/onboarding
+├ ƒ /campaigns
+├ ƒ /campaigns/[id]
+├ ○ /contact
+├ ƒ /dashboard
+├ ○ /forgot-password
+├ ○ /icon.png
+├ ○ /login
+├ ƒ /matches
+├ ƒ /matches/[id]
+├ ƒ /onboarding
+├ ○ /privacy
+├ ƒ /profile
+├ ○ /refund
+├ ○ /signup
+├ ○ /terms
+└ ○ /verify-email
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+> bmn-site@0.1.0 ralph:scan
+> npx tsx scripts/ralph-security-scanner.ts --pre-commit
+
+
+🦅 Ralph Protocol v5.1: Security Scanner [PRE-COMMIT]
+
+
+📋 CODE CHECKS
+──────────────────────────────────────────────────
+🔴 SEC-001: Payment Replay Attack Vulnerability... ✅
+🔴 SEC-002: Production Mock Data Fallback... ✅
+🔴 SEC-003: Environment Variable Validation... ✅
+🔴 SEC-004: No Secrets in Source Code... ✅
+🟡 SEC-005: Rate Limiting on POST Routes...    ⚠️  src/app/api/matches/[id]/reveal/route.ts has POST without rate limiting
+❌
+   Severity: P1
+   Description: POST endpoints must have rate limiting.
+   Fix: Add rate limiting middleware to POST endpoints.
+
+📋 DEPENDENCY CHECKS
+──────────────────────────────────────────────────
+🔴 DEP-001: Required Dependencies Installed... ✅
+
+==================================================
+Security Scan Complete: 5/6 Passed
+==================================================
+
+⚠️  P1 warnings (fix before launch)
+

@@ -1,0 +1,19 @@
+# UI/UX Improvements & Branding Standardization
+
+In addition to the core S0.1 deliverables, the following visual improvements were implemented:
+
+## 1. Global Gradient Standardization
+- **Unified Brand Color**: Defined `--gradient-primary` in `globals.css` matching the "Get Started" button.
+- **Logo Consistency**: Updated the "BMN" text logo in Auth, Dashboard, and Onboarding layouts to use the gradient (replacing flat blue).
+- **Iconography**: Implemented a global SVG definition to apply the gradient to all Lucide icons via `.icon-gradient-primary`.
+- **Text & Links**: Primary links and headings now use `.text-gradient-primary`.
+- **Buttons**: All primary buttons standardized to use the brand gradient with consistent hover states.
+
+## 2. Branding Assets
+- **Favicon**: Deployed high-resolution favicon with correct transparency.
+- **404 Page**: Fixed broken logo image and matched background color (`#fafbfc`) to eliminate visual artifacts.
+- **Email/Auth Templates**: Updated logo references to use the new standardized assets.
+
+## 3. Evidence
+- See `screenshot-ui-gradient.png` for verification of the logo and button gradient consistency on the Login page.
+- See `screenshot-404.png` for the fixed 404 page branding.

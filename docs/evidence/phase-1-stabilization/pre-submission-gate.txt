@@ -1,0 +1,35 @@
+# Pre-Submission Gate Checklist (DoD v2.0)
+Block ID: Phase 1 Stabilization
+Date: 2026-02-07
+
+## 1. GATES (Must be 0 errors)
+- [x] `npm run build` (Output saved to gates.txt)
+- [x] `npm run lint` (Output saved to gates.txt)
+- [x] `npm run ralph:scan` (Output saved to gates.txt)
+- [x] `npm run test` (All tests passed)
+
+## 2. QUALITY STANDARDS
+- [x] Error Boundary: `error.tsx` exists for route group
+- [x] Loading State: `loading.tsx` exists for page
+- [x] Metadata: `export const metadata` present
+- [x] Mobile Responsive: Verified at 375px
+- [x] Accessibility: `aria-label` on interactive elements
+
+## 3. EVIDENCE (Must exist in docs/evidence/phase-1-stabilization/)
+- [x] gates.txt
+- [x] test-output.txt
+- [x] screenshot-onboarding.png
+- [x] screenshot-sidebar-footer.png
+- [x] screenshot-header.png
+- [x] mobile-onboarding-375px.png
+- [x] pre-submission-gate.txt (This file)
+- [x] self-audit.txt
+
+## 4. LEDGER
+- [x] Project Ledger updated as SUBMITTED
+
+## 5. NO EXCUSES (Verify NO)
+- [ ] Did you assume it works? (NO)
+- [ ] did you skip Ralph? (NO)
+- [ ] Is server offline? (NO)
+- [ ] Is evidence missing? (NO)

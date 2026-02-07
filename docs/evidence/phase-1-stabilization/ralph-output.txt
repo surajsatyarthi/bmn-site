@@ -1,0 +1,30 @@
+
+> bmn-site@0.1.0 ralph:scan
+> npx tsx scripts/ralph-security-scanner.ts --pre-commit
+
+
+🦅 Ralph Protocol v5.1: Security Scanner [PRE-COMMIT]
+
+
+📋 CODE CHECKS
+──────────────────────────────────────────────────
+🔴 SEC-001: Payment Replay Attack Vulnerability... ✅
+🔴 SEC-002: Production Mock Data Fallback... ✅
+🔴 SEC-003: Environment Variable Validation... ✅
+🔴 SEC-004: No Secrets in Source Code... ✅
+🟡 SEC-005: Rate Limiting on POST Routes...    ⚠️  src/app/api/matches/[id]/reveal/route.ts has POST without rate limiting
+❌
+   Severity: P1
+   Description: POST endpoints must have rate limiting.
+   Fix: Add rate limiting middleware to POST endpoints.
+
+📋 DEPENDENCY CHECKS
+──────────────────────────────────────────────────
+🔴 DEP-001: Required Dependencies Installed... ✅
+
+==================================================
+Security Scan Complete: 5/6 Passed
+==================================================
+
+⚠️  P1 warnings (fix before launch)
+

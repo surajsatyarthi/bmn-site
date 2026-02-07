@@ -1,0 +1,28 @@
+
+> bmn-site@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · clientTraceMetadata
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 72s
+  Running next.config.js provided runAfterProductionCompile ...
+✓ Completed runAfterProductionCompile in 3773ms
+  Running TypeScript ...
+Failed to compile.
+
+./src/app/api/admin/matches/route.ts:34:25
+Type error: Cannot find name 'z'.
+
+[0m [90m 32 |[39m
+ [90m 33 |[39m     [90m// Validation Schema[39m
+[31m[1m>[22m[39m[90m 34 |[39m     [36mconst[39m [33mMatchSchema[39m [33m=[39m z[33m.[39mobject({
+ [90m    |[39m                         [31m[1m^[22m[39m
+ [90m 35 |[39m       profileId[33m:[39m z[33m.[39mstring()[33m.[39muuid()[33m,[39m
+ [90m 36 |[39m       counterpartyName[33m:[39m z[33m.[39mstring()[33m.[39mmin([35m1[39m)[33m,[39m
+ [90m 37 |[39m       matchScore[33m:[39m z[33m.[39mnumber()[33m.[39mmin([35m0[39m)[33m.[39mmax([35m100[39m)[33m,[39m[0m
+Next.js build worker exited with code: 1 and signal: null

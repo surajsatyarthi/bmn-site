@@ -1,0 +1,44 @@
+{
+  // CRITICAL: Antigravity language server exclusions for BMN
+  "antigravity.languageServer.indexExcludedDirectories": [
+    "node_modules",
+    ".next",
+    ".git",
+    "build",
+    "dist",
+    ".cache",
+    ".vercel",
+    ".turbo",
+    "out",
+    "coverage",
+    ".sanity"
+  ],
+
+  // File watcher exclusions
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/.git/**": true,
+    "**/build/**": true,
+    "**/dist/**": true,
+    "**/.cache/**": true,
+    "**/coverage/**": true
+  },
+
+  // Search exclusions
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/coverage": true
+  },
+
+  // Reduce language server CPU
+  "typescript.tsserver.maxTsServerMemory": 2048,
+  "typescript.disableAutomaticTypeAcquisition": true,
+
+  // Disable heavy features
+  "editor.formatOnSave": false,
+  "editor.semanticHighlighting.enabled": false
+}

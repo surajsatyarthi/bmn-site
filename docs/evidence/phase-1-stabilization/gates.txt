@@ -1,0 +1,77 @@
+
+> bmn-site@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · clientTraceMetadata
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 97s
+  Running next.config.js provided runAfterProductionCompile ...
+✓ Completed runAfterProductionCompile in 2259ms
+  Running TypeScript ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/28) ...
+  Generating static pages using 3 workers (7/28) 
+  Generating static pages using 3 workers (14/28) 
+  Generating static pages using 3 workers (21/28) 
+✓ Generating static pages using 3 workers (28/28) in 2.4s
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /admin
+├ ƒ /admin/campaigns
+├ ƒ /admin/matches/upload
+├ ƒ /admin/users
+├ ƒ /admin/users/[id]
+├ ƒ /api/admin/matches
+├ ƒ /api/admin/users
+├ ƒ /api/admin/users/[id]
+├ ƒ /api/campaigns
+├ ƒ /api/campaigns/[id]
+├ ƒ /api/health
+├ ƒ /api/matches
+├ ƒ /api/matches/[id]
+├ ƒ /api/matches/[id]/reveal
+├ ƒ /api/profile
+├ ƒ /api/profile/onboarding
+├ ƒ /campaigns
+├ ƒ /campaigns/[id]
+├ ○ /contact
+├ ƒ /dashboard
+├ ○ /forgot-password
+├ ○ /icon.png
+├ ○ /login
+├ ƒ /matches
+├ ƒ /matches/[id]
+├ ƒ /onboarding
+├ ○ /privacy
+├ ƒ /profile
+├ ○ /refund
+├ ○ /signup
+├ ○ /terms
+└ ○ /verify-email
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+ify a different type        @typescript-eslint/no-explicit-any
+  592:9  error    Unexpected any. Specify a different type        @typescript-eslint/no-explicit-any
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/components/onboarding/TradeRoleStep.tsx
+  26:70  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/tests/e2e/golden-path.spec.ts
+  3:8  warning  'path' is defined but never used                  @typescript-eslint/no-unused-vars
+  5:7  warning  'evidenceDir' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+✖ 6 problems (3 errors, 3 warnings)
+

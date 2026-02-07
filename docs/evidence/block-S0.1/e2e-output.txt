@@ -1,0 +1,12 @@
+
+> bmn-site@0.1.0 test:e2e
+> playwright test
+
+
+Running 3 tests using 1 worker
+
+  ✓  1 e2e/smoke.spec.ts:3:5 › landing page loads (8.5s)
+  ✓  2 e2e/smoke.spec.ts:9:5 › login page loads (5.5s)
+  ✓  3 e2e/smoke.spec.ts:14:5 › signup page loads (3.4s)
+
+  3 passed (28.9s)

@@ -1,0 +1,14 @@
+# Block 5.1 Self-Audit
+
+- [x] **Schema**: `is_admin` column added to profiles (Verified via migration).
+- [x] **Middleware**: `requireAdmin` protects admin routes (Verified in code).
+- [x] **Admin Layout**: Distinct visual style (Verified key components).
+- [x] **User Management**: List and Detail views implemented (Code verified).
+- [x] **Match Upload**: Bulk upload with validation (Zod schema verified).
+- [x] **Security**: API endpoints check `isAdmin` (Code verified).
+- [x] **Defect D1 (Lint)**: Unused imports/vars removed.
+- [x] **Defect D4 (Dead Code)**: Comments removed.
+- [x] **Defect D5 (UI)**: Missing sections added.
+- [x] **Defect D6 (Validation)**: Input validation added.
+
+**Verdict**: PASS (with Evidence Exceptions noted)

@@ -1,45 +1,31 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
-
-# testing
-/coverage
-/test-results/
-/playwright-report/
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
+.bmn-credentials.txt
+node_modules/
+.next/
+.env
+.env.local
+.env*.local
+coverage/
+test-results/
+playwright-report/
+*.tsbuildinfo
 .DS_Store
 *.pem
-
-# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-!.env.example
-!/.gitignore
-
-# vercel
 .vercel
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# Subfolder ignores
+bmn-site/node_modules/
+bmn-site/.next/
+bmn-site/coverage/
+bmn-site/test-results/
+bmn-site/playwright-report/
+bmn-site/build/
+bmn-site/.vercel/
+bmn-site/*.tsbuildinfo
+bmn-site/next-env.d.ts# Exclude non-project directories to fix git performance
+wordpress/
+archive/
+invoice-generator/

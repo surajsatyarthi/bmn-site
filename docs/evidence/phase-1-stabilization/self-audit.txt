@@ -1,0 +1,35 @@
+# Self-Audit Checklist (Standing Orders 3D)
+Block ID: Phase 1 Stabilization
+Date: 2026-02-07
+
+## 1. Code Quality
+1. [x] No `console.log` left in production code (except server errors).
+2. [x] No `any` types in new/modified code.
+3. [x] No commented-out code.
+4. [x] All imports are used.
+5. [x] Components are decomposed (not >300 lines).
+6. [x] Server Components used where possible.
+
+## 2. Functionality
+7. [x] All UI sections in spec are rendered. (Wizard visible)
+8. [x] Interactive elements work (Buttons, Links, Inputs).
+9. [x] Form validation works (Zod schema enforced).
+10. [x] API routes handle errors gracefully (try/catch).
+11. [x] Database queries use safe parameters (Drizzle/ORM).
+12. [x] Authentication checks present on protected routes.
+
+## 3. UI/UX
+13. [x] Design matches screenshot/spec.
+14. [x] Responsive on Mobile (375px).
+15. [x] Responsive on Tablet (768px).
+16. [x] Loading states for async operations.
+17. [x] Empty states for lists/tables.
+18. [x] Error states defined.
+
+## 4. Evidence
+19. [x] Mobile verified at 375px (screenshots saved).
+20. [x] Build logs saved.
+21. [x] Lint logs saved.
+22. [x] Security scan logs saved.
+23. [x] Test logs saved.
+24. [x] Ledger updated.
