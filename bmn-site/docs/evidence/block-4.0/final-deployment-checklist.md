@@ -12,9 +12,9 @@ Follow these steps to migrate from the old WordPress site to the new Next.js pro
 ## 2. Vercel Configuration
 - [ ] **Import Project**: In Vercel, import the `bmn-site` folder from your GitHub repository.
 - [ ] **Add Environment Variables**:
-  - `NEXT_PUBLIC_SUPABASE_URL`: `https://bxyjkcdqxaeorcwhntqq.supabase.co`
-  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` (Copy from `.env.local`)
-  - `DATABASE_URL`: `postgres://postgres.lbilqqnwompraxjgnorg...` (Copy from `.env.local`)
+  - `NEXT_PUBLIC_SUPABASE_URL`: Get from Supabase project settings
+  - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Get from Supabase project settings (anon/public key)
+  - `DATABASE_URL`: Get from Supabase project settings (connection pooler)
   - `AUTH_SECRET`: Generate a new random string (e.g., `openssl rand -base64 32`)
 - [ ] **Framework Preset**: Next.js (Automatic).
 
