@@ -5,6 +5,12 @@ import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import OnboardingWizard from '@/components/onboarding/OnboardingWizard';
 
+
+export const metadata = {
+  title: 'Business Market Network',
+  description: 'AI-Powered Business Network',
+};
+
 export default async function OnboardingPage() {
   const supabase = await createClient();
   const {

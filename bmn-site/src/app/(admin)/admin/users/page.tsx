@@ -7,6 +7,12 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 
 
+
+export const metadata = {
+  title: 'Business Market Network',
+  description: 'AI-Powered Business Network',
+};
+
 // Helper for time ago
 function getTimeAgo(date: Date) {
   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);

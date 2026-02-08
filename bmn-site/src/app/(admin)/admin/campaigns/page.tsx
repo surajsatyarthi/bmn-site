@@ -1,3 +1,9 @@
+
+export const metadata = {
+  title: 'Business Market Network',
+  description: 'AI-Powered Business Network',
+};
+
 export default function AdminCampaignsPage() {
   return (
     <div className="space-y-6">

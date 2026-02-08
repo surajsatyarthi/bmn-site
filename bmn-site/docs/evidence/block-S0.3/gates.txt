@@ -1,91 +1,38 @@
-=== VERIFICATION GATES: 8/2/2026, 8:36:42 pm ===
 
-=== npm run build ===
+> bmn-site@0.1.0 ralph:gates
+> bash scripts/validate-ralph-gates.sh S0.3
 
-
+🦅 Ralph Protocol v6.0: Gate Validation [Block S0.3]
+========================================================
+G1: Physical Audit... ✅ PASS
+G2: Task Spec Review... ✅ PASS
+G3: Implementation Plan... ✅ PASS
+G4: Build... 
 > bmn-site@0.1.0 build
 > next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/surajsatyarthi/Projects/active/BMN/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/surajsatyarthi/Projects/active/BMN/bmn-site/pnpm-lock.yaml
 
 ▲ Next.js 16.1.6 (Turbopack)
 - Environments: .env.local
 - Experiments (use with caution):
   · clientTraceMetadata
 
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 3.2s
-  Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 372ms
-  Running TypeScript ...
-  Collecting page data using 9 workers ...
-  Generating static pages using 9 workers (0/28) ...
-  Generating static pages using 9 workers (7/28) 
-  Generating static pages using 9 workers (14/28) 
-  Generating static pages using 9 workers (21/28) 
-✓ Generating static pages using 9 workers (28/28) in 158.4ms
-  Finalizing page optimization ...
-
-Route (app)
-┌ ○ /
-├ ○ /_not-found
-├ ƒ /admin
-├ ƒ /admin/campaigns
-├ ƒ /admin/matches/upload
-├ ƒ /admin/users
-├ ƒ /admin/users/[id]
-├ ƒ /api/admin/matches
-├ ƒ /api/admin/users
-├ ƒ /api/admin/users/[id]
-├ ƒ /api/campaigns
-├ ƒ /api/campaigns/[id]
-├ ƒ /api/health
-├ ƒ /api/matches
-├ ƒ /api/matches/[id]
-├ ƒ /api/matches/[id]/reveal
-├ ƒ /api/profile
-├ ƒ /api/profile/onboarding
-├ ƒ /campaigns
-├ ƒ /campaigns/[id]
-├ ○ /contact
-├ ƒ /dashboard
-├ ○ /forgot-password
-├ ○ /icon.png
-├ ○ /login
-├ ƒ /matches
-├ ƒ /matches/[id]
-├ ƒ /onboarding
-├ ○ /privacy
-├ ƒ /profile
-├ ○ /refund
-├ ○ /signup
-├ ○ /terms
-└ ○ /verify-email
-
-
-ƒ Proxy (Middleware)
-
-○  (Static)   prerendered as static content
-ƒ  (Dynamic)  server-rendered on demand
-
-
-NPM_RUN_BUILD COMPLETE
-
-=== npm run lint ===
-
-
+❌ FAIL
+G5: Lint... 
 > bmn-site@0.1.0 lint
 > eslint
 
-
-NPM_RUN_LINT COMPLETE
-
-=== npm run ralph:scan ===
-
-
-> bmn-site@0.1.0 ralph:scan
-> npx tsx scripts/ralph-security-scanner.ts --pre-commit
-
-
-🦅 Ralph Protocol v5.1: Security Scanner [PRE-COMMIT]
+✅ PASS
+G6: Security Scan... 
+🦅 Ralph Protocol v5.1: Security Scanner [FULL]
 
 
 📋 CODE CHECKS
@@ -95,23 +42,73 @@ NPM_RUN_LINT COMPLETE
 🔴 SEC-003: Environment Variable Validation... ✅
 🔴 SEC-004: No Secrets in Source Code... ✅
 🟡 SEC-005: Rate Limiting on POST Routes... ✅
+🟡 QA-001: Error Boundary Existence... ❌
+   Severity: P1
+   Description: Every page directory must have an error.tsx file.
+   Fix: Create error.tsx in every route segment.
+🟡 QA-002: Loading State Existence... ❌
+   Severity: P1
+   Description: Every page directory must have a loading.tsx file.
+   Fix: Create loading.tsx in every route segment.
+🟡 QA-003: Interactive Elements Accessibility... ✅
+🔴 QA-004: Metadata Export...    Missing metadata in src/app/onboarding/page.tsx
+   Missing metadata in src/app/(dashboard)/matches/[id]/page.tsx
+   Missing metadata in src/app/(dashboard)/campaigns/[id]/page.tsx
+   Missing metadata in src/app/(auth)/verify-email/page.tsx
+   Missing metadata in src/app/(auth)/signup/page.tsx
+   Missing metadata in src/app/(auth)/login/page.tsx
+   Missing metadata in src/app/(auth)/forgot-password/page.tsx
+   Missing metadata in src/app/(admin)/admin/page.tsx
+   Missing metadata in src/app/(admin)/admin/users/page.tsx
+   Missing metadata in src/app/(admin)/admin/users/[id]/page.tsx
+   Missing metadata in src/app/(admin)/admin/matches/upload/page.tsx
+   Missing metadata in src/app/(admin)/admin/campaigns/page.tsx
+❌
+   Severity: P0
+   Description: All pages must export metadata.
+   Fix: Export metadata or generateMetadata in page.tsx.
 
 📋 DEPENDENCY CHECKS
 ──────────────────────────────────────────────────
 🔴 DEP-001: Required Dependencies Installed... ✅
 
+📋 BUILD CHECKS
+──────────────────────────────────────────────────
+🔴 BLD-001: TypeScript compilation succeeds... ✅
+🔴 BLD-002: Next.js build succeeds... ✅
+🟡 BLD-003: ESLint passes (src/)... ✅
+
+📋 DEPLOYMENT CHECKS
+──────────────────────────────────────────────────
+🟡 DPL-001: Env vars documented in .env.example... ✅
+🟡 DPL-002: Git is clean...    Uncommitted changes:
+      M .husky/pre-commit
+      M .husky/pre-push
+      M bmn-site/docs/STANDING_ORDERS.md
+      M bmn-site/docs/evidence/block-S0.3/gates.txt
+      M bmn-site/docs/evidence/block-S0.3/pre-submission-gate.txt
+      M bmn-site/docs/evidence/block-S0.3/self-audit.txt
+      M bmn-site/package.json
+      M bmn-site/scripts/ralph-security-scanner.ts
+      M bmn-site/scripts/validate-ralph-gates.sh
+      M docs/governance/project_ledger.md
+      D docs/governance/project_ledger.md.bak
+     ?? bmn-site/docs/evidence/block-S0.3/plan.md
+     ?? bmn-site/docs/tasks/
+     ?? docs/governance/project_ledger.tmp
+❌
+   Severity: P1
+   Description: All changes must be committed before deploy.
+   Fix: Commit all changes before deploying.
+
 ==================================================
-Security Scan Complete: 6/6 Passed
+Security Scan Complete: 11/15 Passed
 ==================================================
 
-✅ All checks passed!
+🚨 P0 ISSUES — commit/deploy BLOCKED
 
-
-NPM_RUN_RALPH:SCAN COMPLETE
-
-=== npm test ===
-
-
+❌ FAIL
+G7: Tests... 
 > bmn-site@0.1.0 test
 > vitest run
 
@@ -119,15 +116,31 @@ NPM_RUN_RALPH:SCAN COMPLETE
 [1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site[39m
 
  [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstderr[2m | tests/lib/api-error.test.ts[2m > [22m[2mhandleApiError[2m > [22m[2mshould handle unknown errors as 500
+[22m[39mUnhandled error: Error: Something went wrong
+    at [90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mtests/lib/api-error.test.ts:34:19
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1209:10[90m)[39m
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1653:37
+    at Traces.$ [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@20.19.33_jiti@2.6.1_jsdom@28.0.0_lig_9afb8edde56f362813de97e8789ff31a/node_modules/[4mvitest[24m/dist/chunks/traces.CCmnQaNT.js:142:27[90m)[39m
+    at trace [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@20.19.33_jiti@2.6.1_jsdom@28.0.0_lig_9afb8edde56f362813de97e8789ff31a/node_modules/[4mvitest[24m/dist/chunks/test.B8ej_ZHS.js:239:21[90m)[39m
+    at runTest [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1653:12[90m)[39m
+
  [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 33[2mms[22m[39m
- [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 31[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
 [2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
-[2m   Start at [22m 20:36:55
-[2m   Duration [22m 694ms[2m (transform 197ms, setup 152ms, import 263ms, tests 71ms, environment 1.52s)[22m
+[2m   Start at [22m 00:37:39
+[2m   Duration [22m 695ms[2m (transform 156ms, setup 164ms, import 220ms, tests 62ms, environment 1.53s)[22m
 
-
-NPM_TEST COMPLETE
-
+✅ PASS
+G8: Pre-submission Gate... ✅ PASS
+G9: Self-Audit... ✅ PASS
+G10: Visual Verification... ✅ PASS (Skipped for System Block)
+========================================================
+⛔️ 2 GATES FAILED. SUBMISSION BLOCKED.

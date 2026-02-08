@@ -8,6 +8,12 @@ import { ArrowLeft, MapPin, Check, AlertTriangle, Package, TrendingUp } from 'lu
 import RevealGate from '@/components/matches/RevealGate';
 import { cn } from '@/lib/utils';
 
+
+export const metadata = {
+  title: 'Business Market Network',
+  description: 'AI-Powered Business Network',
+};
+
 const tierStyles = {
   best: 'bg-blue-100 text-bmn-blue',
   great: 'bg-teal-100 text-teal-700',

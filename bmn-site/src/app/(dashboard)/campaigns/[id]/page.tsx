@@ -7,6 +7,12 @@ import Link from 'next/link';
 import { ArrowLeft, Mail, Eye, MessageSquare, Calendar, Clock, Play, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
+
+export const metadata = {
+  title: 'Business Market Network',
+  description: 'AI-Powered Business Network',
+};
+
 const statusStyles = {
   active: 'bg-green-100 text-green-700',
   paused: 'bg-yellow-100 text-yellow-700',

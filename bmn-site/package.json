@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "ralph:gates": "bash scripts/validate-ralph-gates.sh",
     "validate:gates": "./scripts/validate-ralph-gates.sh",
     "pm:validate": "./scripts/pm-validator.sh",
     "evidence:collect": "npx tsx scripts/collect-evidence.ts",

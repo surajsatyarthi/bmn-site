@@ -6,6 +6,12 @@ import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { ArrowLeft, Building2, ShieldCheck, Mail, Package, TrendingUp, CheckCircle2, Globe, Megaphone } from 'lucide-react';
 
+
+export const metadata = {
+  title: 'Business Market Network',
+  description: 'AI-Powered Business Network',
+};
+
 export default async function AdminUserDetailPage({
   params
 }: {
