@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Header } from '@/components/layout/Header';
 import { FAQAccordion } from '@/components/landing/FAQAccordion';
+import { RotatingText } from '@/components/landing/RotatingText';
 import {
   Package,
   Search,
@@ -204,12 +205,11 @@ export default function HomePage() {
           <p className="text-gradient-primary font-bold tracking-widest text-sm uppercase mb-4">
             CONNECT • GROW • SUCCEED
           </p>
-          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-6 text-text-primary">
-            AI Finds Your Buyers. <span className="text-gradient-primary">You Ship.</span>
+          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-10 text-text-primary text-center">
+            <div className="text-center">AI Finds You <RotatingText /></div>
+            <div className="text-center">You <span className="text-gradient-primary">Ship</span></div>
           </h1>
-          <p className="text-xl md:text-2xl text-text-secondary max-w-3xl mx-auto mb-10 leading-relaxed">
-            Identify verified buyers. Automate your outreach. Accelerate global growth.
-          </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/signup"

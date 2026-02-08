@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Menu } from 'lucide-react';
 
 export function Header() {
@@ -8,6 +9,7 @@ export function Header() {
         {/* Logo Area */}
         <div className="flex justify-start">
           <Link href="/" className="flex items-center space-x-2">
+            <Image src="/icon.png" alt="BMN Logo" width={32} height={32} className="rounded" />
             <span className="text-xl font-display font-bold text-gradient-primary">
               BMN
             </span>
