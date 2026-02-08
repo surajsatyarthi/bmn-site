@@ -1,0 +1,72 @@
+
+> bmn-site@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/surajsatyarthi/Projects/active/BMN/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/surajsatyarthi/Projects/active/BMN/bmn-site/pnpm-lock.yaml
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · clientTraceMetadata
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.7s
+  Running next.config.js provided runAfterProductionCompile ...
+✓ Completed runAfterProductionCompile in 341ms
+  Running TypeScript ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/28) ...
+  Generating static pages using 9 workers (7/28) 
+  Generating static pages using 9 workers (14/28) 
+  Generating static pages using 9 workers (21/28) 
+✓ Generating static pages using 9 workers (28/28) in 160.3ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /admin
+├ ƒ /admin/campaigns
+├ ƒ /admin/matches/upload
+├ ƒ /admin/users
+├ ƒ /admin/users/[id]
+├ ƒ /api/admin/matches
+├ ƒ /api/admin/users
+├ ƒ /api/admin/users/[id]
+├ ƒ /api/campaigns
+├ ƒ /api/campaigns/[id]
+├ ƒ /api/health
+├ ƒ /api/matches
+├ ƒ /api/matches/[id]
+├ ƒ /api/matches/[id]/reveal
+├ ƒ /api/profile
+├ ƒ /api/profile/onboarding
+├ ƒ /campaigns
+├ ƒ /campaigns/[id]
+├ ○ /contact
+├ ƒ /dashboard
+├ ○ /forgot-password
+├ ○ /icon.png
+├ ○ /login
+├ ƒ /matches
+├ ƒ /matches/[id]
+├ ƒ /onboarding
+├ ○ /privacy
+├ ƒ /profile
+├ ○ /refund
+├ ○ /signup
+├ ○ /terms
+└ ○ /verify-email
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

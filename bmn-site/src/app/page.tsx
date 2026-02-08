@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Header } from '@/components/layout/Header';
 import { FAQAccordion } from '@/components/landing/FAQAccordion';
 import { RotatingText } from '@/components/landing/RotatingText';
+import { StakeholderNetwork } from '@/components/landing/StakeholderNetwork';
 import {
   Package,
   Search,
@@ -15,6 +16,15 @@ import {
   Factory,
   Briefcase,
   Check,
+  Wheat,
+  Shirt,
+  FlaskConical,
+  Pill,
+  Cpu,
+  Cog,
+  Car,
+  Hammer,
+  Gem,
 } from 'lucide-react';
 import { BrandArrow } from '@/components/icons/BrandArrow';
 import { FeatureIcon } from '@/components/ui/FeatureIcon';
@@ -54,6 +64,39 @@ const PERFECT_FOR = [
     title: 'Trade Brokers',
     description:
       'Trade intermediaries looking to expand their portfolio with data-backed buyer-seller connections.',
+  },
+];
+
+const PROFILE_BENEFITS = [
+  {
+    icon: Search,
+    title: 'Get Found by Verified Buyers',
+    description: 'Your profile appears in our AI matching engine. Buyers searching for your products find YOU.',
+  },
+  {
+    icon: Globe2,
+    title: 'SEO-Optimized Business Page',
+    description: 'Your BMN profile ranks on Google. Get discovered by buyers searching for your products and trade corridor.',
+  },
+  {
+    icon: Zap,
+    title: 'AI Engine Optimization',
+    description: 'Our AI matching algorithm weighs your profile data (products, certifications, trade terms) to find your highest-quality matches.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Credibility & Trust Signals',
+    description: 'Verified badge, certifications, company details — everything a buyer needs to trust you before first contact.',
+  },
+  {
+    icon: Handshake,
+    title: 'Qualified Leads Only',
+    description: 'No spam. No tire-kickers. Every match is pre-qualified based on product fit, country corridor, and trade capacity.',
+  },
+  {
+    icon: Package,
+    title: 'Free Forever Tier',
+    description: 'Create your profile for free. Get 3 match reveals per month. Upgrade anytime for unlimited access.',
   },
 ];
 
@@ -129,6 +172,19 @@ const COUNTRIES = [
   { name: "Vietnam", flag: "🇻🇳" },
   { name: "South Africa", flag: "🇿🇦" },
   { name: "Egypt", flag: "🇪🇬" },
+];
+
+const INDUSTRIES = [
+  { name: "Agriculture & Food", icon: Wheat },
+  { name: "Textiles & Apparel", icon: Shirt },
+  { name: "Chemicals & Plastics", icon: FlaskConical },
+  { name: "Pharmaceuticals", icon: Pill },
+  { name: "Electronics", icon: Cpu },
+  { name: "Machinery", icon: Cog },
+  { name: "Automotive", icon: Car },
+  { name: "Construction Materials", icon: Hammer },
+  { name: "Gems & Jewelry", icon: Gem },
+  { name: "Energy & Resources", icon: Zap },
 ];
 
 const FAQ_ITEMS = [
@@ -250,6 +306,29 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Section: Industries We Support */}
+      <section className="py-24 bg-white border-b border-bmn-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Industries We Support</h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto">
+              Connecting businesses across key sectors
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            {INDUSTRIES.map((industry) => (
+              <div key={industry.name} className="flex flex-col items-center justify-center p-6 bg-white rounded-lg border border-bmn-border hover:shadow-lg transition-all duration-300 group hover:-translate-y-1">
+                <div className="mb-3 transform group-hover:scale-110 transition-transform duration-300">
+                  <FeatureIcon icon={industry.icon} variant="primary" size="lg" />
+                </div>
+                <span className="text-sm font-semibold text-text-primary text-center leading-tight">{industry.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Section 3: Trusted By */}
       <section className="py-12 bg-white border-b border-bmn-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -271,7 +350,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 3: How It Works */}
+      {/* Section 4: How It Works */}
       <section id="how-it-works" className="py-24 bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -310,7 +389,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 4: Impact Numbers */}
+      {/* Section 5: Stakeholder Network */}
+      <section id="stakeholder-network" className="py-24 bg-white border-y border-bmn-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Your Trade Network, Connected</h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto">
+              BMN connects every stakeholder in your export journey
+            </p>
+          </div>
+          <StakeholderNetwork />
+        </div>
+      </section>
+
+      {/* Section 6: Impact Numbers */}
       <section className="py-16 bg-bmn-navy text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8 text-center">
@@ -324,7 +416,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 5: Why BMN */}
+      {/* Section 7: Why BMN */}
       <section className="py-24 bg-white border-y border-bmn-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -351,9 +443,27 @@ export default function HomePage() {
         </div>
       </section>
       
-      {/* ... Stats Bar ... */}
+      {/* Section: Stats Bar */}
+      <section className="py-12 bg-bmn-light-bg border-y border-bmn-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-bmn-border">
+            <div className="p-4">
+               <p className="text-4xl font-bold text-text-primary mb-1">$2.5M+</p>
+               <p className="text-text-secondary font-medium">Deals Facilitated</p>
+            </div>
+            <div className="p-4">
+               <p className="text-4xl font-bold text-text-primary mb-1">70%</p>
+               <p className="text-text-secondary font-medium">Faster Buyer Discovery</p>
+            </div>
+            <div className="p-4">
+               <p className="text-4xl font-bold text-text-primary mb-1">50%</p>
+               <p className="text-text-secondary font-medium">Faster Approval Process</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* Section 7: Perfect For */}
+      {/* Section 8: Perfect For */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* ... Header ... */}
@@ -377,7 +487,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 8: Pricing */}
+      {/* Section 9: Profile Benefits */}
+      <section id="profile-benefits" className="py-24 bg-gradient-to-b from-blue-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Why Create Your Profile?</h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto">
+              Your profile is your 24/7 salesperson — working while you sleep
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {PROFILE_BENEFITS.map((benefit) => (
+              <div
+                key={benefit.title}
+                className="bg-white rounded-xl border border-bmn-border p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="flex justify-center mb-6">
+                  <FeatureIcon icon={benefit.icon} variant="primary" size="xl" />
+                </div>
+                <h3 className="text-xl font-bold text-text-primary mb-4 font-display text-center">
+                  {benefit.title}
+                </h3>
+                <p className="text-text-secondary leading-relaxed text-center">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 10: Pricing */}
       <section id="pricing" className="py-24 bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -435,7 +576,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 9: Testimonials */}
+      {/* Section 11: Testimonials */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -448,14 +589,20 @@ export default function HomePage() {
             {TESTIMONIALS.map((testimonial) => (
               <div
                 key={testimonial.name}
-                className="bg-white rounded-xl border border-bmn-border p-6 shadow-sm"
+                className="bg-gradient-to-b from-blue-50 to-white rounded-xl border border-bmn-border border-l-4 border-l-bmn-blue p-8 shadow-sm hover:shadow-lg transition-all duration-300"
               >
-                <p className="italic text-text-secondary mb-6">&ldquo;{testimonial.quote}&rdquo;</p>
-                <div>
-                  <p className="font-semibold text-text-primary">{testimonial.name}</p>
-                  <p className="text-sm text-text-secondary">
-                    {testimonial.title}, {testimonial.company}
-                  </p>
+                <div className="text-blue-100 font-serif text-6xl leading-none -mb-4 opacity-50">&ldquo;</div>
+                <p className="italic text-text-secondary mb-6 relative z-10 text-lg leading-relaxed">{testimonial.quote}</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-bmn-blue font-bold text-lg">
+                    {testimonial.name[0]}
+                  </div>
+                  <div>
+                    <p className="font-bold text-text-primary">{testimonial.name}</p>
+                    <p className="text-sm text-text-secondary font-medium">
+                      {testimonial.title}, {testimonial.company}
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -464,7 +611,7 @@ export default function HomePage() {
       </section>
 
 
-      {/* Section 11: CTA Banner */}
+      {/* Section 12: CTA Banner */}
       <section className="py-20 bg-bmn-navy text-white overflow-hidden relative">
         <div className="absolute top-0 right-0 -translate-y-1/2 opacity-20 transform translate-x-1/2">
           <BrandArrow className="w-96 h-96" />
@@ -482,7 +629,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 12: FAQ */}
+      {/* Section 13: FAQ */}
       <section id="faq" className="py-24 bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -552,7 +699,7 @@ function StepCard({
   description,
 }: {
   number: string;
-  icon: React.ReactNode; // LucideIcon element
+  icon: React.ReactNode;
   title: string;
   description: string;
 }) {
@@ -561,21 +708,13 @@ function StepCard({
       <div className="absolute top-4 right-6 text-6xl font-display font-bold text-gray-100 group-hover:text-blue-50 transition-colors select-none">
         {number}
       </div>
-      <div className="mb-6 relative z-10 scale-100 group-hover:scale-110 transition-transform origin-left">
-        {/* We expect icon to be passed as Element in original code, but we want to standardize. 
-            However, the original code passed <Icon />, not Icon component.
-            Let's adjust the caller site or wrapper. 
-            For now, let's wrap the passed icon in a consistent div if needed, OR better:
-            The caller passes <Package ... />. We should instead just pass the Icon Component to FeatureIcon if we refactor totally.
-            But to be safe with minimal changes, let's keep the passed styling if it matches, 
-            OR update the caller sites.
-        */}
+      <div className="mb-6 relative z-10 flex justify-center scale-100 group-hover:scale-110 transition-transform origin-left">
         {icon} 
       </div>
-      <h3 className="text-xl font-bold text-text-primary mb-3 relative z-10 font-display group-hover:text-bmn-blue transition-colors">
+      <h3 className="text-xl font-bold text-text-primary mb-3 relative z-10 font-display group-hover:text-bmn-blue transition-colors text-center">
         {title}
       </h3>
-      <p className="text-text-secondary text-sm leading-relaxed relative z-10">{description}</p>
+      <p className="text-text-secondary text-sm leading-relaxed relative z-10 text-center">{description}</p>
     </div>
   );
 }
@@ -592,8 +731,8 @@ function ValueCard({
   return (
     <div className="text-center p-6 group hover:bg-gray-50 rounded-xl transition-colors">
       <div className="flex justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300">{icon}</div>
-      <h3 className="text-xl font-bold text-text-primary mb-4 font-display group-hover:text-bmn-blue transition-colors">{title}</h3>
-      <p className="text-text-secondary leading-relaxed">{description}</p>
+      <h3 className="text-xl font-bold text-text-primary mb-4 font-display group-hover:text-bmn-blue transition-colors text-center">{title}</h3>
+      <p className="text-text-secondary leading-relaxed text-center">{description}</p>
     </div>
   );
 }

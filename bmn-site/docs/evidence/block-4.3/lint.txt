@@ -1,0 +1,17 @@
+
+> bmn-site@0.1.0 lint
+> eslint
+
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/components/landing/StakeholderNetwork.tsx
+    3:18  warning  'useEffect' is defined but never used                                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+    3:29  warning  'useState' is defined but never used                                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+   12:3   warning  'Zap' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   44:9   warning  'connectionCoords' is assigned a value but never used                                                                                                                                                                                                                                    @typescript-eslint/no-unused-vars
+  106:21  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/hooks/useNodeConnections.ts
+  5:6  warning  'Point' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 6 problems (0 errors, 6 warnings)
+

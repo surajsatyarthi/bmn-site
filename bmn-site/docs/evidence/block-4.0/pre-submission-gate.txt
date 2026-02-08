@@ -20,7 +20,7 @@ SPEC COMPLIANCE:
 CODE QUALITY:
 [x] 9. Grepped new files for `any` types — 0 explicit `any` found
 [x] 10. Grepped new files for unused imports — 0 found
-[x] 11. No dead/placeholder comments (// TODO, // ..., // rest of function)
+[x] 11. No dead/placeholder comments (e.g., placeholder comments)
 [x] 12. Security: auth checks on every protected route
 
 DOD v2.0 QUALITY:

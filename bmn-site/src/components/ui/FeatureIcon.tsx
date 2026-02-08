@@ -27,20 +27,22 @@ export function FeatureIcon({
 
   // Wrapper variants
   const wrapperVariants = {
-    primary: '', // No wrapper bg usually, or handled by parent
-    solid: 'bg-bmn-blue text-white rounded-full p-2.5',
-    outline: 'bg-gray-100 text-text-secondary rounded-full p-2.5 group-hover:bg-white group-hover:text-bmn-blue transition-colors',
-    ghost: 'text-text-secondary',
+    primary: 'flex items-center justify-center', // No wrapper bg usually, or handled by parent
+    solid: 'bg-bmn-blue text-white rounded-full p-2.5 flex items-center justify-center',
+    outline: 'bg-gray-100 text-text-secondary rounded-full p-2.5 group-hover:bg-white group-hover:text-bmn-blue transition-colors flex items-center justify-center',
+    ghost: 'text-text-secondary flex items-center justify-center',
   };
 
   // Icon variants (Stroke/Fill)
   const isGradient = variant === 'primary';
+  const isSolid = variant === 'solid';
 
   return (
-    <div className={cn("inline-flex items-center justify-center", wrapperVariants[variant], className)}>
+    <div className={cn(wrapperVariants[variant], className)}>
       <Icon 
-        className={cn(sizeClasses[size])}
+        className={cn(sizeClasses[size], "flex-shrink-0")}
         stroke={isGradient ? `url(#${gradientId})` : "currentColor"}
+        fill={isSolid ? "currentColor" : "none"}
       />
     </div>
   );
