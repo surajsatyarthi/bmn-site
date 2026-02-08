@@ -1,31 +1,26 @@
+=== VERIFICATION GATES: Sun Feb  8 18:15:43 IST 2026 ===
+
+=== npm run build ===
 
 > bmn-site@0.1.0 build
 > next build
-
-⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
- We detected multiple lockfiles and selected the directory of /Users/surajsatyarthi/Projects/active/BMN/package-lock.json as the root directory.
- To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
-   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
- Detected additional lockfiles: 
-   * /Users/surajsatyarthi/Projects/active/BMN/bmn-site/pnpm-lock.yaml
 
 ▲ Next.js 16.1.6 (Turbopack)
 - Environments: .env.local
 - Experiments (use with caution):
   · clientTraceMetadata
 
-⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 47s
+✓ Compiled successfully in 3.4s
   Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 1268ms
+✓ Completed runAfterProductionCompile in 359ms
   Running TypeScript ...
-  Collecting page data using 3 workers ...
-  Generating static pages using 3 workers (0/28) ...
-  Generating static pages using 3 workers (7/28) 
-  Generating static pages using 3 workers (14/28) 
-  Generating static pages using 3 workers (21/28) 
-✓ Generating static pages using 3 workers (28/28) in 1434.1ms
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/28) ...
+  Generating static pages using 9 workers (7/28) 
+  Generating static pages using 9 workers (14/28) 
+  Generating static pages using 9 workers (21/28) 
+✓ Generating static pages using 9 workers (28/28) in 155.1ms
   Finalizing page optimization ...
 
 Route (app)
@@ -71,18 +66,61 @@ Route (app)
 ƒ  (Dynamic)  server-rendered on demand
 
 
+=== RESULT: BUILD ===
+BUILD COMPLETE
+
+=== npm run lint ===
+
 > bmn-site@0.1.0 lint
 > eslint
 
+LINT COMPLETE
 
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/page.tsx
-  36:7  warning  'STATS_BAR' is assigned a value but never used  @typescript-eslint/no-unused-vars
+=== npm run ralph:scan ===
 
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/test-lint-fail.ts
-  1:7  warning  'unused' is assigned a value but never used  @typescript-eslint/no-unused-vars
+> bmn-site@0.1.0 ralph:scan
+> npx tsx scripts/ralph-security-scanner.ts --pre-commit
 
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/tests/e2e/e2e-walkthrough.test.ts
-  1:16  warning  'expect' is defined but never used  @typescript-eslint/no-unused-vars
 
-✖ 3 problems (0 errors, 3 warnings)
+🦅 Ralph Protocol v5.1: Security Scanner [PRE-COMMIT]
 
+
+📋 CODE CHECKS
+──────────────────────────────────────────────────
+🔴 SEC-001: Payment Replay Attack Vulnerability... ✅
+🔴 SEC-002: Production Mock Data Fallback... ✅
+🔴 SEC-003: Environment Variable Validation... ✅
+🔴 SEC-004: No Secrets in Source Code... ✅
+🟡 SEC-005: Rate Limiting on POST Routes... ✅
+
+📋 DEPENDENCY CHECKS
+──────────────────────────────────────────────────
+🔴 DEP-001: Required Dependencies Installed... ✅
+
+==================================================
+Security Scan Complete: 6/6 Passed
+==================================================
+
+✅ All checks passed!
+
+RALPH:SCAN COMPLETE
+
+=== npm test ===
+
+> bmn-site@0.1.0 test
+> vitest run
+
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site[39m
+
+ [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 18:16:16
+[2m   Duration [22m 679ms[2m (transform 110ms, setup 145ms, import 209ms, tests 67ms, environment 1.51s)[22m
+
+TEST COMPLETE

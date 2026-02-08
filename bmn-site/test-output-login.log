@@ -1,0 +1,40 @@
+
+Running 2 tests using 1 worker
+
+[1A[2K[1/2] [chromium] › tests/e2e/production-smoke.spec.ts:19:9 › Production Smoke Test › Desktop Critical Path
+[1A[2K[chromium] › tests/e2e/production-smoke.spec.ts:19:9 › Production Smoke Test › Desktop Critical Path
+Skipping SIGNUP step due to production email limits. Using pre-created verified user.
+
+[1A[2KLogin failed to redirect. Current URL: https://bmn-site.vercel.app/login
+
+[1A[2KLogin Error Message: Something went wrong while processing your request.
+
+[1A[2K  1) [chromium] › tests/e2e/production-smoke.spec.ts:19:9 › Production Smoke Test › Desktop Critical Path 
+
+    Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+
+    Expected pattern: [32m/onboarding|dashboard/[39m
+    Received string:  [31m"https://bmn-site.vercel.app/login"[39m
+    Timeout: 10000ms
+
+    Call log:
+    [2m  - Expect "toHaveURL" with timeout 10000ms[22m
+    [2m    14 × unexpected value "https://bmn-site.vercel.app/login"[22m
+
+
+      84 |         // Since it's a new user (or reset), it should go to onboarding
+      85 |         try {
+    > 86 |             await expect(page).toHaveURL(/onboarding|dashboard/, { timeout: 10000 });
+         |                                ^
+      87 |         } catch (e) {
+      88 |             console.log('Login failed to redirect. Current URL:', page.url());
+      89 |             const bodyText = await page.textContent('body');
+        at /Users/surajsatyarthi/Projects/active/BMN/bmn-site/tests/e2e/production-smoke.spec.ts:86:32
+
+    Error Context: test-results/production-smoke-Production-Smoke-Test-Desktop-Critical-Path-chromium/error-context.md
+
+
+[1A[2K[2/2] [chromium] › tests/e2e/production-smoke.spec.ts:129:9 › Production Smoke Test › Mobile Audit (iPhone SE)
+[1A[2K  1 failed
+    [chromium] › tests/e2e/production-smoke.spec.ts:19:9 › Production Smoke Test › Desktop Critical Path 
+  1 passed (24.2s)

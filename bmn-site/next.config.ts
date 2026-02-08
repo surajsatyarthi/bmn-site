@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Content-Security-Policy-Report-Only',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co https://*.sentry.io;"
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://embed.tawk.to; style-src 'self' 'unsafe-inline' https://embed.tawk.to; img-src 'self' data: https: https://*.tawk.to; font-src 'self' https://fonts.gstatic.com https://embed.tawk.to; connect-src 'self' https://*.supabase.co https://*.sentry.io https://*.tawk.to wss://*.tawk.to; frame-src 'self' https://embed.tawk.to;"
           },
           {
             key: 'Strict-Transport-Security',

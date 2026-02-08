@@ -47,6 +47,35 @@ BMN is pivoting from a trade marketplace/platform model to an **"Export Done-For
 - Needs reliable international suppliers
 - **Pain:** Finding quality suppliers outside established networks
 
+
+### Quaternary Persona: Chamber of Commerce
+- Certification body (government/semi-government)
+- Issues Certificates of Origin, verifies trade credentials
+- **Pain:** Manual verification workflows, no centralized member database access for exporters/importers
+- **Current workaround:** Email-based certificate issuance, PDF documents, phone verification
+- **Why BMN:** API access to verify member companies in real-time, automate certificate issuance workflows, connect certified exporters to international buyers in target markets
+
+### Quinary Persona: Insurance Provider (Cargo/Marine)
+- Insurance underwriter or broker specializing in trade cargo
+- Needs verified trade history and shipment data for risk assessment
+- **Pain:** Manual verification of shipper credentials, inaccurate premium calculation due to incomplete trade data
+- **Current workaround:** Static forms, industry databases (often outdated), underwriting based on limited information
+- **Why BMN:** Access to verified trade volume data for accurate premium calculation, instant policyholder verification, risk profiling based on actual shipment patterns
+
+### Senary Persona: Customs Broker
+- Trade compliance intermediary handling import/export documentation
+- Helps clients navigate customs regulations and duty calculations
+- **Pain:** Client acquisition relies on referrals, manual document collection from multiple parties, compliance errors due to incomplete information
+- **Current workaround:** Cold calling, industry networking, manual form collection
+- **Why BMN:** Direct access to exporters/importers needing customs clearance services, pre-populated shipment details from platform data, compliance automation opportunities
+
+### Septenary Persona: Freight Forwarder
+- Logistics service provider coordinating international shipments
+- Manages shipping, warehousing, and documentation
+- **Pain:** Finding consistent shippers in target trade lanes, inefficient rate negotiation, manual quote generation
+- **Current workaround:** Freight portals (high commission), cold outreach, relying on existing client base
+- **Why BMN:** Matched to active exporters/importers in specific trade corridors, integrated quote request system, access to shipment volume forecasts for capacity planning
+
 ---
 
 ## 3. Core User Journey
@@ -97,14 +126,21 @@ After signup + email verification, users land on a **multi-step onboarding wizar
 
 #### Step 1: Trade Role
 ```
-"What do you do?"
+"What best describes you?"
 
+Core Trade Roles:
 [ ] I Export goods (I sell to international buyers)
 [ ] I Import goods (I buy from international sellers)
 [ ] Both — I export and import
+
+Service Provider Roles:
+[ ] Chamber of Commerce (Trade certification and verification)
+[ ] Insurance Provider (Cargo/marine insurance)
+[ ] Customs Broker (Trade compliance services)
+[ ] Freight Forwarder (Logistics and shipping)
 ```
 
-**Data captured:** `trade_role: 'exporter' | 'importer' | 'both'`
+**Data captured:** `trade_role: 'exporter' | 'importer' | 'both' | 'chamber_of_commerce' | 'insurance_provider' | 'customs_broker' | 'freight_forwarder'`
 
 #### Step 2: Product Selection
 ```
@@ -490,7 +526,7 @@ Extends Supabase auth.users.
 | full_name | text | Yes | From signup |
 | phone | text | No | |
 | whatsapp | text | No | |
-| trade_role | enum | Yes | 'exporter', 'importer', 'both' |
+| trade_role | enum | Yes | 'exporter', 'importer', 'both', 'chamber_of_commerce', 'insurance_provider', 'customs_broker', 'freight_forwarder' |
 | monthly_volume | text | No | Volume bracket |
 | onboarding_step | int | Yes | 1-6, tracks progress |
 | onboarding_completed | boolean | Yes | Default false |
@@ -1128,6 +1164,89 @@ These phases move manual ops work into the platform.
 **Phase 8 Report:** Full deal flow demo showing USER ACTION steps vs. automated stages, client walkthrough.
 
 ---
+---
+
+### Phase 6B: Trade News Section (Engagement Feature)
+**Goal:** Increase daily active users and platform stickiness by providing personalized trade news + general industry updates.
+
+**Rationale:** Current dashboard has no daily-refresh content — users only check for new matches (updated weekly by ops). Adding a news section transforms BMN from "weekly check-in" to "daily habit" platform. Competitive differentiation: No competitor (Alibaba, IndiaMART) offers personalized trade intelligence.
+
+**Business Impact:**
+- **Daily visits:** +40-60% (15% MAU → 40-50% MAU)
+- **Session duration:** +103% (3.2min → 6.5min)
+- **30-day retention:** +38-48% (42% → 58-62%)
+- **Cost:** $0 infrastructure (free RSS feeds)
+- **Lead generation:** Homepage news preview drives signups (content gate)
+
+**Two-Tab Design (Dashboard):**
+1. **"For You"** — Personalized news filtered by user's products (HS codes), countries, certifications
+2. **"Other News"** — General trade news (policy, economics, industry trends) for discovery
+
+**Homepage Preview (Lead Gen):**
+- Show 5 latest news items (mix of 3 countries × 3 categories)
+- "Sign Up to Read More" content gate
+- Drives signups before dashboard access
+
+| # | Task | Priority | Notes |
+|---|------|----------|-------|
+| 6B.1 | News Aggregation Backend | P0 | RSS parser, cron job, DB schema (`trade_news` table), keyword extraction algorithm, Antigravity researches data sources (govt RSS, business news, Reddit) |
+| 6B.2 | Dashboard News Section (Two Tabs) | P0 | Tab component (Radix UI), personalized + general feeds, news detail page, user actions (dismiss/save for later) |
+| 6B.3 | Homepage News Preview + Industries Section | P0 | News preview component (5 items, signup CTA), Industries grid with icons (similar to countries section, use preferred products list) |
+
+**Prerequisites:** 
+- Phase 6 (Transactional Emails) COMPLETE — news digest email integrates with email infra
+
+**Phase 6B Report must include:** 
+- RSS feed inventory (10+ govt sources, 5+ business sources)
+- Cron job logs (100+ news items fetched)
+- Dashboard screenshot (two tabs: "For You" + "Other News")
+- Homepage screenshot (news preview + industries section)
+- Mobile screenshots (375px, all components responsive)
+- Performance: Dashboard load <2s with news section
+- Lighthouse Performance ≥90
+- DoD v2.0 compliance (4 gates pass)
+
+
+### Phase 9: Multi-Stakeholder Ecosystem
+**Goal:** Expand BMN from exporter-importer matching to a comprehensive trade services marketplace connecting all deal stakeholders.
+
+**Rationale:** Export-import deals involve 6-8 parties beyond the buyer and seller (see Operations Model Section 16). By onboarding service providers (chambers of commerce, insurance providers, customs brokers, freight forwarders), BMN becomes the central coordination platform for the entire trade transaction lifecycle.
+
+**Business Impact:**
+- **Revenue diversification:** Service provider subscriptions + referral fees
+- **Network effects:** More stakeholders = higher platform stickiness
+- **Deal completion rate:** Integrated services reduce friction in closing deals
+- **Data flywheel:** Service provider activity generates richer trade intelligence
+
+| # | Task | Priority | Notes |
+|---|------|----------|-------|
+| 9.1 | Schema: Expand `trade_role` enum to include 4 new stakeholder types | P0 | Migration: `ALTER TYPE` with new values |
+| 9.2 | Update onboarding Step 1 with grouped role selection UI | P0 | "Core Trade Roles" vs "Service Provider Roles" |
+| 9.3 | Service provider-specific dashboard modules | P1 | E.g., "Active Shipments" for freight forwarders, "Policy Requests" for insurers |
+| 9.4 | Stakeholder-to-stakeholder matching engine | P1 | Match freight forwarder to exporter in same trade corridor |
+| 9.5 | Service provider profile fields (custom per role) | P1 | E.g., insurance providers need underwriting criteria, chambers need jurisdiction |
+| 9.6 | API: `/api/stakeholders` — connect exporters to service providers | P1 | RESTful endpoints for service discovery |
+| 9.7 | Email: Service provider introduction campaigns | P2 | Automated outreach via Resend/Manyreach |
+| 9.8 | Admin: Stakeholder management dashboard | P1 | Separate view for service provider verification |
+| 9.9 | Pricing: Service provider tier structure | P2 | Different pricing vs exporter/importer tiers |
+| 9.10 | Landing Page: Interactive stakeholder network visualization | P2 | Animated high-tech network diagram showing BMN at center connected to all 7 stakeholder types — conveys ecosystem value proposition |
+
+**Prerequisites:** 
+- Phase 6 (Admin Dashboard) COMPLETE — need admin tools to manage service providers
+- Phase 7 (Email Integration) COMPLETE — automated intro campaigns
+- Phase 8 (Deal Flow) COMPLETE — service providers integrate into deal stages
+
+**Phase 9 Report must include:** 
+- Updated schema migration output
+- Screenshot of onboarding Step 1 with 7 role options
+- Screenshot of service provider dashboard (all 4 types)
+- Matching algorithm documentation showing stakeholder-to-stakeholder logic
+- API documentation for `/api/stakeholders` endpoints
+- Admin dashboard screenshot showing service provider verification workflow
+- Landing page screenshot with animated stakeholder network visualization
+
+
+---
 
 ## 18. Updated Phase Summary
 
@@ -1139,8 +1258,10 @@ These phases move manual ops work into the platform.
 | **Phase 4** | Polish, Testing, Production | ⬜ Not Started |
 | **Phase 5** | Growth Features (OAuth, AI, notifications) | ⬜ Not Started |
 | **Phase 6** | Ops Dashboard & Admin Tools | ⬜ Future |
+| **Phase 6B** | Trade News Section (Engagement Feature) | ⬜ Future |
 | **Phase 7** | Email Integration (mini-PRD required) | ⬜ Future |
 | **Phase 8** | Deal Flow Integration | ⬜ Future |
+| **Phase 9** | Multi-Stakeholder Ecosystem (Service Providers) | ⬜ Future |
 
 ---
 

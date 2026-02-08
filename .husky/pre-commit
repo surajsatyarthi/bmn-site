@@ -1,1 +1,1 @@
-npx lint-staged
+cd bmn-site && npx lint-staged

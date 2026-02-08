@@ -20,9 +20,9 @@ import { FeatureIcon } from '@/components/ui/FeatureIcon';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'BMN - We Find Your Buyers. You Ship.',
+  title: 'BMN - AI finds your buyers. you ship',
   description:
-    'BMN connects Indian exporters with verified international buyers. No cold calls. No trade shows. Just matches.',
+    'BMN connect global exporters with verified buyers. No cold calls. No trade shows. Just matches.',
 };
 
 
@@ -33,18 +33,14 @@ const IMPACT_NUMBERS = [
   { value: '1M+', label: 'Trade Records in Database' },
 ];
 
-const STATS_BAR = [
-  { value: '$2.5M+', label: 'Deals Facilitated' },
-  { value: '70%', label: 'Faster Buyer Discovery' },
-  { value: '50%', label: 'Faster Approval Process' },
-];
+
 
 const PERFECT_FOR = [
   {
     icon: Ship,
     title: 'Exporters',
     description:
-      'Indian manufacturers and traders looking to find verified international buyers for their products.',
+      'Global manufacturers and traders looking to find verified international buyers for their products.',
   },
   {
     icon: Factory,
@@ -91,10 +87,10 @@ const TESTIMONIALS = [
   },
   {
     quote:
-      "The done-for-you approach is exactly what Indian exporters need. No more chasing fake leads.",
+      "The done-for-you approach is exactly what exporters need. No more chasing fake leads.",
     name: "Anil Mehta",
     title: "Founder",
-    company: "Mehta Spices, Kerala",
+    company: "Mehta Spices, Kochi",
   },
 ];
 
@@ -138,7 +134,7 @@ const FAQ_ITEMS = [
   {
     question: "What is BMN?",
     answer:
-      "BMN is an export done-for-you service that connects Indian exporters with verified international buyers using AI-powered matching and outreach.",
+      "BMN is an export done-for-you service that connects global exporters with verified buyers using AI-powered matching and outreach.",
   },
   {
     question: "How does BMN find buyers?",
@@ -173,7 +169,7 @@ const FAQ_ITEMS = [
   {
     question: "Which countries do you cover?",
     answer:
-      "We currently cover 60+ countries with active trade flows to and from India, including UAE, USA, Germany, UK, Japan, Singapore, and more.",
+      "We currently cover 60+ countries with active trade flows globally, including UAE, USA, Germany, UK, Japan, Singapore, and more.",
   },
   {
     question: "How long does it take to get matches?",
@@ -188,7 +184,7 @@ const FAQ_ITEMS = [
   {
     question: "Can importers use BMN?",
     answer:
-      "Yes. While our primary focus is helping Indian exporters find buyers, importers can also sign up to find verified suppliers.",
+      "Yes. While our primary focus is helping global exporters find buyers, importers can also sign up to find verified suppliers.",
   },
   {
     question: "How do I upgrade to Pro?",
@@ -348,8 +344,8 @@ export default function HomePage() {
             />
             <ValueCard
               icon={<FeatureIcon icon={Globe2} variant="primary" size="xl" />}
-              title="Built for Indian Exporters"
-              description="We understand Indian trade compliance, documentation, and logistics. Tailored for the modern Indian merchant."
+              title="Built for Global Exporters"
+              description="We understand global trade compliance, documentation, and logistics. Tailored for the modern merchant."
             />
           </div>
         </div>

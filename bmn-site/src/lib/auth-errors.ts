@@ -6,40 +6,50 @@
 export interface AuthErrorResponse {
   message: string;
   solution?: string;
+  technical?: string;
+  supportRecommended: boolean;
 }
 
 const ERROR_MAP: Record<string, AuthErrorResponse> = {
   'invalid_credentials': {
-    message: 'The email or password entered doesn\'t match our records.',
-    solution: 'Please check your spelling and try again, or reset your password if you\'ve forgotten it.'
+    message: "The email or password entered doesn't match our records.",
+    solution: "Please check your spelling and try again, or reset your password if you've forgotten it.",
+    supportRecommended: false
   },
   'email_not_confirmed': {
-    message: 'Your email address hasn\'t been verified yet.',
-    solution: 'Please check your inbox (and spam folder) for the verification link we sent. If you can\'t find it, you can request a new one.'
+    message: "Your email hasn't been verified yet.",
+    solution: "Please check your inbox (and spam) for the verification link we sent you.",
+    supportRecommended: false
   },
   'user_already_exists': {
-    message: 'An account with this email address already exists.',
-    solution: 'Try logging in instead, or use the "Forgot Password" link if you can\'t access your account.'
+    message: "An account with this email already exists.",
+    solution: "Try logging in instead, or use the 'Forgot Password' link to regain access.",
+    supportRecommended: false
   },
   'rate_limit': {
-    message: 'You\'ve made too many requests in a short time.',
-    solution: 'For your security, please wait a few minutes before trying again.'
+    message: "Too many attempts from your device.",
+    solution: "Please wait a few minutes before trying again for security purposes.",
+    supportRecommended: false
   },
   'weak_password': {
-    message: 'The password you chose isn\'t strong enough.',
-    solution: 'Please use at least 6 characters with a mix of letters and numbers to keep your account safe.'
+    message: "Your password is not strong enough.",
+    solution: "Please choose a password with at least 6 characters and a mix of letters and numbers.",
+    supportRecommended: false
   },
   'invalid_email': {
-    message: 'The email address provided doesn\'t look correct.',
-    solution: 'Please enter a valid email address like "name@company.com".'
+    message: "The email address you entered is invalid.",
+    solution: "Double-check your email format (e.g., name@example.com).",
+    supportRecommended: false
   },
   'network_error': {
-    message: 'We\'re having trouble connecting to our servers.',
-    solution: 'Please check your internet connection and try refreshing the page.'
+    message: "We're having trouble connecting to our servers.",
+    solution: "Please check your internet connection and try again.",
+    supportRecommended: true
   },
   'default': {
     message: 'Something went wrong while processing your request.',
-    solution: 'Please try again in a few moments. If the problem persists, contact our support team.'
+    solution: 'Please try again in a few moments. If the problem persists, our team is ready to help.',
+    supportRecommended: true
   }
 };
 
@@ -51,33 +61,31 @@ export function getFriendlyAuthError(error: unknown): AuthErrorResponse {
     ? error.toLowerCase() 
     : (error as Error)?.message?.toLowerCase() || '';
 
+  const response = { ...ERROR_MAP['default'] };
+
   if (errorMessage.includes('invalid login credentials') || errorMessage.includes('invalid_credentials')) {
-    return ERROR_MAP['invalid_credentials'];
-  }
-  
-  if (errorMessage.includes('email not confirmed') || errorMessage.includes('email_not_confirmed')) {
-    return ERROR_MAP['email_not_confirmed'];
-  }
-  
-  if (errorMessage.includes('user already registered') || errorMessage.includes('already_exists')) {
-    return ERROR_MAP['user_already_exists'];
-  }
-  
-  if (errorMessage.includes('rate limit') || errorMessage.includes('rate_limit')) {
-    return ERROR_MAP['rate_limit'];
-  }
-  
-  if (errorMessage.includes('password should be at least') || errorMessage.includes('weak_password')) {
-    return ERROR_MAP['weak_password'];
-  }
-  
-  if (errorMessage.includes('email') && (errorMessage.includes('invalid') || errorMessage.includes('phone'))) {
-    return ERROR_MAP['invalid_email'];
+    Object.assign(response, ERROR_MAP['invalid_credentials']);
+  } else if (errorMessage.includes('email not confirmed') || errorMessage.includes('email_not_confirmed')) {
+    Object.assign(response, ERROR_MAP['email_not_confirmed']);
+  } else if (errorMessage.includes('user already registered') || errorMessage.includes('already_exists')) {
+    Object.assign(response, ERROR_MAP['user_already_exists']);
+  } else if (errorMessage.includes('rate limit') || errorMessage.includes('rate_limit')) {
+    Object.assign(response, ERROR_MAP['rate_limit']);
+  } else if (errorMessage.includes('password should be at least') || errorMessage.includes('weak_password')) {
+    Object.assign(response, ERROR_MAP['weak_password']);
+  } else if (errorMessage.includes('email') && (errorMessage.includes('invalid') || errorMessage.includes('phone'))) {
+    Object.assign(response, ERROR_MAP['invalid_email']);
+  } else if (errorMessage.includes('fetch') || errorMessage.includes('network')) {
+    Object.assign(response, ERROR_MAP['network_error']);
   }
 
-  if (errorMessage.includes('fetch') || errorMessage.includes('network')) {
-    return ERROR_MAP['network_error'];
-  }
+  // Always include the raw error for support/debugging
+  response.technical = errorMessage || String(error);
 
-  return ERROR_MAP['default'];
+  // Log unhandled errors for debugging
+  if (response.message === ERROR_MAP['default'].message) {
+    console.error('Unhandled Auth Error:', error);
+  }
+  
+  return response;
 }

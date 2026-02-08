@@ -7,13 +7,13 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, AlertCircle } from 'lucide-react'
-import { getFriendlyAuthError } from '@/lib/auth-errors'
+import { AuthErrorResponse, getFriendlyAuthError } from '@/lib/auth-errors'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState<{message: string, solution?: string} | null>(null)
+  const [error, setError] = useState<AuthErrorResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const supabase = createClient()
@@ -36,7 +36,11 @@ export default function LoginPage() {
       router.push('/onboarding')
       router.refresh()
     } catch (err: unknown) {
-      setError(getFriendlyAuthError(err))
+      const friendlyError = getFriendlyAuthError(err);
+      setError({
+        ...friendlyError,
+      technical: (friendlyError as { technical?: string }).technical || (err as Error)?.message || JSON.stringify(err)
+      });
     } finally {
       setLoading(false)
     }
@@ -54,16 +58,47 @@ export default function LoginPage() {
       </div>
 
       {error && (
-        <div className="bg-red-50 border border-red-100 p-4 mb-6 rounded-xl flex items-start gap-3">
-          <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <p className="text-sm font-semibold text-red-800">{error.message}</p>
-            {error.solution && (
-              <p className="text-xs text-red-700 leading-relaxed font-medium">
-                {error.solution}
-              </p>
-            )}
+        <div className="bg-red-50 border border-red-100 p-4 mb-6 rounded-xl flex flex-col gap-4">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <p className="text-sm font-semibold text-red-800">{error.message}</p>
+              {error.solution && (
+                <p className="text-xs text-green-700 leading-relaxed font-semibold">
+                  {error.solution}
+                </p>
+              )}
+            </div>
           </div>
+          
+          {error.technical && (
+            <div className="bg-white/50 rounded-lg p-2 border border-orange-100/50">
+              <p className="text-[10px] text-orange-600 font-mono break-all line-clamp-2">
+                <span className="font-bold mr-1">Error ID:</span> {error.technical}
+              </p>
+            </div>
+          )}
+
+          {error.supportRecommended && (
+            <button
+              type="button"
+              onClick={() => {
+                const tawk = (window as unknown as { Tawk_API?: { maximize: () => void } }).Tawk_API;
+                if (tawk?.maximize) {
+                  tawk.maximize();
+                } else {
+                  alert('Support chat is loading. Please try again in a second.');
+                }
+              }}
+              className="text-xs font-bold text-red-800 hover:text-red-900 flex items-center gap-1.5 bg-red-100/50 w-fit px-3 py-1.5 rounded-full transition-colors self-end"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+              Chat with Support
+            </button>
+          )}
         </div>
       )}
 
@@ -84,40 +119,40 @@ export default function LoginPage() {
           />
         </div>
 
-        <div>
-           <div className="flex items-center justify-between mb-2">
-             <label htmlFor="password" className="block text-sm font-semibold text-text-primary">
-               Password
-             </label>
-             <Link href="/forgot-password" className="text-xs text-gradient-primary hover:underline hover:decoration-bmn-blue font-medium">
-               Forgot password?
-             </Link>
+         <div>
+            <div className="flex items-center justify-between mb-2">
+              <label htmlFor="password" className="block text-sm font-semibold text-text-primary">
+                Password
+              </label>
+              <Link href="/forgot-password" className="text-xs text-gradient-primary hover:underline hover:decoration-bmn-blue font-medium">
+                Forgot password?
+              </Link>
+            </div>
+            <div className="relative">
+             <input
+               id="password"
+               type={showPassword ? 'text' : 'password'}
+               value={password}
+               onChange={(e) => setPassword(e.target.value)}
+               required
+               className="w-full px-4 py-2 border border-bmn-border rounded-lg focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2 text-sm text-text-primary placeholder:text-text-secondary transition-shadow pr-10"
+               placeholder="Enter your password"
+               disabled={loading}
+             />
+             <button
+               type="button"
+               onClick={() => setShowPassword(!showPassword)}
+               className="absolute right-3 top-2.5 text-text-secondary hover:text-text-primary focus:outline-none"
+               tabIndex={-1}
+             >
+               {showPassword ? (
+                 <EyeOff className="h-4 w-4" />
+               ) : (
+                 <Eye className="h-4 w-4" />
+               )}
+             </button>
            </div>
-           <div className="relative">
-            <input
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full px-4 py-2 border border-bmn-border rounded-lg focus:outline-none focus:ring-2 focus:ring-bmn-blue focus:ring-offset-2 text-sm text-text-primary placeholder:text-text-secondary transition-shadow pr-10"
-              placeholder="Enter your password"
-              disabled={loading}
-            />
-            <button
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2.5 text-text-secondary hover:text-text-primary focus:outline-none"
-              tabIndex={-1}
-            >
-              {showPassword ? (
-                <EyeOff className="h-4 w-4" />
-              ) : (
-                <Eye className="h-4 w-4" />
-              )}
-            </button>
-          </div>
-        </div>
+         </div>
 
         <button
           type="submit"

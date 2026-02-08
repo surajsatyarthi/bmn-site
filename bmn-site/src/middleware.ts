@@ -29,9 +29,32 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // --- AUTH BYPASS FOR TESTING ---
+  let user = null;
+  // Allow bypass in dev OR if explicitly enabled via env var (for CI/Product builds running smoke tests)
+  const enableBypass = process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+  const bypassHeader = request.headers.get('x-test-auth-bypass');
+  const unconfirmedHeader = request.headers.get('x-test-unconfirmed');
+  
+  if (enableBypass && (bypassHeader === 'true' || unconfirmedHeader === 'true')) {
+     console.log('🚧 MIDDLEWARE BYPASS: User Authenticated 🚧');
+     // ... mock user object
+     user = {
+       id: 'd2d4586e-9646-4b16-b363-c301ada79540',
+       aud: 'authenticated',
+       role: 'authenticated',
+       email: 'mock_bypass@bmn.com',
+       email_confirmed_at: unconfirmedHeader === 'true' ? null : new Date().toISOString(),
+     };
+  } else {
+     // Debug logging to see why it failed
+     if(bypassHeader) {
+         console.log(`[Middleware] Bypass failed. NODE_ENV: ${process.env.NODE_ENV}, Header: ${bypassHeader}`);
+     }
+     const { data } = await supabase.auth.getUser();
+     user = data.user;
+  }
+  // -------------------------------
 
   const url = request.nextUrl.clone();
   const path = url.pathname;

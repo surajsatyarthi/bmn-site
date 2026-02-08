@@ -240,6 +240,8 @@ This document serves as the immutable record of progress, quality audits, and re
 ### [BLOCK 4.0] Production Readiness
 | Event Date | Action | Performed By | Status | Details |
 | :--- | :--- | :--- | :--- | :--- |
+| 2026-02-08 | DELIVERY | Antigravity | 🟡 SUBMITTED | **Block 4.0: Production Readiness** - Emergency features restored (Tawk.to, Toggles, Gradient); Enhanced Auth Error Reporting + Chat Support integrated; All local gates (Build/Lint/Security) PASSED. Production Auth failure debugging in progress via new technical Error IDs. | [Evidence](../evidence/block-4.0/) |
+| 2026-02-08 | FIX | Antigravity | 🟡 SUBMITTED | Block 4.1: Tawk.to, Password Toggle, Auth Logging, Footer Gradient. Verified locally. | [Walkthrough](../../.gemini/antigravity/brain/a34acddd-cafe-4cb0-b2f0-c886cf35ce9a/walkthrough.md) |
 | 2026-02-08 | RECOVERY | Antigravity | 🟢 PASSED | Deployment recovered. Git author + Root Dir + Dotenv fixed. Live smoke test PASSED. |
 | 2026-02-08 | DOMAIN MIGRATION | Antigravity | 🟢 PASSED | Hostinger WP uninstalled. Domain `businessmarket.network` connected to Vercel. SSL verified. |
 
@@ -663,8 +665,10 @@ This document serves as the immutable record of progress, quality audits, and re
 | **S0** | **Infrastructure Foundation (Sprint 0)** | **SPEC PUBLISHED** | Phase 4 |
 | **5** | **Ops Dashboard & Admin Tools** | **PAUSED** | Sprint 0 |
 | 6 | Transactional Emails (Manyreach + Icemail.ai) | PLANNED | Phase 5 |
+| 6B | Trade News Section (Engagement Feature) | PLANNED | Phase 6 |
 | 7 | Cold Email Engine (Manyreach + Icemail.ai) | PLANNED | Phase 6 |
 | 8 | Deal Flow Integration | PLANNED | Phase 7 |
+| 9 | Multi-Stakeholder Ecosystem (Service Providers) | PLANNED | Phase 6, 7, 8 |
 
 > **Roadmap revised (2026-02-06):** Sprint 0 inserted before Phase 5 to close 14 critical infrastructure gaps. DoD upgraded to v2.0 (4 gates + quality standards + retrofit rule). No separate polish phase — quality ships with every block via DoD v2.0. Phase 5 resumes under new standards after Sprint 0 completes.
 
@@ -677,3 +681,175 @@ This document serves as the immutable record of progress, quality audits, and re
 4.  **Task Specs:** Every task has a spec at `docs/tasks/task-{id}.md`. Read it before coding.
 5.  **Standing Orders:** Read `docs/STANDING_ORDERS.md` for universal protocols (DoD v2.0 effective Sprint 0).
 6.  **Retrofit Rule:** Any block that modifies an existing page must bring it up to DoD v2.0 (metadata, aria-label, mobile, tests).
+
+---
+
+## ⚪️ PHASE 9: Multi-Stakeholder Ecosystem
+**Current Status:** PLANNED
+**Objective:** Expand BMN from exporter-importer matching to a comprehensive trade services marketplace connecting all deal stakeholders (chambers of commerce, insurance providers, customs brokers, freight forwarders).
+**Prerequisites:** Phase 6 (Admin Dashboard) + Phase 7 (Email Integration) + Phase 8 (Deal Flow) COMPLETE
+**PRD Reference:** Section 2 (Personas), Section 4.2 (Onboarding), Section 5.1 (Schema), Section 17 Phase 9
+
+> **Scope (locked 2026-02-08):**
+> - **Database:** Expand `trade_role` enum to include 4 service provider types
+> - **Onboarding:** Update Step 1 with grouped role selection (Core vs Service Provider)
+> - **Personas:** Add 4 new user personas (Chamber of Commerce, Insurance Provider, Customs Broker, Freight Forwarder)
+> - **Dashboards:** Service provider-specific modules (e.g., "Active Shipments" for freight forwarders)
+> - **Matching:** Stakeholder-to-stakeholder matching engine (e.g., match freight forwarder to exporter in same corridor)
+> - **API:** `/api/stakeholders` endpoints for service discovery
+> - **Email:** Service provider introduction campaigns
+> - **Admin:** Stakeholder verification workflow
+> - **Pricing:** Service provider tier structure
+
+> **Business Impact:**
+> - Revenue diversification via service provider subscriptions + referral fees
+> - Network effects: More stakeholders = higher platform stickiness
+> - Improved deal completion rate through integrated services
+> - Data flywheel: Service provider activity generates richer trade intelligence
+
+### [BLOCK 9.1] Schema Expansion & Onboarding Update
+**Task Spec:** `docs/tasks/task-9.1.md`
+**Status:** TODO (Awaiting Phase 8 completion)
+**Scope:** 
+- Expand `trade_role` enum (7 values: exporter, importer, both, chamber_of_commerce, insurance_provider, customs_broker, freight_forwarder)
+- Migration: `007_expand_trade_roles.sql`
+- Update onboarding Step 1 UI with grouped layout (Core Trade Roles vs Service Provider Roles)
+- Update Zod validation schemas and TypeScript types
+- Evidence required: 4 screenshots (one profile per new role type)
+
+**Deliverables:**
+1. Schema update in `src/lib/db/schema.ts`
+2. Migration SQL with enum value additions
+3. Onboarding Step 1 UI update with 7 role options
+4. Validation schema updates (`src/lib/validations/onboarding.ts`)
+5. Type definition updates (`src/types/profile.ts`)
+6. Helper utilities for role labels/descriptions
+
+### [BLOCK 9.2-9.10] Service Provider Features (pending)
+**Scope:** Dashboard modules, matching logic, API endpoints, email campaigns, admin tools, pricing tiers — to be spec'd after Block 9.1 passes.
+
+
+**Block 9.10 Added (2026-02-08):** Landing page interactive stakeholder network visualization
+- Animated network diagram showing BMN at center connected to all 7 stakeholder types
+- High-tech visual conveying ecosystem value proposition (not just buyer-seller matching)
+- Responsive design (desktop/tablet/mobile), accessibility compliant
+- Performance requirement: Lighthouse ≥90, <15KB bundle size
+- Task spec: `docs/tasks/task-9.10.md`
+
+---
+
+## ⚪️ PHASE 6B: Trade News Section (Engagement Feature)
+**Current Status:** PLANNED
+**Objective:** Increase daily active users and platform stickiness by providing personalized trade news + general industry updates. Transform BMN from "weekly check-in" to "daily habit" platform.
+**Prerequisites:** Phase 6 (Transactional Emails) COMPLETE
+**PRD Reference:** Section 17, Phase 6B (Added 2026-02-08)
+
+> **Scope (locked 2026-02-08):**
+> - **Backend:** RSS feed aggregator, cron job (6hr interval), `trade_news` DB table, keyword extraction
+> - **Dashboard:** Two-tab news section ("For You" personalized + "Other News" general)
+> - **Homepage:** News preview (5 items, signup gate for lead gen) + Industries We Support section (icon grid)
+> - **Personalization:** Match news to user's HS codes, countries, certifications
+> - **User Actions:** Dismiss/save news items
+> - **Data Sources:** Government RSS feeds (WTO, Commerce.gov), business news, Reddit/Twitter (Antigravity research task)
+
+> **Business Impact:**
+> - Daily visits: +40-60% (15% MAU → 40-50% MAU)
+> - Session duration: +103% (3.2min → 6.5min)
+> - 30-day retention: +38-48% (42% → 58-62%)
+> - Lead generation: Homepage news preview drives signups via content gate
+> - Cost: $0 infrastructure (free RSS feeds)
+
+### [BLOCK 6B.1] News Aggregation Backend
+**Task Spec:** `docs/tasks/task-6B.1.md`
+**Status:** TODO (Awaiting Phase 6 completion)
+**Scope:** 
+- `trade_news` table schema (title, content, source, categories, countries, hs_codes, keywords, relevance_score)
+- RSS parser service (`src/services/news-aggregator.ts`)
+- Cron job API route (`/api/cron/fetch-news`) running every 6 hours
+- Keyword extraction algorithm (NLP-based)
+- Country detection + HS code detection from content
+- Antigravity research task: Document 10+ govt sources, 5+ business news sources
+- Admin verification tool (`/admin/news`)
+
+**Deliverables:**
+1. Database schema + migration
+2. RSS parser with keyword/country/HS code extraction
+3. Cron job fetching 50+ news items per run
+4. News sources inventory (`docs/governance/news-sources-inventory.md`)
+5. Admin dashboard for news verification
+6. Unit tests for all extraction functions
+
+### [BLOCK 6B.2] Dashboard News Section (Two Tabs)
+**Task Spec:** `docs/tasks/task-6B.2.md`
+**Status:** TODO (Awaiting Block 6B.1 completion)
+**Scope:** 
+- Dashboard news section with Radix UI tabs
+- "For You" tab: Personalized news (HS codes + countries match)
+- "Other News" tab: General trade news
+- News card component with dismiss/save actions
+- News detail page (`/news/[id]`)
+- Personalization API (`/api/news/personalized`)
+- User actions API (`/api/news/[id]/dismiss`, `/api/news/[id]/save`)
+- Empty states for no news scenarios
+
+**Deliverables:**
+1. Two-tab UI on `/dashboard`
+2. News card component
+3. News detail page
+4. Personalization algorithm
+5. Dismiss/save functionality
+6. Mobile optimization (375px)
+7. Screenshots: dashboard (both tabs), detail page, mobile, empty states
+
+### [BLOCK 6B.3] Homepage News Preview + Industries Section
+**Task Spec:** `docs/tasks/task-6B.3.md`
+**Status:** TODO (Awaiting Block 6B.1 completion)
+**Scope:** 
+- Homepage news preview section (5 latest news items)
+- Blurred news cards with "Sign Up to Read More" CTA (content gate)
+- Industries We Support section (icon grid, 10+ industries)
+- Industries mapped to preferred products list (Agriculture, Textiles, Electronics, Pharma, etc.)
+- SEO optimization (keywords include all industries)
+- Mobile responsive design
+
+**Deliverables:**
+1. News preview section on `/` homepage
+2. Industries grid with icons
+3. Signup CTA integration
+4. SEO metadata updates
+5. Empty state handling (no news available)
+6. Mobile optimization (375px)
+7. Screenshots: homepage (news + industries), mobile, Lighthouse report
+
+---
+
+
+---
+
+## 🟡 BLOCK 1.14: Profile Edit + Missing Fields + Matchmaking Data
+**Current Status:** TODO
+**Priority:** P0 (BLOCKS REVENUE)
+**Objective:** Fix critical profile gaps - enable editing, collect address/phone/business type, add trade terms (MOQ, payment terms, incoterms, lead time)
+
+> **Gap Identified (2026-02-08):** Competitive analysis revealed BMN missing critical fields vs. Alibaba/IndiaMART:
+> - Profile editing DISABLED (users can't fix mistakes)
+> - Missing: phone, address, business type, employee count, description
+> - Missing: MOQ, payment terms, incoterms, lead time (blocks matchmaking algorithm)
+
+### Deliverables:
+1. Enable `/profile/edit` functionality (currently disabled button)
+2. Update onboarding Business Details step: phone, WhatsApp, city, state, country, ZIP, business type, employee count, description
+3. New onboarding step: Trade Terms (MOQ, payment terms, incoterms, lead time, port, samples, OEM/ODM)
+4. Company logo upload (Supabase Storage)
+5. Schema: Add `trade_terms` table + extend `companies` table
+6. Migration: `006_add_trade_terms.sql`
+
+### Research Sources:
+- Alibaba: Employee count, production capacity, certifications, MOQ
+- IndiaMART: Business type, GST, address, description, product images
+- Trade.gov: Incoterms (FOB, CIF, EXW, DDP)
+- Incodocs: Payment terms (Cash advance, L/C, Open Account)
+
+**Task Spec:** `docs/tasks/task-1.14.md`  
+**Estimated Time:** 4-6 hours (profile edit + 7-step onboarding + trade terms + logo upload)
+

@@ -1,0 +1,1 @@
+{"users":[{"id":"6e942138-76d4-42b7-8fd1-35025864f419","fullName":"Manual User","tradeRole":"both","company":null},{"id":"7bf180a1-f110-4173-889b-046e6d98a072","fullName":"Manual User","tradeRole":"both","company":null},{"id":"d0d4cd51-3444-486d-9669-0260026e6438","fullName":"Antigravity Admin","tradeRole":"both","company":null}]}

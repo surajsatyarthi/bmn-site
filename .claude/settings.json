@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git commit *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(cd * && *)",
+      "Write",
+      "Edit",
+      "Task"
+    ],
+    "allow": [
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git status *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(find *)",
+      "Read",
+      "Grep",
+      "Glob"
+    ],
+    "ask": [
+      "Bash(git add *)",
+      "Bash(git push *)"
+    ]
+  }
+}
