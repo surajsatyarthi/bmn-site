@@ -1,0 +1,23 @@
+# SELF-AUDIT REPORT: block-S0.3
+
+## 1. Task Spec Alignment
+- [x] Create 2 TypeScript scripts in bmn-site/scripts/ (validate-evidence.ts, collect-evidence.ts)
+- [x] Add npm scripts to package.json
+- [x] Update Standing Orders and PM Memory
+
+## 2. Ralph Protocol Compliance
+- [x] Standardized error handling
+- [x] DoD v2.0 followed for all new/modified pages
+- [x] No explicit `any` types in new files
+- [x] No unused imports
+
+## 3. Verification Results
+- `npm run build`: PASSED
+- `npm run lint`: PASSED
+- `npm run ralph:scan`: PASSED
+- `npm run test`: PASSED
+
+## 4. Evidence Collected
+- [x] gates.txt
+- [x] pre-submission-gate.txt
+- [x] gates.txt contains all 4 passed gates
