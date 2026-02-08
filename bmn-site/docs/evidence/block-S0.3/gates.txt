@@ -25,12 +25,84 @@ G4: Build...
 
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-❌ FAIL
+✓ Compiled successfully in 3.4s
+  Running next.config.js provided runAfterProductionCompile ...
+✓ Completed runAfterProductionCompile in 351ms
+  Running TypeScript ...
+  Collecting page data using 9 workers ...
+  Generating static pages using 9 workers (0/28) ...
+  Generating static pages using 9 workers (7/28) 
+  Generating static pages using 9 workers (14/28) 
+  Generating static pages using 9 workers (21/28) 
+✓ Generating static pages using 9 workers (28/28) in 164.0ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /admin
+├ ƒ /admin/campaigns
+├ ƒ /admin/matches/upload
+├ ƒ /admin/users
+├ ƒ /admin/users/[id]
+├ ƒ /api/admin/matches
+├ ƒ /api/admin/users
+├ ƒ /api/admin/users/[id]
+├ ƒ /api/campaigns
+├ ƒ /api/campaigns/[id]
+├ ƒ /api/health
+├ ƒ /api/matches
+├ ƒ /api/matches/[id]
+├ ƒ /api/matches/[id]/reveal
+├ ƒ /api/profile
+├ ƒ /api/profile/onboarding
+├ ƒ /campaigns
+├ ƒ /campaigns/[id]
+├ ○ /contact
+├ ƒ /dashboard
+├ ƒ /forgot-password
+├ ○ /icon.png
+├ ƒ /login
+├ ƒ /matches
+├ ƒ /matches/[id]
+├ ƒ /onboarding
+├ ○ /privacy
+├ ƒ /profile
+├ ○ /refund
+├ ƒ /signup
+├ ○ /terms
+└ ƒ /verify-email
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+✅ PASS
 G5: Lint... 
 > bmn-site@0.1.0 lint
 > eslint
 
-✅ PASS
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(admin)/admin/matches/upload/page.tsx
+  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/forgot-password/page.tsx
+  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/login/page.tsx
+  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/signup/page.tsx
+  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/verify-email/page.tsx
+  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 5 problems (5 errors, 0 warnings)
+
+❌ FAIL
 G6: Security Scan... 
 🦅 Ralph Protocol v5.1: Security Scanner [FULL]
 
@@ -42,31 +114,10 @@ G6: Security Scan...
 🔴 SEC-003: Environment Variable Validation... ✅
 🔴 SEC-004: No Secrets in Source Code... ✅
 🟡 SEC-005: Rate Limiting on POST Routes... ✅
-🟡 QA-001: Error Boundary Existence... ❌
-   Severity: P1
-   Description: Every page directory must have an error.tsx file.
-   Fix: Create error.tsx in every route segment.
-🟡 QA-002: Loading State Existence... ❌
-   Severity: P1
-   Description: Every page directory must have a loading.tsx file.
-   Fix: Create loading.tsx in every route segment.
+🟡 QA-001: Error Boundary Existence... ✅
+🟡 QA-002: Loading State Existence... ✅
 🟡 QA-003: Interactive Elements Accessibility... ✅
-🔴 QA-004: Metadata Export...    Missing metadata in src/app/onboarding/page.tsx
-   Missing metadata in src/app/(dashboard)/matches/[id]/page.tsx
-   Missing metadata in src/app/(dashboard)/campaigns/[id]/page.tsx
-   Missing metadata in src/app/(auth)/verify-email/page.tsx
-   Missing metadata in src/app/(auth)/signup/page.tsx
-   Missing metadata in src/app/(auth)/login/page.tsx
-   Missing metadata in src/app/(auth)/forgot-password/page.tsx
-   Missing metadata in src/app/(admin)/admin/page.tsx
-   Missing metadata in src/app/(admin)/admin/users/page.tsx
-   Missing metadata in src/app/(admin)/admin/users/[id]/page.tsx
-   Missing metadata in src/app/(admin)/admin/matches/upload/page.tsx
-   Missing metadata in src/app/(admin)/admin/campaigns/page.tsx
-❌
-   Severity: P0
-   Description: All pages must export metadata.
-   Fix: Export metadata or generateMetadata in page.tsx.
+🔴 QA-004: Metadata Export... ✅
 
 📋 DEPENDENCY CHECKS
 ──────────────────────────────────────────────────
@@ -76,7 +127,11 @@ G6: Security Scan...
 ──────────────────────────────────────────────────
 🔴 BLD-001: TypeScript compilation succeeds... ✅
 🔴 BLD-002: Next.js build succeeds... ✅
-🟡 BLD-003: ESLint passes (src/)... ✅
+🟡 BLD-003: ESLint passes (src/)...    Linting failed in src/
+❌
+   Severity: P1
+   Description: Source code must pass linting.
+   Fix: Run: npx eslint src/ --fix
 
 📋 DEPLOYMENT CHECKS
 ──────────────────────────────────────────────────
@@ -84,17 +139,9 @@ G6: Security Scan...
 🟡 DPL-002: Git is clean...    Uncommitted changes:
       M .husky/pre-commit
       M .husky/pre-push
-      M bmn-site/docs/STANDING_ORDERS.md
       M bmn-site/docs/evidence/block-S0.3/gates.txt
-      M bmn-site/docs/evidence/block-S0.3/pre-submission-gate.txt
-      M bmn-site/docs/evidence/block-S0.3/self-audit.txt
-      M bmn-site/package.json
-      M bmn-site/scripts/ralph-security-scanner.ts
-      M bmn-site/scripts/validate-ralph-gates.sh
       M docs/governance/project_ledger.md
       D docs/governance/project_ledger.md.bak
-     ?? bmn-site/docs/evidence/block-S0.3/plan.md
-     ?? bmn-site/docs/tasks/
      ?? docs/governance/project_ledger.tmp
 ❌
    Severity: P1
@@ -102,12 +149,12 @@ G6: Security Scan...
    Fix: Commit all changes before deploying.
 
 ==================================================
-Security Scan Complete: 11/15 Passed
+Security Scan Complete: 13/15 Passed
 ==================================================
 
-🚨 P0 ISSUES — commit/deploy BLOCKED
+⚠️  P1 warnings (fix before launch)
 
-❌ FAIL
+✅ PASS
 G7: Tests... 
 > bmn-site@0.1.0 test
 > vitest run
@@ -130,17 +177,17 @@ G7: Tests...
     at runTest [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1653:12[90m)[39m
 
  [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 23[2mms[22m[39m
- [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 29[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
 [2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
-[2m   Start at [22m 00:37:39
-[2m   Duration [22m 695ms[2m (transform 156ms, setup 164ms, import 220ms, tests 62ms, environment 1.53s)[22m
+[2m   Start at [22m 00:39:59
+[2m   Duration [22m 702ms[2m (transform 130ms, setup 153ms, import 185ms, tests 62ms, environment 1.44s)[22m
 
 ✅ PASS
 G8: Pre-submission Gate... ✅ PASS
 G9: Self-Audit... ✅ PASS
 G10: Visual Verification... ✅ PASS (Skipped for System Block)
 ========================================================
-⛔️ 2 GATES FAILED. SUBMISSION BLOCKED.
+⛔️ 1 GATES FAILED. SUBMISSION BLOCKED.
