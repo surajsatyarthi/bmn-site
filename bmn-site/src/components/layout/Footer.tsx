@@ -1,6 +1,9 @@
 import Link from 'next/link';
 
 export function Footer() {
+  // Get last 3 characters of deployment commit SHA for version tracking
+  const deploymentVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(-3) || 'dev';
+  
   return (
     <footer className="bg-gradient-primary mt-auto">
       <div className="max-w-6xl mx-auto px-4 py-8 md:flex md:items-center md:justify-between">
@@ -15,10 +18,13 @@ export function Footer() {
             Contact
           </Link>
         </div>
-        <div className="mt-8 md:mt-0 md:order-1">
+        <div className="mt-8 md:mt-0 md:order-1 flex items-center justify-between w-full md:w-auto">
           <p className="text-center text-sm text-blue-100">
             &copy; {new Date().getFullYear()} BMN. All rights reserved.
           </p>
+          <span className="text-xs text-blue-200/50 ml-4">
+            v.{deploymentVersion}
+          </span>
         </div>
       </div>
     </footer>
