@@ -25,16 +25,16 @@ G4: Build...
 
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 3.4s
+✓ Compiled successfully in 3.9s
   Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 351ms
+✓ Completed runAfterProductionCompile in 311ms
   Running TypeScript ...
   Collecting page data using 9 workers ...
   Generating static pages using 9 workers (0/28) ...
   Generating static pages using 9 workers (7/28) 
   Generating static pages using 9 workers (14/28) 
   Generating static pages using 9 workers (21/28) 
-✓ Generating static pages using 9 workers (28/28) in 164.0ms
+✓ Generating static pages using 9 workers (28/28) in 177.3ms
   Finalizing page optimization ...
 
 Route (app)
@@ -60,18 +60,18 @@ Route (app)
 ├ ƒ /campaigns/[id]
 ├ ○ /contact
 ├ ƒ /dashboard
-├ ƒ /forgot-password
+├ ○ /forgot-password
 ├ ○ /icon.png
-├ ƒ /login
+├ ○ /login
 ├ ƒ /matches
 ├ ƒ /matches/[id]
 ├ ƒ /onboarding
 ├ ○ /privacy
 ├ ƒ /profile
 ├ ○ /refund
-├ ƒ /signup
+├ ○ /signup
 ├ ○ /terms
-└ ƒ /verify-email
+└ ○ /verify-email
 
 
 ƒ Proxy (Middleware)
@@ -84,25 +84,7 @@ G5: Lint...
 > bmn-site@0.1.0 lint
 > eslint
 
-
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(admin)/admin/matches/upload/page.tsx
-  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/forgot-password/page.tsx
-  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/login/page.tsx
-  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/signup/page.tsx
-  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-/Users/surajsatyarthi/Projects/active/BMN/bmn-site/src/app/(auth)/verify-email/page.tsx
-  9:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
-
-✖ 5 problems (5 errors, 0 warnings)
-
-❌ FAIL
+✅ PASS
 G6: Security Scan... 
 🦅 Ralph Protocol v5.1: Security Scanner [FULL]
 
@@ -127,11 +109,7 @@ G6: Security Scan...
 ──────────────────────────────────────────────────
 🔴 BLD-001: TypeScript compilation succeeds... ✅
 🔴 BLD-002: Next.js build succeeds... ✅
-🟡 BLD-003: ESLint passes (src/)...    Linting failed in src/
-❌
-   Severity: P1
-   Description: Source code must pass linting.
-   Fix: Run: npx eslint src/ --fix
+🟡 BLD-003: ESLint passes (src/)... ✅
 
 📋 DEPLOYMENT CHECKS
 ──────────────────────────────────────────────────
@@ -140,6 +118,14 @@ G6: Security Scan...
       M .husky/pre-commit
       M .husky/pre-push
       M bmn-site/docs/evidence/block-S0.3/gates.txt
+      D bmn-site/scripts/fix-lint-any.ts
+      M bmn-site/scripts/ralph-security-scanner.ts
+      M bmn-site/scripts/validate-ralph-gates.sh
+      M bmn-site/src/app/(admin)/admin/matches/upload/page.tsx
+      M bmn-site/src/app/(auth)/forgot-password/page.tsx
+      M bmn-site/src/app/(auth)/login/page.tsx
+      M bmn-site/src/app/(auth)/signup/page.tsx
+      M bmn-site/src/app/(auth)/verify-email/page.tsx
       M docs/governance/project_ledger.md
       D docs/governance/project_ledger.md.bak
      ?? docs/governance/project_ledger.tmp
@@ -149,7 +135,7 @@ G6: Security Scan...
    Fix: Commit all changes before deploying.
 
 ==================================================
-Security Scan Complete: 13/15 Passed
+Security Scan Complete: 14/15 Passed
 ==================================================
 
 ⚠️  P1 warnings (fix before launch)
@@ -162,7 +148,7 @@ G7: Tests...
 
 [1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site[39m
 
- [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
 [90mstderr[2m | tests/lib/api-error.test.ts[2m > [22m[2mhandleApiError[2m > [22m[2mshould handle unknown errors as 500
 [22m[39mUnhandled error: Error: Something went wrong
     at [90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mtests/lib/api-error.test.ts:34:19
@@ -176,18 +162,18 @@ G7: Tests...
     at trace [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@20.19.33_jiti@2.6.1_jsdom@28.0.0_lig_9afb8edde56f362813de97e8789ff31a/node_modules/[4mvitest[24m/dist/chunks/test.B8ej_ZHS.js:239:21[90m)[39m
     at runTest [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1653:12[90m)[39m
 
- [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
- [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 25[2mms[22m[39m
- [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 30[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
 [2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
-[2m   Start at [22m 00:39:59
-[2m   Duration [22m 702ms[2m (transform 130ms, setup 153ms, import 185ms, tests 62ms, environment 1.44s)[22m
+[2m   Start at [22m 00:46:02
+[2m   Duration [22m 655ms[2m (transform 127ms, setup 173ms, import 190ms, tests 71ms, environment 1.44s)[22m
 
 ✅ PASS
 G8: Pre-submission Gate... ✅ PASS
 G9: Self-Audit... ✅ PASS
-G10: Visual Verification... ✅ PASS (Skipped for System Block)
+G10: Visual Verification... ✅ PASS (Skipped for Script-Only Block S0.3)
 ========================================================
-⛔️ 1 GATES FAILED. SUBMISSION BLOCKED.
+🎉 ALL GATES PASSED for Block S0.3

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ArrowRight, ArrowLeft, Search, Check, X } from 'lucide-react';
 import countriesData from '@/lib/data/countries.json';
 import { cn } from '@/lib/utils';
+import MobileStickyNav from './MobileStickyNav';
 
 interface Country {
   code: string;
@@ -47,7 +48,7 @@ export default function TradeInterestsStep({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-32 sm:pb-0">
       <div className="text-center">
         <h2 className="text-2xl font-bold font-display text-text-primary">Where do you want to trade?</h2>
         <p className="mt-2 text-text-secondary">Select up to 5 target countries or regions you are interested in.</p>
@@ -67,7 +68,7 @@ export default function TradeInterestsStep({
           />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto p-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-64 overflow-y-auto p-1">
           {filteredCountries.map((country) => {
             const isSelected = selectedCountryCodes.includes(country.code);
             return (
@@ -98,9 +99,9 @@ export default function TradeInterestsStep({
             {selectedCountryCodes.map((code: string) => {
               const country = countries.find(c => c.code === code);
               return (
-                <div key={code} className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium text-text-primary border border-bmn-border">
-                  {country?.name}
-                  <button onClick={() => toggleCountry(code)} className="text-text-secondary hover:text-red-600 transition-colors">
+                <div key={code} className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium text-text-primary border border-bmn-border max-w-full">
+                  <span className="truncate max-w-[120px]">{country?.name}</span>
+                  <button onClick={() => toggleCountry(code)} className="text-text-secondary hover:text-red-600 transition-colors shrink-0">
                     <X className="h-3.5 w-3.5" />
                   </button>
                 </div>
@@ -110,7 +111,7 @@ export default function TradeInterestsStep({
         )}
       </div>
 
-      <div className="flex justify-between pt-4">
+      <div className="hidden sm:flex justify-between pt-4">
         <button
           onClick={onBack}
           disabled={loading}
@@ -128,6 +129,13 @@ export default function TradeInterestsStep({
           {!loading && <ArrowRight className="h-4 w-4" />}
         </button>
       </div>
+
+      <MobileStickyNav 
+        onBack={onBack}
+        onNext={handleSubmit}
+        loading={loading}
+        isNextDisabled={selectedCountryCodes.length === 0}
+      />
     </div>
   );
 }

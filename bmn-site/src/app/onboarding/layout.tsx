@@ -8,7 +8,7 @@ export default function OnboardingLayout({
   return (
     <div className="flex min-h-screen flex-col">
       {/* Minimal Header for Onboarding */}
-      <header className="glass-header sticky top-0 z-50 h-16 w-full">
+      <header className="glass-header relative z-50 h-16 w-full">
         <div className="container mx-auto flex h-full items-center justify-between px-4">
           <Link href="/">
             <span className="text-2xl font-display font-bold text-gradient-primary">BMN</span>

@@ -60,7 +60,7 @@ export default function LoginPage() {
       {error && (
         <div className="bg-red-50 border border-red-100 p-4 mb-6 rounded-xl flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+             {/* Icon removed to save space as per user request */}
             <div className="space-y-1">
               <p className="text-sm font-semibold text-red-800">{error.message}</p>
               {error.solution && (
@@ -90,15 +90,17 @@ export default function LoginPage() {
                   alert('Support chat is loading. Please try again in a second.');
                 }
               }}
-              className="text-xs font-bold text-red-800 hover:text-red-900 flex items-center gap-1.5 bg-red-100/50 w-fit px-3 py-1.5 rounded-full transition-colors self-end"
+              className="text-xs font-bold text-green-800 hover:text-green-900 flex items-center gap-1.5 bg-green-100/50 w-fit px-3 py-1.5 rounded-full transition-colors self-end"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
               Chat with Support
             </button>
           )}
+
+
         </div>
       )}
 

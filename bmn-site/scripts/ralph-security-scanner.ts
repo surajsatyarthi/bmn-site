@@ -171,40 +171,56 @@ const CHECKS: Check[] = [
     name: 'Interactive Elements Accessibility',
     severity: 'P1',
     type: 'code',
-    description: 'Interactive elements (button, a, input) must have aria-label or accessible text.',
+    description: 'Interactive elements (button, a) must have text content or aria-label.',
     validate: () => {
-      // Basic heuristic check
       const tsxFiles = glob.sync('src/**/*.tsx');
-      let issues = false;
-      const regex = /<(button|a|input)[^>]*?(?<!aria-label="[^"]*")\s*\/?>/g; // Very naive check for self-closing without aria-label
-      // A better check would use an AST, but for regex scanner:
-      // We look for elements that might be missing context.
-      // For now, let's just ensure we don't have empty buttons like <button className="..."></button>
-      // or <button /> without aria-label.
+      let issues = 0;
       
-      // Let's refine: Check for <button ... /> without aria-label, OR <button>... (we can't easily check content).
-      // Let's stick to a specific known anti-pattern: Icon buttons without aria-label.
+      // Regex to find:
+      // 1. <button ...> (capture attributes) </button> (check inner content)
+      // 2. <button ... /> (self closing, must have aria-label)
+      // Note: Parsing HTML with regex is fragile, but sufficient for a "scanner" script heuristic.
+      
+      // We'll look for simple self-closing tags without aria-label first, which is the most common error.
+      // <button className="..." /> -> Fail
+      // <button aria-label="..." /> -> Pass
       
       for (const file of tsxFiles) {
         const content = fs.readFileSync(file, 'utf-8');
-        // Check for specific anti-patterns if possible, or just skip if too complex for regex.
-        // The prompt asks for "All interactive elements have aria-label".
-        // This is hard to enforce strictly with regex on existing code without strict linting.
-        // We will placeholder this as a warning-only or simple check.
-        if (content.includes('role="button"') && !content.includes('aria-label')) {
-             issues = true;
-             // console.error(`   ${file}: role="button" missing aria-label`);
+        
+        // Check 1: Self-closing buttons/anchors without aria-label
+        // Matches <button (anything that doesn't contain aria-label) />
+        // Negative lookahead (?![^>]*aria-label) checks within the tag
+        const selfClosing = /<(button|a)\s+[^>]*?(?<!aria-label="[^"]*")\s*\/>/g;
+        
+        // This regex is tricky. Let's simplify: 
+        // Find all <button ... /> or <a ... /> tags.
+        // For each match, check if it has 'aria-label' or 'aria-labelledby'.
+        
+        const selfClosingMatches = content.match(/<(button|a)\s+[^>]*?\/>/g) || [];
+        for (const match of selfClosingMatches) {
+            if (!match.includes('aria-label=') && !match.includes('aria-labelledby=')) {
+                console.error(`   ❌ ${file}: Accessible label missing on ${match}`);
+                issues++;
+            }
         }
+        
+        // Check 2: Empty buttons <button></button> (whitespace only)
+        // Matches <button ...>\s*</button>
+        // We'll look for <button [^>]*>\s*</button>
+         const emptyTagMatches = content.match(/<(button|a)[^>]*>\s*<\/\1>/g) || [];
+         for (const match of emptyTagMatches) {
+             // Check if the opening tag has aria-label
+             const openingTag = match.match(/<[^>]+>/)?.[0] || '';
+             if (!openingTag.includes('aria-label=') && !openingTag.includes('aria-labelledby=')) {
+                 console.error(`   ❌ ${file}: Empty interactive element without label: ${match}`);
+                 issues++;
+             }
+         }
       }
-      return true; // Return true for now to avoid blocking P1 on fuzzy check, or set to false if we want to be strict.
-      // Given "Rubber stamp" comment, we want REAL checks. 
-      // Let's use a simpler proxy: Check if any file has 'aria-label' usage. If 0, then we fail.
-      // But that's too loose.
-      // Let's rely on eslint-plugin-jsx-a11y which is better for this. 
-      // For this script, maybe we check for specific forbidden patterns.
-      return true; 
+      return issues === 0;
     },
-    fix: 'Add aria-label to interactive elements.'
+    fix: 'Add aria-label to interactive elements that lack text content.'
   },
   {
     id: 'QA-004',

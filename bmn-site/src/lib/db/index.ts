@@ -8,7 +8,7 @@ const client = postgres(connectionString, {
   max: 10,
   idle_timeout: 20,
   connect_timeout: 10,
-  ssl: 'require',
+  ssl: 'prefer', // 'prefer' works for both local (no SSL) and production (with SSL)
 });
 
 export const db = drizzle(client, { schema });

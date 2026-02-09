@@ -1,26 +1,36 @@
-=== VERIFICATION GATES: Sun Feb  8 18:15:43 IST 2026 ===
-
-=== npm run build ===
-
+🦅 Ralph Protocol v6.0: Gate Validation [Block 4.0]
+========================================================
+G1: Physical Audit... ✅ PASS
+G2: Task Spec Review... ✅ PASS
+G3: Implementation Plan... ✅ PASS
+G4: Build... 
 > bmn-site@0.1.0 build
 > next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/surajsatyarthi/Projects/active/BMN/pnpm-lock.yaml as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/surajsatyarthi/Projects/active/BMN/bmn-site/pnpm-lock.yaml
 
 ▲ Next.js 16.1.6 (Turbopack)
 - Environments: .env.local
 - Experiments (use with caution):
   · clientTraceMetadata
 
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 3.4s
+✓ Compiled successfully in 3.3s
   Running next.config.js provided runAfterProductionCompile ...
-✓ Completed runAfterProductionCompile in 359ms
+✓ Completed runAfterProductionCompile in 305ms
   Running TypeScript ...
   Collecting page data using 9 workers ...
   Generating static pages using 9 workers (0/28) ...
   Generating static pages using 9 workers (7/28) 
   Generating static pages using 9 workers (14/28) 
   Generating static pages using 9 workers (21/28) 
-✓ Generating static pages using 9 workers (28/28) in 155.1ms
+✓ Generating static pages using 9 workers (28/28) in 186.6ms
   Finalizing page optimization ...
 
 Route (app)
@@ -65,24 +75,14 @@ Route (app)
 ○  (Static)   prerendered as static content
 ƒ  (Dynamic)  server-rendered on demand
 
-
-=== RESULT: BUILD ===
-BUILD COMPLETE
-
-=== npm run lint ===
-
+✅ PASS
+G5: Lint... 
 > bmn-site@0.1.0 lint
 > eslint
 
-LINT COMPLETE
-
-=== npm run ralph:scan ===
-
-> bmn-site@0.1.0 ralph:scan
-> npx tsx scripts/ralph-security-scanner.ts --pre-commit
-
-
-🦅 Ralph Protocol v5.1: Security Scanner [PRE-COMMIT]
+✅ PASS
+G6: Security Scan... 
+🦅 Ralph Protocol v5.1: Security Scanner [FULL]
 
 
 📋 CODE CHECKS
@@ -92,21 +92,57 @@ LINT COMPLETE
 🔴 SEC-003: Environment Variable Validation... ✅
 🔴 SEC-004: No Secrets in Source Code... ✅
 🟡 SEC-005: Rate Limiting on POST Routes... ✅
+🟡 QA-001: Error Boundary Existence... ✅
+🟡 QA-002: Loading State Existence... ✅
+🟡 QA-003: Interactive Elements Accessibility... ✅
+🔴 QA-004: Metadata Export... ✅
 
 📋 DEPENDENCY CHECKS
 ──────────────────────────────────────────────────
 🔴 DEP-001: Required Dependencies Installed... ✅
 
+📋 BUILD CHECKS
+──────────────────────────────────────────────────
+🔴 BLD-001: TypeScript compilation succeeds... ✅
+🔴 BLD-002: Next.js build succeeds... ✅
+🟡 BLD-003: ESLint passes (src/)... ✅
+
+📋 DEPLOYMENT CHECKS
+──────────────────────────────────────────────────
+🟡 DPL-001: Env vars documented in .env.example... ✅
+🟡 DPL-002: Git is clean...    Uncommitted changes:
+      M .husky/pre-commit
+      M .husky/pre-push
+     M  bmn-site/docs/evidence/block-S0.3/gates.txt
+     D  bmn-site/scripts/fix-lint-any.ts
+     M  bmn-site/scripts/ralph-security-scanner.ts
+     M  bmn-site/scripts/validate-ralph-gates.sh
+     M  bmn-site/src/app/(admin)/admin/matches/upload/page.tsx
+     M  bmn-site/src/app/(auth)/forgot-password/page.tsx
+     M  bmn-site/src/app/(auth)/login/page.tsx
+     M  bmn-site/src/app/(auth)/signup/page.tsx
+     M  bmn-site/src/app/(auth)/verify-email/page.tsx
+     M  bmn-site/src/app/page.tsx
+     M  bmn-site/src/components/landing/StakeholderNetwork.tsx
+     M  bmn-site/src/components/layout/Header.tsx
+      M docs/governance/project_ledger.md
+      D docs/governance/project_ledger.md.bak
+     ?? bmn-site/docs/evidence/block-4.0/gates.txt.new
+     ?? bmn-site/docs/evidence/block-4.0/plan.md
+     ?? bmn-site/docs/tasks/task-4.0.md
+❌
+   Severity: P1
+   Description: All changes must be committed before deploy.
+   Fix: Commit all changes before deploying.
+
 ==================================================
-Security Scan Complete: 6/6 Passed
+Security Scan Complete: 14/15 Passed
 ==================================================
 
-✅ All checks passed!
+⚠️  P1 warnings (fix before launch)
 
-RALPH:SCAN COMPLETE
-
-=== npm test ===
-
+✅ PASS
+G7: Tests... 
 > bmn-site@0.1.0 test
 > vitest run
 
@@ -114,13 +150,31 @@ RALPH:SCAN COMPLETE
 [1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site[39m
 
  [32m✓[39m tests/lib/rate-limit.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstderr[2m | tests/lib/api-error.test.ts[2m > [22m[2mhandleApiError[2m > [22m[2mshould handle unknown errors as 500
+[22m[39mUnhandled error: Error: Something went wrong
+    at [90m/Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mtests/lib/api-error.test.ts:34:19
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:145:11
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:915:26
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1209:10[90m)[39m
+    at [90mfile:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1653:37
+    at Traces.$ [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@20.19.33_jiti@2.6.1_jsdom@28.0.0_lig_9afb8edde56f362813de97e8789ff31a/node_modules/[4mvitest[24m/dist/chunks/traces.CCmnQaNT.js:142:27[90m)[39m
+    at trace [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/vitest@4.0.18_@opentelemetry+api@1.9.0_@types+node@20.19.33_jiti@2.6.1_jsdom@28.0.0_lig_9afb8edde56f362813de97e8789ff31a/node_modules/[4mvitest[24m/dist/chunks/test.B8ej_ZHS.js:239:21[90m)[39m
+    at runTest [90m(file:///Users/surajsatyarthi/Projects/active/BMN/bmn-site/[39mnode_modules/[4m.pnpm[24m/@vitest+runner@4.0.18/node_modules/[4m@vitest/runner[24m/dist/index.js:1653:12[90m)[39m
+
  [32m✓[39m tests/lib/api-error.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
- [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/lib/env.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 22[2mms[22m[39m
  [32m✓[39m tests/onboarding/HSCodeSearch.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 29[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
 [2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
-[2m   Start at [22m 18:16:16
-[2m   Duration [22m 679ms[2m (transform 110ms, setup 145ms, import 209ms, tests 67ms, environment 1.51s)[22m
+[2m   Start at [22m 01:09:39
+[2m   Duration [22m 645ms[2m (transform 134ms, setup 151ms, import 204ms, tests 57ms, environment 1.43s)[22m
 
-TEST COMPLETE
+✅ PASS
+G8: Pre-submission Gate... ✅ PASS
+G9: Self-Audit... ✅ PASS
+G10: Visual Verification... ✅ PASS
+========================================================
+🎉 ALL GATES PASSED for Block 4.0

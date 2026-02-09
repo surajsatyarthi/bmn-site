@@ -39,9 +39,9 @@ export const metadata: Metadata = {
 
 
 const IMPACT_NUMBERS = [
-  { value: '200+', label: 'Companies Onboarded' },
-  { value: '200+', label: 'Countries Covered' },
-  { value: '1M+', label: 'Trade Records in Database' },
+  { value: '$2.5M+', label: 'Deals Facilitated' },
+  { value: '70%', label: 'Faster Buyer Discovery' },
+  { value: '50%', label: 'Faster Approval Process' },
 ];
 
 
@@ -256,12 +256,12 @@ export default function HomePage() {
       <Header />
 
       {/* Section 1: Hero */}
-      <section className="pt-32 pb-20 md:pt-40 md:pb-32 bg-white">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-gradient-primary font-bold tracking-widest text-sm uppercase mb-4">
-            CONNECT • GROW • SUCCEED
+             CONNECT • GROW • SUCCEED
           </p>
-          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-10 text-text-primary text-center">
+          <h1 className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-8 text-text-primary text-center">
             <div className="text-center">AI Finds You <RotatingText /></div>
             <div className="text-center">You <span className="text-gradient-primary">Ship</span></div>
           </h1>
@@ -284,7 +284,41 @@ export default function HomePage() {
       </section>
 
 
-      {/* Section 2: Global Reach */}
+      {/* Section 2: Trusted By (Moved) */}
+      <section className="py-12 bg-gradient-to-b from-blue-50 to-white border-b border-bmn-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-center text-sm font-medium text-text-secondary mb-8 uppercase tracking-wide">
+            Trusted By Leading Enterprises
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-12">
+            {TRUSTED_BY_LOGOS.map((logo) => (
+              <div key={logo.name} className="relative h-12 w-32">
+                 <Image 
+                   src={logo.src} 
+                   alt={logo.name} 
+                   fill 
+                   className="object-contain"
+                 />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: Stakeholder Network (Moved) */}
+      <section id="stakeholder-network" className="py-24 bg-white border-y border-bmn-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Your Trade Network, Connected</h2>
+            <p className="text-text-secondary text-lg max-w-2xl mx-auto">
+              BMN connects every stakeholder in your export journey
+            </p>
+          </div>
+          <StakeholderNetwork />
+        </div>
+      </section>
+
+      {/* Section 4: Global Reach */}
       <section className="py-24 bg-gradient-to-b from-blue-50 to-white border-b border-bmn-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -306,7 +340,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section: Industries We Support */}
+      {/* Section 5: Industries We Support */}
       <section className="py-24 bg-white border-b border-bmn-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -329,28 +363,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 3: Trusted By */}
-      <section className="py-12 bg-white border-b border-bmn-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-medium text-text-secondary mb-8 uppercase tracking-wide">
-            Trusted By Leading Enterprises
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-12">
-            {TRUSTED_BY_LOGOS.map((logo) => (
-              <div key={logo.name} className="relative h-12 w-32">
-                 <Image 
-                   src={logo.src} 
-                   alt={logo.name} 
-                   fill 
-                   className="object-contain"
-                 />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Section 4: How It Works */}
+
+      {/* Section 6: How It Works */}
       <section id="how-it-works" className="py-24 bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -389,18 +404,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 5: Stakeholder Network */}
-      <section id="stakeholder-network" className="py-24 bg-white border-y border-bmn-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Your Trade Network, Connected</h2>
-            <p className="text-text-secondary text-lg max-w-2xl mx-auto">
-              BMN connects every stakeholder in your export journey
-            </p>
-          </div>
-          <StakeholderNetwork />
-        </div>
-      </section>
+
 
       {/* Section 6: Impact Numbers */}
       <section className="py-16 bg-bmn-navy text-white">
@@ -443,28 +447,10 @@ export default function HomePage() {
         </div>
       </section>
       
-      {/* Section: Stats Bar */}
-      <section className="py-12 bg-bmn-light-bg border-y border-bmn-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-bmn-border">
-            <div className="p-4">
-               <p className="text-4xl font-bold text-text-primary mb-1">$2.5M+</p>
-               <p className="text-text-secondary font-medium">Deals Facilitated</p>
-            </div>
-            <div className="p-4">
-               <p className="text-4xl font-bold text-text-primary mb-1">70%</p>
-               <p className="text-text-secondary font-medium">Faster Buyer Discovery</p>
-            </div>
-            <div className="p-4">
-               <p className="text-4xl font-bold text-text-primary mb-1">50%</p>
-               <p className="text-text-secondary font-medium">Faster Approval Process</p>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Section 8: Perfect For */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* ... Header ... */}
           <div className="text-center mb-16">
@@ -488,10 +474,10 @@ export default function HomePage() {
       </section>
 
       {/* Section 9: Profile Benefits */}
-      <section id="profile-benefits" className="py-24 bg-gradient-to-b from-blue-50 to-white">
+      <section id="profile-benefits" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Why Create Your Profile?</h2>
+            <h2 className="text-4xl font-display font-bold text-text-primary mb-4">Get Organic Leads and Exposure</h2>
             <p className="text-text-secondary text-lg max-w-2xl mx-auto">
               Your profile is your 24/7 salesperson — working while you sleep
             </p>
@@ -630,7 +616,7 @@ export default function HomePage() {
       </section>
 
       {/* Section 13: FAQ */}
-      <section id="faq" className="py-24 bg-gradient-to-b from-blue-50 to-white">
+      <section id="faq" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-display font-bold text-text-primary mb-4">

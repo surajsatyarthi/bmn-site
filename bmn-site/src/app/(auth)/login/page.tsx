@@ -6,6 +6,6 @@ export const metadata = {
   description: 'AI-Powered Business Network',
 };
 
-export default function Page(props: any) {
-  return <PageContent {...props} />;
+export default function Page() {
+  return <PageContent />;
 }

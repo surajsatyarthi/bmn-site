@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ArrowRight, ArrowLeft, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import MobileStickyNav from './MobileStickyNav';
 
 const CERTIFICATIONS = [
   { id: 'iso9001', name: 'ISO 9001', description: 'Quality Management' },
@@ -39,7 +40,7 @@ export default function CertificationsStep({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-32 sm:pb-0">
       <div className="text-center">
         <h2 className="text-2xl font-bold font-display text-text-primary">Certifications</h2>
         <p className="mt-2 text-text-secondary">Select any business or product certifications you hold.</p>
@@ -76,7 +77,7 @@ export default function CertificationsStep({
         })}
       </div>
 
-      <div className="flex justify-between pt-4">
+      <div className="hidden sm:flex justify-between pt-4">
         <button
           onClick={onBack}
           disabled={loading}
@@ -94,6 +95,12 @@ export default function CertificationsStep({
           {!loading && <ArrowRight className="h-4 w-4" />}
         </button>
       </div>
+
+      <MobileStickyNav 
+        onBack={onBack}
+        onNext={() => onNext({ certifications: selectedCerts })}
+        loading={loading}
+      />
     </div>
   );
 }

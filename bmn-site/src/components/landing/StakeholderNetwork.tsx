@@ -51,13 +51,6 @@ export function StakeholderNetwork() {
       {/* SVG Connection Layer - Absolute & Responsive */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <svg className="w-full h-full">
-          <defs>
-            <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#cbd5e1" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="#cbd5e1" stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
           
           {connections.map((coords, i) => (
              <ConnectionLine 
@@ -66,7 +59,7 @@ export function StakeholderNetwork() {
                 y1={coords.y1} 
                 x2={coords.x2} 
                 y2={coords.y2} 
-                delay={`${i * 0.5}s`} 
+                delay={`${i * 0.1}s`} 
              />
           ))}
         </svg>
@@ -148,7 +141,8 @@ function ConnectionLine({ x1, y1, x2, y2, delay }: { x1: number, y1: number, x2:
             {/* Animated Data Flow Only - No Base Line */}
             <line 
                 x1={x1} y1={y1} x2={x2} y2={y2} 
-                stroke="url(#line-gradient)" 
+                stroke="#2563eb" 
+                strokeOpacity="0.4"
                 strokeWidth="2"
                 strokeDasharray="4 8"
                 className="animate-[dash_1s_linear_infinite]"
@@ -168,7 +162,7 @@ function StakeholderNode({
       className="relative flex flex-col items-center text-center w-32 md:w-40 z-10"
     >
       <div className="mb-3 transform transition-transform duration-300 hover:scale-110">
-          <FeatureIcon icon={stakeholder.icon} />
+          <FeatureIcon icon={stakeholder.icon} size="xl" />
       </div>
       <h4 className="font-bold text-text-primary text-sm md:text-base leading-tight">
           {stakeholder.name}

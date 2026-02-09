@@ -62,11 +62,11 @@ export default function TradeRoleStep({ initialValue, onNext, loading }: TradeRo
               disabled={loading}
               className="h-full"
             >
-              <FeatureIcon 
-                icon={option.icon} 
-                variant={isSelected ? 'solid' : 'outline'} 
+              <FeatureIcon
+                icon={option.icon}
+                variant="outline"
                 size="lg"
-                className="mb-2"
+                className={cn("mb-2", isSelected && "!bg-blue-100 !text-bmn-blue")}
               />
               <div>
                 <h3 className={cn("font-bold text-xl mb-2", isSelected ? "text-bmn-blue" : "text-text-primary")}>

@@ -49,22 +49,14 @@ else
 fi
 
 # G2: Task Spec Review
-# Assuming task specs are in docs/tasks/task-{id}.md. Adjust if different.
-# If BLOCK_ID is S0.3, task might be tasks/task-S0.3.md
+# Fix 4: Exact match check
 TASK_FILE="docs/tasks/task-$BLOCK_ID.md"
-if [ ! -f "$TASK_FILE" ]; then
-     # Try alternative if it starts with S (System task)
-     TASK_FILE="docs/tasks/system/task-$BLOCK_ID.md"
-fi
+SYSTEM_TASK_FILE="docs/tasks/system/task-$BLOCK_ID.md"
 
-# For now, just check if ANY task file exists that matches ID, or skip if strict path not known. 
-# The prompt implies a "Task spec file exists". We will assume strict mapping for now.
-# However, user prompt says "Task spec file exists for this block".
-# Let's check common locations.
-if compgen -G "docs/tasks/*$BLOCK_ID.md" > /dev/null; then
+if [ -f "$TASK_FILE" ] || [ -f "$SYSTEM_TASK_FILE" ]; then
     echo "G2: Task Spec Review... ✅ PASS"
 else
-    echo "G2: Task Spec Review... ❌ FAIL (No task spec found for $BLOCK_ID)"
+    echo "G2: Task Spec Review... ❌ FAIL (Task spec not found at docs/tasks/task-$BLOCK_ID.md)"
     FAILURES=$((FAILURES+1))
 fi
 
@@ -72,26 +64,12 @@ fi
 # PHASE: PLANNING
 # ---------------
 # G3: Implementation Plan
-# Check if implementation_plan.md exists in brain or current context. 
-# Since we can't easily access "brain" from shell script generically without path, 
-#/ we will check if "docs/evidence/block-$BLOCK_ID/implementation_plan.md" exists OR if we are in a mode where we can skip.
-# Actually, the user requirement says "Execution report exists with USER APPROVED marker". 
-# Let's look for "implementation_plan.md" in evidence dir or check for a specific approval file.
-# For simplicity and strictness based on prompt "Execution report exists", we'll check for `plan.md` in evidence.
-if [ -f "$EVIDENCE_DIR/plan.md" ] || [ -f "docs/plans/$BLOCK_ID.md" ]; then
+# Fix 3: Strict failure if missing
+if [ -f "$EVIDENCE_DIR/plan.md" ]; then
      echo "G3: Implementation Plan... ✅ PASS"
 else
-     # Allow pass if we are running locally and have a creative way to verify? 
-     # For now, strictly fail if not found, but maybe S0.3 didn't require one explicitly in docs folder yet.
-     # Let's mock it as fail if missing, but we will create it.
-     if ls "$EVIDENCE_DIR"/*plan* 1> /dev/null 2>&1; then
-        echo "G3: Implementation Plan... ✅ PASS"
-     else
-        echo "G3: Implementation Plan... ⚠️  WARNING (Plan not found in evidence dir)"
-        # Determining if this should be hard fail. Prompt says "Exit code 1 if any gate fails".
-        # We will count it as failure.
-        FAILURES=$((FAILURES+1))
-     fi
+    echo "G3: Implementation Plan... ❌ FAIL (Create $EVIDENCE_DIR/plan.md)"
+    FAILURES=$((FAILURES+1))
 fi
 
 # PHASE: EXECUTION
@@ -120,17 +98,25 @@ else
 fi
 
 # G10: Visual Verification
-# "At least 1 .png file exists in evidence dir (mobile screenshot)"
-# Exception: "No screenshots needed (scripts-only block)."
-# We need to detect if this is a script-only block. S0.3 is script only.
-if [[ "$BLOCK_ID" == "S0."* ]]; then
-     echo "G10: Visual Verification... ✅ PASS (Skipped for System Block)"
+# Fix 5: Whitelist script-only blocks
+SCRIPT_ONLY_BLOCKS=("S0.1" "S0.2" "S0.3")
+IS_SCRIPT_ONLY=false
+
+for block in "${SCRIPT_ONLY_BLOCKS[@]}"; do
+    if [[ "$block" == "$BLOCK_ID" ]]; then
+        IS_SCRIPT_ONLY=true
+        break
+    fi
+done
+
+if [ "$IS_SCRIPT_ONLY" = true ]; then
+     echo "G10: Visual Verification... ✅ PASS (Skipped for Script-Only Block $BLOCK_ID)"
 else
     count=$(find "$EVIDENCE_DIR" -maxdepth 1 -name "*.png" | wc -l)
     if [ "$count" -gt 0 ]; then
         echo "G10: Visual Verification... ✅ PASS"
     else
-        echo "G10: Visual Verification... ❌ FAIL (No screenshots found)"
+        echo "G10: Visual Verification... ❌ FAIL (No screenshots found in $EVIDENCE_DIR)"
         FAILURES=$((FAILURES+1))
     fi
 fi

@@ -19,6 +19,7 @@ const oswald = Oswald({
 export const metadata: Metadata = {
   title: "BMN - AI finds your buyers. you ship",
   description: "AI-powered global trade platform for verified exporters and importers.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
 };
 
 export default function RootLayout({

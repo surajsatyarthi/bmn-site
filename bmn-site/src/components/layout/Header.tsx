@@ -16,24 +16,29 @@ export function Header() {
           </Link>
         </div>
 
-        {/* Desktop Navigation - Centered */}
         <div className="hidden md:flex justify-center items-center space-x-8">
-          <a href="#how-it-works" className="text-sm font-medium text-text-secondary hover:text-transparent hover:bg-gradient-primary hover:bg-clip-text transition-colors bg-clip-text">
-            Features
+           <a href="#stakeholder-network" className="text-sm font-medium text-text-secondary hover:text-bmn-blue transition-colors">
+            Network
           </a>
-          <a href="#pricing" className="text-sm font-medium text-text-secondary hover:text-transparent hover:bg-gradient-primary hover:bg-clip-text transition-colors bg-clip-text">
+           <a href="#profile-benefits" className="text-sm font-medium text-text-secondary hover:text-bmn-blue transition-colors">
+            Leads
+          </a>
+          <a href="#how-it-works" className="text-sm font-medium text-text-secondary hover:text-bmn-blue transition-colors">
+            Process
+          </a>
+          <a href="#pricing" className="text-sm font-medium text-text-secondary hover:text-bmn-blue transition-colors">
             Pricing
           </a>
-          <Link href="/contact" className="text-sm font-medium text-text-secondary hover:text-transparent hover:bg-gradient-primary hover:bg-clip-text transition-colors bg-clip-text">
-            About
-          </Link>
+           <a href="#faq" className="text-sm font-medium text-text-secondary hover:text-bmn-blue transition-colors">
+            FAQ
+          </a>
         </div>
 
         {/* Auth Buttons & Mobile Menu - Right Aligned */}
         <div className="flex justify-end items-center space-x-4">
           <Link
             href="/login"
-            className="text-sm font-medium text-text-secondary hover:text-transparent hover:bg-gradient-primary hover:bg-clip-text transition-colors hidden sm:block bg-clip-text"
+            className="text-sm font-medium text-text-secondary hover:text-bmn-blue transition-colors hidden sm:block"
           >
             Log in
           </Link>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import HSCodeSearch from './HSCodeSearch';
 import { ArrowRight, ArrowLeft, Package, Trash2 } from 'lucide-react';
+import MobileStickyNav from './MobileStickyNav';
 
 interface Product {
   hsCode: string;
@@ -43,7 +44,7 @@ export default function ProductSelectionStep({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-32 sm:pb-0">
       <div className="text-center">
         <h2 className="text-2xl font-bold font-display text-text-primary">What products do you handle?</h2>
         <p className="mt-2 text-text-secondary">Search and select the main categories of products you trade.</p>
@@ -63,24 +64,25 @@ export default function ProductSelectionStep({
               {selectedProducts.map((product) => (
                 <div 
                   key={product.hsCode}
-                  className="flex items-center justify-between p-4 rounded-xl border border-bmn-border bg-white shadow-sm ring-1 ring-black/5"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg border border-bmn-border bg-white gap-3"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="p-2 bg-blue-50 rounded-lg text-bmn-blue">
+                  <div className="flex items-start gap-3 min-w-0 w-full">
+                    <div className="p-2 bg-blue-50 rounded-lg text-bmn-blue shrink-0 mt-0.5">
                       <Package className="h-5 w-5" />
                     </div>
-                    <div>
-                      <div className="font-bold text-text-primary">Chapter {product.hsCode}</div>
-                      <div className="text-sm text-text-secondary truncate max-w-[250px] md:max-w-[400px]">
+                    <div className="min-w-0 flex-1">
+                      <div className="font-bold text-sm text-text-primary">Chapter {product.hsCode}</div>
+                      <div className="text-xs text-text-secondary leading-relaxed line-clamp-2 break-words">
                         {product.name}
                       </div>
                     </div>
                   </div>
                   <button
                     onClick={() => handleRemoveProduct(product.hsCode)}
-                    className="p-2 text-text-secondary hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                    className="w-full sm:w-auto p-2 text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-all flex items-center justify-center gap-2"
                   >
                     <Trash2 className="h-4 w-4" />
+                    <span className="sm:hidden text-xs font-semibold">Remove</span>
                   </button>
                 </div>
               ))}
@@ -96,7 +98,7 @@ export default function ProductSelectionStep({
         )}
       </div>
 
-      <div className="flex justify-between pt-4">
+      <div className="hidden sm:flex justify-between pt-4">
         <button
           onClick={onBack}
           disabled={loading}
@@ -114,6 +116,13 @@ export default function ProductSelectionStep({
           {!loading && <ArrowRight className="h-4 w-4" />}
         </button>
       </div>
+
+      <MobileStickyNav 
+        onBack={onBack}
+        onNext={handleSubmit}
+        loading={loading}
+        isNextDisabled={selectedProducts.length === 0}
+      />
     </div>
   );
 }

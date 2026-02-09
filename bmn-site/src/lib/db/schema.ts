@@ -39,6 +39,9 @@ export const companies = pgTable('companies', {
   pinCode: text('pin_code'),
   website: text('website'),
   iecNumber: text('iec_number'),
+  lastYearExportUsd: text('last_year_export_usd'), // Export value in USD millions  
+  currentExportCountries: jsonb('current_export_countries').$type<string[]>(), // ISO country codes
+  officeLocations: jsonb('office_locations').$type<{ country: string; state: string; city: string }[]>(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
