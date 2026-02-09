@@ -2,7 +2,8 @@ import Link from 'next/link';
 
 export function Footer() {
   // Get last 3 characters of deployment commit SHA for version tracking
-  const deploymentVersion = process.env.VERCEL_GIT_COMMIT_SHA?.slice(-3) || 'dev';
+  // NEXT_PUBLIC_ prefix makes this available at runtime
+  const deploymentVersion = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(-3) || 'dev';
   
   return (
     <footer className="bg-gradient-primary mt-auto">
