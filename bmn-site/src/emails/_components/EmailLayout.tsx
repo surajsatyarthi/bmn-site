@@ -21,7 +21,7 @@ export const EmailLayout = ({ children, preview = 'Notification from BMN' }: Ema
     <Html>
       <Head />
       <Preview>{preview}</Preview>
-      <Body style={{ config: 'bg-white font-sans', backgroundColor: '#ffffff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
+      <Body style={{ backgroundColor: '#ffffff', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' }}>
         <Container style={{ margin: '0 auto', padding: '20px 0 48px', maxWidth: '580px' }}>
           <Header />
             <Section style={{ padding: '0' }}>
