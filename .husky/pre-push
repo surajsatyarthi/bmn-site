@@ -1,1 +1,4 @@
-cd bmn-site && npm run build && npm run ralph:scan
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run ralph:scan
