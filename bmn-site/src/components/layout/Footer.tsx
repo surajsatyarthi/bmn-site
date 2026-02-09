@@ -6,23 +6,28 @@ export function Footer() {
   
   return (
     <footer className="bg-gradient-primary mt-auto">
-      <div className="max-w-6xl mx-auto px-4 py-8 md:flex md:items-center md:justify-between">
-        <div className="flex justify-center space-x-8 md:order-2">
-          <Link href="/terms" className="text-blue-100 hover:text-white text-sm transition-colors">
-            Terms
-          </Link>
-          <Link href="/privacy" className="text-blue-100 hover:text-white text-sm transition-colors">
-            Privacy
-          </Link>
-          <Link href="/contact" className="text-blue-100 hover:text-white text-sm transition-colors">
-            Contact
-          </Link>
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="md:flex md:items-center md:justify-between">
+          <div className="flex justify-center space-x-8 md:order-2">
+            <Link href="/terms" className="text-blue-100 hover:text-white text-sm transition-colors">
+              Terms
+            </Link>
+            <Link href="/privacy" className="text-blue-100 hover:text-white text-sm transition-colors">
+              Privacy
+            </Link>
+            <Link href="/contact" className="text-blue-100 hover:text-white text-sm transition-colors">
+              Contact
+            </Link>
+          </div>
+          <div className="mt-8 md:mt-0 md:order-1">
+            <p className="text-center text-sm text-blue-100">
+              &copy; {new Date().getFullYear()} BMN. All rights reserved.
+            </p>
+          </div>
         </div>
-        <div className="mt-8 md:mt-0 md:order-1 flex items-center justify-between w-full md:w-auto">
-          <p className="text-center text-sm text-blue-100">
-            &copy; {new Date().getFullYear()} BMN. All rights reserved.
-          </p>
-          <span className="text-xs text-blue-200/50 ml-4">
+        {/* Version number - bottom center */}
+        <div className="mt-6 text-center">
+          <span className="text-xs text-blue-200/60">
             v.{deploymentVersion}
           </span>
         </div>

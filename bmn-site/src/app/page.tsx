@@ -285,7 +285,7 @@ export default function HomePage() {
 
 
       {/* Section 2: Trusted By (Moved) */}
-      <section className="py-12 bg-gradient-to-b from-blue-50 to-white border-b border-bmn-border">
+      <section className="py-12 bg-white border-b border-bmn-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm font-medium text-text-secondary mb-8 uppercase tracking-wide">
             Trusted By Leading Enterprises
