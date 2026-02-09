@@ -29,7 +29,7 @@ export function Footer() {
         {/* Version number - bottom center */}
         <div className="mt-6 text-center">
           <span className="text-xs text-blue-200/60">
-            v.{deploymentVersion}
+            v.{DEPLOYMENT_VERSION}
           </span>
         </div>
       </div>
