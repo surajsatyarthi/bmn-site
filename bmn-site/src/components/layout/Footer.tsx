@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 // Version is injected at build time from VERCEL_GIT_COMMIT_SHA
-const DEPLOYMENT_VERSION = process.env.VERCEL_GIT_COMMIT_SHA?.slice(-3) || 'dev';
+const DEPLOYMENT_VERSION = '58f0f89';
 
 export function Footer() {
   
