@@ -66,7 +66,8 @@ export default function TradeRoleStep({ initialValue, onNext, loading }: TradeRo
                 icon={option.icon}
                 variant="outline"
                 size="lg"
-                className={cn("mb-2", isSelected && "!bg-blue-100 !text-bmn-blue")}
+                useGradient={true}
+                className={cn("mb-2", isSelected ? "!bg-blue-50" : "")}
               />
               <div>
                 <h3 className={cn("font-bold text-xl mb-2", isSelected ? "text-bmn-blue" : "text-text-primary")}>

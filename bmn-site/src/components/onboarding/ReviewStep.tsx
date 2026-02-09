@@ -5,10 +5,10 @@ import MobileStickyNav from './MobileStickyNav';
 
 interface ReviewStepProps {
   data: {
-    tradeRole?: string;
-    products?: { hsCode: string; name: string }[];
-    targetCountries?: string[];
-    companyName?: string;
+    tradeRole?: string | null;
+    products?: { hsCode: string; name: string }[] | null;
+    targetCountries?: string[] | null;
+    companyName?: string | null;
   };
   onNext: () => Promise<void>;
   onBack: () => void;

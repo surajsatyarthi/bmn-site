@@ -12,14 +12,16 @@ import ReviewStep from './ReviewStep';
 
 interface OnboardingData {
   id: string;
-  tradeRole?: 'exporter' | 'importer' | 'both';
+  tradeRole?: 'exporter' | 'importer' | 'both' | null;
   onboardingStep: number;
-  targetCountries?: string[];
-  companyName?: string;
-  website?: string;
-  yearEstablished?: string;
-  products?: { hsCode: string; name: string }[];
-  certifications?: string[];
+  targetCountries?: string[] | null;
+  companyName?: string | null;
+  website?: string | null;
+  yearEstablished?: string | null;
+  products?: { hsCode: string; name: string }[] | null;
+  certifications?: string[] | null;
+  certificationDocs?: { certId: string; name: string; url: string; uploadedAt: string }[] | null;
+  avatarUrl?: string | null; // Added
 }
 
 interface OnboardingWizardProps {
@@ -75,7 +77,7 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
       case 1:
         return (
           <TradeRoleStep 
-            initialValue={formData?.tradeRole} 
+            initialValue={formData?.tradeRole ?? undefined} 
             onNext={handleStepComplete} 
             loading={loading}
           />
@@ -83,7 +85,7 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
       case 2:
         return (
           <ProductSelectionStep 
-            initialProducts={formData?.products}
+            initialProducts={formData?.products ?? undefined}
             onNext={handleStepComplete}
             onBack={() => setCurrentStep(1)}
             loading={loading}
@@ -92,7 +94,7 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
       case 3:
         return (
           <TradeInterestsStep 
-            initialCountries={formData?.targetCountries}
+            initialCountries={formData?.targetCountries ?? undefined}
             onNext={handleStepComplete}
             onBack={() => setCurrentStep(2)}
             loading={loading}
@@ -101,10 +103,12 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
       case 4:
         return (
           <BusinessDetailsStep 
+            userId={formData.id} // Added
             initialData={{
-              companyName: formData?.companyName,
-              website: formData?.website,
-              yearEstablished: formData?.yearEstablished
+              companyName: formData?.companyName ?? undefined,
+              website: formData?.website ?? undefined,
+              yearEstablished: formData?.yearEstablished ?? undefined,
+              avatarUrl: formData?.avatarUrl ?? undefined, // Added
             }}
             onNext={handleStepComplete}
             onBack={() => setCurrentStep(3)}
@@ -114,7 +118,9 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
       case 5:
         return (
           <CertificationsStep 
-            initialCerts={formData?.certifications}
+            userId={formData.id}
+            initialCerts={formData?.certifications ?? undefined}
+            initialDocs={formData?.certificationDocs ?? undefined}
             onNext={handleStepComplete}
             onBack={() => setCurrentStep(4)}
             loading={loading}
@@ -124,7 +130,7 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
         return (
           <ReviewStep 
             data={formData}
-            onNext={() => handleStepComplete({})} // No extra data for finish
+            onNext={() => handleStepComplete({})}
             onBack={() => setCurrentStep(5)}
             loading={loading}
           />

@@ -33,12 +33,17 @@ const businessSchema = z.object({
   currentExportCountries: z.array(z.string()).min(1, 'Select at least one country'),
   
   // Additional Office Locations (optional)
+  // Additional Office Locations (optional)
   officeLocations: z.array(officeLocationSchema).max(5).optional(),
+  
+  // Avatar URL (optional, uploaded separately but stored in form data)
+  avatarUrl: z.string().optional(),
 });
 
 type BusinessFormData = z.infer<typeof businessSchema>;
 
 interface BusinessDetailsStepProps {
+  userId: string; // Added userId prop
   initialData?: Partial<BusinessFormData>;
   onNext: (data: BusinessFormData) => Promise<void>;
   onBack: () => void;
@@ -54,7 +59,10 @@ const EMPLOYEE_STRENGTH_OPTIONS = [
   { value: '1000+', label: '1000+ employees (Large Enterprise)' },
 ];
 
+import ProfilePicUpload from '@/components/ui/ProfilePicUpload'; // Import
+
 export default function BusinessDetailsStep({ 
+  userId,
   initialData, 
   onNext, 
   onBack, 
@@ -86,10 +94,19 @@ export default function BusinessDetailsStep({
   };
 
   return (
-    <div className="space-y-8 pb-32 sm:pb-0"> {/* Added pb-32 for mobile nav clearance */}
+    <div className="space-y-8 pb-32 sm:pb-0">
       <div className="text-center">
         <h2 className="text-2xl font-bold font-display text-text-primary">Business Details</h2>
         <p className="mt-2 text-text-secondary">Tell us about your company to help us find the right matches.</p>
+      </div>
+
+      {/* Profile Pic Upload Section */}
+      <div className="flex justify-center">
+        <ProfilePicUpload 
+            userId={userId} 
+            url={initialData?.avatarUrl} 
+            onUpload={(url) => setValue('avatarUrl', url)} 
+        />
       </div>
 
       <form onSubmit={handleSubmit(onNext)} className="space-y-6">
@@ -97,7 +114,7 @@ export default function BusinessDetailsStep({
         <div className="space-y-2">
           <label className="text-sm font-semibold text-text-secondary">Company Name *</label>
           <div className="relative">
-            <Building2 className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Building2 className="absolute left-3 top-3 h-4 w-4 icon-gradient-primary" />
             <input
               {...register('companyName')}
               className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-bmn-border focus:border-bmn-blue focus:ring-1 focus:ring-bmn-blue"
@@ -112,7 +129,7 @@ export default function BusinessDetailsStep({
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text-secondary">Year Established *</label>
             <div className="relative">
-              <Calendar className="absolute left-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
+              <Calendar className="absolute left-3 top-3 h-4 w-4 icon-gradient-primary pointer-events-none" />
               <select
                 {...register('yearEstablished')}
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-bmn-border focus:border-bmn-blue focus:ring-1 focus:ring-bmn-blue appearance-none bg-white"
@@ -129,7 +146,7 @@ export default function BusinessDetailsStep({
           <div className="space-y-2">
             <label className="text-sm font-semibold text-text-secondary">Employee Strength *</label>
             <div className="relative">
-              <Users className="absolute left-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
+              <Users className="absolute left-3 top-3 h-4 w-4 icon-gradient-primary pointer-events-none" />
               <select
                 {...register('employeeStrength')}
                 className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-bmn-border focus:border-bmn-blue focus:ring-1 focus:ring-bmn-blue appearance-none bg-white"
@@ -145,7 +162,7 @@ export default function BusinessDetailsStep({
         </div>
 
         {/* Headquarters Address */}
-        <div className="space-y-4 p-4 rounded-lg bg-gray-50 border border-gray-200">
+        <div className="space-y-4">
           <h3 className="font-semibold text-sm text-text-primary">Headquarters Address *</h3>
           
           <div className="space-y-2">
@@ -206,7 +223,7 @@ export default function BusinessDetailsStep({
         <div className="space-y-2">
           <label className="text-sm font-semibold text-text-secondary">Website URL (Optional)</label>
           <div className="relative">
-            <Globe className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+            <Globe className="absolute left-3 top-3 h-4 w-4 icon-gradient-primary" />
             <input
               {...register('website')}
               className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-bmn-border focus:border-bmn-blue focus:ring-1 focus:ring-bmn-blue"
@@ -220,7 +237,7 @@ export default function BusinessDetailsStep({
         <div className="space-y-2">
           <label className="text-sm font-semibold text-text-secondary">Last Year Export (USD Million) *</label>
           <div className="relative">
-            <DollarSign className="absolute left-3 top-3 h-4 w-4 text-gray-400 pointer-events-none" />
+            <span className="absolute left-3.5 top-2.5 font-bold text-lg text-gradient-primary pointer-events-none">$</span>
             <input
               {...register('lastYearExportUsd')}
               type="number"

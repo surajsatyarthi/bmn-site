@@ -7,6 +7,7 @@ interface FeatureIconProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   gradientId?: string; // Default to "gradient-primary"
+  useGradient?: boolean;
 }
 
 export function FeatureIcon({ 
@@ -14,7 +15,8 @@ export function FeatureIcon({
   variant = 'primary', 
   size = 'md', 
   className,
-  gradientId = 'gradient-primary'
+  gradientId = 'gradient-primary',
+  useGradient = false
 }: FeatureIconProps) {
   
   // Size mappings
@@ -34,7 +36,7 @@ export function FeatureIcon({
   };
 
   // Icon variants (Stroke/Fill)
-  const isGradient = variant === 'primary';
+  const isGradient = variant === 'primary' || useGradient;
   const isSolid = variant === 'solid';
 
   return (

@@ -68,7 +68,7 @@ export async function middleware(request: NextRequest) {
   if (user) {
     const isEmailVerified = !!user.email_confirmed_at;
 
-    // Auth Routes: Redirect to dashboard if already logged in
+    // Auth Routes: Redirect to onboarding if already logged in
     const authRoutes = ['/login', '/signup', '/forgot-password', '/verify-email'];
     const isAuthRoute = authRoutes.some((route) => path === route);
 

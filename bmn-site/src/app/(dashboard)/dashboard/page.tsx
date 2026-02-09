@@ -1,11 +1,12 @@
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
-import { profiles, companies, products, tradeInterests, certifications, matches, campaigns } from '@/lib/db/schema';
+import { profiles, companies, products, tradeInterests, certifications, matches, campaigns, adminNotices } from '@/lib/db/schema';
 import { eq, desc, sql, and, gte } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { User, Users, Megaphone, MapPin, ArrowRight, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { AdminNotice } from '@/components/dashboard/AdminNotice';
 
 const tierStyles = {
   best: 'bg-blue-100 text-bmn-blue',
@@ -109,6 +110,8 @@ export default async function DashboardPage() {
       eq(campaigns.status, 'active')
     ));
 
+
+
   // Get recent campaigns (top 3, active first)
   const recentCampaigns = await db
     .select()
@@ -117,12 +120,23 @@ export default async function DashboardPage() {
     .orderBy(desc(campaigns.createdAt))
     .limit(3);
 
+  // Get active notices
+  const activeNotices = await db.query.adminNotices.findMany({
+    where: and(
+      eq(adminNotices.userId, user.id),
+      eq(adminNotices.dismissed, false)
+    ),
+    orderBy: desc(adminNotices.createdAt),
+  });
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold font-display text-text-primary">Dashboard</h1>
         <p className="mt-1 text-text-secondary">Welcome back, {profile.fullName.split(' ')[0]}.</p>
       </div>
+
+      <AdminNotice notices={activeNotices} />
 
       {/* Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

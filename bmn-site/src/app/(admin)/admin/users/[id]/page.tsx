@@ -5,6 +5,7 @@ import { eq } from 'drizzle-orm';
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link';
 import { ArrowLeft, Building2, ShieldCheck, Mail, Package, TrendingUp, CheckCircle2, Globe, Megaphone } from 'lucide-react';
+import { SendNoticeButton } from '@/components/admin/SendNoticeButton';
 
 
 export const metadata = {
@@ -77,7 +78,8 @@ export default async function AdminUserDetailPage({
             <span>Joined {new Date(profile.createdAt).toLocaleDateString('en-US', { dateStyle: 'long' })}</span>
           </div>
         </div>
-        <div className="ml-auto flex gap-2">
+        <div className="ml-auto flex items-center gap-2">
+           <SendNoticeButton userId={profile.id} />
            {profile.isAdmin && <span className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">ADMIN</span>}
            <span className={`px-3 py-1 text-xs font-bold rounded-full ${profile.onboardingCompleted ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>
               {profile.onboardingCompleted ? 'Onboarding Complete' : `Step ${profile.onboardingStep}`}

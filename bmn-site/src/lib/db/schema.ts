@@ -8,6 +8,14 @@ export const interestTypeEnum = pgEnum('interest_type', ['export_to', 'import_fr
 export const matchStatusEnum = pgEnum('match_status', ['new', 'viewed', 'interested', 'dismissed']);
 export const campaignStatusEnum = pgEnum('campaign_status', ['draft', 'active', 'paused', 'completed']);
 
+
+interface UploadedDoc {
+  certId: string;
+  name: string;
+  url: string;
+  uploadedAt: string;
+}
+
 // Profiles Table (extends auth.users)
 export const profiles = pgTable('profiles', {
   id: uuid('id').primaryKey().notNull(), // References auth.users
@@ -20,6 +28,9 @@ export const profiles = pgTable('profiles', {
   onboardingCompleted: boolean('onboarding_completed').default(false).notNull(),
   isAdmin: boolean('is_admin').default(false).notNull(),
   plan: text('plan').default('free').notNull(),
+  certificationDocs: jsonb('certification_docs').default([]).$type<UploadedDoc[]>(),
+  notificationStatus: jsonb('notification_status').default({}).notNull(), // Tracks email history
+  avatarUrl: text('avatar_url'), // Added for profile picture
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -158,6 +169,7 @@ export const profilesRelations = relations(profiles, ({ one, many }) => ({
   matches: many(matches),
   matchReveals: many(matchReveals),
   campaigns: many(campaigns),
+  adminNotices: many(adminNotices),
 }));
 
 export const companiesRelations = relations(companies, ({ one }) => ({
@@ -210,6 +222,26 @@ export const matchRevealsRelations = relations(matchReveals, ({ one }) => ({
 export const campaignsRelations = relations(campaigns, ({ one }) => ({
   profile: one(profiles, {
     fields: [campaigns.profileId],
+    references: [profiles.id],
+  }),
+}));
+
+// Admin Notices System
+export const noticeTypeEnum = pgEnum('notice_type', ['document_upload_request', 'general', 'urgent']);
+
+export const adminNotices = pgTable('admin_notices', {
+  id: uuid('id').defaultRandom().primaryKey().notNull(),
+  userId: uuid('user_id').references(() => profiles.id, { onDelete: 'cascade' }).notNull(),
+  type: noticeTypeEnum('type').notNull(),
+  title: text('title').notNull(),
+  message: text('message').notNull(),
+  dismissed: boolean('dismissed').default(false).notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const adminNoticesRelations = relations(adminNotices, ({ one }) => ({
+  user: one(profiles, {
+    fields: [adminNotices.userId],
     references: [profiles.id],
   }),
 }));

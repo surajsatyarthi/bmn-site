@@ -57,7 +57,7 @@ export default function TradeInterestsStep({
       <div className="space-y-6">
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-            <Search className="h-4 w-4 text-text-secondary" />
+            <Search className="h-4 w-4 icon-gradient-primary" />
           </div>
           <input
             type="text"

@@ -67,8 +67,8 @@ export default function ProductSelectionStep({
                   className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg border border-bmn-border bg-white gap-3"
                 >
                   <div className="flex items-start gap-3 min-w-0 w-full">
-                    <div className="p-2 bg-blue-50 rounded-lg text-bmn-blue shrink-0 mt-0.5">
-                      <Package className="h-5 w-5" />
+                    <div className="p-2 bg-blue-50 rounded-lg shrink-0 mt-0.5">
+                      <Package className="h-5 w-5 icon-gradient-primary" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="font-bold text-sm text-text-primary">Chapter {product.hsCode}</div>
@@ -92,7 +92,7 @@ export default function ProductSelectionStep({
 
         {selectedProducts.length === 0 && (
           <div className="py-12 border-2 border-dashed border-bmn-border rounded-xl text-center">
-            <Package className="h-12 w-12 text-gray-200 mx-auto mb-4" />
+            <Package className="h-12 w-12 icon-gradient-primary mx-auto mb-4" />
             <p className="text-text-secondary text-sm">No products selected. Search above to add products.</p>
           </div>
         )}
