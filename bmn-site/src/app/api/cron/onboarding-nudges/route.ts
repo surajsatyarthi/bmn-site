@@ -13,7 +13,7 @@ const TWENTY_FOUR_HOURS = 24 * ONE_HOUR;
 const FORTY_EIGHT_HOURS = 48 * ONE_HOUR;
 const SEVENTY_TWO_HOURS = 72 * ONE_HOUR;
 
-export async function GET() {
+export async function GET(request: Request) {
   // Check for Cron Secret (security) - Enabled for Production
   const authHeader = request.headers.get('authorization');
   if (process.env.NODE_ENV === 'production' && authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
