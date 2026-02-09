@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
+// Version is injected at build time from VERCEL_GIT_COMMIT_SHA
+const DEPLOYMENT_VERSION = process.env.VERCEL_GIT_COMMIT_SHA?.slice(-3) || 'dev';
+
 export function Footer() {
-  // Get last 3 characters of deployment commit SHA for version tracking
-  // NEXT_PUBLIC_ prefix makes this available at runtime
-  const deploymentVersion = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(-3) || 'dev';
   
   return (
     <footer className="bg-gradient-primary mt-auto">
