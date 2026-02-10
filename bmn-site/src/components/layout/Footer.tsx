@@ -28,9 +28,14 @@ export function Footer() {
         </div>
         {/* Version number - bottom center */}
         <div className="mt-6 text-center">
-          <span className="text-xs text-blue-200/60">
+          <span className="text-xs text-blue-200/60 hidden">
             v.{DEPLOYMENT_VERSION}
           </span>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `console.log("BMN Deployment: ${DEPLOYMENT_VERSION}"); window.BMN_VERSION = "${DEPLOYMENT_VERSION}";`,
+            }}
+          />
         </div>
       </div>
     </footer>
