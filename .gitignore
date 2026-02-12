@@ -29,3 +29,7 @@ bmn-site/next-env.d.ts# Exclude non-project directories to fix git performance
 wordpress/
 archive/
 invoice-generator/
+
+# Protocol sync (synced from GitHub)
+/.agent
+/.protocol-cache

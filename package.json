@@ -10,7 +10,9 @@
     "lint": "next lint",
     "test": "jest",
     "ralph:scan": "echo 'Scanning...' && exit 0",
-    "prepare": "husky"
+    "prepare": "husky",
+    "sync:protocols": "node scripts/sync-protocols.js",
+    "sync:protocols:init": "node scripts/sync-protocols.js --init"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
