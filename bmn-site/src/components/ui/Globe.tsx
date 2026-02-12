@@ -35,7 +35,7 @@ export function Globe({ className }: { className?: string }) {
       mapSamples: 16000,
       mapBrightness: 6,
       baseColor: [1, 1, 1],
-      markerColor: [0.1, 0.8, 1],
+      markerColor: [37 / 255, 99 / 255, 235 / 255], // BMN Blue
       glowColor: [1, 1, 1],
       markers: [
         { location: [37.7595, -122.4367], size: 0.03 }, // San Francisco
