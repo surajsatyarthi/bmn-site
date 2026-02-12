@@ -4,6 +4,7 @@ import { Header } from '@/components/layout/Header';
 import { FAQAccordion } from '@/components/landing/FAQAccordion';
 import { RotatingText } from '@/components/landing/RotatingText';
 import { StakeholderNetwork } from '@/components/landing/StakeholderNetwork';
+import { NewsSection } from '@/components/landing/NewsSection';
 import {
   Package,
   Search,
@@ -318,7 +319,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 4: Global Reach */}
+      {/* Section 4: News & Globe (Moved) */}
+      <NewsSection />
+
+      {/* Section 5: Global Reach */}
       <section className="py-24 bg-gradient-to-b from-blue-50 to-white border-b border-bmn-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -626,6 +630,8 @@ export default function HomePage() {
           <FAQAccordion items={FAQ_ITEMS} />
         </div>
       </section>
+
+
 
       {/* Footer */}
       <footer className="relative bg-gradient-primary text-white pt-20 pb-8 overflow-hidden">
