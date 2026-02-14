@@ -12,7 +12,22 @@
     "ralph:scan": "echo 'Scanning...' && exit 0",
     "prepare": "husky",
     "sync:protocols": "node scripts/sync-protocols.js",
-    "sync:protocols:init": "node scripts/sync-protocols.js --init"
+    "sync:protocols:init": "node scripts/sync-protocols.js --init",
+    "postinstall": "npm run sync:protocols --silent || true",
+    "pre-assign": "node scripts/gates/gate-0-pre-assign.js",
+    "approve": "node scripts/gates/pm-gate-6-approve.js",
+    "analyze:tests": "node scripts/gates/gate-6-test-quality.js",
+    "verify:gate-12": "node scripts/gates/gate-12-validate.js",
+    "test:coverage": "vitest run --coverage",
+    "verify:gate-2": "node scripts/gates/gate-2-research.js",
+    "verify:scope": "node scripts/gates/gate-3-scope.js",
+    "lint:strict": "node scripts/gates/gate-5-lint-strict.js",
+    "security:gate": "node scripts/gates/gate-7-security.js",
+    "a11y:gate": "node scripts/gates/gate-9-accessibility.js",
+    "perf:gate": "node scripts/gates/gate-10-performance.js",
+    "verify:user-research": "node scripts/gates/pm-gate-1-user-research.js",
+    "verify:prd": "node scripts/gates/pm-gate-2-prd.js",
+    "verify:feasibility": "node scripts/gates/pm-gate-3-feasibility.js"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
