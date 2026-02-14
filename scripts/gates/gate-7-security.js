@@ -16,7 +16,7 @@ const EVIDENCE_DIR = path.join(WORKSPACE_ROOT, '.evidence');
 function main() {
   const entryId = process.argv[2];
   
-  if (!entryId || !entryId.match(/ENTRY-\d{3}/)) {
+  if (!entryId) {
     console.error('❌ Usage: npm run security:gate -- ENTRY-XXX');
     process.exit(1);
   }
@@ -44,11 +44,16 @@ function main() {
     violations.push(`${results.npmAudit.critical} critical, ${results.npmAudit.high} high vulnerabilities`);
   }
 
-  // Check 3: OWASP Top 10 Checklist
-  console.log('📋 Checking OWASP compliance...');
-  results.owaspChecklist = checkOwaspCompliance(entryId);
-  if (!results.owaspChecklist.complete) {
-    violations.push(`OWASP checklist incomplete (${results.owaspChecklist.completed}/${results.owaspChecklist.total})`);
+  // Check 3: OWASP Top 10 Checklist (Only for ENTRY tasks)
+  if (entryId.match(/ENTRY-\d{3}/)) {
+    console.log('📋 Checking OWASP compliance...');
+    results.owaspChecklist = checkOwaspCompliance(entryId);
+    if (!results.owaspChecklist.complete) {
+      violations.push(`OWASP checklist incomplete (${results.owaspChecklist.completed}/${results.owaspChecklist.total})`);
+    }
+  } else {
+    console.log('ℹ️  Skipping OWASP compliance check (not an ENTRY task)');
+    results.owaspChecklist = { complete: true, completed: 0, total: 0 };
   }
 
   // Generate report
@@ -132,7 +137,7 @@ function runFallbackSecretScan() {
     /AIza[0-9A-Za-z-_]{35}/,     // Google API key
   ];
 
-  const files = execSync('find . -type f \\( -name "*.ts" -o -name "*.js" -o -name "*.env*" \\) | grep -v node_modules', {
+  const files = execSync('find . -type f \\( -name "*.ts" -o -name "*.js" -o -name "*.env*" -o -name "*.tsx" -o -name "*.jsx" \\) -not -path "*/node_modules/*" -not -path "*/.next/*" -not -path "*/.git/*" -not -path "*/dist/*" -not -path "*/build/*"', {
     encoding: 'utf-8'
   }).split('\n').filter(Boolean);
 

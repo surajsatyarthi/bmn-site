@@ -17,7 +17,7 @@ function main() {
   const entryId = process.argv[2];
   const url = process.argv[3] || 'http://localhost:3000';
   
-  if (!entryId || !entryId.match(/ENTRY-\d{3}/)) {
+  if (!entryId) {
     console.error('❌ Usage: npm run a11y:gate -- ENTRY-XXX [url]');
     process.exit(1);
   }

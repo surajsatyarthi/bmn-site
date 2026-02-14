@@ -16,7 +16,7 @@ const EVIDENCE_DIR = path.join(WORKSPACE_ROOT, '.evidence');
 function main() {
   const entryId = process.argv[2];
   
-  if (!entryId || !entryId.match(/ENTRY-\d{3}/)) {
+  if (!entryId) {
     console.error('❌ Usage: npm run analyze:tests -- ENTRY-XXX');
     process.exit(1);
   }

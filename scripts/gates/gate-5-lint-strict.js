@@ -17,7 +17,7 @@ const BASELINE_PATH = path.join(EVIDENCE_DIR, 'lint-baseline.json');
 function main() {
   const entryId = process.argv[2];
   
-  if (!entryId || !entryId.match(/ENTRY-\d{3}/)) {
+  if (!entryId) {
     console.error('❌ Usage: npm run lint:strict -- ENTRY-XXX');
     process.exit(1);
   }
