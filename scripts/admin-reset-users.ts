@@ -41,7 +41,7 @@ async function main() {
 
     try {
       // 2. Reset Password & Verify Email
-      const { error: updateError } = await supabase.auth.admin.updateUserById(
+      const { error: resetError } = await supabase.auth.admin.updateUserById(
         user.id,
         { 
           password: TARGET_PASSWORD,
@@ -49,8 +49,8 @@ async function main() {
         }
       );
 
-      if (updateError) {
-        console.error(`  ❌ Update Failed: ${updateError.message}`);
+      if (resetError) {
+        console.error(`  ❌ Reset Failed: ${resetError.message}`);
       } else {
         console.log(`  ✅ Password set & Email verified`);
       }
