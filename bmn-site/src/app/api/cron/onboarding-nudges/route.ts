@@ -48,7 +48,7 @@ export async function GET(request: Request) {
       for (const profile of profiles) {
         const createdAt = new Date(profile.created_at).getTime();
         const diff = now - createdAt;
-        const status = (profile.notification_status as any) || {};
+        const status = (profile.notification_status as Record<string, unknown>) || {};
 
         // L1: 24h Mark (between 24h and 48h)
         if (diff > TWENTY_FOUR_HOURS && diff < FORTY_EIGHT_HOURS && !status.l1_sent) {
@@ -133,7 +133,7 @@ export async function GET(request: Request) {
          if (user && !user.email_confirmed_at) {
              const createdAt = new Date(user.created_at).getTime();
              const diff = now - createdAt;
-             const status = (profile.notification_status as any) || {};
+             const status = (profile.notification_status as Record<string, unknown>) || {};
 
              // Check timing: sent at 6h, 24h, 48h
              // Allow a window of execution (e.g. within last hour trigger? Cron runs hourly or daily?)
@@ -146,11 +146,10 @@ export async function GET(request: Request) {
              // We will assume "At least 6h old and hasn't received 6h reminder".
              
              let reminderToSend = null;
-             let reminderType = '';
 
              // Logic: precise tracking of "l3_count" or "last_l3_sent"
-             const l3Count = status.l3_sent_count || 0;
-             const lastL3 = status.l3_last_sent_at ? new Date(status.l3_last_sent_at).getTime() : 0;
+             const l3Count = (status.l3_sent_count as number) || 0;
+             const lastL3 = status.l3_last_sent_at ? new Date(status.l3_last_sent_at as string).getTime() : 0;
              const timeSinceLast = now - lastL3;
 
              // 1st Reminder (> 6h)
@@ -200,8 +199,8 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json({ success: true, results });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Cron job error:', error);
-    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: error instanceof Error ? error.message : String(error) }, { status: 500 });
   }
 }

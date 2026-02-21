@@ -51,7 +51,7 @@ export const WelcomeEmail = ({ firstName = 'Trader' }: WelcomeEmailProps) => {
       </Section>
 
       <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#111827', margin: '24px 0 8px' }}>
-        How we're different:
+        How we&apos;re different:
       </Text>
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '0 0 16px' }}>
         Unlike traditional directories where you wait for leads, our AI actively discovers and qualifies trade opportunities based on real customs data and shipping records.

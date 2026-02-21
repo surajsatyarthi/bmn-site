@@ -8,6 +8,7 @@ import ProductSelectionStep from './ProductSelectionStep';
 import TradeInterestsStep from './TradeInterestsStep';
 import BusinessDetailsStep from './BusinessDetailsStep';
 import CertificationsStep from './CertificationsStep';
+import TradeTermsStep from './TradeTermsStep';
 import ReviewStep from './ReviewStep';
 
 interface OnboardingData {
@@ -21,7 +22,18 @@ interface OnboardingData {
   products?: { hsCode: string; name: string }[] | null;
   certifications?: string[] | null;
   certificationDocs?: { certId: string; name: string; url: string; uploadedAt: string }[] | null;
-  avatarUrl?: string | null; // Added
+  avatarUrl?: string | null;
+  
+  // New Block 1.14 Fields
+  businessType?: 'manufacturer' | 'trader' | 'both' | 'agent' | '' | null;
+  employeeCount?: string | null;
+  description?: string | null;
+  moqValue?: number | null;
+  moqUnit?: string | null;
+  leadTime?: string | null;
+  productionCapacity?: string | null;
+  paymentTerms?: string[] | null;
+  incoterms?: string[] | null;
 }
 
 interface OnboardingWizardProps {
@@ -56,7 +68,7 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
 
       const nextStep = currentStep + 1;
       
-      if (currentStep === 6) { // Final step check
+      if (currentStep === 7) { // Final step check (now 7)
         router.push('/dashboard');
         router.refresh(); 
         return;
@@ -103,12 +115,15 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
       case 4:
         return (
           <BusinessDetailsStep 
-            userId={formData.id} // Added
+            userId={formData.id}
             initialData={{
               companyName: formData?.companyName ?? undefined,
               website: formData?.website ?? undefined,
               yearEstablished: formData?.yearEstablished ?? undefined,
-              avatarUrl: formData?.avatarUrl ?? undefined, // Added
+              avatarUrl: formData?.avatarUrl ?? undefined,
+              businessType: formData?.businessType ?? undefined,
+              employeeCount: formData?.employeeCount ?? undefined,
+              description: formData?.description ?? undefined,
             }}
             onNext={handleStepComplete}
             onBack={() => setCurrentStep(3)}
@@ -128,10 +143,26 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
         );
       case 6:
         return (
+          <TradeTermsStep
+            initialData={{
+              moqValue: formData?.moqValue ?? undefined,
+              moqUnit: formData?.moqUnit ?? undefined,
+              leadTime: formData?.leadTime ?? undefined,
+              productionCapacity: formData?.productionCapacity ?? undefined,
+              paymentTerms: formData?.paymentTerms ?? [],
+              incoterms: formData?.incoterms ?? [],
+            }}
+            onNext={handleStepComplete}
+            onBack={() => setCurrentStep(5)}
+            loading={loading}
+          />
+        );
+      case 7:
+        return (
           <ReviewStep 
             data={formData}
             onNext={() => handleStepComplete({})}
-            onBack={() => setCurrentStep(5)}
+            onBack={() => setCurrentStep(6)}
             loading={loading}
           />
         );
@@ -142,17 +173,10 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
 
   return (
     <div className="space-y-8">
-      <StepProgress currentStep={currentStep} totalSteps={6} />
+      <StepProgress currentStep={currentStep} totalSteps={7} />
       
       <div className="bg-white rounded-xl border border-bmn-border p-8 shadow-sm">
         {renderStep()}
-
-        {/* Temporary Navigation for Dev - Remove in final */}
-        {/* <div className="mt-8 pt-8 border-t border-bmn-border flex justify-between text-xs text-gray-400">
-           Dev Controls: 
-           <button onClick={() => setCurrentStep(Math.max(1, currentStep - 1))}>Prev</button>
-           <button onClick={() => setCurrentStep(Math.min(6, currentStep + 1))}>Next</button>
-        </div> */}
       </div>
     </div>
   );

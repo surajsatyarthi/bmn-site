@@ -15,7 +15,7 @@ export const OnboardingIncompleteEmail = ({ firstName = 'Trader', progressPercen
         Hi {firstName},
       </Text>
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '16px 0' }}>
-        You're {progressPercentage}% of the way to unlocking AI-powered trade matching!
+        You&apos;re {progressPercentage}% of the way to unlocking AI-powered trade matching!
       </Text>
       
       <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#111827', margin: '24px 0 16px' }}>
@@ -63,7 +63,7 @@ export const OnboardingIncompleteEmail = ({ firstName = 'Trader', progressPercen
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151' }}>
-        Need help? We're here: <a href="mailto:support@businessmarket.network" style={{ color: '#2563eb' }}>support@businessmarket.network</a>
+        Need help? We&apos;re here: <a href="mailto:support@businessmarket.network" style={{ color: '#2563eb' }}>support@businessmarket.network</a>
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '24px 0 0' }}>

@@ -3,7 +3,8 @@ import { db } from '@/lib/db';
 import { profiles } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
-import { Ship, Globe, RefreshCw, ExternalLink, Package, MapPin, Building2, Award } from 'lucide-react';
+import Link from 'next/link';
+import { Ship, Globe, RefreshCw, ExternalLink, Package, MapPin, Building2, Award, Briefcase } from 'lucide-react';
 
 import { Metadata } from 'next';
 
@@ -27,6 +28,7 @@ export default async function ProfilePage() {
       products: true,
       tradeInterests: true,
       certifications: true,
+      tradeTerms: true,
     }
   });
 
@@ -55,12 +57,12 @@ export default async function ProfilePage() {
           <p className="mt-1 text-text-secondary">Here&apos;s a summary of your onboarding information.</p>
         </div>
         <div>
-          <button 
-            disabled 
-            className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-text-secondary rounded-lg cursor-not-allowed opacity-50 border border-bmn-border"
+          <Link 
+            href="/profile/edit"
+            className="flex items-center gap-2 px-4 py-2 bg-[#0047FF] hover:bg-blue-700 text-white rounded-lg border border-transparent font-medium shadow-sm transition-colors"
           >
             Edit Profile
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -92,6 +94,24 @@ export default async function ProfilePage() {
                 <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Company Name</p>
                 <p className="text-text-primary font-medium">{profile.company.name}</p>
               </div>
+              {profile.company.businessType && (
+                <div>
+                  <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Business Type</p>
+                  <p className="text-text-primary capitalize">{profile.company.businessType}</p>
+                </div>
+              )}
+              {profile.company.employeeCount && (
+                <div>
+                  <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Company Size</p>
+                  <p className="text-text-primary">{profile.company.employeeCount} Employees</p>
+                </div>
+              )}
+              {profile.company.description && (
+                <div className="col-span-full">
+                  <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Description</p>
+                  <p className="text-text-primary text-sm mt-1">{profile.company.description}</p>
+                </div>
+              )}
               {profile.company.website && (
                 <div>
                   <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Website</p>
@@ -115,6 +135,42 @@ export default async function ProfilePage() {
             </div>
           ) : (
             <p className="text-text-secondary">No company details.</p>
+          )}
+        </div>
+
+        {/* Trade Terms Card */}
+        <div className="bg-white rounded-xl border border-bmn-border p-6 shadow-sm">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-blue-50 rounded-lg">
+              <Briefcase className="h-5 w-5 icon-gradient-primary" />
+            </div>
+            <h2 className="text-xl font-bold font-display text-text-primary">Trade Terms</h2>
+          </div>
+          {profile.tradeTerms ? (
+            <div className="space-y-3">
+              {(profile.tradeTerms.moqValue || profile.tradeTerms.moqUnit) && (
+                <div>
+                  <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Minimum Order</p>
+                  <p className="text-text-primary font-medium">
+                    {profile.tradeTerms.moqValue} {profile.tradeTerms.moqUnit}
+                  </p>
+                </div>
+              )}
+              {profile.tradeTerms.leadTime && (
+                <div>
+                  <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Target Lead Time</p>
+                  <p className="text-text-primary">{profile.tradeTerms.leadTime}</p>
+                </div>
+              )}
+              {profile.tradeTerms.productionCapacity && (
+                <div>
+                  <p className="text-xs font-medium text-text-secondary uppercase tracking-wider">Production Capacity</p>
+                  <p className="text-text-primary">{profile.tradeTerms.productionCapacity}</p>
+                </div>
+              )}
+            </div>
+          ) : (
+            <p className="text-text-secondary">No trade terms specified.</p>
           )}
         </div>
 

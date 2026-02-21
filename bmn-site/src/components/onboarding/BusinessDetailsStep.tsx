@@ -3,7 +3,7 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ArrowRight, ArrowLeft, Building2, Globe, Calendar, Users, DollarSign, Plus, X } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Building2, Globe, Calendar, Users, Plus, X } from 'lucide-react';
 import { COUNTRIES } from '@/lib/constants/countries';
 import { useState } from 'react';
 import MobileStickyNav from './MobileStickyNav';
@@ -19,6 +19,11 @@ const businessSchema = z.object({
   yearEstablished: z.string().min(4, 'Year is required'),
   employeeStrength: z.string().min(1, 'Employee strength is required'),
   
+  // New Block 1.14 Fields
+  businessType: z.enum(['manufacturer', 'trader', 'both', 'agent']).optional().or(z.literal('')),
+  employeeCount: z.string().optional().or(z.literal('')),
+  description: z.string().optional().or(z.literal('')),
+  
   // Headquarters Address
   street: z.string().min(3, 'Street address is required'),
   city: z.string().min(2, 'City is required'),
@@ -32,7 +37,6 @@ const businessSchema = z.object({
   lastYearExportUsd: z.string().min(1, 'Last year export is required'),
   currentExportCountries: z.array(z.string()).min(1, 'Select at least one country'),
   
-  // Additional Office Locations (optional)
   // Additional Office Locations (optional)
   officeLocations: z.array(officeLocationSchema).max(5).optional(),
   
@@ -70,7 +74,7 @@ export default function BusinessDetailsStep({
 }: BusinessDetailsStepProps) {
   const [selectedExportCountries, setSelectedExportCountries] = useState<string[]>(initialData?.currentExportCountries || []);
   
-  const { register, handleSubmit, control, formState: { errors }, setValue, watch } = useForm<BusinessFormData>({
+  const { register, handleSubmit, control, formState: { errors }, setValue } = useForm<BusinessFormData>({
     resolver: zodResolver(businessSchema),
     defaultValues: {
       ...initialData,
