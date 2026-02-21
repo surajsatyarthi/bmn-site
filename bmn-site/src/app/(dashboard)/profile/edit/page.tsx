@@ -1,6 +1,5 @@
 'use client';
 
-import type { Metadata } from 'next';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,12 +10,6 @@ import DashboardNav from '@/components/dashboard/DashboardNav';
 import { Save, ArrowLeft, Loader2 } from 'lucide-react';
 import { COUNTRIES } from '@/lib/constants/countries';
 
-export const metadata: Metadata = {
-  title: 'Edit Profile | Business Market Network',
-  description: 'Update your company information, trade terms, and business details on BMN.',
-};
-
-// Form validation schema
 const profileFormSchema = z.object({
   fullName: z.string().min(2, 'Name must be at least 2 characters'),
   phone: z.string().optional(),
