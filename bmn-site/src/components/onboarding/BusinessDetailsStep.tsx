@@ -3,7 +3,7 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ArrowRight, ArrowLeft, Building2, Globe, Calendar, Users, DollarSign, Plus, X } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Building2, Globe, Calendar, Users, Plus, X } from 'lucide-react';
 import { COUNTRIES } from '@/lib/constants/countries';
 import { useState } from 'react';
 import MobileStickyNav from './MobileStickyNav';
@@ -74,7 +74,7 @@ export default function BusinessDetailsStep({
 }: BusinessDetailsStepProps) {
   const [selectedExportCountries, setSelectedExportCountries] = useState<string[]>(initialData?.currentExportCountries || []);
   
-  const { register, handleSubmit, control, formState: { errors }, setValue, watch } = useForm<BusinessFormData>({
+  const { register, handleSubmit, control, formState: { errors }, setValue } = useForm<BusinessFormData>({
     resolver: zodResolver(businessSchema),
     defaultValues: {
       ...initialData,

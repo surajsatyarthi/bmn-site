@@ -42,7 +42,7 @@ export const PasswordResetEmail = ({ firstName = 'Trader', resetUrl = '{{ .Confi
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '0 0 24px' }}>
-        If you didn't request this reset, please ignore this email. Your password will remain unchanged.
+        If you didn&apos;t request this reset, please ignore this email. Your password will remain unchanged.
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151' }}>

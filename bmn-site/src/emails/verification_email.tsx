@@ -15,7 +15,7 @@ export const VerificationEmail = ({ firstName = 'Trader', verificationUrl = '{{ 
         Hi {firstName},
       </Text>
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '16px 0' }}>
-        Welcome to Business Market Network! We're excited to help you connect with verified trade partners worldwide.
+        Welcome to Business Market Network! We&apos;re excited to help you connect with verified trade partners worldwide.
       </Text>
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '0 0 24px' }}>
         To complete your registration and access your account, please verify your email address:

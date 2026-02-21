@@ -15,7 +15,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
         Hi {firstName},
       </Text>
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '16px 0 24px' }}>
-        You're almost there! We're still waiting for you to verify your email address.
+        You&apos;re almost there! We&apos;re still waiting for you to verify your email address.
       </Text>
 
       <Section style={{ textAlign: 'center', margin: '32px 0' }}>
@@ -61,7 +61,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
       </ul>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151' }}>
-        We're here to help: <a href="mailto:support@businessmarket.network" style={{ color: '#2563eb' }}>support@businessmarket.network</a>
+        We&apos;re here to help: <a href="mailto:support@businessmarket.network" style={{ color: '#2563eb' }}>support@businessmarket.network</a>
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '24px 0 0' }}>

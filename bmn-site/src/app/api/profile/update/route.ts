@@ -109,7 +109,7 @@ export async function PATCH(request: Request) {
     }
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Profile update error:', error);
     
     if (error && typeof error === 'object' && 'issues' in error) {
