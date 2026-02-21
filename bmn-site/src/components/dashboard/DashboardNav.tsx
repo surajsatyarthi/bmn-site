@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Search, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, Search, BarChart3, Database } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function DashboardNav() {
@@ -26,6 +26,12 @@ export default function DashboardNav() {
       href: '/campaigns',
       icon: BarChart3,
       active: pathname === '/campaigns' || pathname.startsWith('/campaigns/')
+    },
+    {
+      name: 'Database',
+      href: '/database',
+      icon: Database,
+      active: pathname === '/database' || pathname.startsWith('/database/')
     }
   ];
 
