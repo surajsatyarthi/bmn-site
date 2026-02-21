@@ -97,22 +97,32 @@ const PROFILE_BENEFITS = [
   {
     icon: Package,
     title: 'Free Forever Tier',
-    description: 'Create your profile for free. Get 3 match reveals per month. Upgrade anytime for unlimited access.',
+    description: 'Create your profile for free. Get 3 match reveals per month. Upgrade for more credits.',
   },
 ];
 
 const FREE_FEATURES = [
   'Unlimited match browsing',
-  '3 business detail reveals per month',
+  '3 Free Credits / month',
+  'Basic Search Access',
   'Basic campaign tracking',
   'Email support',
 ];
 
 const PRO_FEATURES = [
-  'Unlimited match reveals',
-  'Priority outreach campaigns',
-  'Dedicated account manager',
-  'Advanced analytics',
+  'Unlimited Shipment Data',
+  '500 Credits / month',
+  'Rollover Guarantee included',
+  'Self-Serve Email Tool (You Send)',
+];
+
+
+
+const PARTNER_FEATURES = [
+  'Dedicated Account Manager',
+  'We Set Up Cold Email Infrastructure',
+  'Done-For-You Outreach',
+  'Meeting Guarantee',
 ];
 
 const TESTIMONIALS = [
@@ -202,7 +212,17 @@ const FAQ_ITEMS = [
   {
     question: "Is BMN free to use?",
     answer:
-      "Yes. You can sign up for free and browse all your matches. Business detail reveals are limited to 3 per month on the free plan.",
+      "Yes. You can sign up for free and browse matches. You get 3 Free Credits per month to reveal contact details.",
+  },
+  {
+    question: "What are Credits?",
+    answer:
+      "Credits are used to reveal verified contact details. 1 Credit = 1 Verified Contact (Email/Phone). Free users get 3/mo.",
+  },
+  {
+    question: "How does the guarantee work?",
+    answer:
+      "Our Performance Assurance includes a 'Service Rollover'. If we don't hit the agreed meeting target, we work for FREE the next month until we do.",
   },
   {
     question: "What is a \"reveal\"?",
@@ -213,6 +233,11 @@ const FAQ_ITEMS = [
     question: "How are matches scored?",
     answer:
       "We rank matches as \"Best\", \"Great\", or \"Good\" based on product alignment, trade history, volume compatibility, and geographic fit.",
+  },
+  {
+    question: "Who sends the emails?",
+    answer:
+      "On the **Hunter** plan, YOU send emails using our self-serve tool. On the **Partner** plan, WE send the emails for you (Done-For-You service).",
   },
   {
     question: "What happens after I express interest?",
@@ -281,6 +306,7 @@ export default function HomePage() {
               See How It Works <ArrowRight className="w-5 h-5" />
             </a>
           </div>
+          <p className="mt-4 text-sm text-text-secondary font-medium">Includes 3 Free Reveals/mo • No Credit Card Required</p>
         </div>
       </section>
 
@@ -520,46 +546,75 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
             {/* Free Plan */}
-            <div className="bg-white rounded-xl border border-bmn-border p-8 shadow-sm">
-              <h3 className="text-2xl font-bold text-text-primary mb-2">Free</h3>
-              <p className="text-4xl font-bold text-text-primary mb-6">
-                $0<span className="text-lg font-normal text-text-secondary">/month</span>
+            <div className="bg-white rounded-xl border border-bmn-border p-6 shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
+              <h3 className="text-xl font-bold text-text-primary mb-2">Free</h3>
+              <p className="text-3xl font-bold text-text-primary mb-4">
+                $0<span className="text-base font-normal text-text-secondary">/month</span>
               </p>
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-3 mb-8 flex-grow">
                 {FREE_FEATURES.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                  <li key={feature} className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
                     <span className="text-text-secondary">{feature}</span>
                   </li>
                 ))}
               </ul>
               <Link
                 href="/signup"
-                className="block w-full text-center py-3 px-6 rounded-lg font-semibold border border-bmn-border text-text-primary hover:bg-gray-50 transition-colors"
+                className="block w-full text-center py-2.5 px-4 rounded-lg font-semibold border border-bmn-border text-text-primary hover:bg-gray-50 transition-colors text-sm"
+              >
+                Sign Up Free
+              </Link>
+            </div>
+
+            {/* Hunter Plan */}
+            <div className="bg-white rounded-xl border-2 border-bmn-blue p-6 shadow-xl relative transform lg:scale-110 z-10 h-full flex flex-col">
+              <div className="absolute top-0 right-0 bg-bmn-blue text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg">
+                POPULAR
+              </div>
+              <h3 className="text-xl font-bold text-text-primary mb-2">Hunter</h3>
+              <p className="text-3xl font-bold text-text-primary mb-4">
+                $199<span className="text-base font-normal text-text-secondary">/month</span>
+              </p>
+              <p className="text-xs text-text-secondary mb-4 font-medium uppercase tracking-wide">For Sales Teams</p>
+              <ul className="space-y-3 mb-8 flex-grow">
+                {PRO_FEATURES.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-bmn-blue flex-shrink-0 mt-0.5" />
+                    <span className="text-text-primary font-medium">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/signup?plan=hunter"
+                className="block w-full text-center py-2.5 px-4 rounded-lg font-semibold bg-gradient-primary text-white hover:shadow-lg transition-all text-sm"
               >
                 Get Started
               </Link>
             </div>
 
-            {/* Pro Plan */}
-            <div className="bg-white rounded-xl border-2 border-bmn-blue p-8 shadow-sm relative">
-              <h3 className="text-2xl font-bold text-text-primary mb-2">Pro</h3>
-              <p className="text-4xl font-bold text-text-primary mb-6">Coming Soon</p>
-              <ul className="space-y-3 mb-8">
-                {PRO_FEATURES.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                    <span className="text-text-secondary">{feature}</span>
+            {/* Partner Plan */}
+            <div className="bg-bmn-navy rounded-xl border border-bmn-border p-6 shadow-sm hover:shadow-md transition-shadow text-white h-full flex flex-col">
+              <h3 className="text-xl font-bold text-white mb-2">Partner</h3>
+              <p className="text-3xl font-bold text-white mb-4">
+                $1,500<span className="text-base font-normal text-blue-200">/mo</span>
+              </p>
+              <p className="text-xs text-blue-200 mb-4 font-medium uppercase tracking-wide">Done-For-You</p>
+              <ul className="space-y-3 mb-8 flex-grow">
+                {PARTNER_FEATURES.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2 text-sm">
+                    <Check className="w-4 h-4 text-green-400 flex-shrink-0 mt-0.5" />
+                    <span className="text-blue-50">{feature}</span>
                   </li>
                 ))}
               </ul>
               <Link
                 href="/contact"
-                className="block w-full text-center py-3 px-6 rounded-lg font-semibold bg-gradient-primary text-white hover:shadow-lg transition-all"
+                className="block w-full text-center py-2.5 px-4 rounded-lg font-semibold bg-white text-bmn-navy hover:bg-blue-50 transition-colors text-sm"
               >
-                Contact Us
+                Contact Sales
               </Link>
             </div>
           </div>
