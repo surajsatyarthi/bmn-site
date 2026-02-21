@@ -230,10 +230,20 @@ export default async function DashboardPage() {
               </Link>
             ))
           ) : (
-            <div className="p-8 text-center">
-              <p className="text-text-secondary">
-                No matches yet. Complete your profile to get personalized buyer matches.
+            <div className="p-12 text-center flex flex-col items-center justify-center border-2 border-dashed border-bmn-border rounded-lg m-6 bg-gray-50/50">
+              <div className="p-3 bg-white rounded-full shadow-sm mb-4 border border-gray-100">
+                <Users className="h-6 w-6 text-text-secondary opacity-50" />
+              </div>
+              <h3 className="text-sm font-semibold text-text-primary mb-1">No matches generated yet</h3>
+              <p className="text-sm text-text-secondary mb-4 max-w-sm">
+                Complete your trade profile and add HS codes to start receiving AI-powered buyer matches.
               </p>
+              <Link 
+                href="/profile/edit"
+                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-bmn-blue hover:bg-blue-600 rounded-lg transition-colors shadow-sm"
+              >
+                Complete Profile
+              </Link>
             </div>
           )}
         </div>
@@ -284,10 +294,20 @@ export default async function DashboardPage() {
               </Link>
             ))
           ) : (
-            <div className="p-8 text-center">
-              <p className="text-text-secondary">
-                No campaigns yet. Mark matches as &apos;Interested&apos; to begin outreach.
+            <div className="p-12 text-center flex flex-col items-center justify-center border-2 border-dashed border-bmn-border rounded-lg m-6 bg-gray-50/50">
+              <div className="p-3 bg-white rounded-full shadow-sm mb-4 border border-gray-100">
+                <Megaphone className="h-6 w-6 text-text-secondary opacity-50" />
+              </div>
+              <h3 className="text-sm font-semibold text-text-primary mb-1">No active campaigns</h3>
+              <p className="text-sm text-text-secondary mb-4 max-w-sm">
+                Mark your matches as &apos;Interested&apos; to automatically begin personalized outreach campaigns.
               </p>
+              <Link 
+                href="/matches"
+                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-text-primary bg-white hover:bg-gray-50 border border-gray-200 rounded-lg transition-colors shadow-sm"
+              >
+                View Matches
+              </Link>
             </div>
           )}
         </div>
