@@ -2,22 +2,25 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { NextResponse } from 'next/server';
 
 // --- Mocks ---
+const { mockGetUser, mockUpdate, mockInsert, mockFindFirst } = vi.hoisted(() => ({
+  mockGetUser: vi.fn(),
+  mockUpdate: vi.fn(() => ({ set: vi.fn(() => ({ where: vi.fn() })) })),
+  mockInsert: vi.fn(() => ({ values: vi.fn() })),
+  mockFindFirst: vi.fn(),
+}));
+
 vi.mock('next/server', () => ({
   NextResponse: {
     json: vi.fn((body, init) => ({ body, init })),
   },
 }));
 
-const mockGetUser = vi.fn();
 vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(() =>
     Promise.resolve({ auth: { getUser: mockGetUser } })
   ),
 }));
 
-const mockUpdate = vi.fn(() => ({ set: vi.fn(() => ({ where: vi.fn() })) }));
-const mockInsert = vi.fn(() => ({ values: vi.fn() }));
-const mockFindFirst = vi.fn();
 vi.mock('@/lib/db', () => ({
   db: {
     update: mockUpdate,
