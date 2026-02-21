@@ -96,6 +96,7 @@ export async function PUT(request: NextRequest) {
         entityType: 'other',
         city: 'Not Provided',
         state: 'Not Provided',
+        country: (data.country as string) || 'India', // Pass front-end data or fallback
         businessType: ['manufacturer', 'trader', 'both', 'agent'].includes(data.businessType as string) 
           ? (data.businessType as 'manufacturer' | 'trader' | 'both' | 'agent') 
           : 'both',
