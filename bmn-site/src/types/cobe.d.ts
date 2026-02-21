@@ -16,7 +16,7 @@ declare module 'cobe' {
       glowColor: [number, number, number];
       opacity?: number;
       markers: { location: [number, number]; size: number }[];
-      onRender: (state: Record<string, any>) => void;
+      onRender: (state: Record<string, unknown>) => void;
     }
   ): { destroy: () => void };
 }

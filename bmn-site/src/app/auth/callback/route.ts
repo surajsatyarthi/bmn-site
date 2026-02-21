@@ -37,7 +37,7 @@ export async function GET(request: Request) {
           .eq('id', userId)
           .single();
 
-        const notifStatus = (profile?.notification_status as any) || {};
+        const notifStatus = (profile?.notification_status as Record<string, unknown>) || {};
 
         if (!notifStatus.welcome_sent) {
           // Send Welcome Email

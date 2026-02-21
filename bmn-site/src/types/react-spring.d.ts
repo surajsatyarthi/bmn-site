@@ -1,3 +1,3 @@
 declare module 'react-spring' {
-  export function useSpring(cb: () => any): [{ r: any }, { start: (props: any) => void }];
+  export function useSpring(cb: () => unknown): [{ r: unknown }, { start: (props: unknown) => void }];
 }
