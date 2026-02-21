@@ -1,5 +1,6 @@
-import TopNav from '@/components/dashboard/TopNav';
-import Sidebar from '@/components/dashboard/Sidebar';
+import Link from 'next/link';
+import DashboardNav from '@/components/dashboard/DashboardNav';
+import UserMenu from '@/components/dashboard/UserMenu';
 
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
@@ -25,15 +26,26 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-screen flex flex-col bg-bmn-light-bg">
-      <TopNav user={user} profile={profile} />
+      {/* Top Bar */}
+      <header className="h-16 bg-white border-b border-bmn-border flex items-center justify-between px-6 sticky top-0 z-30 gap-4">
+        <Link href="/" className="text-2xl font-display font-bold text-gradient-primary">
+          BMN
+        </Link>
+        <div className="flex items-center gap-4">
+          <UserMenu user={user} profile={profile} />
+        </div>
+      </header>
 
       <div className="flex flex-1 flex-col md:flex-row">
-        <Sidebar />
+        {/* Sidebar */}
+        <aside className="w-64 bg-white border-r border-bmn-border hidden md:flex flex-col sticky top-16 h-[calc(100vh-64px)] overflow-y-auto">
+          <DashboardNav />
+        </aside>
 
         {/* Main Content Wrapper */}
-        <div className="flex-1 flex flex-col min-h-[calc(100vh-64px)] overflow-x-hidden">
-          <main className="flex-1 p-4 sm:p-6 md:p-8">
-            <div className="max-w-6xl mx-auto w-full">
+        <div className="flex-1 flex flex-col min-h-[calc(100vh-64px)]">
+          <main className="flex-1 p-8">
+            <div className="max-w-6xl mx-auto">
               {children}
             </div>
           </main>
