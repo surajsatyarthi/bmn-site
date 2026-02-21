@@ -15,7 +15,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
         Hi {firstName},
       </Text>
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '16px 0 24px' }}>
-        You're almost there! We're still waiting for you to verify your email address.
+        You&apos;re almost there! We&apos;re still waiting for you to verify your email address.
       </Text>
 
       <Section style={{ textAlign: 'center', margin: '32px 0' }}>
@@ -38,7 +38,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
       </Section>
 
       <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#111827', margin: '24px 0 16px' }}>
-        Once verified, you'll be able to:
+        Once verified, you&apos;ll be able to:
       </Text>
       <ul style={{ paddingLeft: '20px', margin: '8px 0 24px', color: '#374151' }}>
         <li style={{ marginBottom: '8px' }}>Complete your trade profile</li>
@@ -52,7 +52,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
       </Text>
 
       <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#111827', margin: '24px 0 8px' }}>
-        Didn't receive the original email?
+        Didn&apos;t receive the original email?
       </Text>
       <ul style={{ paddingLeft: '20px', margin: '8px 0 24px', color: '#374151' }}>
         <li style={{ marginBottom: '8px' }}>Check your spam/junk folder</li>
@@ -61,7 +61,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
       </ul>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151' }}>
-        We're here to help: <a href="mailto:support@businessmarket.network" style={{ color: '#2563eb' }}>support@businessmarket.network</a>
+        We&apos;re here to help: <a href="mailto:support@businessmarket.network" style={{ color: '#2563eb' }}>support@businessmarket.network</a>
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '24px 0 0' }}>

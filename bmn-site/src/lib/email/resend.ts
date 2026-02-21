@@ -11,7 +11,7 @@ const apiKey = process.env.RESEND_API_KEY;
 // Mock Resend Client for development/fallback
 class MockResend {
   emails = {
-    send: async (payload: any) => {
+    send: async (payload: { to: string | string[]; subject: string; react?: unknown; [key: string]: unknown }) => {
       console.log('📧 [MOCK EMAIL] Sending to:', payload.to);
       console.log('📧 [MOCK EMAIL] Subject:', payload.subject);
       // console.log('📧 [MOCK EMAIL] HTML:', payload.react); // Too verbose

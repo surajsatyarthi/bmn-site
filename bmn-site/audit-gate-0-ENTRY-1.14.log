@@ -1,0 +1,289 @@
+================================================================================
+AUDIT-GATE-0 — ENTRY-1.14 (feat/block-1.14-profile-edit)
+Date: 2026-02-21T08:00:56+05:30
+Auditor: Antigravity AI / Automated Gate Audit
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 1 — GIT HEAD HASH
+────────────────────────────────────────────────────────────────────────────────
+Branch   : feat/block-1.14-profile-edit
+HEAD SHA : 1cded14c911e4b3cf3d4937c58472f1357d22a54
+git log  :
+  1cded14 (HEAD -> feat/block-1.14-profile-edit, origin/feat/block-1.14-profile-edit)
+           fix(profile/edit): restore imports and move metadata to separate file
+  170c2c4  feat(profile): add error.tsx, loading.tsx and metadata to profile/edit for Ralph scanner
+  c39c387  fix(types): add SpringValue interface with get() to fix Globe.tsx build
+  a73a9d5  fix(lint): resolve all remaining ESLint errors for CI pass
+  ef02daa  chore: remove accidentally tracked gh cli binaries
+  e74bdc8  style(lint): fix unescaped react quotes in email templates and explicit type checks in routes
+  852e147  fix(lint): replace any with explicit types to resolve CI failure
+  6e6f3bf  (main) fix(api): provide missing country field to drizzle insert for onboarding
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 2 — npm run build  (output)
+────────────────────────────────────────────────────────────────────────────────
+STATUS: COULD NOT EXECUTE
+REASON: Node.js and npm are not installed on this machine.
+        Runtime search confirmed: /usr/local/bin/node, /opt/homebrew/bin/node,
+        ~/.nvm/versions/node/, ~/.volta/bin/, ~/.asdf/shims/npm — all ABSENT.
+        No .nvmrc, .node-version, or .tool-versions found in project root.
+        node_modules/ directory does NOT exist (dependencies not installed).
+
+STATIC BUILD ANALYSIS (substituted):
+  The following build-blocking issue was identified through source inspection:
+
+  FILE: src/app/(dashboard)/profile/edit/page.tsx
+  ISSUE: The file starts with 'use client' directive (line 1).
+         Next.js prohibits exporting `metadata` (Metadata type) from a Client
+         Component. The previous commit (170c2c4) attempted to add metadata in
+         this file; HEAD commit (1cded14) extracted it to a separate
+         metadata.ts file. However, metadata.ts is NOT a Next.js page/layout
+         segment file — it is not imported by Next.js automatically.
+         Next.js App Router only reads `metadata` exports from page.tsx,
+         layout.tsx, or route.ts files in the segment. A standalone
+         metadata.ts export is silently ignored.
+
+  ADDITIONAL RISK: src/app/api/profile/update/route.ts line 117:
+         `error.issues` access — TypeScript with `error: unknown` requires
+         type narrowing before property access. The surrounding guard
+         `'issues' in error` achieves runtime safety but the ESLint
+         @typescript-eslint/no-unsafe-member-access rule may still flag this
+         since `error` is `unknown` and the narrowing is pattern-manual, not
+         via ZodError type assertion.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 3 — npm run lint  (output)
+────────────────────────────────────────────────────────────────────────────────
+STATUS: COULD NOT EXECUTE (Node.js/npm not installed)
+
+STATIC LINT ANALYSIS (substituted):
+  Rules historically triggered in this branch based on commit messages:
+
+  1. @typescript-eslint/no-explicit-any
+     Commit e74bdc8 / 852e147 fixed `catch (error: any)` → `catch (error: unknown)`.
+     Current HEAD: route.ts line 112 uses `error: unknown` — FIXED.
+
+  2. react/no-unescaped-entities
+     Commit e74bdc8 fixed unescaped quotes in email templates.
+     Files affected: src/emails/*.tsx — commits assert these are resolved.
+     Current HEAD page.tsx has no bare apostrophes or quotes in JSX text
+     (verified via source inspection) — appears CLEAN.
+
+  3. @typescript-eslint/no-unsafe-member-access  (potential)
+     src/app/api/profile/update/route.ts line 117:
+       `error.issues` accesses a property on `unknown` type.
+       The guard `'issues' in error` narrows the type to `object & Record<string,'issues'>`,
+       but ESLint may still fire depending on tsconfig strictness.
+
+  ESLint config path: project-level eslint config (assumed next/core-web-vitals).
+  No .eslintignore anomalies detected.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 4 — npm run test  (output)
+────────────────────────────────────────────────────────────────────────────────
+STATUS: COULD NOT EXECUTE (Node.js/npm not installed)
+Test runner: Vitest (per package.json "test": "vitest run")
+
+STATIC TEST ANALYSIS:
+  No test files for profile/edit route were found in the changed file set.
+  The src/app/(dashboard)/profile/edit/ directory contains:
+    page.tsx, metadata.ts, error.tsx, loading.tsx
+  No *.test.ts / *.spec.ts co-located files observed.
+  New API route src/app/api/profile/update/route.ts has no corresponding test.
+
+  Risk: The PATCH /api/profile/update endpoint (upsert logic for profiles,
+  companies, and tradeTerms tables) has no automated test coverage.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 5 — npm run ralph:scan  (output)
+────────────────────────────────────────────────────────────────────────────────
+STATUS: COULD NOT EXECUTE (Node.js/npm not installed)
+Script: scripts/ralph-security-scanner.ts --pre-commit
+
+STATIC RALPH SCANNER INFERENCE:
+  The ralph scanner typically validates:
+    - Presence of audit-gate-0-*.log before merge
+    - Presence of implementation-plan-*.md
+    - Presence of docs/reports/phase_1_assessment_report_TASK_*.md
+    - Presence of .ralph/*-completion-report.md
+    - No hardcoded secrets / env values in source
+    - Proper use client / use server boundaries
+
+  All 4 required artifact files are MISSING (see Section 6).
+  The ralph:scan command would EXIT NON-ZERO due to missing artifacts.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 6 — MISSING RALPH ARTIFACTS
+────────────────────────────────────────────────────────────────────────────────
+Checked from: /Users/satyarthi/Desktop/BMN/bmn-site/
+
+  audit-gate-0-ENTRY-1.14.log
+    → ls: MISSING  [This file is being created by this audit — first run]
+
+  implementation-plan-ENTRY-1.14.md
+    → ls: MISSING
+
+  docs/reports/phase_1_assessment_report_TASK_1_14.md
+    → ls: MISSING
+
+  .ralph/ENTRY-1.14-completion-report.md
+    → ls: MISSING
+
+TOTAL MISSING: 4 of 4 required gate artifacts
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 7 — WEB RESEARCH (3 searches)
+────────────────────────────────────────────────────────────────────────────────
+
+SEARCH 1 — Next.js metadata export from 'use client' component
+  Query: "Next.js metadata export in 'use client' component TypeScript error
+          cannot export metadata from client component"
+  Finding:
+    Next.js App Router strictly disallows exporting `metadata` from any file
+    marked with 'use client'. The error message is:
+      "You are attempting to export 'metadata' from a component marked with
+       'use client', which is disallowed."
+    Root cause for ENTRY-1.14: The original page.tsx combined 'use client'
+    with a metadata export. The fix (commit 1cded14) moved metadata to
+    metadata.ts — but metadata.ts is NOT automatically recognized by Next.js
+    unless it is the page.tsx/layout.tsx segment file itself or re-exported
+    from it. The metadata is currently silently dead (not applied to <head>).
+    Correct pattern: page.tsx must NOT have 'use client'; the interactive form
+    must be extracted to a separate <EditProfileForm /> client component, and
+    the metadata export must live in the server-rendered page.tsx.
+  Sources: nextjs.org, stackoverflow.com, github.com/vercel/next.js
+
+SEARCH 2 — ESLint react/no-unescaped-entities
+  Query: "ESLint react/no-unescaped-entities error Next.js TypeScript JSX
+          quotes must be escaped"
+  Finding:
+    The rule flags bare ', ", >, { characters in JSX text nodes. In this branch,
+    commits e74bdc8 addressed email templates. Proper fixes:
+      - Replace ' with &apos; or &#39;
+      - Replace " with &quot;
+      - Wrap in {''} curly expression
+    Current HEAD inspection of page.tsx: no unescaped entities detected.
+    Email templates (first_steps_guide.tsx, onboarding_incomplete.tsx,
+    password_reset.tsx, verification_email.tsx, verification_reminder.tsx,
+    welcome_onboarding.tsx) were all modified in this branch — commits assert
+    they were fixed.
+  Sources: lightnode.com, github.com, wemmyo.com, stackoverflow.com
+
+SEARCH 3 — Drizzle ORM insert missing required field TypeScript type error
+  Query: "Drizzle ORM insert missing required field TypeScript type error
+          not-null constraint"
+  Finding:
+    Drizzle ORM's TypeScript types enforce notNull() constraints at compile time.
+    Any missing required field in an .insert().values({}) call causes a
+    TypeScript type error. Historical context: commit 6e6f3bf (on main) fixed
+    "missing country field to drizzle insert for onboarding". This branch's
+    route.ts insert for companies includes the `country` field — the fix
+    appears applied. However, `entityType` field is hardcoded as 'Private'
+    (line 73) — if the schema requires other entity types or if the field
+    is NOT optional, this could be a silent data integrity issue.
+  Sources: betterstack.com, drizzle.team, wanago.io, stackoverflow.com
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 8 — DEPENDENCY ANALYSIS (files changed vs main)
+────────────────────────────────────────────────────────────────────────────────
+Base comparison: git diff main...HEAD --name-status
+
+ADDED (3 new files):
+  A  bmn-site/src/app/(dashboard)/profile/edit/error.tsx
+       → Next.js error boundary for profile/edit route segment (28 lines)
+         Simple 'use client' error handler with reset button. Looks correct.
+
+  A  bmn-site/src/app/(dashboard)/profile/edit/loading.tsx
+       → Next.js loading skeleton for profile/edit (15 lines)
+         Pulse animation placeholders. No 'use client' — correct for loading.
+
+  A  bmn-site/src/app/(dashboard)/profile/edit/metadata.ts
+       → Standalone metadata export (7 lines)
+         PROBLEM: This file is not a Next.js segment file. metadata exported
+         here is never picked up by the framework. Dead code in terms of SEO.
+
+MODIFIED (17 files):
+  M  bmn-site/src/app/(dashboard)/profile/edit/page.tsx
+       → Major: full profile edit form implementation (408 lines).
+         Uses Zod schema, react-hook-form, supabase client, 3-tab UI.
+         'use client' on line 1 — prevents any server-side metadata.
+
+  M  bmn-site/src/app/api/cron/onboarding-nudges/route.ts
+       → Cron route modified (likely lint/type fixes from prior commits).
+
+  M  bmn-site/src/app/api/profile/onboarding/route.ts
+       → Onboarding API route (related to country field fix per main branch).
+
+  M  bmn-site/src/app/api/profile/update/route.ts
+       → New PATCH endpoint for profile/company/tradeTerms upsert (123 lines).
+         Diff shows: catch (error: any) → catch (error: unknown).
+         Risk: error.issues access on unknown type (line 117).
+
+  M  bmn-site/src/app/auth/callback/route.ts
+       → Auth callback route (lint cleanup).
+
+  M  bmn-site/src/components/onboarding/BusinessDetailsStep.tsx
+M  bmn-site/src/components/onboarding/TradeTermsStep.tsx
+       → Onboarding step components (likely trade_terms integration for
+         matchmaking data fields moqValue, moqUnit, leadTime, productionCapacity).
+
+  M  bmn-site/src/emails/first_steps_guide.tsx
+  M  bmn-site/src/emails/onboarding_incomplete.tsx
+  M  bmn-site/src/emails/password_reset.tsx
+  M  bmn-site/src/emails/verification_email.tsx
+  M  bmn-site/src/emails/verification_reminder.tsx
+  M  bmn-site/src/emails/welcome_onboarding.tsx
+       → All 6 email templates modified (react/no-unescaped-entities fixes).
+
+  M  bmn-site/src/lib/email/resend.ts
+       → Email sending library (likely explicit type fixes).
+
+  M  bmn-site/src/lib/supabase/admin.ts
+       → Supabase admin client (likely type fixes).
+
+  M  bmn-site/src/types/cobe.d.ts
+       → Module declaration for 'cobe' globe library. Adds proper type shape
+         for createGlobe(). Fixes TypeScript error in Globe.tsx component.
+
+  M  bmn-site/src/types/react-spring.d.ts
+       → Module declaration for 'react-spring'. Adds SpringValue interface
+         with get(): number method. Fixes TypeScript error in Globe.tsx.
+
+────────────────────────────────────────────────────────────────────────────────
+SECTION 9 — CRITICAL FINDINGS SUMMARY
+────────────────────────────────────────────────────────────────────────────────
+[BLOCKER-01] Node.js not installed on this machine — npm build/lint/test/scan
+             cannot be executed locally. CI pipeline must be used for live output.
+
+[BLOCKER-02] metadata.ts is dead code — Next.js does not auto-import metadata
+             from arbitrary .ts files. SEO metadata for /profile/edit is ABSENT.
+             Root fix: extract form into <EditProfileForm> client component,
+             convert page.tsx to server component with proper metadata export.
+
+[BLOCKER-03] All 4 Ralph gate artifacts are MISSING. The ralph:scan script
+             will reject this branch. Gate 1 and Gate 2 artifacts must be
+             created before merge to main is permitted.
+
+[WARNING-01] src/app/api/profile/update/route.ts line 117: accessing
+             `error.issues` on `unknown` type may trigger
+             @typescript-eslint/no-unsafe-member-access lint error.
+
+[WARNING-02] No test coverage for PATCH /api/profile/update route. The upsert
+             logic for three database tables (profiles, companies, tradeTerms)
+             is untested.
+
+[WARNING-03] `entityType` hardcoded as 'Private' in companies insert (line 73
+             of route.ts). This silently sets all new company records to
+             'Private' regardless of business context.
+
+[INFO-01]   error.tsx and loading.tsx are correctly implemented for Next.js
+             App Router conventions.
+
+[INFO-02]   Type declaration stubs (cobe.d.ts, react-spring.d.ts) are minimal
+             but sufficient to unblock build errors in Globe.tsx.
+
+================================================================================
+END OF AUDIT-GATE-0-ENTRY-1.14.LOG
+Timestamp: 2026-02-21T08:00:56+05:30
+================================================================================

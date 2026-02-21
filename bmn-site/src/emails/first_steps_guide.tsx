@@ -14,7 +14,7 @@ export const FirstStepsGuideEmail = ({ firstName = 'Trader' }: FirstStepsGuideEm
         Hi {firstName},
       </Text>
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '16px 0' }}>
-        We noticed you haven't finished setting up your trade profile. Let us help!
+        We noticed you haven&apos;t finished setting up your trade profile. Let us help!
       </Text>
       
       <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#111827', margin: '24px 0 16px' }}>
@@ -24,7 +24,7 @@ export const FirstStepsGuideEmail = ({ firstName = 'Trader' }: FirstStepsGuideEm
       <div style={{ marginBottom: '24px' }}>
         <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#374151', margin: '0 0 4px' }}>Step 2: Product Selection</Text>
         <Text style={{ fontSize: '14px', color: '#4b5563', margin: '0 0 2px' }}>→ Enter your HS Codes (international product codes)</Text>
-        <Text style={{ fontSize: '14px', color: '#4b5563', margin: '0 0 2px' }}>→ Don't know your HS Code? Use our built-in search tool</Text>
+        <Text style={{ fontSize: '14px', color: '#4b5563', margin: '0 0 2px' }}>→ Don&apos;t know your HS Code? Use our built-in search tool</Text>
         <Text style={{ fontSize: '14px', color: '#4b5563', margin: '0 0 16px' }}>→ <i>Why it matters: This is how we match you with the right buyers/sellers</i></Text>
         
         <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#374151', margin: '0 0 4px' }}>Step 3: Trade Interests</Text>
@@ -61,7 +61,7 @@ export const FirstStepsGuideEmail = ({ firstName = 'Trader' }: FirstStepsGuideEm
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151' }}>
-        Stuck on a specific step? Reply to this email and we'll guide you through it.
+        Stuck on a specific step? Reply to this email and we&apos;ll guide you through it.
       </Text>
 
       <Text style={{ fontSize: '16px', lineHeight: '24px', color: '#374151', margin: '24px 0 0' }}>
