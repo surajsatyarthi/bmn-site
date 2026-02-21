@@ -2,5 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 echo "Running pre-commit checks (lint + typecheck)..."
-cd bmn-site && npm run lint && npx tsc --noEmit
+cd bmn-site && pnpm run lint && npx tsc --noEmit
 echo "✅ Pre-commit checks passed."
