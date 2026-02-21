@@ -18,16 +18,10 @@ import { useNodeConnections } from '@/hooks/useNodeConnections';
 // ... (existing imports)
 
 const STAKEHOLDERS = [
-  { id: 'exporters', name: 'Exporters', icon: Building2 }, // 0: Top Left
-  { id: 'importers', name: 'Importers', icon: Truck },     // 1: Top Mid
-  { id: 'manufacturers', name: 'Manufacturers', icon: Factory }, // 2: Top Right
-  
-  { id: 'trade-brokers', name: 'Trade Brokers', icon: Briefcase }, // 3: Mid Left
-  { id: 'freight-forwarders', name: 'Freight Forwarders', icon: Ship }, // 4: Mid Right
-  
-  { id: 'customs', name: 'Customs Brokers', icon: Shield, delay: '3s' },
-  { id: 'finance', name: 'Trade Financiers', icon: Banknote, delay: '3.5s' }, 
-  { id: 'insurance', name: 'Insurance Providers', icon: FileCheck, delay: '4s' },
+  { id: 'exporters', name: 'Exporters', icon: Building2 }, // 0: Top
+  { id: 'importers', name: 'Importers', icon: Truck },     // 1: Left
+  { id: 'manufacturers', name: 'Manufacturers', icon: Factory }, // 2: Right
+  { id: 'trade-brokers', name: 'Trade Brokers', icon: Briefcase }, // 3: Bottom
 ];
 
 export function StakeholderNetwork() {
@@ -99,23 +93,17 @@ export function StakeholderNetwork() {
         {/* Mobile: Just list them. Desktop: Use grid-area or specific col/row placement */}
         
         {STAKEHOLDERS.map((s, i) => {
-            // Determine Grid Position for Desktop (3x3 Grid)
-            // Indices:
-            // 0 1 2  (Row 1)
-            // 3 X 4  (Row 2, X is Hub)
-            // 5 6 7  (Row 3)
+            // Determine Grid Position for Desktop (3x3 Grid) with 4 items:
+            //   0  
+            // 1 X 2
+            //   3  
+            // X is Hub (col 2, row 2)
             
             let gridClass = "";
-            if (i === 0) gridClass = "lg:col-start-1 lg:row-start-1"; // Top Left
-            if (i === 1) gridClass = "lg:col-start-2 lg:row-start-1"; // Top Mid
-            if (i === 2) gridClass = "lg:col-start-3 lg:row-start-1"; // Top Right
-            
-            if (i === 3) gridClass = "lg:col-start-1 lg:row-start-2"; // Mid Left
-            if (i === 4) gridClass = "lg:col-start-3 lg:row-start-2"; // Mid Right
-            
-            if (i === 5) gridClass = "lg:col-start-1 lg:row-start-3"; // Bot Left
-            if (i === 6) gridClass = "lg:col-start-2 lg:row-start-3"; // Bot Mid (NEW)
-            if (i === 7) gridClass = "lg:col-start-3 lg:row-start-3"; // Bot Right
+            if (i === 0) gridClass = "lg:col-start-2 lg:row-start-1"; // Top
+            if (i === 1) gridClass = "lg:col-start-1 lg:row-start-2"; // Left
+            if (i === 2) gridClass = "lg:col-start-3 lg:row-start-2"; // Right
+            if (i === 3) gridClass = "lg:col-start-2 lg:row-start-3"; // Bottom
 
             return (
                 <div 
