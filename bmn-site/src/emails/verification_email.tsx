@@ -49,7 +49,7 @@ export const VerificationEmail = ({ firstName = 'Trader', verificationUrl = '{{ 
       </Text>
       <ul style={{ paddingLeft: '20px', margin: '8px 0 24px', color: '#374151' }}>
         <li style={{ marginBottom: '8px' }}>Ensures platform security and prevents spam</li>
-        <li style={{ marginBottom: '8px' }}>Verifies you're a legitimate business</li>
+        <li style={{ marginBottom: '8px' }}>Verifies you&apos;re a legitimate business</li>
         <li style={{ marginBottom: '8px' }}>Protects all our members from fraudulent accounts</li>
       </ul>
 

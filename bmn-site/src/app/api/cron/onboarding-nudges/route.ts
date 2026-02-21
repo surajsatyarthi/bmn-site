@@ -146,7 +146,6 @@ export async function GET(request: Request) {
              // We will assume "At least 6h old and hasn't received 6h reminder".
              
              let reminderToSend = null;
-             let reminderType = '';
 
              // Logic: precise tracking of "l3_count" or "last_l3_sent"
              const l3Count = (status.l3_sent_count as number) || 0;

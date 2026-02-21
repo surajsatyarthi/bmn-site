@@ -29,7 +29,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
 
-    const updateData: any = { 
+    const updateData: Record<string, unknown> = { 
       onboardingStep: step,
       updatedAt: new Date(),
     };

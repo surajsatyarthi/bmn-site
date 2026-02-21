@@ -38,7 +38,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
       </Section>
 
       <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#111827', margin: '24px 0 16px' }}>
-        Once verified, you'll be able to:
+        Once verified, you&apos;ll be able to:
       </Text>
       <ul style={{ paddingLeft: '20px', margin: '8px 0 24px', color: '#374151' }}>
         <li style={{ marginBottom: '8px' }}>Complete your trade profile</li>
@@ -52,7 +52,7 @@ export const VerificationReminderEmail = ({ firstName = 'Trader', verificationUr
       </Text>
 
       <Text style={{ fontSize: '16px', fontWeight: 'bold', color: '#111827', margin: '24px 0 8px' }}>
-        Didn't receive the original email?
+        Didn&apos;t receive the original email?
       </Text>
       <ul style={{ paddingLeft: '20px', margin: '8px 0 24px', color: '#374151' }}>
         <li style={{ marginBottom: '8px' }}>Check your spam/junk folder</li>

@@ -136,8 +136,8 @@ export default function EditProfilePage() {
 
       router.push('/profile');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || 'An error occurred while saving');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An error occurred while saving');
     } finally {
       setSaving(false);
     }
@@ -196,7 +196,7 @@ export default function EditProfilePage() {
               {['basic', 'business', 'trade'].map((tab) => (
                 <button
                   key={tab}
-                  onClick={() => setActiveTab(tab as any)}
+                  onClick={() => setActiveTab(tab as 'basic' | 'business' | 'trade')}
                   className={`w-1/3 border-b-2 py-4 px-1 text-center text-sm font-medium ${
                     activeTab === tab
                       ? 'border-[#0047FF] text-[#0047FF]'
