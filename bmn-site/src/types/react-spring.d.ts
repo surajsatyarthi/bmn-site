@@ -1,3 +1,6 @@
 declare module 'react-spring' {
-  export function useSpring(cb: () => unknown): [{ r: unknown }, { start: (props: unknown) => void }];
+  interface SpringValue {
+    get(): number;
+  }
+  export function useSpring(cb: () => unknown): [{ r: SpringValue }, { start: (props: unknown) => void }];
 }
