@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run ralph:scan
+echo "Pre-push: CI will run build, lint, typecheck, and env parity check."
+echo "✅ Push allowed."

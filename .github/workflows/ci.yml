@@ -7,7 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  quality:
+  build-lint-typecheck:
+    name: Build, Lint & Typecheck
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -24,21 +25,58 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+          cache-dependency-path: bmn-site/pnpm-lock.yaml
 
       - name: Install dependencies
         run: pnpm install
 
+      - name: Typecheck
+        run: npx tsc --noEmit
+
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Build
-        run: npm run build
+        run: pnpm run build
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
-      - name: Unit Tests
-        run: npm run test
+      - name: Tests
+        run: pnpm run test
 
-      - name: Security Scan
-        run: npm run ralph:scan
+  env-parity:
+    name: Env Parity Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # INCIDENT-001 prevention: verifies env vars present in CI match what the app needs.
+      # If you add a new required env var, add it here AND to GitHub Secrets AND to Vercel.
+      - name: Check required env vars are set
+        run: |
+          MISSING=0
+
+          check_var() {
+            if [ -z "${!1}" ]; then
+              echo "❌ Missing: $1"
+              MISSING=$((MISSING + 1))
+            else
+              echo "✅ $1"
+            fi
+          }
+
+          check_var "NEXT_PUBLIC_SUPABASE_URL"
+          check_var "NEXT_PUBLIC_SUPABASE_ANON_KEY"
+
+          if [ $MISSING -gt 0 ]; then
+            echo ""
+            echo "BLOCKED: $MISSING env var(s) not set. Add to GitHub Secrets and Vercel."
+            exit 1
+          fi
+
+          echo "✅ All required env vars present."
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}

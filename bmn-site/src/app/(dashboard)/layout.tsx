@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import DashboardNav from '@/components/dashboard/DashboardNav';
 import UserMenu from '@/components/dashboard/UserMenu';
+import MobileNav from '@/components/dashboard/MobileNav';
 
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
@@ -44,13 +45,16 @@ export default async function DashboardLayout({
 
         {/* Main Content Wrapper */}
         <div className="flex-1 flex flex-col min-h-[calc(100vh-64px)]">
-          <main className="flex-1 p-8">
+          <main className="flex-1 p-8 pb-24 md:pb-8">
             <div className="max-w-6xl mx-auto">
               {children}
             </div>
           </main>
         </div>
       </div>
+
+      {/* Mobile Bottom Nav */}
+      <MobileNav />
     </div>
   );
 }

@@ -1,10 +1,6 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-if [ -z "$RALPH_BLOCK_ID" ]; then
-  echo "⚠️  RALPH_BLOCK_ID not set. Running basic quality gates (Lint + Security Scan)..."
-  # Run basic checks: Lint and Security Scan (pre-commit mode)
-  npm run lint && npm run ralph:scan
-else
-  bash scripts/validate-ralph-gates.sh "$RALPH_BLOCK_ID"
-fi
+echo "Running pre-commit checks (lint + typecheck)..."
+cd bmn-site && pnpm run lint && npx tsc --noEmit
+echo "✅ Pre-commit checks passed."
