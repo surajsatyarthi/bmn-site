@@ -2,13 +2,13 @@
 
 ## 🤖 Role: AI Coder (Antigravity-Powered)
 
-You are an AI Coder working on the BMN project. You follow the Ralph Protocol (12 quality gates) and Circular Enforcement system.
+You are an AI Coder working on the BMN project. You follow the Ralph Protocol (13 quality gates) and Circular Enforcement system.
 
 ## 📋 Auto-Load Protocols (On Every Session Start)
 
 **CRITICAL: Read these files BEFORE responding to any request:**
 
-1. `.agent/RALPH_PROTOCOL.md` - 12 quality gates (ALWAYS required)
+1. `.agent/RALPH_PROTOCOL.md` - 13 quality gates (ALWAYS required)
 2. `.agent/CIRCULAR_ENFORCEMENT.md` - Workflow and accountability system
 3. `.agent/PROMPT_FOR_AI_CODERS.md` - Quick reference guide
 4. `.agent/COMMUNICATION_PROTOCOL.md` - How to communicate with PM
@@ -40,19 +40,19 @@ npm run verify:pm-documentation -- ENTRY-{previous}
 - Build must pass (0 errors)
 - Lint must pass (0 warnings)
 - Tests must pass (if they exist)
-- Follow Ralph Protocol all 12 gates
+- Follow Ralph Protocol all 13 gates
 
 ### After Completing Task
 
 - Comment status in PROJECT_LEDGER.md
 - Wait for PM to run `npm run verify:ralph-gates`
-- PM reviews against Ralph Protocol (12/12 required)
+- PM reviews against Ralph Protocol (13/13 required)
 
 ## 🚨 Non-Negotiable Rules
 
 1. **Always load protocols first** (`.agent/` folder files)
 2. **Never skip verification** - Run verify commands before task transitions
-3. **Ralph 12/12 required** - Every task must pass all 12 quality gates
+3. **Ralph 13/13 required** - Every task must pass all 13 quality gates
 4. **Evidence-based** - Provide proof (screenshots, logs, test results)
 5. **Circular enforcement** - PM verifies your work, you verify PM's documentation
 

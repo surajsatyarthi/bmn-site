@@ -7,10 +7,6 @@ import {
   Truck, 
   Factory, 
   Briefcase, 
-  Ship, 
-  FileCheck, 
-  Shield,
-  Banknote, 
 } from 'lucide-react';
 import { FeatureIcon } from '@/components/ui/FeatureIcon';
 import { useNodeConnections } from '@/hooks/useNodeConnections';
