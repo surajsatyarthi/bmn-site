@@ -46,13 +46,21 @@ export const companies = pgTable('companies', {
   street: text('street'),
   city: text('city').notNull(),
   state: text('state').notNull(),
-  country: text('country').default('India').notNull(),
+  country: text('country').notNull(),
   pinCode: text('pin_code'),
   website: text('website'),
   iecNumber: text('iec_number'),
   lastYearExportUsd: text('last_year_export_usd'), // Export value in USD millions  
   currentExportCountries: jsonb('current_export_countries').$type<string[]>(), // ISO country codes
   officeLocations: jsonb('office_locations').$type<{ country: string; state: string; city: string }[]>(),
+  
+  // Block 1.14: Missing Business Details
+  businessType: text('business_type', { enum: ['manufacturer', 'trader', 'both', 'agent'] }).notNull().default('both'),
+  postalCode: text('postal_code'),
+  employeeCount: text('employee_count'),
+  description: text('description'),
+  logoUrl: text('logo_url'),
+
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
@@ -157,11 +165,52 @@ export const campaigns = pgTable('campaigns', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 
+// Trade Terms Table (Block 1.14)
+export const tradeTerms = pgTable('trade_terms', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  profileId: uuid('profile_id').references(() => profiles.id, { onDelete: 'cascade' }).notNull().unique(),
+  
+  // MOQ
+  moq: text('moq'), // Display text
+  moqValue: integer('moq_value'), // For filtering
+  moqUnit: text('moq_unit'), // units, kg, tons, containers
+  
+  // Payment Terms (JSON array)
+  paymentTerms: jsonb('payment_terms').$type<string[]>().notNull().default([]),
+  
+  // Incoterms (JSON array)
+  incoterms: jsonb('incoterms').$type<string[]>().notNull().default([]),
+  
+  // Lead Time
+  leadTime: text('lead_time'),
+  leadTimeMin: integer('lead_time_min'),
+  leadTimeMax: integer('lead_time_max'),
+  
+  // Port
+  portOfLoading: text('port_of_loading'),
+  
+  // Samples
+  sampleAvailable: boolean('sample_available').default(false),
+  sampleLeadTime: text('sample_lead_time'),
+  
+  // Capabilities
+  oemOdmAvailable: boolean('oem_odm_available').default(false),
+  productionCapacity: text('production_capacity'),
+  annualExportVolume: text('annual_export_volume'),
+  
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+});
+
 // Relations
 export const profilesRelations = relations(profiles, ({ one, many }) => ({
   company: one(companies, {
     fields: [profiles.id],
     references: [companies.profileId],
+  }),
+  tradeTerms: one(tradeTerms, {
+    fields: [profiles.id],
+    references: [tradeTerms.profileId],
   }),
   products: many(products),
   tradeInterests: many(tradeInterests),
@@ -170,6 +219,13 @@ export const profilesRelations = relations(profiles, ({ one, many }) => ({
   matchReveals: many(matchReveals),
   campaigns: many(campaigns),
   adminNotices: many(adminNotices),
+}));
+
+export const tradeTermsRelations = relations(tradeTerms, ({ one }) => ({
+  profile: one(profiles, {
+    fields: [tradeTerms.profileId],
+    references: [profiles.id],
+  }),
 }));
 
 export const companiesRelations = relations(companies, ({ one }) => ({
