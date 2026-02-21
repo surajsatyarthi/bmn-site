@@ -111,12 +111,17 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error: unknown) {
     console.error('Profile update error:', error);
-    
-    if (error && typeof error === 'object' && 'issues' in error) {
-      // Using generic object check to safely extract Zod validation issues
-      return NextResponse.json({ error: 'Invalid data', details: error.issues }, { status: 400 });
+
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { error: 'Validation failed', details: error.issues },
+        { status: 422 }
+      );
     }
-    
-    return NextResponse.json({ error: 'Failed to update profile' }, { status: 500 });
+
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
