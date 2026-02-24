@@ -202,6 +202,24 @@ export const tradeTerms = pgTable('trade_terms', {
   updatedAt: timestamp('updated_at').defaultNow(),
 });
 
+// Global Trade Companies Table (ENTRY-9.0)
+export const globalTradeCompanies = pgTable('global_trade_companies', {
+  id: uuid('id').defaultRandom().primaryKey().notNull(),
+  companyName: text('company_name').notNull(),
+  countryCode: text('country_code'), // CHAR(2) equivalent
+  countryName: text('country_name'),
+  hsChapter: text('hs_chapter'), // CHAR(2) equivalent
+  hsDescription: text('hs_description'),
+  tradeType: tradeRoleEnum('trade_type'), // Enum corresponds to 'importer', 'exporter', 'both'
+  topProducts: jsonb('top_products').$type<string[]>(), // TEXT[] equivalent
+  partnerCountries: jsonb('partner_countries').$type<string[]>(), // TEXT[] equivalent
+  contactEmail: text('contact_email'),
+  contactPhone: text('contact_phone'),
+  dataSource: text('data_source').default('santander'),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
+
 // Relations
 export const profilesRelations = relations(profiles, ({ one, many }) => ({
   company: one(companies, {

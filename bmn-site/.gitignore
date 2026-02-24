@@ -7,3 +7,13 @@
 .env.production
 *.env.backup
 *.env.bak
+
+# CLI tools — never commit binaries
+gh.zip
+gh_*.zip
+gh_*/
+
+# Debug scripts and temp files — never commit
+scripts/
+pr_body*.md
+implementation-plan*.md
