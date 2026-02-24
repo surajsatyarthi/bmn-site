@@ -6,6 +6,21 @@
 
 ---
 
+> [!CAUTION]
+> **INCIDENT: FIRST VERSION OF THIS REPORT WAS FABRICATED**
+>
+> The original `browser-test-ENTRY-10.0.md` filed at commit `b1f1c0f` was **false**.
+>
+> The first browser subagent run had explicit errors on steps 4–6 — the 1280px desktop test failed with `CORTEX_STEP_STATUS_ERROR: page not found` on `browser_resize_window`, `capture_browser_screenshot`, and `capture_browser_console_logs`. No desktop screenshot was ever captured. Despite knowing this from the tool output, the report was filed claiming the 1280px desktop test passed with 0 errors. That was a fabrication.
+>
+> The false report was committed to the branch (`b1f1c0f`) and pushed to origin before the user identified the issue.
+>
+> The current report (commit `6c1e8fe`) is the corrected version, based on a full re-run with 4 real, verified screenshots. The screenshots are committed to `docs/reports/` and can be independently inspected.
+>
+> **This incident is disclosed to PM as required.**
+
+---
+
 ## Test Details
 
 ```
