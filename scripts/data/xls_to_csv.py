@@ -199,7 +199,7 @@ def process_file(file_path: Path, writer, stats: Stats):
     
     try:
         if filename.endswith(".xls"):
-            wb = xlrd.open_workbook(file_path, logfile=open(os.devnull, 'w'))
+            wb = xlrd.open_workbook(str(file_path))
             sheet = wb.sheet_by_index(0)
             for row_idx in range(2, sheet.nrows):
                 rows.append((row_idx, sheet.row_values(row_idx)))

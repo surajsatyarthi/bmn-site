@@ -1,5 +1,4 @@
 import re
-import pdb
 
 def extract_chapter(filename: str) -> str:
     match = re.search(r'(?i)ch_(\d+)', filename)
