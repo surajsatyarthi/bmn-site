@@ -1,0 +1,4092 @@
+{
+  "volza": [
+    {
+      "file": "India_Plastic_Im.xlsx",
+      "pm_rows": 43051,
+      "actual_rows": 43050,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-10-01 00:00:00",
+        "39074000",
+        "POLYCARBONATE PC2200R GC9AT 149",
+        "Linc Pen Plastics Ltd",
+        "Sabic Asia Pacific Pte Ltd",
+        "SEAFAST LOGISTICS",
+        "25500",
+        "KGS",
+        "1.497",
+        "38173.5",
+        "1497",
+        "JNPT",
+        "Jubail",
+        "Saudi Arabia",
+        "Sea",
+        "25.5",
+        "MTS",
+        "1500",
+        "USD",
+        "48760.92",
+        "10587.42",
+        "27.735",
+        "HC",
+        "0",
+        "0",
+        "N/A",
+        "0",
+        "UNT",
+        "3, Alipore Road",
+        "NA",
+        "West Bengal",
+        "Kolkata",
+        "700027",
+        "919830042353",
+        "exports@lincpen.com",
+        "NARESH PACHISIA",
+        "One Temasek Avenue #6-01 Millenia Tower",
+        "NA",
+        "Singapore",
+        "Singapore",
+        "POLYACETALS, OTHER POLYETHERS AND EPOXIDE RESINS, IN PRIMARY FORMS; POLYCARBONATES, ALKYD RESINS, POLYALLYLESTERS AND OTHER POLYESTERS, IN PRIMARY FORMS, Polycarbonates",
+        "39",
+        "3907",
+        "Oct-2025",
+        "Linc Pen Plastics Ltd",
+        "SABIC ASIA PACIFIC PTE LTD",
+        "3, Alipore Road",
+        "NA",
+        "Kolkata",
+        "700027",
+        "West Bengal",
+        "919830042353",
+        "exports@lincpen.com",
+        "ONE TEMASEK AVENUE #06-01 MILLENIA TOWER , SINIGAPOER , SINGAP ORE",
+        "NA",
+        "Y",
+        "73819656",
+        "0294017241"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "3304_Ex_Ind.xlsx",
+      "pm_rows": 32769,
+      "actual_rows": 32768,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-10-11 00:00:00",
+        "33049910",
+        "JOY HONEY & ALMONDS NOURISHING SKIN CREAM 200ML",
+        "RSH Global Pvt Ltd",
+        "S M K Enterprises Pvt Ltd",
+        "NARENDER KUMAR",
+        "4032",
+        "NOS",
+        "1.0104811507936509",
+        "4074.26",
+        "1.01",
+        "Bhairawa",
+        "Nepal",
+        "Sonauli",
+        "Road",
+        "4032",
+        "PCS",
+        "471744",
+        "117",
+        "N/A",
+        "0",
+        "0",
+        "",
+        "0",
+        "N/A",
+        "119, Park Street, 2nd Floor, Unit-2C",
+        "NA",
+        "Kolkata",
+        "West Bengal",
+        "700016",
+        "919830049542",
+        "jitendra.agarwal@rshglobal.com",
+        "SUNIL AGARWAL",
+        "Dhobichaur",
+        "NA",
+        "Kathmandu",
+        "Nepal",
+        "BEAUTY OR MAKE-UP PREPARATIONS AND PREPARATIONS FOR THE CARE OF THE SKIN (OTHER THAN MEDICAMENTS), INCLUDING SUNSCREEN OR SUNTAN PREPARATIONS; MANICURE OR PEDICURE PREPARATIONS,  Other:, Face creams",
+        "33",
+        "3304",
+        "Oct-2025",
+        "RSH Global Pvt Ltd",
+        "S M K Enterprises Pvt Ltd",
+        "119, Park Street, 2nd Floor, Unit-2C",
+        "NA",
+        "Kolkata",
+        "West Bengal",
+        "Dhobichaur",
+        "NA",
+        "Kathmandu",
+        "Nepal",
+        "Y",
+        "85541173",
+        "0211004405"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "Ind_07_Ex.xlsx",
+      "pm_rows": 29625,
+      "actual_rows": 29624,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-10-21 00:00:00",
+        "07109000",
+        "PERISHABLE CARGO: FRESH VEGETABLES",
+        "GIANT VISION TRADERS PRIVATE LIMITED",
+        "Chozhan Traders Pte. Ltd.",
+        "MERCANTIILE SHIPPING SERVICES",
+        "814",
+        "KGS",
+        "0.42934889434889434",
+        "349.49",
+        "0.43",
+        "OP Singapore",
+        "Singapore",
+        "Madras Air",
+        "Air",
+        "814",
+        "KGS",
+        "1628",
+        "2",
+        "SGD",
+        "0",
+        "0",
+        "",
+        "0",
+        "N/A",
+        "NA",
+        "NA",
+        "Kanchipuram",
+        "Tamil Nadu",
+        "603204",
+        "NA",
+        "NA",
+        "NA",
+        "No 19 Veerasamy Road 01-01",
+        "NA",
+        "Singapore",
+        "Singapore",
+        "VEGETABLES (UNCOOKED OR COOKED BY STEAMING OR BOILING IN WATER), FROZEN, Mixtures of vegetables",
+        "07",
+        "0710",
+        "Oct-2025",
+        "GIANT VISION TRADERS PRIVATE LIMITED",
+        "Chozhan Traders Pte. Ltd.",
+        "NA",
+        "NA",
+        "Kanchipuram",
+        "Tamil Nadu",
+        "No 19 Veerasamy Road 01-01",
+        "NA",
+        "Singapore",
+        "Singapore",
+        "Y",
+        "82913379",
+        "AAJCG5704H"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "Metal Scrap_Product_Import.xlsx",
+      "pm_rows": 24478,
+      "actual_rows": 24477,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-01-21 00:00:00",
+        "76020010",
+        "ALUMINIUM SCRAP TREAD AS PER ISRI ALUMINIUM SCRAP",
+        "B R Metal Alloys Guj Pvt Ltd",
+        "Al Qaryan Group",
+        "UNIQUE SPEDITORER PVT LTD",
+        "19940",
+        "KGS",
+        "2.42",
+        "48257.79",
+        "2.42",
+        "Ahmedabad Icd",
+        "Ad Dammam",
+        "Saudi Arabia",
+        "Sea",
+        "19940",
+        "KGS",
+        "2.425",
+        "USD",
+        "58510.16",
+        "10252.36",
+        "21.245",
+        "HC",
+        "0",
+        "0",
+        "NA",
+        "0",
+        "UNT",
+        "F/4, New Madhupura Market Nr. Police Commissioner Office Shahibaug",
+        "NA",
+        "GUJARAT",
+        "AHMEDABAD",
+        "380004",
+        "919601612139",
+        "ray103associates@gmail.com",
+        "GHANSHYAM BABUPRASAD SHAH",
+        "Trading Industrial & Contracting",
+        "Ad Dammam",
+        "Dammam",
+        "Saudi Arabia",
+        "ALUMINIUM WASTE AND SCRAP,  Aluminium waste and scrap:, Aluminium scrap, namely the following: Clean aluminium lithographic sheets covered by ISRI code word 'Tablet'; New, clean aluminium lithographic sheets covered by ISRI code word 'Tabloid'; Mixed low",
+        "76",
+        "7602",
+        "Jan-2025",
+        "B R Metal Alloys Guj Pvt Ltd",
+        "AL QARYAN GROUP",
+        "F/4, New Madhupura Market Nr. Police Commissioner Office Shahibaug",
+        "NA",
+        "AHMEDABAD",
+        "380004",
+        "GUJARAT",
+        "919601612139",
+        "ray103associates@gmail.com",
+        "FOR TRADING,INDUSTRY & CONTRACTINGP.O.BOX 3703,DAMMAM 31481SAUDI ARABIA  SA",
+        "NA",
+        "Y",
+        "3004941",
+        "0894003127"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "USA_India39 (1).xlsx",
+      "pm_rows": 9215,
+      "actual_rows": 9214,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-12-01 00:00:00",
+        "39269099",
+        "101478099 BACK-UP,1.125 OD X 0.965 ID X 0.050W,VRG",
+        "Halliburton India Operations Pvt Ltd",
+        "PT HALLIBURTON INDONESIA",
+        "BABAJI SHIVRAM CLEARING & CARRIERS PVT LTD",
+        "12",
+        "NOS",
+        "10.055",
+        "120.66",
+        "10.06",
+        "Hyderabad Air",
+        "OP Singapore",
+        "United States",
+        "Air",
+        "12",
+        "NOS",
+        "6.67",
+        "USD",
+        "165.87",
+        "45.21",
+        "37.4689",
+        "HC",
+        "0",
+        "0",
+        "N/A",
+        "0",
+        "UNT",
+        "Unit No 210 The Summit TPS V, Sant Janabai Road Vile Parle East",
+        "NA",
+        "Maharashtra",
+        "Mumbai",
+        "400057",
+        "919810127213",
+        "jaiswalashok475@gmail.com",
+        "FEHMIDA MEHMOOD PANCHBAI",
+        "NA",
+        "OP Singapore",
+        "Tangerang Selatan",
+        "Indonesia",
+        "OTHER ARTICLES OF PLASTICS AND ARTICLES OF OTHER MATERIALS OF HEADINGS 3901 TO 3914,  Other:, Other",
+        "39",
+        "3926",
+        "Dec-2025",
+        "Halliburton India Operations Pvt Ltd",
+        "PT HALLIBURTON INDONESIA",
+        "Unit No 210 The Summit TPS V, Sant Janabai Road Vile Parle East",
+        "NA",
+        "Mumbai",
+        "400057",
+        "Maharashtra",
+        "919810127213",
+        "jaiswalashok475@gmail.com",
+        "NA",
+        "NA",
+        "Y",
+        "93671288",
+        "0316502944"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "HS07 (1).xlsx",
+      "pm_rows": 7815,
+      "actual_rows": 7814,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-02-01 00:00:00",
+        "07061000",
+        "300 CTNS CARROTS NT.WT.5.00,GR.WT.5.50KGS",
+        "Bombay Fruits Vegetables Import Export Pvt Ltd",
+        "DAISY FRUIT TRADING COMPANY LLC",
+        "ACE CLEARING & FORWARDING",
+        "1500",
+        "KGS",
+        "0.441",
+        "661.5",
+        "0.44",
+        "Jebel Ali",
+        "United Arab Emirates",
+        "JNPT",
+        "Sea",
+        "1500",
+        "KGS",
+        "675",
+        "0.45",
+        "USD",
+        "0",
+        "0",
+        "NA",
+        "0",
+        "N/A",
+        "33/35, 2nd Phophal Wadi, Matruwatsalya, Gr. Flr., R. No. 2",
+        "NA",
+        "Mumbai",
+        "Maharashtra",
+        "400002",
+        "22408642/22406075",
+        "bombayexp@vsnl.com",
+        "SHEJWAL ANAND",
+        "NA",
+        "NA",
+        "NA",
+        "NA",
+        "CARROTS, TURNIPS, SALAD BEETROOT, SALSIFY, CELERIAC, RADISHES AND SIMILAR EDIBLE ROOTS, FRESH OR CHILLED, Carrots and turnips",
+        "07",
+        "0706",
+        "Feb-2025",
+        "Bombay Fruits Vegetables Import Export Pvt Ltd",
+        "DAISY FRUIT TRADING COMPANY LLC",
+        "33/35, 2nd Phophal Wadi, Matruwatsalya, Gr. Flr., R. No. 2",
+        "NA",
+        "Mumbai",
+        "Maharashtra",
+        "P.O.BOX NO.294231DUBAI, U.A.E.",
+        "NA",
+        "NA",
+        "United Arab Emirates",
+        "Y",
+        "6287181",
+        "0389051438"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "USA_India (1).xlsx",
+      "pm_rows": 4025,
+      "actual_rows": 4024,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-01-01 00:00:00",
+        "29051990",
+        "111120-10G 2-METHYL-2-PENTANOL 99% 111120-10G 2-METHYL-2-PENTANOL 99%",
+        "Sigma Aldrich Chemicals Pvt Ltd",
+        "Sigma Aldrich International GM",
+        "NEW INDIA SHIPPING SERVICES",
+        "5",
+        "NOS",
+        "20.282",
+        "101.41",
+        "20.282",
+        "Bangalore Air",
+        "Frankfurt Am Main",
+        "United States",
+        "Air",
+        "5",
+        "NOS",
+        "20.696",
+        "USD",
+        "129.54",
+        "28.13",
+        "27.7389",
+        "EB",
+        "0",
+        "0",
+        "NA",
+        "0",
+        "UNT",
+        "Plot No. 12, Bommasandra-Jigani Link Road, Indl. Area, Anekal Tq",
+        "NA",
+        "Karnataka",
+        "Bengaluru",
+        "560100",
+        "080-66219400",
+        "vkrishnan@sial.com",
+        "VANAJA KRISHNAN",
+        "Industriestrasse 25",
+        "Frankfurt Am Main",
+        "BUCHS",
+        "SWITZERLAND",
+        "ACYCLIC ALCOHOLS AND THEIR HALOGENATED, SULPHONATED, NITRATED OR NITROSATED DERIVATIVES,  Other:, Other",
+        "29",
+        "2905",
+        "Jan-2025",
+        "Sigma Aldrich Chemicals Pvt Ltd",
+        "SIGMA ALDRICH INTERNATIONAL GM",
+        "Plot No. 12, Bommasandra-Jigani Link Road, Indl. Area, Anekal Tq",
+        "NA",
+        "Bengaluru",
+        "560100",
+        "Karnataka",
+        "080-66219400",
+        "vkrishnan@sial.com",
+        "BH INDUSTRIESTRASSE-25-CH 9471 BUCH S SDNF SWITZERLAND",
+        "NA",
+        "Y",
+        "1318826",
+        "0703003453"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "Export Crown Decor.xlsx",
+      "pm_rows": 1957,
+      "actual_rows": 1956,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-01-24 00:00:00",
+        "48239019",
+        "DECORATIVELAMINATED SHEETS FINISHGOODS",
+        "Crown Decor Pvt Ltd",
+        "Shree Shyam Hardware Pvt Ltd",
+        "DHIRAJ KUMAR GIRI",
+        "10",
+        "NOS",
+        "7.412999999999999",
+        "74.13",
+        "7.41",
+        "Bhairawa",
+        "Nepal",
+        "Sonauli",
+        "Sea",
+        "10",
+        "NOS",
+        "6460",
+        "646",
+        "INR",
+        "0",
+        "0",
+        "",
+        "0",
+        "N/A",
+        "419/1, 419/7, Radhe Industrial Estate, Tajpur Road, Changodar, Sanand",
+        "NA",
+        "Ahmedabad",
+        "Gujarat",
+        "382213",
+        "917698933101",
+        "logistics@royaletouche.com",
+        "BHARAT&nbsp;SHAH",
+        "NA",
+        "NA",
+        "Kathmandu",
+        "Nepal",
+        "OTHER PAPER, PAPERBOARD, CELLULOSE WADDING AND WEBS OF CELLULOSE FIBRES,CUT TO SIZE OR SHAPE; OTHER ARTICLES OF PAPER PULP, PAPER, PAPERBOARD, CELLULOSE WADDING OR WEBS OF CELLULOSE FIBRES,  Other:, Decorative laminates",
+        "48",
+        "4823",
+        "Jan-2025",
+        "Crown Decor Pvt Ltd",
+        "SHREE SHYAM HARDWARE PVT LIMITED",
+        "419/1, 419/7, Radhe Industrial Estate, Tajpur Road, Changodar, Sanand",
+        "NA",
+        "Ahmedabad",
+        "Gujarat",
+        "KATHMANDU NEPAL",
+        "NA",
+        "NA",
+        "NEPAL",
+        "Y",
+        "4561350",
+        "0816502676"
+      ],
+      "error": null,
+      "date_range": null
+    },
+    {
+      "file": "07_Ex_Can_Sing.xlsx",
+      "pm_rows": 1068,
+      "actual_rows": 1067,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "headers": [
+        "2025-02-01 00:00:00",
+        "07061000",
+        "FRESH FRUITS & VEGETABLE,CARROT 70 BOX/NET WEIGHT-350.00KGS DAUCUS CAROTA",
+        "Neelam Enterprises",
+        "Fruticana Ltd",
+        "GONSAI LOGISTICS PRIVATE LIMITED",
+        "70",
+        "NOS",
+        "9.372",
+        "656.04",
+        "9.37",
+        "VANCOUVER BC CANADA CAVAN",
+        "Canada",
+        "Delhi Air",
+        "Air",
+        "70",
+        "NOS",
+        "3080",
+        "44",
+        "CAD",
+        "0",
+        "0",
+        "NA",
+        "0",
+        "N/A",
+        "WZ-700, Ring Road Naraina",
+        "NA",
+        "New Delhi",
+        "Delhi",
+        "110028",
+        "01126863218 09873048170",
+        "neelam1966rentprises@yahoo.com",
+        "MANMOYURI DEVI",
+        "7676 Anvil Avenue",
+        "NA",
+        "SURREY",
+        "CANADA",
+        "CARROTS, TURNIPS, SALAD BEETROOT, SALSIFY, CELERIAC, RADISHES AND SIMILAR EDIBLE ROOTS, FRESH OR CHILLED, Carrots and turnips",
+        "07",
+        "0706",
+        "Feb-2025",
+        "Neelam Enterprises",
+        "FRUTICANA LTD",
+        "WZ-700, Ring Road Naraina",
+        "NA",
+        "New Delhi",
+        "Delhi",
+        "7676 ANVIL AVENUE , SURREY BC V3W 4H7 VANCOUVER CANADA",
+        "NA",
+        "NA",
+        "CANADA",
+        "Y",
+        "5634279",
+        "0513047298"
+      ],
+      "error": null,
+      "date_range": null
+    }
+  ],
+  "santander": {
+    "total_files": 194,
+    "sample": [
+      {
+        "file": "Ch_1.xlsx",
+        "rows": 5327,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_1(1).xlsx",
+        "rows": 5327,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_10.xls",
+        "rows": 16831,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_25.xls",
+        "rows": 43726,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_39_China.xls",
+        "rows": 41704,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_39_USA_Importers.xls",
+        "rows": 45621,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_50.xls",
+        "rows": 2104,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_74_Exporter.xls",
+        "rows": null,
+        "error": "Not found"
+      },
+      {
+        "file": "Ch_74_Importer.xls",
+        "rows": null,
+        "error": "Not found"
+      },
+      {
+        "file": "Ch_84_Exporter.xls",
+        "rows": null,
+        "error": "Not found"
+      },
+      {
+        "file": "Ch_84_Importer.xls",
+        "rows": null,
+        "error": "Not found"
+      },
+      {
+        "file": "Ch_95.xls",
+        "rows": null,
+        "error": "Not found"
+      },
+      {
+        "file": "Ch_2.xls",
+        "rows": 10565,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_3.xls",
+        "rows": 12984,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_27.xls",
+        "rows": 38684,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_39AtoF_exceptchina.xls",
+        "rows": 34208,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_52.xls",
+        "rows": 26893,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_61_Exporter.xls",
+        "rows": 39815,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_72_Exporter.xls",
+        "rows": 30424,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "error": null
+      },
+      {
+        "file": "Ch_85_Exporter.xls",
+        "rows": null,
+        "error": "Not found"
+      }
+    ],
+    "total_sample_rows": 354213,
+    "schema_consistent": true,
+    "first_headers": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "epc": [
+    {
+      "file": "List of members EEPC.xlsx",
+      "pm_rows": 30666,
+      "actual_rows": 30665,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "has_email": false,
+      "has_phone": false,
+      "headers": [
+        "Full Name Of Company",
+        "Address 1",
+        "Address 2",
+        "City",
+        "Phone No.",
+        "E-Mail"
+      ]
+    },
+    {
+      "file": "SilkEPC.xlsx",
+      "pm_rows": 12787,
+      "actual_rows": 11044,
+      "delta": -1743,
+      "status": "DISCREPANCY",
+      "has_email": false,
+      "has_phone": false,
+      "headers": [
+        "S.No.:",
+        "RCMC",
+        "Member Name",
+        "Contact Person"
+      ]
+    },
+    {
+      "file": "spiceboard.csv",
+      "pm_rows": 12317,
+      "actual_rows": 12272,
+      "delta": -45,
+      "status": "CONFIRMED",
+      "has_email": true,
+      "has_phone": true,
+      "headers": [
+        "trader_code",
+        "trader_name",
+        "trader_status",
+        "state",
+        "contact",
+        "address",
+        "telephone",
+        "mobile",
+        "email",
+        "regn_date",
+        "ie_code_no",
+        "organisation_status",
+        "exporter_type"
+      ]
+    },
+    {
+      "file": "aepc.csv",
+      "pm_rows": 8150,
+      "actual_rows": 8150,
+      "delta": 0,
+      "status": "CONFIRMED",
+      "has_email": true,
+      "has_phone": false,
+      "headers": [
+        "market_title",
+        "market_person",
+        "market_address",
+        "market_city_pin",
+        "market_state",
+        "market_email"
+      ]
+    },
+    {
+      "file": "epch.csv",
+      "pm_rows": 9020,
+      "actual_rows": 9020,
+      "delta": 0,
+      "status": "CONFIRMED",
+      "has_email": true,
+      "has_phone": false,
+      "headers": [
+        "name",
+        "address1",
+        "address2",
+        "email",
+        "contact_person",
+        "products"
+      ]
+    },
+    {
+      "file": "pharmaexcilNoemailnophone.xlsx",
+      "pm_rows": 4766,
+      "actual_rows": 4765,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "has_email": false,
+      "has_phone": false,
+      "headers": [
+        "Company Name",
+        "Type",
+        "website"
+      ]
+    },
+    {
+      "file": "SEZEPC.xlsx",
+      "pm_rows": 4659,
+      "actual_rows": 4658,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "has_email": false,
+      "has_phone": false,
+      "headers": [
+        "SNO.",
+        "Name Of Unit",
+        "Zone",
+        "Category",
+        "Sector",
+        "Services",
+        "Export To Countries",
+        "Correspondence Address",
+        "Mobile No.",
+        "Fax No.",
+        "Tel No.",
+        "E-mail ID",
+        ""
+      ]
+    },
+    {
+      "file": "CoirEPC.xlsx",
+      "pm_rows": 1864,
+      "actual_rows": 1863,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "has_email": false,
+      "has_phone": true,
+      "headers": [
+        "Sl.No.",
+        "Exporters Name",
+        "Contact Person",
+        "Designation",
+        "Address 1",
+        "DISTRICT",
+        "STATE",
+        "PIN",
+        "Telephone",
+        "E-mail\n1",
+        "ESTD.",
+        "Company",
+        "Products",
+        "Exporter",
+        "Reg. No"
+      ]
+    },
+    {
+      "file": "Shefexil.xlsx",
+      "pm_rows": 883,
+      "actual_rows": 881,
+      "delta": -2,
+      "status": "CONFIRMED",
+      "has_email": false,
+      "has_phone": false,
+      "headers": [
+        "sudebroyexim@gmail.com"
+      ]
+    },
+    {
+      "file": "Tobacoepcsheet.xlsx",
+      "pm_rows": 721,
+      "actual_rows": 720,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "has_email": false,
+      "has_phone": false,
+      "headers": [
+        "916281277378"
+      ]
+    },
+    {
+      "file": "juteepc.xlsx",
+      "pm_rows": 392,
+      "actual_rows": 391,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "has_email": true,
+      "has_phone": false,
+      "headers": [
+        "S No",
+        "Name",
+        "Address",
+        "Email-Id",
+        "Contact Number",
+        "Contact Person"
+      ]
+    },
+    {
+      "file": "Cashew.xlsx",
+      "pm_rows": 193,
+      "actual_rows": 192,
+      "delta": -1,
+      "status": "CONFIRMED",
+      "has_email": false,
+      "has_phone": false,
+      "headers": [
+        "aanutts@yahoo.com"
+      ]
+    }
+  ],
+  "embassy": {
+    "total_zips": 30,
+    "nonzip_files": [
+      {
+        "file": "ADDRESSLIST.xlsx",
+        "rows": 231,
+        "has_email": true,
+        "headers": [
+          "S No",
+          "Name",
+          "Designation",
+          "Organization",
+          "Email ID",
+          "Contact Number",
+          "LIST",
+          "Status/ Follow Up",
+          "Accompanying Persons/ Remarks",
+          "TOTAL COUNT"
+        ]
+      },
+      {
+        "file": "ANNUAL SUBSCRIPTION FOR THE YEAR 2024-25.xlsx",
+        "rows": 486,
+        "has_email": false,
+        "headers": [
+          "",
+          "",
+          "",
+          "List for Annual Sub. 2024-25",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "ASSOCIATE MEMBER (1).xlsx",
+        "rows": 169,
+        "has_email": false,
+        "headers": [
+          "ASSOCIATE MEMBERS",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "Export Seminar Participation  Bhopal 24.03.2320032023_05200013.xlsx",
+        "rows": 215,
+        "has_email": false,
+        "headers": [
+          "Export Seminar Participation  Bhopal 24.03.23",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "Foreign Business Delegation_GIS 18.01.20223.xlsx",
+        "rows": 451,
+        "has_email": false,
+        "headers": [
+          "Details of Foreign Business Delegation Participating in GIS- 23 \u201cInvest MP\u201d",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "Foreign Buyers List RBSM Indore 22.03.23.xlsx",
+        "rows": 89,
+        "has_email": true,
+        "headers": [
+          "Sr No",
+          "Company Name",
+          "Country",
+          "Contact Person",
+          "Mobile No",
+          "Email",
+          "Sector",
+          "Interest to buy"
+        ]
+      },
+      {
+        "file": "Laghu udyog bharti.xlsx",
+        "rows": 23,
+        "has_email": false,
+        "headers": [
+          "",
+          "Laghu Udyog Bharati",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "List for RIC Jabalpur 15.07.2024.xlsx",
+        "rows": 11,
+        "has_email": false,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "List of Rice Mill.xlsx",
+        "rows": 478,
+        "has_email": false,
+        "headers": [
+          "DTIC- BALAGHAT     LIST OF RICE MILL",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "MP IDC - Slovak Republic.xlsx",
+        "rows": 21,
+        "has_email": false,
+        "headers": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "Master.xlsx",
+        "rows": 132,
+        "has_email": false,
+        "headers": [
+          "\u0915\u094d\u0930\u0902.",
+          "\u0928\u093e\u092e / \u092a\u0926\u0928\u093e\u092e",
+          "",
+          "\u092e\u094b. \u0928\u0902.",
+          "Distt"
+        ]
+      },
+      {
+        "file": "One-to-One Final.xlsx",
+        "rows": 35,
+        "has_email": false,
+        "headers": [
+          "M P Industrial Development Corporation Ltd. Regional Office Jabalpur",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "Updated list of shortlisted buyers with flight details 07012023.xlsx",
+        "rows": 80,
+        "has_email": true,
+        "headers": [
+          "Sr.No.",
+          "Country",
+          "Name of Company",
+          "Name of MD/CEO/ Chairman/Director",
+          "Email-ID",
+          "Products",
+          "Air Travel Ticket Details",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "file": "export_report.xlsx",
+        "rows": 213,
+        "has_email": true,
+        "headers": [
+          "COMPANY_NAME",
+          "CONTACT_PERSON_NAME",
+          "MOBILE_NO",
+          "EMAIL_ID",
+          "AGE",
+          "GENDER",
+          "ADDRESS",
+          "REGISTRATION_DATE",
+          "SECTOR_NAME",
+          "STATE_NAME",
+          "DISTRICT_NAME",
+          "IMPORTER_EXPORTER_CODE",
+          "WISH_FROM_EVENT_DESC"
+        ]
+      },
+      {
+        "file": "sihma mailing Excel sheet.xlsx",
+        "rows": 642,
+        "has_email": true,
+        "headers": [
+          "Sr No",
+          "Name of the Industry",
+          "Address",
+          "Email ID",
+          "Phone No.",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "zip_samples": [
+      {
+        "zip": "Austria.zip",
+        "inner_count": 5,
+        "excel_count": 5,
+        "sample_rows": 1474,
+        "has_email": true
+      },
+      {
+        "zip": "Bahrin.zip",
+        "inner_count": 4,
+        "excel_count": 3,
+        "sample_rows": 1958,
+        "has_email": true
+      },
+      {
+        "zip": "Belarus.zip",
+        "inner_count": 4,
+        "excel_count": 4,
+        "sample_rows": 8894,
+        "has_email": true
+      },
+      {
+        "zip": "Denmark.zip",
+        "inner_count": 20,
+        "excel_count": 12,
+        "sample_rows": 554,
+        "has_email": true
+      },
+      {
+        "zip": "Dutch.zip",
+        "inner_count": 5,
+        "excel_count": 4,
+        "sample_rows": 1376,
+        "has_email": true
+      }
+    ],
+    "sample_rows": 14256
+  },
+  "zaubacorp": {
+    "pm_total": 1678770,
+    "actual_total": 1678577,
+    "delta": -193,
+    "dirs": [
+      {
+        "dir": "/Users/satyarthi/Desktop/Database/db/FromDesktop/zaubascrap/backend/csvFiles",
+        "exists": true,
+        "total_rows": 235195,
+        "schema_consistent": false,
+        "first_headers": [
+          "Email ID"
+        ]
+      },
+      {
+        "dir": "/Users/satyarthi/Desktop/Database/db/FromDesktop/zaubascrap/Scrap/servicesepc_scrapper-main 2/backend/csvFiles",
+        "exists": true,
+        "total_rows": 1443382,
+        "schema_consistent": true,
+        "first_headers": [
+          "cid",
+          "company",
+          "company_url",
+          "roc",
+          "status"
+        ]
+      }
+    ]
+  },
+  "odop": [
+    {
+      "file": "IndiaDist21-22.xls",
+      "pm_rows": 219,
+      "actual_rows": 219,
+      "status": "CONFIRMED"
+    },
+    {
+      "file": "IndiaDist22-23.xls",
+      "pm_rows": 219,
+      "actual_rows": 219,
+      "status": "CONFIRMED"
+    },
+    {
+      "file": "IndiaDist23-24.xls",
+      "pm_rows": 223,
+      "actual_rows": 223,
+      "status": "CONFIRMED"
+    },
+    {
+      "file": "IndiaDistToCountry21-22.xls",
+      "pm_rows": 2658,
+      "actual_rows": 2658,
+      "status": "CONFIRMED"
+    },
+    {
+      "file": "IndiaDistToCountry22-23.xls",
+      "pm_rows": 2659,
+      "actual_rows": 2671,
+      "status": "CONFIRMED"
+    },
+    {
+      "file": "IndiaDistToCountry23-24.xls",
+      "pm_rows": 2921,
+      "actual_rows": 2921,
+      "status": "CONFIRMED"
+    }
+  ],
+  "missed": [
+    {
+      "file": "db/List of Potential Exporters RIC Sagar______.xlsx",
+      "size": 10864
+    },
+    {
+      "file": "db/1 mp gm list Officers List 01-04-24.docx",
+      "size": 27285
+    },
+    {
+      "file": "db/MPSRLM_DPM Email ID.xlsx",
+      "size": 12133
+    },
+    {
+      "file": "db/\u0938\u093e\u0917\u0930 \u090f\u0915 \u091c\u093f\u0932\u093e \u090f\u0915 \u0909\u0924\u094d\u092a\u093e\u0926 \u0915\u093e\u0930\u094d\u092f\u0936\u093e\u0932\u093e.csv",
+      "size": 15131
+    },
+    {
+      "file": "db/Jabalpur event list.xlsx",
+      "size": 14075
+    },
+    {
+      "file": "db/25.02.2024 Seller list.xlsx",
+      "size": 32319
+    },
+    {
+      "file": "db/WhatsApp Image 2024-09-21 at 20.40.11.jpeg",
+      "size": 20447
+    },
+    {
+      "file": "db/RIC Sagar Interested Buyers Form.xls",
+      "size": 26112
+    },
+    {
+      "file": "db/FPO.xlsx",
+      "size": 29566
+    },
+    {
+      "file": "db/RIC Sagar 27.09.2024.xlsx",
+      "size": 1398930
+    },
+    {
+      "file": "db/MSME Participant Registration18092024_12070023.xlsx",
+      "size": 155492
+    },
+    {
+      "file": "db/Buyers_ODOP__BSM_MP.xlsx",
+      "size": 11485
+    },
+    {
+      "file": "db/JBWhole.xls",
+      "size": 8414720
+    },
+    {
+      "file": "db/MEMBERSHIP FILE SRO JALANDHAR.xlsx",
+      "size": 1086284
+    },
+    {
+      "file": "db/WhatsApp Image 2024-09-21 at 20.40.11 (1).jpeg",
+      "size": 21815
+    },
+    {
+      "file": "db/Invite Extended Bengaluru Roadshow.xlsx",
+      "size": 26905
+    },
+    {
+      "file": "db/Star export  house 11.12.2022.xlsx",
+      "size": 30916
+    },
+    {
+      "file": "db/WhatsApp Image 2024-09-21 at 20.40.11 (3).jpeg",
+      "size": 16292
+    },
+    {
+      "file": "db/1498 Date 17.09.2024 ADH TKG.pdf",
+      "size": 3020668
+    },
+    {
+      "file": "db/Buyer Seller Meet Registration Report12032023_12120043 Final Report 12.03.23.xlsx",
+      "size": 17282
+    },
+    {
+      "file": "db/UPexporter.pdf",
+      "size": 235285
+    },
+    {
+      "file": "db/List of members Capexil granite.csv",
+      "size": 1227296
+    },
+    {
+      "file": "db/Santobainsurance.xlsx",
+      "size": 90104
+    },
+    {
+      "file": "db/Special Economic Zone 12.12.2022.xlsx",
+      "size": 29724
+    },
+    {
+      "file": "db/Delegate and Buyer_Seller Registration18092024_12080016.xlsx",
+      "size": 256727
+    },
+    {
+      "file": "db/ODOP Workshop Participants- Sagar Division.pdf",
+      "size": 405789
+    },
+    {
+      "file": "db/DPM CONTACT Hindi and English list 27-08-2024.xlsx",
+      "size": 13315
+    },
+    {
+      "file": "db/ALL DEPT. GIS INTENTIONS AND MoU REVIEW.xlsx",
+      "size": 2872088
+    },
+    {
+      "file": "db/BBStaffLeads.xlsx",
+      "size": 18554
+    },
+    {
+      "file": "db/EPC,CHAMBER,PARTNER COUNTRY,CG.xlsx",
+      "size": 54481
+    },
+    {
+      "file": "db/WhatsApp Image 2024-09-21 at 20.40.11 (2).jpeg",
+      "size": 14702
+    },
+    {
+      "file": "db/Sagar_Exhibitor_Registration_05_09_2023.xls",
+      "size": 49664
+    },
+    {
+      "file": "db/WhatsApp Image 2024-09-21 at 20.43.22.jpeg",
+      "size": 332028
+    },
+    {
+      "file": "db/meetings - list - Ujjain.xls",
+      "size": 1438109
+    },
+    {
+      "file": "db/5 4 3 Status Holder Start Export House 17.12.22 (Mumbai).xlsx",
+      "size": 135283
+    },
+    {
+      "file": "db/one to one meeting with HCM GIS- 23.xlsx",
+      "size": 16073
+    },
+    {
+      "file": "db/RIS.xlsx",
+      "size": 459382
+    },
+    {
+      "file": "db/RIC Sagar Interested Buyers Form 2.csv",
+      "size": 653
+    },
+    {
+      "file": "db/9thResult24BRJHnos.xls",
+      "size": 496640
+    },
+    {
+      "file": "db/ChambersOfCommerceInIndia.pdf",
+      "size": 72910
+    },
+    {
+      "file": "db/UPTIS-Exhibitor-profile.pdf",
+      "size": 7036382
+    },
+    {
+      "file": "db/List of companies_30 Jan 2024.docx",
+      "size": 21423
+    },
+    {
+      "file": "db/6thresult24brjhnos.xls",
+      "size": 2528768
+    },
+    {
+      "file": "db/Santobainsuranceemailmob.pdf",
+      "size": 708209
+    },
+    {
+      "file": "db/ODOP_Seller_List.xlsx",
+      "size": 145119
+    },
+    {
+      "file": "db/Spiceboardscrapcode/sainikschoolecounselling_data.js",
+      "size": 74
+    },
+    {
+      "file": "db/Spiceboardscrapcode/background.js",
+      "size": 479
+    },
+    {
+      "file": "db/Spiceboardscrapcode/popup.html",
+      "size": 457
+    },
+    {
+      "file": "db/Spiceboardscrapcode/spicesboard.js",
+      "size": 7257
+    },
+    {
+      "file": "db/Spiceboardscrapcode/manifest.json",
+      "size": 591
+    },
+    {
+      "file": "db/Spiceboardscrapcode/epch.js",
+      "size": 3787
+    },
+    {
+      "file": "db/Spiceboardscrapcode/image.png",
+      "size": 64710
+    },
+    {
+      "file": "db/Spiceboardscrapcode/zaubacorp.js",
+      "size": 3786
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/csvWriter.js",
+      "size": 7306
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/package-lock.json",
+      "size": 26508
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/package.json",
+      "size": 395
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/app.js",
+      "size": 4185
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/csvFiles/dummy.txt",
+      "size": 0
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/csvFiles/spiceboard_1722042659505.csv",
+      "size": 560707
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/csvFiles/spiceboard_1722017142984.csv",
+      "size": 702848
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/csvFiles/spiceboard_1722015344883.csv",
+      "size": 3337348
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/csvFiles/spiceboard_1722019911074.csv",
+      "size": 1921853
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/CHANGELOG.md",
+      "size": 5390
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/index.js",
+      "size": 2336
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/README.md",
+      "size": 2431
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/package.json",
+      "size": 2856
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/tsconfig.json",
+      "size": 4883
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/index.d.ts",
+      "size": 315
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/test/index.js",
+      "size": 10471
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/define-data-property/.github/FUNDING.yml",
+      "size": 591
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/destroy/LICENSE",
+      "size": 1173
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/destroy/index.js",
+      "size": 4258
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/destroy/README.md",
+      "size": 2459
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/destroy/package.json",
+      "size": 1128
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-property-descriptors/LICENSE",
+      "size": 1067
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-property-descriptors/CHANGELOG.md",
+      "size": 2648
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-property-descriptors/index.js",
+      "size": 588
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-property-descriptors/README.md",
+      "size": 2206
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-property-descriptors/package.json",
+      "size": 2090
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-property-descriptors/test/index.js",
+      "size": 1405
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-property-descriptors/.github/FUNDING.yml",
+      "size": 595
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/toidentifier/LICENSE",
+      "size": 1108
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/toidentifier/HISTORY.md",
+      "size": 128
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/toidentifier/index.js",
+      "size": 504
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/toidentifier/README.md",
+      "size": 1803
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/toidentifier/package.json",
+      "size": 1142
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-type/LICENSE",
+      "size": 1089
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-type/HISTORY.md",
+      "size": 523
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-type/index.js",
+      "size": 5002
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-type/README.md",
+      "size": 2782
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-type/package.json",
+      "size": 1075
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/range.js",
+      "size": 77
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/type.js",
+      "size": 75
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/CHANGELOG.md",
+      "size": 1833
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/uri.d.ts",
+      "size": 65
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/range.d.ts",
+      "size": 71
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/index.js",
+      "size": 66
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/README.md",
+      "size": 2114
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/eval.js",
+      "size": 75
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/package.json",
+      "size": 2174
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/tsconfig.json",
+      "size": 3170
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/type.d.ts",
+      "size": 67
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/index.d.ts",
+      "size": 56
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/eval.d.ts",
+      "size": 68
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/syntax.js",
+      "size": 79
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/ref.d.ts",
+      "size": 83
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/syntax.d.ts",
+      "size": 74
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/ref.js",
+      "size": 79
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/uri.js",
+      "size": 73
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/test/index.js",
+      "size": 356
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-errors/.github/FUNDING.yml",
+      "size": 555
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/LICENSE",
+      "size": 1067
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/CHANGELOG.md",
+      "size": 2200
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/index.js",
+      "size": 302
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/README.md",
+      "size": 1623
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/package.json",
+      "size": 2004
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/tsconfig.json",
+      "size": 3611
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/index.d.ts",
+      "size": 57
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/test/index.js",
+      "size": 477
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-proto/.github/FUNDING.yml",
+      "size": 580
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ms/license.md",
+      "size": 1077
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ms/index.js",
+      "size": 2764
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ms/readme.md",
+      "size": 1721
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ms/package.json",
+      "size": 704
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-disposition/LICENSE",
+      "size": 1094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-disposition/HISTORY.md",
+      "size": 1020
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-disposition/index.js",
+      "size": 10594
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-disposition/README.md",
+      "size": 5205
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/content-disposition/package.json",
+      "size": 1200
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/CHANGELOG.md",
+      "size": 8142
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/index.js",
+      "size": 1037
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/README.md",
+      "size": 2026
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/package.json",
+      "size": 2304
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/callBound.js",
+      "size": 413
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/test/index.js",
+      "size": 3839
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/test/callBound.js",
+      "size": 2349
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/call-bind/.github/FUNDING.yml",
+      "size": 580
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/methods/LICENSE",
+      "size": 1180
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/methods/HISTORY.md",
+      "size": 427
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/methods/index.js",
+      "size": 1040
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/methods/README.md",
+      "size": 1694
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/methods/package.json",
+      "size": 947
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/proxy-addr/LICENSE",
+      "size": 1094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/proxy-addr/HISTORY.md",
+      "size": 2991
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/proxy-addr/index.js",
+      "size": 6000
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/proxy-addr/README.md",
+      "size": 4131
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/proxy-addr/package.json",
+      "size": 1183
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/depd/LICENSE",
+      "size": 1094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/depd/History.md",
+      "size": 2256
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/depd/index.js",
+      "size": 10932
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/depd/Readme.md",
+      "size": 9988
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/depd/package.json",
+      "size": 1335
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/depd/lib/browser/index.js",
+      "size": 1512
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/range-parser/LICENSE",
+      "size": 1178
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/range-parser/HISTORY.md",
+      "size": 917
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/range-parser/index.js",
+      "size": 2900
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/range-parser/README.md",
+      "size": 2278
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/range-parser/package.json",
+      "size": 1184
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/bytes/LICENSE",
+      "size": 1153
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/bytes/History.md",
+      "size": 1775
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/bytes/index.js",
+      "size": 3613
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/bytes/Readme.md",
+      "size": 4770
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/bytes/package.json",
+      "size": 959
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/LICENSE",
+      "size": 1249
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/History.md",
+      "size": 113674
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/index.js",
+      "size": 224
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/Readme.md",
+      "size": 5421
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/package.json",
+      "size": 2597
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/response.js",
+      "size": 28339
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/request.js",
+      "size": 12505
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/express.js",
+      "size": 2409
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/utils.js",
+      "size": 5871
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/view.js",
+      "size": 3325
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/application.js",
+      "size": 14593
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/middleware/query.js",
+      "size": 885
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/middleware/init.js",
+      "size": 853
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/router/route.js",
+      "size": 4399
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/router/index.js",
+      "size": 15123
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/express/lib/router/layer.js",
+      "size": 3296
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/encodeurl/LICENSE",
+      "size": 1089
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/encodeurl/HISTORY.md",
+      "size": 238
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/encodeurl/index.js",
+      "size": 1586
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/encodeurl/README.md",
+      "size": 3855
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/encodeurl/package.json",
+      "size": 1091
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/merge-descriptors/LICENSE",
+      "size": 1167
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/merge-descriptors/HISTORY.md",
+      "size": 363
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/merge-descriptors/index.js",
+      "size": 1215
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/merge-descriptors/README.md",
+      "size": 1213
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/merge-descriptors/package.json",
+      "size": 931
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/array-flatten/LICENSE",
+      "size": 1103
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/array-flatten/README.md",
+      "size": 1245
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/array-flatten/package.json",
+      "size": 879
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/array-flatten/array-flatten.js",
+      "size": 1195
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safe-buffer/LICENSE",
+      "size": 1081
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safe-buffer/index.js",
+      "size": 1670
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safe-buffer/README.md",
+      "size": 19555
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safe-buffer/package.json",
+      "size": 1057
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safe-buffer/index.d.ts",
+      "size": 8738
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/LICENSE",
+      "size": 1052
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/CHANGELOG.md",
+      "size": 13812
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/index.js",
+      "size": 126
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/README.md",
+      "size": 1755
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/package.json",
+      "size": 2262
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/implementation.js",
+      "size": 2043
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/test/index.js",
+      "size": 8991
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/.github/FUNDING.yml",
+      "size": 584
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/function-bind/.github/SECURITY.md",
+      "size": 157
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ee-first/LICENSE",
+      "size": 1099
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ee-first/index.js",
+      "size": 1684
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ee-first/README.md",
+      "size": 2617
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ee-first/package.json",
+      "size": 859
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/inherits/LICENSE",
+      "size": 749
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/inherits/inherits_browser.js",
+      "size": 753
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/inherits/README.md",
+      "size": 1625
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/inherits/package.json",
+      "size": 581
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/inherits/inherits.js",
+      "size": 250
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/LICENSE",
+      "size": 1064
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/Changelog.md",
+      "size": 4342
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/README.md",
+      "size": 6534
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/package.json",
+      "size": 1227
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/dbcs-data.js",
+      "size": 8291
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/dbcs-codec.js",
+      "size": 21415
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/internal.js",
+      "size": 6115
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/index.js",
+      "size": 710
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/utf7.js",
+      "size": 9215
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/sbcs-data.js",
+      "size": 4686
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/sbcs-codec.js",
+      "size": 2191
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/utf16.js",
+      "size": 5011
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/sbcs-data-generated.js",
+      "size": 32034
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/cp949.json",
+      "size": 38122
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/shiftjis.json",
+      "size": 23782
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/gbk-added.json",
+      "size": 1227
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/gb18030-ranges.json",
+      "size": 2216
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/cp936.json",
+      "size": 47320
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/big5-added.json",
+      "size": 17717
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/eucjp.json",
+      "size": 41064
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/encodings/tables/cp950.json",
+      "size": 42356
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/lib/index.js",
+      "size": 5123
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/lib/streams.js",
+      "size": 3387
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/lib/extend-node.js",
+      "size": 8701
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/lib/bom-handling.js",
+      "size": 1109
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/iconv-lite/lib/index.d.ts",
+      "size": 982
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/CHANGELOG.md",
+      "size": 822
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/index.js",
+      "size": 358
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/README.md",
+      "size": 2056
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/package.json",
+      "size": 2112
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/tsconfig.json",
+      "size": 3195
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/index.d.ts",
+      "size": 93
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/test/index.js",
+      "size": 1244
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/es-define-property/.github/FUNDING.yml",
+      "size": 564
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/fresh/LICENSE",
+      "size": 1174
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/fresh/HISTORY.md",
+      "size": 1500
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/fresh/index.js",
+      "size": 2711
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/fresh/README.md",
+      "size": 3374
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/fresh/package.json",
+      "size": 1357
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/get-intrinsic/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/get-intrinsic/CHANGELOG.md",
+      "size": 11640
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/get-intrinsic/index.js",
+      "size": 13615
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/get-intrinsic/README.md",
+      "size": 2791
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/get-intrinsic/package.json",
+      "size": 2414
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/get-intrinsic/test/GetIntrinsic.js",
+      "size": 8767
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/get-intrinsic/.github/FUNDING.yml",
+      "size": 584
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/LICENSE.md",
+      "size": 1600
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/CHANGELOG.md",
+      "size": 29661
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/README.md",
+      "size": 20966
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/package.json",
+      "size": 2317
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/test/stringify.js",
+      "size": 35186
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/test/parse.js",
+      "size": 35871
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/test/utils.js",
+      "size": 5112
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/dist/qs.js",
+      "size": 69136
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/.github/FUNDING.yml",
+      "size": 548
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/lib/stringify.js",
+      "size": 10358
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/lib/index.js",
+      "size": 211
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/lib/parse.js",
+      "size": 9380
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/lib/utils.js",
+      "size": 6823
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/qs/lib/formats.js",
+      "size": 476
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/path-to-regexp/LICENSE",
+      "size": 1103
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/path-to-regexp/History.md",
+      "size": 694
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/path-to-regexp/index.js",
+      "size": 3328
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/path-to-regexp/Readme.md",
+      "size": 1102
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/path-to-regexp/package.json",
+      "size": 554
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/LICENSE",
+      "size": 1083
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/CHANGELOG.md",
+      "size": 2579
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/index.js",
+      "size": 206
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/README.md",
+      "size": 1613
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/package.json",
+      "size": 2283
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/tsconfig.json",
+      "size": 73
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/index.d.ts",
+      "size": 117
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/hasown/.github/FUNDING.yml",
+      "size": 552
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safer-buffer/LICENSE",
+      "size": 1094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safer-buffer/Porting-Buffer.md",
+      "size": 12794
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safer-buffer/safer.js",
+      "size": 2110
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safer-buffer/Readme.md",
+      "size": 8261
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safer-buffer/tests.js",
+      "size": 15735
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safer-buffer/package.json",
+      "size": 822
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/safer-buffer/dangerous.js",
+      "size": 1483
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-types/LICENSE",
+      "size": 1167
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-types/HISTORY.md",
+      "size": 8812
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-types/index.js",
+      "size": 3663
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-types/README.md",
+      "size": 3481
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-types/package.json",
+      "size": 1149
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/type-is/LICENSE",
+      "size": 1172
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/type-is/HISTORY.md",
+      "size": 5447
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/type-is/index.js",
+      "size": 5562
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/type-is/README.md",
+      "size": 5183
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/type-is/package.json",
+      "size": 1133
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/vary/LICENSE",
+      "size": 1094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/vary/HISTORY.md",
+      "size": 792
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/vary/index.js",
+      "size": 2930
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/vary/README.md",
+      "size": 2716
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/vary/package.json",
+      "size": 1215
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/unpipe/LICENSE",
+      "size": 1114
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/unpipe/HISTORY.md",
+      "size": 59
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/unpipe/index.js",
+      "size": 1118
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/unpipe/README.md",
+      "size": 1250
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/unpipe/package.json",
+      "size": 770
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/CHANGELOG.md",
+      "size": 7690
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/index.js",
+      "size": 420
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/shams.js",
+      "size": 1761
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/README.md",
+      "size": 2044
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/package.json",
+      "size": 2648
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/test/index.js",
+      "size": 654
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/test/tests.js",
+      "size": 2021
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/test/shams/get-own-property-symbols.js",
+      "size": 686
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/test/shams/core-js.js",
+      "size": 723
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/has-symbols/.github/FUNDING.yml",
+      "size": 582
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/raw-body/LICENSE",
+      "size": 1181
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/raw-body/HISTORY.md",
+      "size": 6048
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/raw-body/index.js",
+      "size": 7171
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/raw-body/README.md",
+      "size": 6553
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/raw-body/package.json",
+      "size": 1325
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/raw-body/index.d.ts",
+      "size": 2286
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/raw-body/SECURITY.md",
+      "size": 1188
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/http-errors/LICENSE",
+      "size": 1168
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/http-errors/HISTORY.md",
+      "size": 3973
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/http-errors/index.js",
+      "size": 6391
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/http-errors/README.md",
+      "size": 5962
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/http-errors/package.json",
+      "size": 1314
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/accepts/LICENSE",
+      "size": 1167
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/accepts/HISTORY.md",
+      "size": 5096
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/accepts/index.js",
+      "size": 5252
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/accepts/README.md",
+      "size": 4123
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/accepts/package.json",
+      "size": 1157
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie-signature/History.md",
+      "size": 695
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie-signature/index.js",
+      "size": 1230
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie-signature/Readme.md",
+      "size": 1490
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie-signature/package.json",
+      "size": 492
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/forwarded/LICENSE",
+      "size": 1094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/forwarded/HISTORY.md",
+      "size": 400
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/forwarded/index.js",
+      "size": 1578
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/forwarded/README.md",
+      "size": 1654
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/forwarded/package.json",
+      "size": 1150
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/LICENSE",
+      "size": 1177
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/HISTORY.md",
+      "size": 2499
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/index.js",
+      "size": 2451
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/README.md",
+      "size": 4901
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/package.json",
+      "size": 993
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/lib/encoding.js",
+      "size": 3506
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/lib/language.js",
+      "size": 3409
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/lib/mediaType.js",
+      "size": 5358
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/negotiator/lib/charset.js",
+      "size": 3081
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/LICENSE",
+      "size": 1172
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/HISTORY.md",
+      "size": 16491
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/index.js",
+      "size": 2681
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/README.md",
+      "size": 18182
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/package.json",
+      "size": 1472
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/SECURITY.md",
+      "size": 1193
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/lib/read.js",
+      "size": 4325
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/lib/types/raw.js",
+      "size": 1884
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/lib/types/urlencoded.js",
+      "size": 5797
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/lib/types/json.js",
+      "size": 5299
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/body-parser/lib/types/text.js",
+      "size": 2285
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/utils-merge/LICENSE",
+      "size": 1084
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/utils-merge/index.js",
+      "size": 381
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/utils-merge/README.md",
+      "size": 1319
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/utils-merge/package.json",
+      "size": 857
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/CHANGELOG.md",
+      "size": 8802
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/index.js",
+      "size": 3946
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/README.md",
+      "size": 98
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/package.json",
+      "size": 2275
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/tsconfig.json",
+      "size": 3195
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/index.d.ts",
+      "size": 765
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/test/index.js",
+      "size": 1959
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/side-channel/.github/FUNDING.yml",
+      "size": 583
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cors/LICENSE",
+      "size": 1095
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cors/HISTORY.md",
+      "size": 1169
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cors/README.md",
+      "size": 9206
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cors/package.json",
+      "size": 867
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cors/CONTRIBUTING.md",
+      "size": 1028
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cors/lib/index.js",
+      "size": 6623
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/LICENSE",
+      "size": 1083
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/CHANGELOG.md",
+      "size": 4876
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/env.d.ts",
+      "size": 222
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/index.js",
+      "size": 1273
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/env.js",
+      "size": 867
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/README.md",
+      "size": 2167
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/package.json",
+      "size": 2704
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/tsconfig.json",
+      "size": 116
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/index.d.ts",
+      "size": 256
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/set-function-length/.github/FUNDING.yml",
+      "size": 563
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/serve-static/LICENSE",
+      "size": 1189
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/serve-static/HISTORY.md",
+      "size": 10537
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/serve-static/index.js",
+      "size": 4570
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/serve-static/README.md",
+      "size": 7812
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/serve-static/package.json",
+      "size": 1141
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-assign/license",
+      "size": 1119
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-assign/index.js",
+      "size": 2108
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-assign/readme.md",
+      "size": 1502
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-assign/package.json",
+      "size": 764
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/LICENSE",
+      "size": 1098
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/CHANGELOG.md",
+      "size": 9473
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/types.json",
+      "size": 31555
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/mime.js",
+      "size": 2726
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/README.md",
+      "size": 2119
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/package.json",
+      "size": 933
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/cli.js",
+      "size": 149
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/src/test.js",
+      "size": 2334
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime/src/build.js",
+      "size": 1351
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ipaddr.js/LICENSE",
+      "size": 1087
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ipaddr.js/README.md",
+      "size": 8309
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ipaddr.js/ipaddr.min.js",
+      "size": 9738
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ipaddr.js/package.json",
+      "size": 719
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ipaddr.js/lib/ipaddr.js",
+      "size": 19333
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/ipaddr.js/lib/ipaddr.js.d.ts",
+      "size": 2959
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/CHANGELOG.md",
+      "size": 2050
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/README.md",
+      "size": 8367
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/package.json",
+      "size": 1209
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/index.js",
+      "size": 902
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/index.js.map",
+      "size": 614
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/write-object-records.test.js",
+      "size": 12198
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/write-array-records.test.js",
+      "size": 10101
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/write-object-records.test.js.map",
+      "size": 4997
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/helper.js.map",
+      "size": 616
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/field-stringifier.test.js",
+      "size": 4271
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/write-array-records.test.js.map",
+      "size": 3678
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/field-stringifier.test.js.map",
+      "size": 2864
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/helper.js",
+      "size": 646
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/csv-stringifiers/object.test.js.map",
+      "size": 3788
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/csv-stringifiers/object.test.js",
+      "size": 7835
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/csv-stringifiers/array.test.js",
+      "size": 5912
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/csv-stringifiers/array.test.js.map",
+      "size": 2538
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/lang/promise.test.js",
+      "size": 4024
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/lang/promise.test.js.map",
+      "size": 823
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/helper/delimiter.js",
+      "size": 330
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/test/helper/delimiter.js.map",
+      "size": 337
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/field-stringifier.js",
+      "size": 3077
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/file-writer.js",
+      "size": 3758
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-writer.js",
+      "size": 4103
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifier-factory.js",
+      "size": 1144
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifier-factory.js.map",
+      "size": 683
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/file-writer.js.map",
+      "size": 797
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/record.js.map",
+      "size": 111
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-writer.js.map",
+      "size": 900
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-writer-factory.js.map",
+      "size": 972
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/field-stringifier.js.map",
+      "size": 1713
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-writer-factory.js",
+      "size": 1407
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/record.js",
+      "size": 111
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifiers/abstract.js.map",
+      "size": 1368
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifiers/abstract.js",
+      "size": 1742
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifiers/object.js",
+      "size": 2516
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifiers/array.js",
+      "size": 1378
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifiers/object.js.map",
+      "size": 1376
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/csv-stringifiers/array.js.map",
+      "size": 474
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/lang/promise.js.map",
+      "size": 523
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/lang/promise.js",
+      "size": 978
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/lang/object.js",
+      "size": 224
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/dist/lib/lang/object.js.map",
+      "size": 240
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/index.ts",
+      "size": 922
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/helper.ts",
+      "size": 566
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/field-stringifier.test.ts",
+      "size": 3849
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/write-object-records.test.ts",
+      "size": 5670
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/write-array-records.test.ts",
+      "size": 4241
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/csv-stringifiers/object.test.ts",
+      "size": 5451
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/csv-stringifiers/array.test.ts",
+      "size": 3571
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/lang/promise.test.ts",
+      "size": 746
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/test/helper/delimiter.ts",
+      "size": 209
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/csv-writer-factory.ts",
+      "size": 1681
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/record.ts",
+      "size": 158
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/field-stringifier.ts",
+      "size": 1593
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/file-writer.ts",
+      "size": 645
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/csv-writer.ts",
+      "size": 943
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/csv-stringifier-factory.ts",
+      "size": 1209
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/csv-stringifiers/array.ts",
+      "size": 564
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/csv-stringifiers/object.ts",
+      "size": 1441
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/csv-stringifiers/abstract.ts",
+      "size": 1542
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/lang/object.ts",
+      "size": 160
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/csv-writer/src/lib/lang/promise.ts",
+      "size": 440
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie/LICENSE",
+      "size": 1175
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie/HISTORY.md",
+      "size": 3189
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie/index.js",
+      "size": 5281
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie/README.md",
+      "size": 11769
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie/package.json",
+      "size": 1142
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/cookie/SECURITY.md",
+      "size": 1180
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/gopd/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/gopd/CHANGELOG.md",
+      "size": 1541
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/gopd/index.js",
+      "size": 263
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/gopd/README.md",
+      "size": 1562
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/gopd/package.json",
+      "size": 1877
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/gopd/test/index.js",
+      "size": 590
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/gopd/.github/FUNDING.yml",
+      "size": 575
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/escape-html/LICENSE",
+      "size": 1157
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/escape-html/index.js",
+      "size": 1362
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/escape-html/Readme.md",
+      "size": 707
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/escape-html/package.json",
+      "size": 434
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/statuses/LICENSE",
+      "size": 1172
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/statuses/HISTORY.md",
+      "size": 1546
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/statuses/index.js",
+      "size": 2610
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/statuses/README.md",
+      "size": 3559
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/statuses/codes.json",
+      "size": 1789
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/statuses/package.json",
+      "size": 1440
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/parseurl/LICENSE",
+      "size": 1173
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/parseurl/HISTORY.md",
+      "size": 1043
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/parseurl/index.js",
+      "size": 2809
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/parseurl/README.md",
+      "size": 4094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/parseurl/package.json",
+      "size": 1180
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/etag/LICENSE",
+      "size": 1094
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/etag/HISTORY.md",
+      "size": 1732
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/etag/index.js",
+      "size": 2479
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/etag/README.md",
+      "size": 4198
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/etag/package.json",
+      "size": 1306
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/LICENSE",
+      "size": 1128
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/HISTORY.md",
+      "size": 13301
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/index.js",
+      "size": 23502
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/README.md",
+      "size": 9476
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/package.json",
+      "size": 1571
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/SECURITY.md",
+      "size": 1170
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/node_modules/ms/license.md",
+      "size": 1079
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/node_modules/ms/index.js",
+      "size": 3024
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/node_modules/ms/readme.md",
+      "size": 1886
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/send/node_modules/ms/package.json",
+      "size": 732
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/finalhandler/LICENSE",
+      "size": 1119
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/finalhandler/HISTORY.md",
+      "size": 4292
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/finalhandler/index.js",
+      "size": 6689
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/finalhandler/README.md",
+      "size": 4133
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/finalhandler/package.json",
+      "size": 1207
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/finalhandler/SECURITY.md",
+      "size": 1202
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/LICENSE",
+      "size": 1071
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/CHANGELOG.md",
+      "size": 33226
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/index.js",
+      "size": 18882
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/readme.markdown",
+      "size": 2934
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/util.inspect.js",
+      "size": 42
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/package.json",
+      "size": 2702
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test-core-js.js",
+      "size": 534
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/package-support.json",
+      "size": 365
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/number.js",
+      "size": 2312
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/element.js",
+      "size": 1575
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/indent-option.js",
+      "size": 6633
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/bigint.js",
+      "size": 2082
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/toStringTag.js",
+      "size": 1546
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/holes.js",
+      "size": 255
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/global.js",
+      "size": 372
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/values.js",
+      "size": 7034
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/has.js",
+      "size": 514
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/deep.js",
+      "size": 400
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/err.js",
+      "size": 1536
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/undef.js",
+      "size": 302
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/fn.js",
+      "size": 2227
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/circular.js",
+      "size": 451
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/inspect.js",
+      "size": 4946
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/quoteStyle.js",
+      "size": 933
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/lowbyte.js",
+      "size": 268
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/fakes.js",
+      "size": 683
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/test/browser/dom.js",
+      "size": 416
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/example/all.js",
+      "size": 391
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/example/fn.js",
+      "size": 126
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/example/circular.js",
+      "size": 116
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/example/inspect.js",
+      "size": 251
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/object-inspect/.github/FUNDING.yml",
+      "size": 585
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/on-finished/LICENSE",
+      "size": 1167
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/on-finished/HISTORY.md",
+      "size": 1865
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/on-finished/index.js",
+      "size": 4430
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/on-finished/README.md",
+      "size": 5160
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/on-finished/package.json",
+      "size": 1057
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/LICENSE",
+      "size": 1107
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/CHANGELOG.md",
+      "size": 11707
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/Makefile",
+      "size": 1059
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/README.md",
+      "size": 17918
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/component.json",
+      "size": 321
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/node.js",
+      "size": 40
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/package.json",
+      "size": 1138
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/karma.conf.js",
+      "size": 1736
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/src/index.js",
+      "size": 263
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/src/node.js",
+      "size": 6015
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/src/browser.js",
+      "size": 4734
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/src/inspector-log.js",
+      "size": 373
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/debug/src/debug.js",
+      "size": 4394
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/media-typer/LICENSE",
+      "size": 1089
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/media-typer/HISTORY.md",
+      "size": 461
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/media-typer/index.js",
+      "size": 6375
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/media-typer/README.md",
+      "size": 2371
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/media-typer/package.json",
+      "size": 759
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-db/db.json",
+      "size": 185882
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-db/LICENSE",
+      "size": 1172
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-db/HISTORY.md",
+      "size": 12581
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-db/index.js",
+      "size": 189
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-db/README.md",
+      "size": 4091
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/mime-db/package.json",
+      "size": 1624
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/setprototypeof/LICENSE",
+      "size": 727
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/setprototypeof/index.js",
+      "size": 407
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/setprototypeof/README.md",
+      "size": 844
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/setprototypeof/package.json",
+      "size": 1264
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/setprototypeof/index.d.ts",
+      "size": 93
+    },
+    {
+      "file": "db/Spiceboardscrapcode/backend/node_modules/setprototypeof/test/index.js",
+      "size": 690
+    },
+    {
+      "file": "db/Spiceboardscrapcode/OLD_USED_FILES/extractDataForJhBh.js",
+      "size": 6538
+    },
+    {
+      "file": "db/Spiceboardscrapcode/OLD_USED_FILES/aepc.js",
+      "size": 4524
+    },
+    {
+      "file": "db/Spiceboardscrapcode/OLD_USED_FILES/content.js",
+      "size": 5020
+    },
+    {
+      "file": "db/Spiceboardscrapcode/OLD_USED_FILES/extractDataForSainikSchool.js",
+      "size": 66840
+    },
+    {
+      "file": "db/RIC Jabalpur/Final Invitees upto 10CR (685) RIC Jabalpur.xlsx",
+      "size": 99902
+    },
+    {
+      "file": "db/RIC Jabalpur/Final Defence & Automibile Sector Invitees (108) RIC Jabalpur.xlsx",
+      "size": 21203
+    },
+    {
+      "file": "db/RIC Jabalpur/PSU_s List.xlsx",
+      "size": 11190
+    },
+    {
+      "file": "db/RIC Jabalpur/Final Invitees 10CR+ (130) (55) RIC Jabalpur.xlsx",
+      "size": 47427
+    },
+    {
+      "file": "db/RIC Jabalpur/Final DIC Invitees (277) RIC Jabalpur.xlsx",
+      "size": 120499
+    },
+    {
+      "file": "db/RIC Jabalpur/Interested Investors (10).xlsx",
+      "size": 13146
+    },
+    {
+      "file": "db/RIC Jabalpur/Final DIC Invitees -Part B (146) RIC Jabalpur.xlsx",
+      "size": 106016
+    },
+    {
+      "file": "db/RIC Jabalpur/Udyog Sangh Directory.xlsx",
+      "size": 13815
+    },
+    {
+      "file": "db/ODOP/Spice Park Jankari.pdf",
+      "size": 612419
+    },
+    {
+      "file": "db/ODOP/Gunaodopbene.xlsx",
+      "size": 17941
+    },
+    {
+      "file": "db/ODOP/Number of exhibitions.pdf",
+      "size": 521483
+    },
+    {
+      "file": "db/ODOP/5.pdf",
+      "size": 433241
+    },
+    {
+      "file": "db/ODOP/4.pdf",
+      "size": 1666694
+    },
+    {
+      "file": "db/ODOP/1.pdf",
+      "size": 755393
+    },
+    {
+      "file": "db/ODOP/3.pdf",
+      "size": 6087501
+    },
+    {
+      "file": "db/ODOP/Beneficiaries.pdf",
+      "size": 564645
+    },
+    {
+      "file": "db/ODOP/2.pdf",
+      "size": 314871
+    }
+  ]
+}
