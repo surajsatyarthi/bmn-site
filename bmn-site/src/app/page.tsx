@@ -32,17 +32,17 @@ import { FeatureIcon } from '@/components/ui/FeatureIcon';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'BMN - AI finds your buyers. you ship',
+  title: 'BMN — Search 4.4M Global Trade Companies',
   description:
-    'BMN connect global exporters with verified buyers. No cold calls. No trade shows. Just matches.',
+    'Search 4.4 million global trade companies. Find verified importers, exporters, and manufacturers worldwide. Reveal contact details with credits.',
 };
 
 
 
 const IMPACT_NUMBERS = [
-  { value: '$2.5M+', label: 'Deals Facilitated' },
-  { value: '70%', label: 'Faster Buyer Discovery' },
-  { value: '50%', label: 'Faster Approval Process' },
+  { value: '4.4M+', label: 'Companies in Database' },
+  { value: '60+', label: 'Countries Covered' },
+  { value: '5', label: 'Free Reveals / Month' },
 ];
 
 
@@ -52,19 +52,19 @@ const PERFECT_FOR = [
     icon: Ship,
     title: 'Exporters',
     description:
-      'Global manufacturers and traders looking to find verified international buyers for their products.',
+      'Find verified importers in your target markets. Search by country, HS code, and product type — then reveal contact details when ready.',
   },
   {
     icon: Factory,
-    title: 'Manufacturers',
+    title: 'Importers',
     description:
-      'Production houses with export-ready goods seeking direct buyer relationships without middlemen.',
+      'Discover global manufacturers and suppliers. Browse trade history, see what they export, and connect directly.',
   },
   {
     icon: Briefcase,
-    title: 'Trade Brokers',
+    title: 'Trade Agents',
     description:
-      'Trade intermediaries looking to expand their portfolio with data-backed buyer-seller connections.',
+      'High-volume intelligence for multiple clients. 500 reveals/month on the Hunter plan — enough to build outreach lists at scale.',
   },
 ];
 
@@ -97,32 +97,31 @@ const PROFILE_BENEFITS = [
   {
     icon: Package,
     title: 'Free Forever Tier',
-    description: 'Create your profile for free. Get 3 match reveals per month. Upgrade for more credits.',
+    description: 'Create your profile for free. Get 5 contact reveals per month. Upgrade for more credits.',
   },
 ];
 
 const FREE_FEATURES = [
-  'Unlimited match browsing',
-  '3 Free Credits / month',
-  'Basic Search Access',
-  'Basic campaign tracking',
+  'Unlimited database search & browse',
+  '5 Contact Reveals / month',
+  'Search by country, HS code, company name',
   'Email support',
 ];
 
 const PRO_FEATURES = [
-  'Unlimited Shipment Data',
-  '500 Credits / month',
-  'Rollover Guarantee included',
-  'Self-Serve Email Tool (You Send)',
+  '500 Contact Reveals / month',
+  'Unlimited database search',
+  'Filter by country + HS code',
+  'Full Network access (after 100 members)',
 ];
 
 
 
 const PARTNER_FEATURES = [
-  'Dedicated Account Manager',
-  'We Set Up Cold Email Infrastructure',
-  'Done-For-You Outreach',
-  'Meeting Guarantee',
+  'Unlimited Contact Reveals',
+  'Unlimited database search',
+  'BMN manages your email outreach',
+  '5,000 emails/month via Manyreach',
 ];
 
 const TESTIMONIALS = [
@@ -202,47 +201,47 @@ const FAQ_ITEMS = [
   {
     question: "What is BMN?",
     answer:
-      "BMN is an export done-for-you service that connects global exporters with verified buyers using AI-powered matching and outreach.",
+      "BMN is a global B2B trade intelligence platform. Search 4.4 million companies by country and HS code, browse their import/export history, and reveal contact details using credits.",
   },
   {
-    question: "How does BMN find buyers?",
+    question: "How does BMN find trade partners?",
     answer:
-      "We use AI to analyze global trade data, customs records, and buyer databases to find companies actively importing products similar to yours.",
+      "We use Santander trade intelligence data — 4.4 million companies across 60+ countries with their actual import/export history. Filter by country, HS chapter, or company name to find the counterparties you need.",
   },
   {
     question: "Is BMN free to use?",
     answer:
-      "Yes. You can sign up for free and browse matches. You get 3 Free Credits per month to reveal contact details.",
+      "Yes. Database search and browsing are completely free and unlimited. You get 5 Free Contact Reveals per month to unlock email and phone details.",
   },
   {
     question: "What are Credits?",
     answer:
-      "Credits are used to reveal verified contact details. 1 Credit = 1 Verified Contact (Email/Phone). Free users get 3/mo.",
+      "Credits unlock contact details (email + phone) for any company in the database. 1 Credit = 1 contact reveal. Free users get 5/month. Hunter users get 500/month. Partner users get unlimited.",
   },
   {
-    question: "How does the guarantee work?",
+    question: "What is a 'reveal'?",
     answer:
-      "Our Performance Assurance includes a 'Service Rollover'. If we don't hit the agreed meeting target, we work for FREE the next month until we do.",
+      "When you find a company you want to contact, click 'Reveal Contact' to unlock their verified email and phone number. This uses 1 credit. Free users get 5 reveals per month.",
   },
   {
-    question: "What is a \"reveal\"?",
+    question: "What does the Hunter plan include?",
     answer:
-      "When you find a match you're interested in, you can \"reveal\" their full business details — contact info, trade history, and address. Free users get 3 reveals per month.",
+      "Hunter ($199/month) gives you 500 contact reveals per month, unlimited database search, and full Network access. You use your own email tool to reach out — Hunter is about the data, not email management.",
+  },
+  {
+    question: "What does the Partner plan include?",
+    answer:
+      "Partner ($1,500/month) gives you unlimited contact reveals plus BMN manages your outreach campaigns via Manyreach — 5,000 emails per month sent on your behalf. You get the data and the outreach done for you.",
+  },
+  {
+    question: "Do credits roll over?",
+    answer:
+      "No. Credits reset on the 1st of each month. Unused credits expire. This applies to all plans.",
   },
   {
     question: "How are matches scored?",
     answer:
-      "We rank matches as \"Best\", \"Great\", or \"Good\" based on product alignment, trade history, volume compatibility, and geographic fit.",
-  },
-  {
-    question: "Who sends the emails?",
-    answer:
-      "On the **Hunter** plan, YOU send emails using our self-serve tool. On the **Partner** plan, WE send the emails for you (Done-For-You service).",
-  },
-  {
-    question: "What happens after I express interest?",
-    answer:
-      "Our team creates a targeted email outreach campaign to introduce your company to the buyer. You can track the campaign status from your dashboard.",
+      "We rank matches as 'Best', 'Great', or 'Good' based on product alignment, trade history, volume compatibility, and geographic fit.",
   },
   {
     question: "Do I need an IEC number?",
@@ -252,27 +251,22 @@ const FAQ_ITEMS = [
   {
     question: "Which countries do you cover?",
     answer:
-      "We currently cover 60+ countries with active trade flows globally, including UAE, USA, Germany, UK, Japan, Singapore, and more.",
-  },
-  {
-    question: "How long does it take to get matches?",
-    answer:
-      "Most users see their first matches within 24-48 hours of completing their trade profile.",
+      "We cover 60+ countries with active trade flows globally, including UAE, USA, Germany, UK, Japan, Singapore, India, Australia, and more.",
   },
   {
     question: "Is my data safe?",
     answer:
-      "Absolutely. We use enterprise-grade encryption and never share your data with third parties without your explicit consent.",
+      "Yes. We use enterprise-grade encryption and never share your data with third parties without your explicit consent.",
   },
   {
     question: "Can importers use BMN?",
     answer:
-      "Yes. While our primary focus is helping global exporters find buyers, importers can also sign up to find verified suppliers.",
+      "Absolutely. BMN works for both importers and exporters. Search for verified global suppliers, browse their export history, and reveal contact details.",
   },
   {
-    question: "How do I upgrade to Pro?",
+    question: "How do I upgrade?",
     answer:
-      "The Pro plan is coming soon. Contact us to join the waitlist for unlimited reveals, priority campaigns, and dedicated support.",
+      "Click 'Get Started' on the Hunter plan or 'Contact Sales' on the Partner plan. At beta launch, upgrades are handled manually — we'll be in touch within 24 hours.",
   },
 ];
 
@@ -306,7 +300,7 @@ export default function HomePage() {
               See How It Works <ArrowRight className="w-5 h-5" />
             </a>
           </div>
-          <p className="mt-4 text-sm text-text-secondary font-medium">Includes 3 Free Reveals/mo • No Credit Card Required</p>
+          <p className="mt-4 text-sm text-text-secondary font-medium">Includes 5 Free Reveals/month • No Credit Card Required</p>
         </div>
       </section>
 
@@ -409,26 +403,26 @@ export default function HomePage() {
             <StepCard
               number="1"
               icon={<FeatureIcon icon={Package} variant="primary" size="lg" />}
-              title="Tell Us What You Trade"
-              description="Complete your trade profile with products, certifications, and target markets."
+              title="Create Your Free Account"
+              description="Sign up in 60 seconds. Complete your trade profile with your products and target markets."
             />
             <StepCard
               number="2"
               icon={<FeatureIcon icon={Search} variant="primary" size="lg" />}
-              title="AI Identifies Matches"
-              description="Our intelligent algorithms scan global customs data to pinpoint high-intent buyers for your specific products."
+              title="Search 4.4M Companies"
+              description="Filter global trade companies by country, HS code, or name. Unlimited searches — completely free."
             />
             <StepCard
               number="3"
               icon={<FeatureIcon icon={Handshake} variant="primary" size="lg" />}
-              title="Review & Connect"
-              description="Review matched buyers, see their requirements, and express interest."
+              title="Reveal Contact Details"
+              description="Spend a credit to unlock verified email and phone for any company. Free users get 5 reveals/month."
             />
             <StepCard
               number="4"
               icon={<FeatureIcon icon={Ship} variant="primary" size="lg" />}
-              title="Ship & Grow"
-              description="Close deals, ship your products, and scale your export business."
+              title="Connect & Ship"
+              description="Reach out directly. Close deals. Scale your international trade business."
             />
           </div>
         </div>
@@ -460,18 +454,18 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-8">
             <ValueCard
               icon={<FeatureIcon icon={ShieldCheck} variant="primary" size="xl" />}
-              title="Verified Buyers Only"
-              description="Every buyer on our platform is verified. No spam, no time-wasters. We focus on quality matches that convert."
+              title="4.4 Million Companies"
+              description="Santander trade intelligence data covering 4.4 million companies in 60+ countries. Real trade flows, real companies — not a scraped directory."
             />
             <ValueCard
               icon={<FeatureIcon icon={Zap} variant="primary" size="xl" />}
-              title="AI-Powered Precision"
-              description="Stop guessing. Our matching engine verifies intent and compatibility, ensuring every lead is a potential deal."
+              title="Search by HS Code"
+              description="Filter by HS chapter, country, and company name. Find exactly the counterparties you need — by product category, not guesswork."
             />
             <ValueCard
               icon={<FeatureIcon icon={Globe2} variant="primary" size="xl" />}
-              title="Built for Global Exporters"
-              description="We understand global trade compliance, documentation, and logistics. Tailored for the modern merchant."
+              title="Works for Both Sides"
+              description="Whether you export or import, BMN has data on your counterparty. Find buyers for your products or suppliers for your sourcing needs."
             />
           </div>
         </div>
@@ -663,7 +657,7 @@ export default function HomePage() {
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-display font-bold mb-8">
-            Ready to find your first buyer?
+            Ready to search 4.4 million global trade companies?
           </h2>
           <Link
             href="/signup"
@@ -699,7 +693,7 @@ export default function HomePage() {
             {/* Left: Brand */}
             <div className="text-center md:text-left shrink-0">
               <span className="text-3xl font-display font-bold text-white block mb-1">BMN</span>
-              <p className="text-blue-100 text-sm tracking-wide">Export Done-For-You</p>
+              <p className="text-blue-100 text-sm tracking-wide">Global Trade Intelligence</p>
             </div>
 
             {/* Divider */}
