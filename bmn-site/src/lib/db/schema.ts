@@ -211,8 +211,8 @@ export const globalTradeCompanies = pgTable('global_trade_companies', {
   hsChapter: text('hs_chapter'), // CHAR(2) equivalent
   hsDescription: text('hs_description'),
   tradeType: tradeRoleEnum('trade_type'), // Enum corresponds to 'importer', 'exporter', 'both'
-  topProducts: jsonb('top_products').$type<string[]>(), // TEXT[] equivalent
-  partnerCountries: jsonb('partner_countries').$type<string[]>(), // TEXT[] equivalent
+  topProducts: text('top_products').array(), // TEXT[] equivalent
+  partnerCountries: text('partner_countries').array(), // TEXT[] equivalent
   contactEmail: text('contact_email'),
   contactPhone: text('contact_phone'),
   dataSource: text('data_source').default('santander'),

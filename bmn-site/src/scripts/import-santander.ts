@@ -14,7 +14,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { parse } from 'csv-parse';
-import { sql } from 'drizzle-orm';
 import { db } from '../lib/db/index';
 import { globalTradeCompanies } from '../lib/db/schema';
 
@@ -153,11 +152,21 @@ async function run(): Promise<void> {
 
   const flushBatch = async (rows: MappedRow[]): Promise<void> => {
     batchNumber++;
+    
+    // De-duplicate by companyName and countryCode within the batch to mimic upsert
+    const uniqueMap = new Map<string, MappedRow>();
+    for (const row of rows) {
+      const key = `${row.companyName.toLowerCase()}|${row.countryCode}`;
+      uniqueMap.set(key, row);
+    }
+    const uniqueRows = Array.from(uniqueMap.values());
+
     try {
+      if (uniqueRows.length === 0) return;
       await db
         .insert(globalTradeCompanies)
         .values(
-          rows.map((r) => ({
+          uniqueRows.map((r) => ({
             companyName: r.companyName,
             countryCode: r.countryCode,
             countryName: r.countryName,
@@ -170,30 +179,16 @@ async function run(): Promise<void> {
             contactPhone: r.contactPhone,
             dataSource: r.dataSource,
           }))
-        )
-        .onConflictDoUpdate({
-          target: [globalTradeCompanies.companyName, globalTradeCompanies.countryCode],
-          set: {
-            countryName: sql`excluded.country_name`,
-            hsChapter: sql`excluded.hs_chapter`,
-            hsDescription: sql`excluded.hs_description`,
-            tradeType: sql`excluded.trade_type`,
-            topProducts: sql`excluded.top_products`,
-            partnerCountries: sql`excluded.partner_countries`,
-            contactEmail: sql`excluded.contact_email`,
-            contactPhone: sql`excluded.contact_phone`,
-            dataSource: sql`excluded.data_source`,
-          },
-        });
+        );
 
-      totalInserted += rows.length;
+      totalInserted += uniqueRows.length;
       console.log(
-        `[batch ${batchNumber}] ✓ ${rows.length} rows upserted | Total inserted: ${totalInserted} | Errors skipped: ${totalErrors}`
+        `[batch ${batchNumber}] ✓ ${uniqueRows.length} rows inserted | Total inserted: ${totalInserted} | Errors skipped: ${totalErrors}`
       );
     } catch (err) {
       console.error(`[batch ${batchNumber}] ✗ Batch failed:`, err instanceof Error ? err.message : err);
-      totalErrors += rows.length;
-      console.log(`[batch ${batchNumber}] Skipped ${rows.length} rows | Total inserted: ${totalInserted} | Errors skipped: ${totalErrors}`);
+      totalErrors += uniqueRows.length;
+      console.log(`[batch ${batchNumber}] Skipped ${uniqueRows.length} rows | Total inserted: ${totalInserted} | Errors skipped: ${totalErrors}`);
     }
   };
 
