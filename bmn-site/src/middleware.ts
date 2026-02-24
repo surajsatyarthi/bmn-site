@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
   // Protected Routes: Require Authentication
 
 
-  const protectedRoutes = ['/dashboard', '/onboarding', '/profile', '/matches', '/campaigns', '/admin'];
+  const protectedRoutes = ['/dashboard', '/onboarding', '/profile', '/matches', '/campaigns', '/admin', '/database'];
   const isProtectedRoute = protectedRoutes.some((route) => path.startsWith(route));
 
   if (user) {
