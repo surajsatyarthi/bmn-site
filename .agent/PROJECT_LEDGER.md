@@ -394,7 +394,26 @@ CREATE INDEX idx_gtc_name ON global_trade_companies USING gin(to_tsvector('engli
 ## ENTRY-10.0 — Santander Data Import Script
 
 **Tier:** M
-**Status:** BLOCKED on ENTRY-9.0
+**Status:** CODE COMPLETE — PR #11 open — ⏳ Awaiting PM APPROVED (G14)
+**Branch:** `feat/entry-10-santander-import`
+**PR:** https://github.com/surajsatyarthi/bmn-site/pull/11
+**Commit:** `566585a`
+
+**Gate Status:**
+| Gate | Status |
+|------|--------|
+| CI — Build + Lint + Typecheck | ✅ PASSED |
+| CI — Env Parity Check | ✅ PASSED |
+| G1 — Component Audit | ✅ `docs/reports/physical-audit-ENTRY-10.0.md` |
+| G3 — Blueprint | ✅ PM APPROVED before code |
+| G4 — Implementation Integrity | ✅ Diff matches plan |
+| G5 — Zero Lint Suppression | ✅ 0 eslint-disable in changed files |
+| G6 — Tests | ✅ 33/33 pass |
+| G12 — Documentation | ✅ `docs/walkthroughs/walkthrough-ENTRY-10.0.md` |
+| G13 — Browser Walkthrough (Preview) | ✅ `docs/reports/browser-test-ENTRY-10.0.md` |
+| G14 — PM APPROVED | ⏳ **@Claude — please comment APPROVED on PR #11** |
+| G11 — Production Verification | ⬜ After merge |
+
 
 ---
 
