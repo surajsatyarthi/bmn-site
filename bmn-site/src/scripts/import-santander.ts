@@ -127,10 +127,15 @@ export function mapCsvRow(record: Record<string, string>): MappedRow | null {
 // ---------------------------------------------------------------------------
 
 async function run(): Promise<void> {
+  if (!process.env.DATABASE_URL) {
+    console.error('Error: DATABASE_URL is not set. Run: set -a && source .env.local && set +a');
+    process.exit(1);
+  }
+
   const csvPath = process.argv[2];
 
   if (!csvPath) {
-    console.error('Usage: npx tsx src/scripts/import-santander.ts <path-to-csv>');
+    console.error('Usage: npx tsx src/scripts/import-santander.ts <path-to-csv> [--skip=N]');
     process.exit(1);
   }
 
@@ -140,13 +145,19 @@ async function run(): Promise<void> {
     process.exit(1);
   }
 
+  const skipArg = process.argv.find((a) => a.startsWith('--skip='));
+  const SKIP_ROWS = skipArg ? parseInt(skipArg.split('=')[1], 10) : 0;
+
   console.log(`[ENTRY-10.0] Starting Santander import from: ${resolvedPath}`);
   console.log(`[ENTRY-10.0] Batch size: ${BATCH_SIZE} rows`);
+  if (SKIP_ROWS > 0) {
+    console.log(`[ENTRY-10.0] Resuming: skipping first ${SKIP_ROWS} CSV rows (already imported)`);
+  }
 
   let totalProcessed = 0;
   let totalInserted = 0;
   let totalErrors = 0;
-  let batchNumber = 0;
+  let batchNumber = Math.floor(SKIP_ROWS / BATCH_SIZE);
 
   const pending: MappedRow[] = [];
 
@@ -186,7 +197,9 @@ async function run(): Promise<void> {
         `[batch ${batchNumber}] ✓ ${uniqueRows.length} rows inserted | Total inserted: ${totalInserted} | Errors skipped: ${totalErrors}`
       );
     } catch (err) {
-      console.error(`[batch ${batchNumber}] ✗ Batch failed:`, err instanceof Error ? err.message : err);
+      const e = err as { code?: string; cause?: { code?: string; message?: string }; message?: string };
+      const detail = e?.cause?.code || e?.cause?.message || e?.message?.substring(0, 150) || String(err);
+      console.error(`[batch ${batchNumber}] ✗ Batch failed: ${detail}`);
       totalErrors += uniqueRows.length;
       console.log(`[batch ${batchNumber}] Skipped ${uniqueRows.length} rows | Total inserted: ${totalInserted} | Errors skipped: ${totalErrors}`);
     }
@@ -210,6 +223,9 @@ async function run(): Promise<void> {
       let record: Record<string, string>;
       while ((record = parser.read()) !== null) {
         totalProcessed++;
+
+        // Fast-skip rows already imported in a previous run
+        if (totalProcessed <= SKIP_ROWS) continue;
 
         const mapped = mapCsvRow(record);
         if (!mapped) {
