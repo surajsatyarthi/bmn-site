@@ -2,6 +2,8 @@ import Link from 'next/link';
 import DashboardNav from '@/components/dashboard/DashboardNav';
 import UserMenu from '@/components/dashboard/UserMenu';
 import MobileNav from '@/components/dashboard/MobileNav';
+import CreditCounter from '@/components/dashboard/CreditCounter';
+import { getMonthlyRevealCount, getPlanLimit } from '@/lib/credits';
 
 import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
@@ -25,6 +27,10 @@ export default async function DashboardLayout({
     where: eq(profiles.id, user.id),
   });
 
+  const plan = profile?.plan || 'free';
+  const used = await getMonthlyRevealCount(user.id);
+  const limit = getPlanLimit(plan);
+
   return (
     <div className="min-h-screen flex flex-col bg-bmn-light-bg">
       {/* Top Bar */}
@@ -33,6 +39,7 @@ export default async function DashboardLayout({
           BMN
         </Link>
         <div className="flex items-center gap-4">
+          <CreditCounter used={used} limit={limit} />
           <UserMenu user={user} profile={profile} />
         </div>
       </header>

@@ -20,3 +20,9 @@ export async function getMonthlyRevealCount(userId: string): Promise<number> {
   
   return Number(result[0].count);
 }
+
+export function getPlanLimit(plan: string): number | 'unlimited' {
+  if (plan === 'hunter') return 500;
+  if (plan === 'partner') return 'unlimited';
+  return 5; // free
+}
