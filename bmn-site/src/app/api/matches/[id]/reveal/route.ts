@@ -9,7 +9,7 @@ import { eq, and, sql } from 'drizzle-orm';
  * POST /api/matches/[id]/reveal
  * Reveal match contact details (with free tier gating)
  * 
- * Free tier: 3 reveals per month
+ * Free tier: 5 reveals per month
  * Returns full match with contact info on success
  */
 export async function POST(
@@ -75,8 +75,8 @@ export async function POST(
         },
         reveals: {
           used: revealCount[0]?.count || 0,
-          remaining: Math.max(0, 3 - (revealCount[0]?.count || 0)),
-          total: 3,
+          remaining: Math.max(0, 5 - (revealCount[0]?.count || 0)),
+          total: 5,
         },
       });
     }
@@ -106,11 +106,11 @@ export async function POST(
 
       const used = revealCount[0]?.count || 0;
 
-      if (used >= 3) {
+      if (used >= 5) {
         return NextResponse.json(
           { 
             error: 'Reveal limit reached',
-            reveals: { used: 3, remaining: 0, total: 3 },
+            reveals: { used: 5, remaining: 0, total: 5 },
             message: 'Upgrade to Pro for unlimited reveals',
           },
           { status: 403 }
@@ -165,8 +165,8 @@ export async function POST(
       },
       reveals: {
         used,
-        remaining: profile.plan === 'free' ? Math.max(0, 3 - used) : 'unlimited',
-        total: profile.plan === 'free' ? 3 : 'unlimited',
+        remaining: profile.plan === 'free' ? Math.max(0, 5 - used) : 'unlimited',
+        total: profile.plan === 'free' ? 5 : 'unlimited',
       },
     });
 
