@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { User, Users, Megaphone, MapPin, ArrowRight, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { NetworkComingSoon } from '@/components/dashboard/NetworkComingSoon';
 
 const tierStyles = {
   best: 'bg-blue-100 text-bmn-blue',
@@ -111,6 +112,9 @@ export default async function DashboardPage() {
     ));
 
 
+  // Get total member count for network banner
+  const memberCountRes = await db.select({ count: sql<number>`count(*)::int` }).from(profiles);
+  const memberCount = memberCountRes[0]?.count || 0;
 
   // Get recent campaigns (top 3, active first)
   const recentCampaigns = await db
@@ -181,6 +185,8 @@ export default async function DashboardPage() {
           <p className="text-sm text-text-secondary mt-1">Outreach in progress</p>
         </div>
       </div>
+
+      <NetworkComingSoon memberCount={memberCount} />
 
       {/* Recent Matches */}
       <div className="bg-white rounded-xl border border-bmn-border shadow-sm">
