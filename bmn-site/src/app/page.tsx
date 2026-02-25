@@ -121,7 +121,7 @@ const PARTNER_FEATURES = [
   'Unlimited Contact Reveals',
   'Unlimited database search',
   'BMN manages your email outreach',
-  'upto 5,000 outreach emails/month',
+  'up to 5,000 outreach emails/month',
 ];
 
 const TESTIMONIALS = [
