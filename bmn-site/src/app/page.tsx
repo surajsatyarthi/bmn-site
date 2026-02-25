@@ -121,7 +121,7 @@ const PARTNER_FEATURES = [
   'Unlimited Contact Reveals',
   'Unlimited database search',
   'BMN manages your email outreach',
-  '5,000 emails/month via Manyreach',
+  'up to 5,000 outreach emails/month',
 ];
 
 const TESTIMONIALS = [
@@ -231,7 +231,7 @@ const FAQ_ITEMS = [
   {
     question: "What does the Partner plan include?",
     answer:
-      "Partner ($1,500/month) gives you unlimited contact reveals plus BMN manages your outreach campaigns via Manyreach — 5,000 emails per month sent on your behalf. You get the data and the outreach done for you.",
+      "Partner ($1,500/month) gives you unlimited contact reveals plus BMN manages your outreach campaigns — 5,000 emails per month sent on your behalf. You get the data and the outreach done for you.",
   },
   {
     question: "Do credits roll over?",
