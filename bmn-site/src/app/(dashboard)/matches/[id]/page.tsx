@@ -45,7 +45,7 @@ export default async function MatchDetailPage({
   });
 
   if (!profile) {
-    redirect('/login');
+    redirect('/onboarding');
   }
 
   if (!profile.onboardingCompleted) {

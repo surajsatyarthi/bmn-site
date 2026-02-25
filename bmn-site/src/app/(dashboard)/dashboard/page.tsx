@@ -41,7 +41,7 @@ export default async function DashboardPage() {
   });
 
   if (!profile) {
-    redirect('/login');
+    redirect('/onboarding');
   }
 
   if (!profile.onboardingCompleted) {
