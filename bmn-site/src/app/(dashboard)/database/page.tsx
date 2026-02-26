@@ -5,6 +5,7 @@ import { and, eq, sql, SQL } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { buildDatabaseFilters, PAGE_SIZE } from '@/lib/database/filters';
+import FilterPanel from '@/components/database/FilterPanel';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -79,176 +80,116 @@ export default async function DatabasePage({
   const hasPrev = filters.page > 1;
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold font-display text-text-primary">Company Database</h1>
-        <p className="mt-1 text-text-secondary">
-          Search 4.4M+ global trade companies by name, country, product, or trade type
-        </p>
-      </div>
+    <div className="flex gap-6 items-start">
+      {/* Left filter panel */}
+      <FilterPanel params={params} />
 
-      {/* Filter Bar */}
-      <form method="GET" action="/database" className="rounded-xl border border-bmn-border bg-white p-4 shadow-sm">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <label htmlFor="name" className="mb-1 block text-xs font-medium text-text-secondary">
-              Company Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              defaultValue={typeof params.name === 'string' ? params.name : ''}
-              placeholder="e.g. Siemens, BASF"
-              className="w-full rounded-lg border border-bmn-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-bmn-blue"
-            />
-          </div>
-          <div>
-            <label htmlFor="country" className="mb-1 block text-xs font-medium text-text-secondary">
-              Country (ISO code)
-            </label>
-            <input
-              id="country"
-              name="country"
-              type="text"
-              maxLength={2}
-              defaultValue={typeof params.country === 'string' ? params.country : ''}
-              placeholder="e.g. US, DE, SG"
-              className="w-full rounded-lg border border-bmn-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-bmn-blue"
-            />
-          </div>
-          <div>
-            <label htmlFor="hs" className="mb-1 block text-xs font-medium text-text-secondary">
-              HS Chapter
-            </label>
-            <input
-              id="hs"
-              name="hs"
-              type="text"
-              maxLength={2}
-              defaultValue={typeof params.hs === 'string' ? params.hs : ''}
-              placeholder="e.g. 33, 84, 39"
-              className="w-full rounded-lg border border-bmn-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-bmn-blue"
-            />
-          </div>
-          <div>
-            <label htmlFor="trade_type" className="mb-1 block text-xs font-medium text-text-secondary">
-              Trade Type
-            </label>
-            <select
-              id="trade_type"
-              name="trade_type"
-              defaultValue={typeof params.trade_type === 'string' ? params.trade_type : ''}
-              className="w-full rounded-lg border border-bmn-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-bmn-blue"
-            >
-              <option value="">All</option>
-              <option value="importer">Importer</option>
-              <option value="exporter">Exporter</option>
-              <option value="both">Both</option>
-            </select>
-          </div>
-        </div>
-        <div className="mt-3 flex items-center gap-3">
-          <button
-            type="submit"
-            className="rounded-lg bg-bmn-blue px-5 py-2 text-sm font-medium text-white hover:bg-bmn-blue/90"
-          >
-            Search
-          </button>
-          <Link href="/database" className="text-sm text-text-secondary hover:text-text-primary">
-            Clear
-          </Link>
-        </div>
-      </form>
-
-      {/* Results */}
-      {results.length > 0 ? (
-        <div className="space-y-3">
-          {results.map((company) => {
-            const partners = company.partnerCountries?.slice(0, 3).join(' · ');
-            const badge = tradeBadge[company.tradeType ?? ''] ?? 'bg-gray-100 text-gray-600';
-            return (
-              <div
-                key={company.id}
-                className="rounded-xl border border-bmn-border bg-white p-5 shadow-sm"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="min-w-0 flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-lg">{countryFlag(company.countryCode)}</span>
-                      <h2 className="truncate text-base font-semibold text-text-primary">
-                        {company.companyName}
-                      </h2>
-                      {company.countryCode && (
-                        <span className="text-xs font-medium text-text-secondary">
-                          {company.countryCode}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-wrap items-center gap-2 text-sm text-text-secondary">
-                      {company.tradeType && (
-                        <span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${badge}`}>
-                          {company.tradeType}
-                        </span>
-                      )}
-                      {company.hsDescription && (
-                        <span>
-                          {company.hsDescription}
-                          {company.hsChapter && ` (Ch.${company.hsChapter})`}
-                        </span>
-                      )}
-                    </div>
-                    {partners && (
-                      <p className="text-xs text-text-secondary">
-                        Trades with: {partners}
-                      </p>
-                    )}
-                  </div>
-                  <Link
-                    href={`/database/${company.id}`}
-                    className="shrink-0 rounded-lg border border-bmn-border px-3 py-1.5 text-sm font-medium text-text-primary hover:border-bmn-blue hover:text-bmn-blue"
-                  >
-                    View →
-                  </Link>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div className="rounded-xl border border-bmn-border bg-white p-8 text-center shadow-sm">
-          <p className="text-text-secondary">
-            No companies found for your search. Try broader filters.
+      {/* Right results area */}
+      <div className="flex-1 min-w-0 space-y-4">
+        <div>
+          <h1 className="text-3xl font-bold font-display text-text-primary">Company Database</h1>
+          <p className="mt-1 text-text-secondary">
+            Search 4.4M+ global trade companies by name, country, product, or trade type
           </p>
         </div>
-      )}
 
-      {/* Pagination */}
-      {(hasPrev || hasNext) && (
-        <div className="flex items-center justify-between">
-          {hasPrev ? (
-            <Link
-              href={paginationUrl(params, filters.page - 1)}
-              className="rounded-lg border border-bmn-border px-4 py-2 text-sm font-medium hover:border-bmn-blue hover:text-bmn-blue"
-            >
-              ← Previous
-            </Link>
-          ) : (
-            <span />
-          )}
-          <span className="text-sm text-text-secondary">Page {filters.page}</span>
-          {hasNext ? (
-            <Link
-              href={paginationUrl(params, filters.page + 1)}
-              className="rounded-lg border border-bmn-border px-4 py-2 text-sm font-medium hover:border-bmn-blue hover:text-bmn-blue"
-            >
-              Next →
-            </Link>
-          ) : (
-            <span />
-          )}
-        </div>
-      )}
+        {/* Results Table */}
+        {results.length > 0 ? (
+          <div className="rounded-xl border border-bmn-border bg-white shadow-sm overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-bmn-border bg-gray-50">
+                    <th className="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider w-8"></th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Company</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Country</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Type</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">HS</th>
+                    <th className="px-4 py-3 text-left text-xs font-medium text-text-secondary uppercase tracking-wider">Trades With</th>
+                    <th className="px-4 py-3 text-right text-xs font-medium text-text-secondary uppercase tracking-wider w-16"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-bmn-border">
+                  {results.map((company) => {
+                    const partners = company.partnerCountries?.slice(0, 3).join(' · ');
+                    const badge = tradeBadge[company.tradeType ?? ''] ?? 'bg-gray-100 text-gray-600';
+                    return (
+                      <tr key={company.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-4 py-3 text-lg text-center">
+                          {countryFlag(company.countryCode)}
+                        </td>
+                        <td className="px-4 py-3">
+                          <span className="font-medium text-text-primary truncate block max-w-[200px]">
+                            {company.companyName}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3 text-text-secondary whitespace-nowrap">
+                          {company.countryCode ?? '—'}
+                        </td>
+                        <td className="px-4 py-3">
+                          {company.tradeType && (
+                            <span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${badge}`}>
+                              {company.tradeType}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-text-secondary whitespace-nowrap">
+                          {company.hsChapter ? `Ch.${company.hsChapter}` : '—'}
+                        </td>
+                        <td className="px-4 py-3 text-text-secondary text-xs max-w-[180px] truncate">
+                          {partners ?? '—'}
+                        </td>
+                        <td className="px-4 py-3 text-right">
+                          <Link
+                            href={`/database/${company.id}`}
+                            data-testid="company-card"
+                            className="rounded-lg border border-bmn-border px-3 py-1.5 text-xs font-medium text-text-primary hover:border-bmn-blue hover:text-bmn-blue whitespace-nowrap"
+                          >
+                            View →
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ) : (
+          <div className="rounded-xl border border-bmn-border bg-white p-8 text-center shadow-sm">
+            <p className="text-text-secondary">
+              No companies found for your search. Try broader filters.
+            </p>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {(hasPrev || hasNext) && (
+          <div className="flex items-center justify-between">
+            {hasPrev ? (
+              <Link
+                href={paginationUrl(params, filters.page - 1)}
+                className="rounded-lg border border-bmn-border px-4 py-2 text-sm font-medium hover:border-bmn-blue hover:text-bmn-blue"
+              >
+                ← Previous
+              </Link>
+            ) : (
+              <span />
+            )}
+            <span className="text-sm text-text-secondary">Page {filters.page}</span>
+            {hasNext ? (
+              <Link
+                href={paginationUrl(params, filters.page + 1)}
+                className="rounded-lg border border-bmn-border px-4 py-2 text-sm font-medium hover:border-bmn-blue hover:text-bmn-blue"
+              >
+                Next →
+              </Link>
+            ) : (
+              <span />
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
