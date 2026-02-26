@@ -220,7 +220,54 @@ export const globalTradeCompanies = pgTable('global_trade_companies', {
 });
 
 
+// Trade Shipments Table (VOLZA import)
+export const tradeShipments = pgTable('trade_shipments', {
+  id: integer('id').primaryKey(), // Using integer to map SERIAL, or consider using serial() if making a new table from code: serial('id').primaryKey()
+                                  // As per migration: id SERIAL PRIMARY KEY, we can use serial()
+  shipmentDate: date('shipment_date').notNull(),
+  hsCode: text('hs_code'), // VARCHAR(10)
+  hsDescription: text('hs_description'),
+  productDesc: text('product_desc'),
+  shipperName: text('shipper_name'),
+  shipperAddress: text('shipper_address'),
+  shipperCity: text('shipper_city'),
+  shipperCountry: text('shipper_country'),
+  consigneeName: text('consignee_name'),
+  consigneeAddress: text('consignee_address'),
+  consigneeCity: text('consignee_city'),
+  consigneeCountry: text('consignee_country'),
+  notifyParty: text('notify_party'),
+  indiaPartyName: text('india_party_name'),
+  indiaPartyEmail: text('india_party_email'),
+  indiaPartyPhone: text('india_party_phone'),
+  indiaPartyContact: text('india_party_contact'),
+  indiaIec: text('india_iec'),
+  quantity: integer('quantity'), // NUMERIC -> mapped as appropriate depending on exact use, integer or decimal. Use text() or numeric() for precision if needed, choosing real() for now
+  quantityUnit: text('quantity_unit'), // VARCHAR(30)
+  fobValueUsd: integer('fob_value_usd'), // NUMERIC
+  cifValueUsd: integer('cif_value_usd'), // NUMERIC
+  portOrigin: text('port_origin'),
+  portDest: text('port_dest'),
+  shipmentMode: text('shipment_mode'),
+  tradeDirection: text('trade_direction'), // VARCHAR(10) ('export' | 'import')
+  sourceFile: text('source_file'),
+  companyId: uuid('company_id').references(() => globalTradeCompanies.id),
+  createdAt: timestamp('created_at').defaultNow(),
+});
+
 // Relations
+export const globalTradeCompaniesRelations = relations(globalTradeCompanies, ({ many }) => ({
+  tradeShipments: many(tradeShipments),
+}));
+
+export const tradeShipmentsRelations = relations(tradeShipments, ({ one }) => ({
+  company: one(globalTradeCompanies, {
+    fields: [tradeShipments.companyId],
+    references: [globalTradeCompanies.id],
+  }),
+}));
+
+
 export const profilesRelations = relations(profiles, ({ one, many }) => ({
   company: one(companies, {
     fields: [profiles.id],
