@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
   // --- AUTH BYPASS FOR TESTING ---
   let user = null;
   // Allow bypass in dev OR if explicitly enabled via env var (for CI/Product builds running smoke tests)
-  const enableBypass = process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+  const enableBypass = process.env.NODE_ENV !== 'production';
   const bypassHeader = request.headers.get('x-test-auth-bypass');
   const unconfirmedHeader = request.headers.get('x-test-unconfirmed');
   
