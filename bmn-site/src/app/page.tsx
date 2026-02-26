@@ -112,7 +112,6 @@ const PRO_FEATURES = [
   '500 Contact Reveals / month',
   'Unlimited database search',
   'Filter by country + HS code',
-  'Full Network access (after 100 members)',
 ];
 
 
@@ -226,7 +225,7 @@ const FAQ_ITEMS = [
   {
     question: "What does the Hunter plan include?",
     answer:
-      "Hunter ($199/month) gives you 500 contact reveals per month, unlimited database search, and full Network access. You use your own email tool to reach out — Hunter is about the data, not email management.",
+      "Hunter ($199/month) gives you 500 contact reveals per month and unlimited database search. You use your own email tool to reach out — Hunter is about the data, not email management.",
   },
   {
     question: "What does the Partner plan include?",
