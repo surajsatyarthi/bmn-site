@@ -14,7 +14,7 @@ test.skip('Remediation Verification: Onboarding Flow (Via Mock)', async ({ page 
   
   // 1. Direct Access via Mock
   console.log('Navigating to Onboarding (Mock Mode)...');
-  await page.goto('http://localhost:3000/onboarding?mock=true');
+  await page.goto('/onboarding?mock=true');
   await page.waitForLoadState('networkidle');
   
   // 2. Verify Onboarding Page
@@ -46,7 +46,7 @@ test.skip('Remediation Verification: Onboarding Flow (Via Mock)', async ({ page 
 
 test('Remediation Verification: Site Layouts', async ({ page }) => {
     // Basic Public Pages
-    await page.goto('http://localhost:3000/');
+    await page.goto('/');
     await page.screenshot({ path: path.join(evidenceDir, 'screenshot-header.png') });
     
     await page.setViewportSize({ width: 375, height: 667 });

@@ -47,13 +47,13 @@ test('Golden Path: Landing -> Onboarding -> Dashboard', async ({ page }) => {
 
   // 2. Visit Homepage
   console.log('Visiting Homepage...');
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
   await expect(page.getByRole('link', { name: 'Get Started Free' })).toBeVisible();
 
   // 2. Start Onboarding
   console.log('Starting Onboarding...');
   // Instead of ?mock=true, we rely on our page.route mocks above
-  await page.goto('http://localhost:3000/onboarding');
+  await page.goto('/onboarding');
   await expect(page.getByRole('heading', { name: 'What do you do?' })).toBeVisible({ timeout: 15000 });
 
   // 3. Step 1: Trade Role

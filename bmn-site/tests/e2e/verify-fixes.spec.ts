@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Block 4.1 Fix Verification', () => {
-    test.use({ baseURL: 'http://localhost:3000' });
 
     test('Tawk.to Widget Injection', async ({ page }) => {
         // Go to homepage

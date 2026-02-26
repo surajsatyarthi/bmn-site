@@ -6,7 +6,7 @@ const evidenceDir = '/Users/surajsatyarthi/Projects/active/BMN/docs/evidence/pha
 
 test('Homepage Design Check', async ({ page }) => {
     console.log('Checking Homepage Design...');
-    await page.goto('http://localhost:3000/');
+    await page.goto('/');
     await page.waitForLoadState('networkidle');
     await page.screenshot({ path: path.join(evidenceDir, 'screenshot-homepage-refactored.png'), fullPage: true });
     console.log('Homepage screenshot captured.');
@@ -20,7 +20,7 @@ test('Onboarding Persistence: Quit and Resume', async ({ page }) => {
   try {
       // 1. Start Onboarding
       console.log('Starting Onboarding (Mock Step 1)...');
-      await page.goto('http://localhost:3000/onboarding?mock=true');
+      await page.goto('/onboarding?mock=true');
       await page.waitForLoadState('networkidle');
       console.log('Current URL:', page.url());
 
@@ -46,7 +46,7 @@ test('Onboarding Persistence: Quit and Resume', async ({ page }) => {
       await page.waitForLoadState('networkidle');
 
       // 4. Simulate Return (Mock fetching step 2)
-      const step2Url = 'http://localhost:3000/onboarding?mock=true&step=2';
+      const step2Url = '/onboarding?mock=true&step=2';
       console.log('Simulating Return (Mock fetching step 2)...');
       await page.goto(step2Url);
       
