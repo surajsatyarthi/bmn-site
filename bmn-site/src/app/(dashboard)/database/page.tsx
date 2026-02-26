@@ -98,6 +98,7 @@ export default async function DatabasePage({
               id="name"
               name="name"
               type="text"
+              data-testid="search-name"
               defaultValue={typeof params.name === 'string' ? params.name : ''}
               placeholder="e.g. Siemens, BASF"
               className="w-full rounded-lg border border-bmn-border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-bmn-blue"
@@ -206,6 +207,7 @@ export default async function DatabasePage({
                   </div>
                   <Link
                     href={`/database/${company.id}`}
+                    data-testid="company-card"
                     className="shrink-0 rounded-lg border border-bmn-border px-3 py-1.5 text-sm font-medium text-text-primary hover:border-bmn-blue hover:text-bmn-blue"
                   >
                     View →
