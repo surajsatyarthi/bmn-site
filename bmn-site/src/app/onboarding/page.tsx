@@ -63,7 +63,7 @@ export default async function OnboardingPage() {
   return (
     <OnboardingWizard
       initialStep={profile.onboardingStep || 1}
-      initialData={profile}
+      initialData={JSON.parse(JSON.stringify(profile))}
     />
   );
 }
