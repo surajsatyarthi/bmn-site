@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, boolean, integer, timestamp, date, pgEnum, jsonb } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, boolean, integer, timestamp, date, pgEnum, jsonb, numeric, serial } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // Enums
@@ -222,10 +222,9 @@ export const globalTradeCompanies = pgTable('global_trade_companies', {
 
 // Trade Shipments Table (VOLZA import)
 export const tradeShipments = pgTable('trade_shipments', {
-  id: integer('id').primaryKey(), // Using integer to map SERIAL, or consider using serial() if making a new table from code: serial('id').primaryKey()
-                                  // As per migration: id SERIAL PRIMARY KEY, we can use serial()
+  id: serial('id').primaryKey(),
   shipmentDate: date('shipment_date').notNull(),
-  hsCode: text('hs_code'), // VARCHAR(10)
+  hsCode: text('hs_code'),
   hsDescription: text('hs_description'),
   productDesc: text('product_desc'),
   shipperName: text('shipper_name'),
@@ -242,14 +241,14 @@ export const tradeShipments = pgTable('trade_shipments', {
   indiaPartyPhone: text('india_party_phone'),
   indiaPartyContact: text('india_party_contact'),
   indiaIec: text('india_iec'),
-  quantity: integer('quantity'), // NUMERIC -> mapped as appropriate depending on exact use, integer or decimal. Use text() or numeric() for precision if needed, choosing real() for now
-  quantityUnit: text('quantity_unit'), // VARCHAR(30)
-  fobValueUsd: integer('fob_value_usd'), // NUMERIC
-  cifValueUsd: integer('cif_value_usd'), // NUMERIC
+  quantity: numeric('quantity'),
+  quantityUnit: text('quantity_unit'),
+  fobValueUsd: numeric('fob_value_usd'),
+  cifValueUsd: numeric('cif_value_usd'),
   portOrigin: text('port_origin'),
   portDest: text('port_dest'),
   shipmentMode: text('shipment_mode'),
-  tradeDirection: text('trade_direction'), // VARCHAR(10) ('export' | 'import')
+  tradeDirection: text('trade_direction'),
   sourceFile: text('source_file'),
   companyId: uuid('company_id').references(() => globalTradeCompanies.id),
   createdAt: timestamp('created_at').defaultNow(),
