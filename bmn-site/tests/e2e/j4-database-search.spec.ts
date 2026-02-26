@@ -9,14 +9,16 @@ import { test, expect } from '@playwright/test';
  *   data-testid="company-detail-heading" to the h1 on database/[id]/page.tsx
  */
 test('J4 — database search returns results and detail page loads', async ({ page }) => {
-  // Login first
+  // Login
   await page.goto('/login');
   await page.fill('#email', process.env.TEST_USER_EMAIL!);
   await page.fill('#password', process.env.TEST_USER_PASSWORD!);
   await page.click('button[type="submit"]');
-  await page.waitForURL('**/dashboard', { timeout: 20000 });
 
-  // Navigate to /database
+  // App routes to /onboarding or /dashboard depending on user state — both valid
+  await page.waitForURL(/\/(onboarding|dashboard)/, { timeout: 20000 });
+
+  // Navigate to /database directly (protected by auth, not by onboarding state)
   await page.goto('/database');
   await page.waitForLoadState('networkidle');
 

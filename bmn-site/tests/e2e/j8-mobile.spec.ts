@@ -17,7 +17,13 @@ test('J8 — dashboard renders correctly at 375px mobile viewport', async ({ pag
   await page.fill('#email', process.env.TEST_USER_EMAIL!);
   await page.fill('#password', process.env.TEST_USER_PASSWORD!);
   await page.click('button[type="submit"]');
-  await page.waitForURL('**/dashboard', { timeout: 20000 });
+
+  // App routes to /onboarding or /dashboard depending on user state — both valid
+  await page.waitForURL(/\/(onboarding|dashboard)/, { timeout: 20000 });
+
+  // Navigate to dashboard directly to verify mobile layout
+  await page.goto('/dashboard');
+  await page.waitForLoadState('networkidle');
 
   // Dashboard has no horizontal overflow at 375px
   const dashScrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
