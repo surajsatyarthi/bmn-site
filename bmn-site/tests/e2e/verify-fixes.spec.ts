@@ -4,7 +4,7 @@ test.describe('Block 4.1 Fix Verification', () => {
 
     test('Tawk.to Widget Injection', async ({ page }) => {
         // Go to homepage
-        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        await page.goto('${process.env.PLAYWRIGHT_BASE_URL}/', { waitUntil: 'domcontentloaded' });
         
         // Wait for Tawk.to script to load
         // It might take a moment as it's lazy loaded
@@ -34,7 +34,7 @@ test.describe('Block 4.1 Fix Verification', () => {
     });
 
     test('Confirm Password Independent Toggle', async ({ page }) => {
-        await page.goto('/signup', { waitUntil: 'domcontentloaded' });
+        await page.goto('${process.env.PLAYWRIGHT_BASE_URL}/signup', { waitUntil: 'domcontentloaded' });
 
         const passwordInput = page.locator('#password');
         const confirmInput = page.locator('#confirmPassword');
@@ -64,7 +64,7 @@ test.describe('Block 4.1 Fix Verification', () => {
     });
 
     test('Footer Gradient Verification', async ({ page }) => {
-        await page.goto('/', { waitUntil: 'domcontentloaded' });
+        await page.goto('${process.env.PLAYWRIGHT_BASE_URL}/', { waitUntil: 'domcontentloaded' });
         
         // Scroll to bottom to see footer
         await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
