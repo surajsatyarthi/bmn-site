@@ -59,6 +59,14 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const path = url.pathname;
 
+  function redirectWithCookies(url: URL, cookieSource: NextResponse): NextResponse {
+    const res = NextResponse.redirect(url);
+    cookieSource.cookies.getAll().forEach((cookie) => {
+      res.cookies.set(cookie.name, cookie.value);
+    });
+    return res;
+  }
+
   // Protected Routes: Require Authentication
 
 
@@ -75,17 +83,17 @@ export async function middleware(request: NextRequest) {
     if (isAuthRoute) {
       if (isEmailVerified) {
         url.pathname = '/onboarding';
-        return NextResponse.redirect(url);
+        return redirectWithCookies(url, supabaseResponse);
       } else if (path !== '/verify-email') {
         url.pathname = '/verify-email';
-        return NextResponse.redirect(url);
+        return redirectWithCookies(url, supabaseResponse);
       }
     }
   } else {
     // If user is NOT logged in, redirect protected pages to login
     if (isProtectedRoute) {
       url.pathname = '/login';
-      return NextResponse.redirect(url);
+      return redirectWithCookies(url, supabaseResponse);
     }
   }
 

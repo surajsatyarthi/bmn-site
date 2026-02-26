@@ -71,7 +71,7 @@ export default async function CampaignDetailPage({
   });
 
   if (!profile) {
-    redirect('/login');
+    redirect('/onboarding');
   }
 
   if (!profile.onboardingCompleted) {
