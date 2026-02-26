@@ -20,6 +20,6 @@ test('J1 — signup form submits and shows verification pending state', async ({
 
   // Form fields are present
   await expect(page.locator('input[type="email"]')).toBeVisible();
-  await expect(page.locator('input[type="password"]')).toBeVisible();
+  await expect(page.locator('input[type="password"]').first()).toBeVisible();
   await expect(page.locator('button[type="submit"]')).toBeEnabled();
 });
