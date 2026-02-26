@@ -46,18 +46,4 @@ Check Supabase Dashboard → Authentication → Users for the full list.
 - Some auth users have **no matching profile row** → dashboard crashes
 - `/onboarding` auto-creates profiles (fix in PR #22)
 
----
 
-## Middleware Auth Bypass (dev / CI only)
-
-Enabled when `NODE_ENV !== 'production'` OR `NEXT_PUBLIC_TEST_MODE=true`.
-
-| Header                      | Effect                                         |
-| --------------------------- | ---------------------------------------------- |
-| `x-test-auth-bypass: true`  | Authenticates as mock user (email confirmed)   |
-| `x-test-unconfirmed: true`  | Authenticates as mock user (email NOT confirmed)|
-
-Mock user ID: `d2d4586e-9646-4b16-b363-c301ada79540`
-
-> **Note**: The bypass only skips middleware auth. Dashboard pages still query the
-> DB for a profile row. For dashboard screenshots, use a real verified account.
