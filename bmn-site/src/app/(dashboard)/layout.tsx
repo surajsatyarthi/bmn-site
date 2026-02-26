@@ -14,16 +14,37 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  // --- Auth check ---
+  let user;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch (err) {
+    console.error('[DashboardLayout] Auth check failed:', err);
+    redirect('/login');
+  }
 
   if (!user) {
     redirect('/login');
   }
 
-  const profile = await db.query.profiles.findFirst({
-    where: eq(profiles.id, user.id),
-  });
+  // --- Profile check ---
+  let profile;
+  try {
+    profile = await db.query.profiles.findFirst({
+      where: eq(profiles.id, user.id),
+    });
+  } catch (err) {
+    console.error('[DashboardLayout] Profile query failed:', err);
+    // DB is down — show a useful error rather than generic crash
+    redirect('/login?error=service_unavailable');
+  }
+
+  // If user has no profile, send them to onboarding (which auto-creates it)
+  if (!profile) {
+    redirect('/onboarding');
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-bmn-light-bg">
