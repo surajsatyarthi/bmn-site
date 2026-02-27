@@ -1,5 +1,39 @@
 import { sql, eq, and, ne } from 'drizzle-orm';
+import { db } from '../db';
 import { products, tradeInterests, matches } from '../db/schema';
+
+interface ShipmentRow {
+  company_name: string;
+  company_country: string;
+  company_city: string | null;
+  hs_code: string;
+  shipment_count: string;
+  total_value_usd: string;
+  last_shipment_date: string;
+}
+
+interface EnrichmentRow {
+  india_party_email: string;
+  india_party_phone: string | null;
+}
+
+interface UserProduct {
+  hsCode: string;
+  tradeType: string;
+  name: string | null;
+}
+
+interface ScoredCandidate {
+  companyName: string;
+  companyCountry: string;
+  companyCity: string | null;
+  hsCode: string;
+  shipmentCount: number;
+  tradeValue: number;
+  lastDate: Date;
+  rawScore: number;
+  userProduct: UserProduct;
+}
 
 export function getHsSpecificity(candidateHs: string, userHs: string): number {
   if (candidateHs.startsWith(userHs.slice(0, 6))) return 100; // 6-digit
@@ -44,7 +78,7 @@ function formatUsd(num: number): string {
   return num.toString();
 }
 
-export async function generateMatchesForUser(userId: string, db: any): Promise<any[]> {
+export async function generateMatchesForUser(userId: string): Promise<ScoredCandidate[]> {
   const userProducts = await db.select().from(products).where(eq(products.profileId, userId));
   const userInterests = await db.select().from(tradeInterests).where(eq(tradeInterests.profileId, userId));
 
@@ -52,7 +86,7 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
     return [];
   }
 
-  const allCandidates: any[] = [];
+  const allCandidates: ScoredCandidate[] = [];
 
   for (const product of userProducts) {
     for (const interest of userInterests) {
@@ -60,9 +94,9 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
         (product.tradeType === 'export' && interest.interestType === 'export_to') ||
         (product.tradeType === 'import' && interest.interestType === 'import_from')
       ) {
-        
+
         let queryResult;
-        
+
         if (product.tradeType === 'export') {
           queryResult = await db.execute(sql`
             SELECT
@@ -109,17 +143,17 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
           `);
         }
 
-        const candidates = queryResult.rows || queryResult;
+        const candidates = (queryResult.rows ?? queryResult) as ShipmentRow[];
 
         if (candidates.length > 0) {
-          const maxCount = Math.max(...candidates.map((c: any) => Number(c.shipment_count)));
-          const maxValue = Math.max(...candidates.map((c: any) => Number(c.total_value_usd)));
+          const maxCount = Math.max(...candidates.map((c) => Number(c.shipment_count)));
+          const maxValue = Math.max(...candidates.map((c) => Number(c.total_value_usd)));
 
           for (const c of candidates) {
             const lastDate = new Date(c.last_shipment_date);
             const shipmentCount = Number(c.shipment_count);
             const tradeValue = Number(c.total_value_usd);
-            
+
             const rawScore = scoreMatch(
               { shipmentCount, tradeValue, hsCode: c.hs_code, lastDate },
               maxCount,
@@ -137,7 +171,7 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
                 tradeValue,
                 lastDate,
                 rawScore,
-                userProduct: product
+                userProduct: product as UserProduct
               });
             }
           }
@@ -147,10 +181,10 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
   }
 
   // Deduplicate by company name + country
-  const uniqueCandidatesMap = new Map<string, any>();
+  const uniqueCandidatesMap = new Map<string, ScoredCandidate>();
   for (const c of allCandidates) {
     const key = `${c.companyName.toLowerCase()}|${c.companyCountry.toLowerCase()}`;
-    if (!uniqueCandidatesMap.has(key) || uniqueCandidatesMap.get(key).rawScore < c.rawScore) {
+    if (!uniqueCandidatesMap.has(key) || (uniqueCandidatesMap.get(key)?.rawScore ?? 0) < c.rawScore) {
       uniqueCandidatesMap.set(key, c);
     }
   }
@@ -160,12 +194,19 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
     .sort((a, b) => b.rawScore - a.rawScore)
     .slice(0, 50);
 
-  const newMatchesToInsert: any[] = [];
+  // Delete existing unrevealed/non-interested matches before inserting new ones
+  await db.delete(matches).where(
+    and(
+      eq(matches.profileId, userId),
+      eq(matches.revealed, false),
+      ne(matches.status, 'interested')
+    )
+  );
 
   for (const c of topCandidates) {
     // Enrichment step
-    let enrichedEmail = null;
-    let enrichedPhone = null;
+    let enrichedEmail: string | null = null;
+    let enrichedPhone: string | null = null;
 
     try {
       const enrichmentRes = await db.execute(sql`
@@ -176,14 +217,14 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
         ORDER BY similarity(india_party_name, ${c.companyName}) DESC
         LIMIT 1
       `);
-      
-      const enrichmentRows = enrichmentRes.rows || enrichmentRes;
+
+      const enrichmentRows = (enrichmentRes.rows ?? enrichmentRes) as EnrichmentRow[];
       if (enrichmentRows.length > 0) {
         enrichedEmail = enrichmentRows[0].india_party_email;
-        enrichedPhone = enrichmentRows[0].india_party_phone;
+        enrichedPhone = enrichmentRows[0].india_party_phone ?? null;
       }
-    } catch (err) {
-      // Ignore enrichment errors
+    } catch {
+      // Ignore enrichment errors - contact reveal is non-blocking
     }
 
     let matchTier = 'good';
@@ -193,22 +234,20 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
     const hsScore = getHsSpecificity(c.hsCode, c.userProduct.hsCode);
 
     const reasons: string[] = [];
-    reasons.push(`Traded ${c.userProduct.name} ${c.shipmentCount} times - last active ${timeAgo(c.lastDate)}`);
+    reasons.push(`Traded ${c.userProduct.name ?? c.hsCode} ${c.shipmentCount} times - last active ${timeAgo(c.lastDate)}`);
     if (c.tradeValue > 0) reasons.push(`Trade volume: $${formatUsd(c.tradeValue)} total`);
     if (hsScore === 100) reasons.push(`Exact product match: HS ${c.hsCode}`);
     reasons.push(`Located in ${c.companyCity ? c.companyCity + ', ' : ''}${c.companyCountry}`);
 
-    newMatchesToInsert.push({
+    await db.insert(matches).values({
       profileId: userId,
       counterpartyName: c.companyName,
       counterpartyCountry: c.companyCountry,
-      counterpartyCity: c.companyCity || null,
-      matchedProducts: [{ hsCode: c.hsCode, name: c.userProduct.name }],
+      counterpartyCity: c.companyCity ?? null,
+      matchedProducts: [{ hsCode: c.hsCode, name: c.userProduct.name ?? c.hsCode }],
       matchScore: c.rawScore,
       matchTier,
-      scoreBreakdown: {
-        total: c.rawScore,
-      },
+      scoreBreakdown: { total: c.rawScore },
       matchReasons: reasons,
       status: 'new',
       revealed: false,
@@ -216,23 +255,11 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
         name: c.companyName,
         title: '',
         email: enrichedEmail,
-        phone: enrichedPhone || '',
+        phone: enrichedPhone ?? '',
         website: null
       } : null
     });
   }
 
-  if (newMatchesToInsert.length > 0) {
-    await db.delete(matches).where(
-      and(
-        eq(matches.profileId, userId),
-        eq(matches.revealed, false),
-        ne(matches.status, 'interested')
-      )
-    );
-
-    await db.insert(matches).values(newMatchesToInsert);
-  }
-
-  return newMatchesToInsert;
+  return topCandidates;
 }
