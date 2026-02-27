@@ -1429,6 +1429,309 @@ Wasted ~1 hour because no written plan was approved before starting. The correct
 
 **PM commitment (2026-02-27):** No task will be assigned without a ledger entry written first. Coder must reference the ledger entry number when starting work.
 
+---
+
+## ✅ ENTRY-15.0 STATUS UPDATE — 2026-02-27
+
+**PM verified (personal code audit + arithmetic cross-check):**
+- `import_volza.py` rewritten with full INSERT logic (Option B: plain INSERT, no dedup constraint) ✅
+- Import run across all 4 passes — 154,003 rows in `trade_shipments` ✅
+- Arithmetic: 132,948 + 7,815 + 4,025 + 9,215 = 154,003 ✅
+- Beta data gate: PASSED (≥ 153,000) ✅
+- `enrich_from_volza.py` connection bug fixed — dry-run pending ✅
+- PR for `fix/entry-15-import-fix` branch: NOT YET OPENED — Antigravity to open after enrich dry-run completes
+
+**ENTRY-15.0 is FUNCTIONALLY COMPLETE.** PR open is a housekeeping task, not a blocker for next priority work.
+
+---
+
+## RICE PRIORITY TABLE — Updated 2026-02-27
+
+| RICE Rank | Entry | Description | RICE Score | Status |
+|-----------|-------|-------------|------------|--------|
+| #1 | ENTRY-MATCH-1 | Match generator + onboarding redirect | 18,000 | ⬜ NOT STARTED — G3 below |
+| #2 | ENTRY-14.0 | Credit system wiring | 13,500 | ⬜ Blocked on ENTRY-11.0 |
+| #3 | ENTRY-11.0 | /database search page | 9,000 | ⬜ NOT STARTED |
+| #4 | ENTRY-17.0 | Campaigns page + Manyreach API | 3,000 | ⬜ Blocked on ENTRY-14.0 |
+| #5 | ENTRY-12.0 | /database/[id] company detail | 2,700 | ⬜ Blocked on ENTRY-11.0 |
+| — | ENTRY-QA-1 | Playwright E2E tests | — | ⏳ IN PROGRESS (parallel) |
+| — | fix/entry-15 | Open PR for VOLZA import | — | ⏳ Housekeeping |
+
+**RICE formula used:** (Reach 1–10 × Impact 1–10 × Confidence 1–10) / Effort 1–10 × 1000
+
+**Note:** ENTRY-MATCH-2 (`/matches` page UI) and ENTRY-MATCH-3 (reveal API) already exist in codebase. ENTRY-MATCH-1 is the only missing piece of the match engine. ENTRY-MATCH-4 (redirect after onboarding) is folded into ENTRY-MATCH-1.
+
+---
+
+## ENTRY-MATCH-1 — AI Match Generator
+
+**Tier:** L
+**RICE Score:** 18,000 — #1 priority
+**Reason for tier:** New backend algorithm, new API route, new library module, modifies onboarding flow. Core product value. Complex SQL scoring logic.
+**Gates required:** CI, G1, G3, G4, G5, G6, G13, G14, G11, G12
+**Status:** READY — G3 APPROVED below. Highest priority task.
+**Branch name:** `feat/entry-match-1-generator`
+**Base branch:** `origin/main`
+
+**Success Metric:** User completes onboarding → sees "Finding your matches..." loading state → lands on `/matches` page with at least 1 real match card showing a real company name, country, and match tier. Match data sourced from `trade_shipments` table.
+
+**Failure Signal:** `/matches` page shows "No matches found yet" after onboarding completes, OR generator throws 500, OR onboarding redirect still goes to `/dashboard`.
+
+---
+
+### G3 Blueprint — PM APPROVED 2026-02-27
+
+#### Problem Statement
+
+The `/matches` page, `MatchCard` component, `/api/matches` GET route, and `/api/matches/[id]/reveal` POST route all exist and are production-ready. The `matches` table schema is fully defined. The only missing piece is the **match generator** — the backend job that reads a user's profile (HS codes + trade direction + target countries) and populates the `matches` table from `trade_shipments` and `global_trade_companies`.
+
+Currently, every user's `matches` table is empty. The page shows "No matches found yet." This must become: "We found 14 companies in Germany that have traded auto parts matching your HS codes in the last 2 years."
+
+Additionally, the current onboarding completion redirects to `/dashboard`. It must redirect to `/matches` (the magic moment).
+
+#### Architecture
+
+**Three-layer approach:**
+
+1. **`src/lib/matching/engine.ts`** — Pure matching logic, no HTTP, no Next.js. Extracted for testability. Single export: `generateMatchesForUser(userId: string, db: DrizzleClient): Promise<NewMatch[]>`
+
+2. **`src/app/api/matches/generate/route.ts`** — POST endpoint. Auth-protected. Calls `generateMatchesForUser`, writes results to `matches` table. Returns `{ count: number }`.
+
+3. **`src/components/onboarding/OnboardingWizard.tsx`** — On step 7 submit success: call `POST /api/matches/generate`, show "Finding your matches..." loading state, redirect to `/matches` on success.
+
+Also modify: **`src/app/onboarding/page.tsx`** line 60: change `redirect('/dashboard')` to `redirect('/matches')`.
+
+#### Matching Algorithm
+
+**Step 1 — Read user profile:**
+```ts
+const userProducts = await db.select().from(products).where(eq(products.profileId, userId))
+// → [{hsCode: '8708', tradeType: 'export', name: 'Auto Parts'}]
+
+const userInterests = await db.select().from(tradeInterests).where(eq(tradeInterests.profileId, userId))
+// → [{countryCode: 'DE', countryName: 'Germany', interestType: 'export_to'}]
+```
+
+**Step 2 — Query trade_shipments for each (product × target_country) combination:**
+
+For `tradeType = 'export'` (user exports, wants buyers) + `interestType = 'export_to'`:
+```sql
+SELECT
+  consignee_name          AS company_name,
+  consignee_country       AS company_country,
+  consignee_city          AS company_city,
+  hs_code,
+  COUNT(*)                AS shipment_count,
+  COALESCE(SUM(fob_value_usd::numeric), 0) AS total_fob_usd,
+  MAX(shipment_date)      AS last_shipment_date
+FROM trade_shipments
+WHERE trade_direction = 'export'
+  AND LEFT(hs_code, 2) = LEFT($1, 2)          -- 2-digit HS chapter match
+  AND (
+    consignee_country ILIKE $2                 -- country name fuzzy
+    OR consignee_country = $3                  -- OR ISO code exact
+  )
+  AND consignee_name IS NOT NULL
+GROUP BY consignee_name, consignee_country, consignee_city, hs_code
+ORDER BY shipment_count DESC, total_fob_usd DESC
+LIMIT 50
+```
+
+For `tradeType = 'import'` (user imports, wants suppliers) + `interestType = 'import_from'`:
+```sql
+SELECT
+  shipper_name            AS company_name,
+  shipper_country         AS company_country,
+  shipper_city            AS company_city,
+  hs_code,
+  COUNT(*)                AS shipment_count,
+  COALESCE(SUM(cif_value_usd::numeric), 0) AS total_cif_usd,
+  MAX(shipment_date)      AS last_shipment_date
+FROM trade_shipments
+WHERE trade_direction = 'export'
+  AND LEFT(hs_code, 2) = LEFT($1, 2)
+  AND (
+    shipper_country ILIKE $2
+    OR shipper_country = $3
+  )
+  AND shipper_name IS NOT NULL
+GROUP BY shipper_name, shipper_country, shipper_city, hs_code
+ORDER BY shipment_count DESC, total_cif_usd DESC
+LIMIT 50
+```
+
+**Contact enrichment step (after query):** For each matched company, check if `india_party_name` in `trade_shipments` fuzzy-matches the company name. If yes, grab `india_party_email` and `india_party_phone`. Use `pg_trgm` similarity ≥ 0.7. This is a best-effort enrichment — if no match, contact fields stay null (user can still see the company, reveal button will show "No contact data available").
+
+**Step 3 — Score each candidate:**
+
+```ts
+function scoreMatch(candidate: Candidate, maxCount: number, maxValue: number): number {
+  const freqScore    = (candidate.shipmentCount / maxCount) * 100;
+  const valueScore   = (candidate.tradeValue / maxValue) * 100;
+  const hsScore      = getHsSpecificity(candidate.hsCode, userHsCode); // 50/75/100
+  const recencyScore = getRecencyScore(candidate.lastShipmentDate);    // 20/40/60/80/100
+  return Math.round(freqScore * 0.4 + valueScore * 0.3 + hsScore * 0.2 + recencyScore * 0.1);
+}
+
+function getHsSpecificity(candidateHs: string, userHs: string): number {
+  if (candidateHs.startsWith(userHs.slice(0, 6))) return 100; // 6-digit
+  if (candidateHs.startsWith(userHs.slice(0, 4))) return 75;  // 4-digit
+  return 50;                                                    // 2-digit (chapter)
+}
+
+function getRecencyScore(lastDate: Date): number {
+  const daysAgo = (Date.now() - lastDate.getTime()) / 86400000;
+  if (daysAgo <= 90)  return 100;
+  if (daysAgo <= 180) return 80;
+  if (daysAgo <= 365) return 60;
+  if (daysAgo <= 730) return 40;
+  return 20;
+}
+```
+
+**Tier assignment:**
+- score ≥ 80 → `'best'`
+- score ≥ 60 → `'great'`
+- score ≥ 40 → `'good'`
+- score < 40 → exclude (not worth showing)
+
+**Match reasons (human-readable, generated from data):**
+```ts
+const reasons: string[] = [];
+reasons.push(`Traded ${hsDescription} ${shipmentCount} times — last active ${timeAgo(lastShipmentDate)}`);
+if (tradeValue > 0) reasons.push(`Trade volume: $${formatUsd(tradeValue)} total`);
+if (hsScore === 100) reasons.push(`Exact product match: HS ${hsCode}`);
+reasons.push(`Located in ${companyCity ? companyCity + ', ' : ''}${companyCountry}`);
+```
+
+**Step 4 — Deduplicate and limit:**
+- Deduplicate by company name + country (same company may appear across multiple HS codes)
+- Keep the highest-scoring record per company
+- Limit to top 50 matches total across all product × country combinations
+
+**Step 5 — Write to matches table:**
+```ts
+// Delete existing non-revealed, non-interested matches (refresh)
+await db.delete(matches).where(
+  and(
+    eq(matches.profileId, userId),
+    eq(matches.revealed, false),
+    ne(matches.status, 'interested')
+  )
+)
+
+// Insert new matches
+await db.insert(matches).values(newMatches)
+```
+
+#### Onboarding Wizard Change
+
+In `src/components/onboarding/OnboardingWizard.tsx`, find the step 7 completion handler (line ~71):
+
+**Current code:**
+```ts
+if (currentStep === 7) {
+  router.push('/dashboard');
+}
+```
+
+**Replace with:**
+```ts
+if (currentStep === 7) {
+  setIsGeneratingMatches(true); // new state
+  try {
+    await fetch('/api/matches/generate', { method: 'POST' });
+  } catch {
+    // Non-fatal: generator failure should not block onboarding
+  }
+  router.push('/matches');
+}
+```
+
+Add a loading state display: when `isGeneratingMatches === true`, show:
+```
+Finding your matches...
+We're searching trade records to find your best partners.
+```
+This is a full-screen overlay or in-wizard message. Duration: whatever the API takes (typically 2–5 seconds).
+
+#### Also modify: `src/app/onboarding/page.tsx`
+
+Line 60: change `redirect('/dashboard')` → `redirect('/matches')`
+
+This handles the case where a user who has already completed onboarding navigates back to `/onboarding` — they should land on `/matches`, not `/dashboard`.
+
+#### Files to create
+
+- `src/lib/matching/engine.ts` — matching algorithm (pure functions, no HTTP)
+- `src/app/api/matches/generate/route.ts` — POST endpoint
+- `tests/lib/matching/engine.test.ts` — unit tests for score functions
+
+#### Files to modify
+
+- `src/components/onboarding/OnboardingWizard.tsx` — step 7 handler: call generate, show loading, redirect to /matches
+- `src/app/onboarding/page.tsx` — line 60: redirect to /matches
+
+#### Files NOT changed
+
+- `src/app/(dashboard)/matches/page.tsx` — already correct, reads from `matches` table
+- `src/components/matches/MatchCard.tsx` — already correct
+- `src/app/api/matches/[id]/reveal/route.ts` — already correct
+- `src/lib/db/schema.ts` — `matches` table already fully defined
+- No other files
+
+#### G6 Tests (`tests/lib/matching/engine.test.ts`)
+
+Test the pure functions only — no DB calls, no HTTP:
+1. `getHsSpecificity('870840', '8708')` → 75 (4-digit match)
+2. `getHsSpecificity('870840', '870840')` → 100 (6-digit match)
+3. `getHsSpecificity('870840', '84')` → 50 (chapter only)
+4. `getRecencyScore(daysAgo(30))` → 100
+5. `getRecencyScore(daysAgo(200))` → 80
+6. `getRecencyScore(daysAgo(400))` → 60
+7. `getRecencyScore(daysAgo(800))` → 40
+8. `scoreMatch({shipmentCount: 10, maxCount: 10, tradeValue: 1000, maxValue: 1000, hsCode: '8708', userHsCode: '8708', lastDate: daysAgo(30)})` → 100
+9. Score below 40 → candidate excluded from results
+
+#### Design Reference
+
+No Figma — the `/matches` page and `MatchCard` are already built and match the required design. The match cards show: tier badge (Best/Great/Good), company name, location, products, match reasons with ✓ checkmarks, "View Details" + "Interested" + "Dismiss" buttons. This is the correct design — no UI changes needed.
+
+#### Scope vs G3 Plan
+
+This entry modifies exactly 5 files: 2 new lib/API files + 1 new test file + 2 small modifications to existing files. Any change outside this list requires PM approval before proceeding.
+
+---
+
+### Gate Status
+
+| Gate | Status | Evidence Required |
+|------|--------|-------------------|
+| G1 — Component Audit | ⬜ | Confirm no existing match generator exists |
+| G3 — Blueprint | ✅ PM APPROVED 2026-02-27 | This entry |
+| G4 — Implementation Integrity | ⬜ | PR diff matches exactly the files listed above |
+| G5 — Zero Lint Suppression | ⬜ | 0 eslint-disable in changed files |
+| G6 — Tests | ⬜ | `tests/lib/matching/engine.test.ts` — all pass |
+| CI | ⬜ | Build + lint + typecheck green |
+| G13 — Browser Walkthrough | ⬜ | Vercel preview URL — complete onboarding → see matches |
+| G14 — PM APPROVED | ⬜ | PM comment "APPROVED" on PR |
+| G11 — Production Verification | ⬜ | After merge + deploy |
+| G12 — Documentation | ⬜ | `docs/walkthroughs/walkthrough-ENTRY-MATCH-1.md` |
+
+---
+
+**[2026-02-27] PM → Antigravity:**
+
+ENTRY-MATCH-1 is the #1 priority task. G3 blueprint above is PM APPROVED.
+
+After opening the PR for `fix/entry-15-import-fix` (VOLZA enrich dry-run + housekeeping), proceed immediately to ENTRY-MATCH-1.
+
+Branch: `feat/entry-match-1-generator` from `origin/main`.
+
+This is the core product feature. The entire beta depends on it.
+
+---
+
 
 
 ---
