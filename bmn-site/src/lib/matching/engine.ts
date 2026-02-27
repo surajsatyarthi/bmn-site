@@ -36,8 +36,9 @@ interface ScoredCandidate {
 }
 
 export function getHsSpecificity(candidateHs: string, userHs: string): number {
-  if (candidateHs.startsWith(userHs.slice(0, 6))) return 100; // 6-digit
-  if (candidateHs.startsWith(userHs.slice(0, 4))) return 75;  // 4-digit
+  if (candidateHs === userHs) return 100; // Exact match
+  if (userHs.length >= 6 && candidateHs.startsWith(userHs.slice(0, 6))) return 100; // 6-digit
+  if (userHs.length >= 4 && candidateHs.startsWith(userHs.slice(0, 4))) return 75;  // 4-digit
   return 50;                                                  // 2-digit (chapter)
 }
 
