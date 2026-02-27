@@ -173,7 +173,6 @@ INSERT INTO trade_shipments (
     port_origin, port_dest, shipment_mode,
     trade_direction, source_file
 ) VALUES %s
-ON CONFLICT ON CONSTRAINT trade_shipments_dedup DO NOTHING;
 """
 
 ENSURE_CONSTRAINT_SQL = """
@@ -341,10 +340,7 @@ def main():
         try:
             conn = get_db_connection()
             cur = conn.cursor()
-            logger.info("Ensuring dedup constraint exists...")
-            cur.execute(ENSURE_CONSTRAINT_SQL)
-            conn.commit()
-            logger.info("Constraint OK.")
+            logger.info("Connected for plain INSERT (Option B).")
         except Exception as e:
             logger.error(f"DB connection failed: {e}")
             return 1
