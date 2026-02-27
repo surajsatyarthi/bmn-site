@@ -1112,6 +1112,7 @@ Full analysis: `.agent/DATA_ASSET_INVENTORY.md` — **Updated 2026-02-24 post EN
 
 ---
 
+
 ## ENTRY-QA-1 — PM Diagnosis (2026-02-26)
 
 ### Root Cause: All Playwright CI Failures
@@ -1163,5 +1164,271 @@ After reading all 7 onboarding step components, all UI components (`FeatureIcon`
 
 ### After CEO action:
 Tests that should pass: J1, J2, J3, J4, J7, J8, golden-path (7/7 J-series + golden path)
+
+## ⚠️ INCIDENT-010 — PM G3 Documentation Gap (2026-02-27)
+
+**Filed by:** PM (Claude) — 2026-02-27
+**Severity:** HIGH — PM protocol breach (Rule from PM_PROTOCOL v3.0 and RALPH G3)
+
+### What Happened
+
+ENTRY-HOTFIX-2, ENTRY-NAV-1, and ENTRY-DB-2 were assigned to Antigravity and completed (code merged or ready to merge) with NO G3 blueprints written in PROJECT_LEDGER.md. The tasks were approved verbally/in context, and Antigravity included blueprints in the PR bodies, but the PROJECT_LEDGER.md had no entries for these tasks before code was written.
+
+This violates:
+1. RALPH G3: "PM must write APPROVED in the implementation plan before AI Coder writes code."
+2. PM_PROTOCOL v3.0: "PM must audit codebase before making ANY recommendations."
+3. CIRCULAR_ENFORCEMENT Rule 2: "PM must get CEO approval on implementation plan."
+
+The CEO also observed that Antigravity spent 1 hour attempting G13 screenshot upload without a written plan — using browser automation (failed) then scripting approaches without stopping to write a plan first. The absence of a ledger entry means there was no documented plan for Antigravity to reference.
+
+### Root Cause
+
+PM assigned tasks without writing ledger entries. Coder had no written G3 blueprint to reference, leading to improvised execution without a written plan.
+
+### Mechanical Gap
+
+Ralph does not mechanically prevent code from being written before G3. The `verify:pm-gates` script checks for G3, but only if the coder runs it before starting. No hard block exists at the git/CI level.
+
+### Resolution
+
+Blueprints retroactively documented below (2026-02-27). PM committed to writing ledger entries BEFORE assigning tasks.
+
+---
+
+## ENTRY-HOTFIX-2 — Onboarding Crash Fix
+
+**Tier:** S
+**Reason for tier:** Single-file, 1-line fix. Additive only (JSON.parse wrapper). No new components, no auth changes, no DB mutations.
+**Gates required:** CI, G1, G4, G5, G13, G14, G11
+**Status:** ✅ DONE — PR #28 merged 2026-02-27 at `bde5d03f`
+**Branch:** `fix/onboarding-hotfix`
+**PR:** https://github.com/surajsatyarthi/bmn-site/pull/28
+
+**Problem:** New user signups hit a React serialization crash on `/onboarding`. Drizzle ORM returns `Date` objects which are not JSON-serializable. Next.js SSR fails when the server component passes the `profile` object to the `OnboardingWizard` client component.
+
+**Fix:** `JSON.parse(JSON.stringify(profile))` in `onboarding/page.tsx` — deep-clones the profile, converting Date objects to ISO strings.
+
+**Success Metric:** New user completes onboarding step 1 without React error boundary.
+**Failure Signal:** Error boundary triggered on `/onboarding`.
+
+### Gate Status
+
+| Gate | Status | Evidence |
+|------|--------|----------|
+| CI | ✅ PASSED | https://github.com/surajsatyarthi/bmn-site/actions/runs/22457394883/job/65042151006 |
+| G1 — Component Audit | ✅ | Single file, no new components |
+| G4 — Implementation Integrity | ✅ | 1-line change matches fix exactly. Scope Manifest in PR body. |
+| G5 — Zero Lint Suppression | ✅ | No eslint-disable added |
+| G13 — Browser Walkthrough | ✅ | Screenshots inline in PR body — onboarding wizard step 1 renders, authenticated user, no crash |
+| G14 — PM APPROVED | ✅ | PM comment https://github.com/surajsatyarthi/bmn-site/pull/28#issuecomment-3968928421 — 2026-02-27 |
+| G11 — Production Verification | ⬜ | PM to verify /onboarding after deploy completes |
+
+**G3 documentation gap:** Tier S — G3 not required. ✅
+
+---
+
+## ENTRY-NAV-1 — Horizontal Top Navigation
+
+**Tier:** M
+**Reason for tier:** New component (TopNav.tsx) + modification of shared layout.tsx. Affects all dashboard pages. Not an API route but touches the main dashboard shell.
+**Gates required:** CI, G1, G3, G4, G5, G6, G13, G14, G11, G12
+**Status:** ✅ DONE — PR #29 merged 2026-02-27 at `eafb9213`
+**Branch:** `feat/entry-nav1-topnav`
+**PR:** https://github.com/surajsatyarthi/bmn-site/pull/29
+
+**G3 Blueprint — PM APPROVED (retroactive — 2026-02-27)**
+
+*Note: Blueprint was approved before code was written but not written to ledger at the time. Retroactively documented per INCIDENT-010. Future tasks: ledger entry written BEFORE assigning.*
+
+**Problem:** Dashboard used a `w-64` left sidebar consuming 256px on every page. CEO decision: move navigation to horizontal top bar.
+
+**Solution:**
+- NEW `TopNav.tsx`: Full-width header. Desktop — logo + inline nav links + UserMenu. Mobile — hamburger icon → Radix Dialog drawer containing DashboardNav.
+- MODIFY `layout.tsx`: Remove `<aside>`, `<DashboardNav>`, `<MobileNav>`. Add `<TopNav>` as the single full-width header.
+- Remove `MobileNav` (bottom tab bar) — redundant with TopNav hamburger drawer.
+
+**Files to create/change:**
+- `bmn-site/src/components/dashboard/TopNav.tsx` — NEW
+- `bmn-site/src/app/(dashboard)/layout.tsx` — MODIFY
+
+**Files NOT changed:** All page files, DashboardNav (retained for use inside hamburger drawer), schema, middleware.
+
+**Success Metric:** Dashboard loads with 4 nav links in the top horizontal bar. No left sidebar. Active link highlighted.
+**Failure Signal:** Left sidebar visible, nav links missing, or layout broken on mobile.
+
+**Status: APPROVED — PM (Claude) — 2026-02-27 (retroactive)**
+
+### Gate Status
+
+| Gate | Status | Evidence |
+|------|--------|----------|
+| CI | ✅ PASSED | https://github.com/surajsatyarthi/bmn-site/actions/runs/22457391255/job/65042139312 (CI re-running after branch update with main) |
+| G1 — Component Audit | ✅ | No duplicate nav components. DashboardNav retained as drawer content. |
+| G3 — Blueprint | ✅ | Retroactively documented above. INCIDENT-010 logged. |
+| G4 — Implementation Integrity | ✅ | 2 code files match plan. No unauthorized scope. Scope Manifest in PR body. |
+| G5 — Zero Lint Suppression | ✅ | 0 eslint-disable. Fixed useEffect setState anti-pattern without suppression. |
+| G6 — Tests | ✅ WAIVED | TopNav is a pure navigation component. Active link = CSS class via usePathname(). Mobile drawer = boolean UI toggle. No business logic that could fail silently. G6 waived per "pure layout/styling without business logic" exception. PM-waived 2026-02-27. |
+| G13 — Browser Walkthrough | ✅ | Screenshots inline in PR body — horizontal nav visible, Database active, authenticated user. |
+| G14 — PM APPROVED | ✅ | PM comment https://github.com/surajsatyarthi/bmn-site/pull/29#issuecomment-3968931134 — 2026-02-27 |
+| G12 — Documentation | ✅ | `bmn-site/docs/walkthroughs/walkthrough-ENTRY-NAV-1.md` committed in PR diff |
+| G11 — Production Verification | ⬜ | PM to verify after merge + deploy |
+
+---
+
+## ENTRY-DB-2 — Apollo-style Database Layout
+
+**Tier:** M
+**Reason for tier:** New component (FilterPanel.tsx) + modification of database/page.tsx. Layout redesign of an existing page.
+**Gates required:** CI, G1, G3, G4, G5, G6, G13, G14, G11, G12
+**Status:** ✅ DONE — PR #30 merged 2026-02-27 at `082b99ca`
+**Branch:** `feat/entry-db2-apollo-layout`
+**PR:** https://github.com/surajsatyarthi/bmn-site/pull/30
+
+**G3 Blueprint — PM APPROVED (retroactive — 2026-02-27)**
+
+*Note: Retroactively documented per INCIDENT-010.*
+
+**Problem:** `/database` page had filters in a horizontal grid + card-based results. CEO requires Apollo.io-style layout: left vertical filter panel + tabular results.
+
+**Solution:**
+- NEW `FilterPanel.tsx`: `'use client'` component. Left `w-64` sticky panel with Company Name, Country, HS Chapter, Trade Type filters. GET form, no JS required for basic function.
+- MODIFY `database/page.tsx`: Flex layout — FilterPanel (left, w-64) + results table (right, flex-1). Results presented as `<table>` with thead/tbody replacing the old card grid. All query logic preserved (buildDatabaseFilters, Drizzle query, pagination unchanged).
+
+**Layout:**
+```
+┌──────────────┬──────────────────────────────────────┐
+│ Filter Panel │  Results Table                        │
+│  w-64        │  | Company | Country | Type | HS |   │
+│  [filters]   │  | Row 1   | ...     | ...  | ...|   │
+│  [Search]    │  [← Prev]  Page N  [Next →]           │
+└──────────────┴──────────────────────────────────────┘
+```
+
+**Files to create/change:**
+- `bmn-site/src/components/database/FilterPanel.tsx` — NEW
+- `bmn-site/src/app/(dashboard)/database/page.tsx` — MODIFY layout only
+
+**Files NOT changed:** `filters.ts`, `schema.ts`, all other routes.
+
+**Success Metric:** `/database` loads with left filter panel + tabular results. Filter inputs work. Pagination works.
+**Failure Signal:** Card layout still showing, filter panel missing, table not rendering.
+
+**Status: APPROVED — PM (Claude) — 2026-02-27 (retroactive)**
+
+### Gate Status
+
+| Gate | Status | Evidence |
+|------|--------|----------|
+| CI | ✅ PASSED | https://github.com/surajsatyarthi/bmn-site/actions/runs/22457390836/job/65042143645 (CI re-running after branch update with main) |
+| G1 — Component Audit | ✅ | FilterPanel is new, no duplicate filter components. |
+| G3 — Blueprint | ✅ | Retroactively documented above. INCIDENT-010 logged. |
+| G4 — Implementation Integrity | ✅ | 2 code files match plan. No unauthorized scope. Scope Manifest in PR body. |
+| G5 — Zero Lint Suppression | ✅ | 0 eslint-disable |
+| G6 — Tests | ✅ WAIVED | FilterPanel is a pure form presentation component. Filter logic (buildDatabaseFilters) already tested in ENTRY-11.0 (`tests/lib/database/filters.test.ts`). FilterPanel only passes URL params to server component — no independent business logic. G6 waived. PM-waived 2026-02-27. |
+| G13 — Browser Walkthrough | ✅ | Screenshots inline in PR body — left filter panel + tabular results visible, real company data shown. |
+| G14 — PM APPROVED | ✅ | PM comment https://github.com/surajsatyarthi/bmn-site/pull/30#issuecomment-3969116259 — 2026-02-27 |
+| G12 — Documentation | ✅ | `bmn-site/docs/walkthroughs/walkthrough-ENTRY-DB-2.md` committed in PR diff |
+| G11 — Production Verification | ⬜ | PM to verify after merge + deploy |
+
+---
+
+## ENTRY-QA-1 — Playwright E2E Test Setup
+
+**Tier:** M
+**Reason for tier:** New test infrastructure, new npm package, touches multiple pages.
+**Gates required:** CI, G1, G3, G4, G5, G6, G13 (WAIVED — test-only), G14, G11, G12
+**Status:** IN PROGRESS — PR #26 open — branch `feat/entry-qa1-playwright`
+**PR:** https://github.com/surajsatyarthi/bmn-site/pull/26
+
+**G3 Blueprint:** In PROJECT_LEDGER.md (written before code — see existing entry below)
+
+**Current Status:** PR #26 open. Contains 8 Playwright journeys + the onboarding crash fix (commit `0b73ae9` which was cherry-picked to ENTRY-HOTFIX-2 and merged separately). This PR continues in parallel with ENTRY-15.0 data import.
+
+**Beta Hard Gate:** ENTRY-QA-1 must pass CI (all Playwright journeys green) before any beta user is invited. This gate cannot be skipped or waived.
+
+---
+
+## ⚠️ ENTRY-15.0 — CRITICAL: import_volza.py Has No INSERT Code
+
+**Status update filed by:** PM (Claude) — 2026-02-27 — **personal code verification**
+
+**PM has read `scripts/data/import_volza.py` in full (2026-02-27).**
+
+**Verified finding:** The script only COUNTS rows. It has no `INSERT`, `upsert`, or database connection code. It accepts a `--dry-run` flag but the non-dry-run path ALSO only counts rows — there is no code path that inserts into `trade_shipments`. The script is incomplete and does not fulfil the G3 blueprint requirement.
+
+This was claimed as complete in PR #25 (merged 2026-02-26). That claim was false. **This is not a G12 documentation issue — the import script itself is functionally incomplete.**
+
+**Current trade_shipments row count:** UNKNOWN. PM must run `SELECT COUNT(*) FROM trade_shipments;` directly in Supabase before confirming.
+
+**Beta launch is BLOCKED until:**
+1. `import_volza.py` is rewritten to INSERT into `trade_shipments`
+2. The import is run against all VOLZA xlsx files in `/Database/`
+3. PM independently verifies `SELECT COUNT(*) FROM trade_shipments` ≥ 153,994
+4. Contact enrichment backfill (`enrich_from_volza.py`) is run and PM verifies `SELECT COUNT(*) FROM global_trade_companies WHERE contact_email IS NOT NULL`
+
+### Task Assignment — Antigravity
+
+**[2026-02-27] PM → Antigravity: ENTRY-15.0 Import Script Fix — HIGHEST PRIORITY**
+
+Per RICE-Ordered Task Execution Rule: this is the highest-value incomplete task. No other tasks may be assigned until this is complete (QA-1 continues in parallel as it is already in progress).
+
+**Task: Rewrite `scripts/data/import_volza.py` to actually INSERT into `trade_shipments`**
+
+Required behavior:
+1. Connect to the production database using `DATABASE_URL` from environment
+2. For each xlsx file in the `--source-dir`:
+   - Detect trade direction from filename (Ex/Export → 'export', Im/Import → 'import')
+   - Skip row 1 (title/period header)
+   - Row 2 = column headers, data starts row 3
+   - Map columns per G3 blueprint:
+     - export: `india_party_name` = Shipper Name, `india_party_email` = Shipper Email, `india_party_phone` = Shipper Phone, `india_party_contact` = Shipper Contact Person, `india_iec` = IEC
+     - import: `india_party_name` = Consignee Name, `india_party_email` = Consignee E-mail, `india_party_phone` = Consignee Phone, `india_party_contact` = Contact Person, `india_iec` = IEC
+   - Batch upsert 1000 rows into `trade_shipments` using psycopg2 or sqlalchemy
+   - Idempotent: ON CONFLICT on `(india_party_name, shipment_date, hs_code, port_dest)` → DO NOTHING
+   - Log progress: `[filename.xlsx] 1000/32768 rows inserted...`
+3. After all files: log total rows inserted
+4. `--dry-run` flag: parse files and count rows WITHOUT inserting (existing behavior is correct for dry-run only)
+
+**Source files:** `/Users/user/Desktop/BMN/Database/` folder (VOLZA xlsx files)
+
+**After import runs:**
+- Run `enrich_from_volza.py` (contact enrichment backfill — already written)
+- Report to PM: `SELECT COUNT(*) FROM trade_shipments;` and `SELECT COUNT(*) FROM global_trade_companies WHERE contact_email IS NOT NULL;`
+
+**PM will independently verify both counts by direct DB query before accepting completion.**
+
+**IRON RULE applies:** If any step fails, stop immediately and report verbatim error to ledger. Do NOT self-recover.
+
+**Branch:** Create a new branch from current `origin/main`: `git checkout -b fix/entry-15-import-fix origin/main`
+
+**This is the ONLY task Antigravity should work on until import is complete, except QA-1 which continues in parallel.**
+
+---
+
+## RALPH PROTOCOL GAP — Unplanned Execution (CEO Question 2026-02-27)
+
+**CEO question:** "Why is Ralph not stopping the coder from acting without an approved plan?"
+
+**Answer from PM:**
+
+Ralph Protocol requires G3 (blueprint approval in ledger) before any code is written. The enforcement mechanism is:
+1. `npm run verify:pm-gates -- ENTRY-XXX` — coder must run this before starting work
+2. The script checks for ledger entry + G3 approval signature
+3. Exit code 1 = coder should comment BLOCKED in ledger and stop
+
+**The gap:** This verification is honor-system. Nothing mechanically prevents Antigravity from starting execution without running `verify:pm-gates`. The script exists, but coder can bypass it by starting browser/terminal work directly.
+
+**What happened with G13 today:** Antigravity attempted to upload G13 screenshots to PR bodies using:
+1. Browser automation (failed — browser subagent cannot interact with OS file picker)
+2. Tried browser again (still failed — same root cause)
+3. Switched to terminal scripting
+
+Wasted ~1 hour because no written plan was approved before starting. The correct approach (GitHub API PATCH) was the third attempt, not the first.
+
+**Protocol fix:** The current protocol (v20.0) is sufficient — the rule is clear (G3 before code, write a plan). The failure was in following the rule, not in the rule itself. Antigravity must run `verify:pm-gates` before starting ANY task. PM must enforce this by only assigning tasks that have a written ledger entry.
+
+**PM commitment (2026-02-27):** No task will be assigned without a ledger entry written first. Coder must reference the ledger entry number when starting work.
+
+
 
 ---
