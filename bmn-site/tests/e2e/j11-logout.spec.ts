@@ -10,11 +10,11 @@ test('J11 — logout flow correctly destroys session', async ({ page }) => {
   // Wait for redirect to app
   await page.waitForURL(/\/(onboarding|dashboard)/, { timeout: 20000 });
   
-  // Verify user is logged in
-  await expect(page.locator('h1', { hasText: 'Dashboard' })).toBeVisible();
+  // Wait for the user menu button to appear as proof of successful login
+  const userMenuBtn = page.locator('button:has(.bg-gradient-to-br)').first();
+  await expect(userMenuBtn).toBeVisible({ timeout: 15000 });
 
   // Find and execute the logout action within the user menu
-  const userMenuBtn = page.locator('button:has(.bg-gradient-to-br)');
   await userMenuBtn.click();
   
   const logoutAction = page.locator('button', { hasText: 'Log out' });
