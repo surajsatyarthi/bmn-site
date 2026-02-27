@@ -301,7 +301,10 @@ def main():
     parser.add_argument('--dry-run', action='store_true',
                         help='Parse and count rows only — no DB writes')
     parser.add_argument('--file', default=None,
-                        help='Process a single file only (for Stage 3 test)')
+                        help='Process a single file only')
+    parser.add_argument('--direction', choices=['export', 'import'], default=None,
+                        help='Override auto-detection: export or import. '
+                             'Required when filename contains no Ex/Im keyword.')
     args = parser.parse_args()
 
     if not os.path.isdir(args.source_dir):
@@ -338,7 +341,11 @@ def main():
     grand_total = 0
     for filename in files:
         filepath = os.path.join(args.source_dir, filename)
-        direction = detect_direction(filename)
+        # --direction flag overrides auto-detection
+        if args.direction:
+            direction = args.direction
+        else:
+            direction = detect_direction(filename)
         if direction is None:
             logger.warning(f"[{filename}] Cannot detect trade direction — skipping.")
             continue
