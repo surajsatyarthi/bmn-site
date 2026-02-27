@@ -10,11 +10,11 @@ test('J6 — dashboard renders widgets correctly', async ({ page }) => {
   // Wait for redirect
   await page.waitForURL(/\/(onboarding|dashboard)/, { timeout: 20000 });
   await page.goto('/dashboard');
-  await page.waitForLoadState('networkidle');
 
   // Dashboard page renders correctly without crash
+  // Dashboard page has a loading skeleton state first, wait for the actual layout to render
+  await expect(page.locator('h1', { hasText: 'Dashboard' }).first()).toBeVisible({ timeout: 15000 });
   await expect(page.locator('text=Something went wrong')).not.toBeVisible();
-  await expect(page.locator('h1', { hasText: 'Dashboard' })).toBeVisible();
 
   // Validate stat cards are present
   await expect(page.locator('text=Profile Completion')).toBeVisible();
