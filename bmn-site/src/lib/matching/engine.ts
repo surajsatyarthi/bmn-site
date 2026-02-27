@@ -1,6 +1,5 @@
 import { sql, eq, and, ne } from 'drizzle-orm';
 import { products, tradeInterests, matches } from '../db/schema';
-import type { PgDatabase } from 'drizzle-orm/pg-core';
 
 export function getHsSpecificity(candidateHs: string, userHs: string): number {
   if (candidateHs.startsWith(userHs.slice(0, 6))) return 100; // 6-digit
@@ -194,7 +193,7 @@ export async function generateMatchesForUser(userId: string, db: any): Promise<a
     const hsScore = getHsSpecificity(c.hsCode, c.userProduct.hsCode);
 
     const reasons: string[] = [];
-    reasons.push(`Traded ${c.userProduct.name} ${c.shipmentCount} times — last active ${timeAgo(c.lastDate)}`);
+    reasons.push(`Traded ${c.userProduct.name} ${c.shipmentCount} times - last active ${timeAgo(c.lastDate)}`);
     if (c.tradeValue > 0) reasons.push(`Trade volume: $${formatUsd(c.tradeValue)} total`);
     if (hsScore === 100) reasons.push(`Exact product match: HS ${c.hsCode}`);
     reasons.push(`Located in ${c.companyCity ? c.companyCity + ', ' : ''}${c.companyCountry}`);
