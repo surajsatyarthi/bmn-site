@@ -9,6 +9,7 @@ Usage:
 G3 Blueprint: PROJECT_LEDGER.md lines 1316-1351 (PM APPROVED 2026-02-24)
 """
 
+from __future__ import annotations
 import os
 import re
 import argparse
@@ -283,9 +284,10 @@ def process_file(filepath: str, trade_direction: str, conn, dry_run: bool) -> in
 
 def detect_direction(filename: str) -> str | None:
     fn = filename.lower()
-    if re.search(r'\bex\b|export', fn):
+    # Match 'export'/'ex' or 'import'/'im' as tokens (separated by _, space, digit, or boundary)
+    if re.search(r'export|(?<![a-z])ex(?![a-z])', fn):
         return 'export'
-    if re.search(r'\bim\b|import', fn):
+    if re.search(r'import|(?<![a-z])im(?![a-z])', fn):
         return 'import'
     return None
 
