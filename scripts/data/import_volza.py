@@ -172,17 +172,7 @@ INSERT INTO trade_shipments (
     quantity, quantity_unit, fob_value_usd, cif_value_usd,
     port_origin, port_dest, shipment_mode,
     trade_direction, source_file
-) VALUES (
-    %(shipment_date)s, %(hs_code)s, %(hs_description)s, %(product_desc)s,
-    %(shipper_name)s, %(shipper_address)s, %(shipper_city)s, %(shipper_country)s,
-    %(consignee_name)s, %(consignee_address)s, %(consignee_city)s, %(consignee_country)s,
-    %(notify_party)s,
-    %(india_party_name)s, %(india_party_email)s, %(india_party_phone)s,
-    %(india_party_contact)s, %(india_iec)s,
-    %(quantity)s, %(quantity_unit)s, %(fob_value_usd)s, %(cif_value_usd)s,
-    %(port_origin)s, %(port_dest)s, %(shipment_mode)s,
-    %(trade_direction)s, %(source_file)s
-)
+) VALUES %s
 ON CONFLICT ON CONSTRAINT trade_shipments_dedup DO NOTHING;
 """
 
@@ -263,7 +253,19 @@ def process_file(filepath: str, trade_direction: str, conn, dry_run: bool) -> in
         batch.append(record)
 
         if len(batch) >= BATCH_SIZE:
-            cur.executemany(UPSERT_SQL, batch)
+            from psycopg2.extras import execute_values
+            
+            # format as tuple of tuples for execute_values
+            cols = ['shipment_date', 'hs_code', 'hs_description', 'product_desc',
+                    'shipper_name', 'shipper_address', 'shipper_city', 'shipper_country',
+                    'consignee_name', 'consignee_address', 'consignee_city', 'consignee_country',
+                    'notify_party', 'india_party_name', 'india_party_email', 'india_party_phone',
+                    'india_party_contact', 'india_iec', 'quantity', 'quantity_unit', 
+                    'fob_value_usd', 'cif_value_usd', 'port_origin', 'port_dest', 
+                    'shipment_mode', 'trade_direction', 'source_file']
+            
+            tuples = [tuple(r[c] for c in cols) for r in batch]
+            execute_values(cur, UPSERT_SQL, tuples)
             conn.commit()
             total_inserted += len(batch)
             logger.info(f"[{filename}] {total_inserted}/{row_num - 2} rows inserted...")
@@ -271,7 +273,16 @@ def process_file(filepath: str, trade_direction: str, conn, dry_run: bool) -> in
 
     # Flush remaining
     if batch and not dry_run:
-        cur.executemany(UPSERT_SQL, batch)
+        from psycopg2.extras import execute_values
+        cols = ['shipment_date', 'hs_code', 'hs_description', 'product_desc',
+                'shipper_name', 'shipper_address', 'shipper_city', 'shipper_country',
+                'consignee_name', 'consignee_address', 'consignee_city', 'consignee_country',
+                'notify_party', 'india_party_name', 'india_party_email', 'india_party_phone',
+                'india_party_contact', 'india_iec', 'quantity', 'quantity_unit', 
+                'fob_value_usd', 'cif_value_usd', 'port_origin', 'port_dest', 
+                'shipment_mode', 'trade_direction', 'source_file']
+        tuples = [tuple(r[c] for c in cols) for r in batch]
+        execute_values(cur, UPSERT_SQL, tuples)
         conn.commit()
         total_inserted += len(batch)
 
