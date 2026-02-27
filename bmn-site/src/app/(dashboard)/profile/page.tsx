@@ -90,7 +90,7 @@ export default async function ProfilePage() {
             </div>
             
             <div className="mb-6">
-              <span className={`px-3 py-1 rounded-full text-sm font-bold tracking-wider ${badgeClass}`}>
+              <span data-testid="plan-badge" className={`px-3 py-1 rounded-full text-sm font-bold tracking-wider ${badgeClass}`}>
                 {planName}
               </span>
             </div>
@@ -98,7 +98,7 @@ export default async function ProfilePage() {
             <div className="space-y-2 mb-6 text-sm">
               <div className="flex justify-between">
                 <span className="text-text-secondary">Reveals this month:</span>
-                <span className="font-semibold text-text-primary">
+                <span data-testid="credit-balance" className="font-semibold text-text-primary">
                   {profile.plan.toLowerCase() === 'partner' ? 'Unlimited reveals' : `${revealCount} / ${profile.plan.toLowerCase() === 'hunter' ? 500 : 5}`}
                 </span>
               </div>

@@ -98,7 +98,7 @@ export default async function CompanyDetailPage({ params, searchParams }: PagePr
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <span className="text-3xl" aria-hidden="true">{countryFlag(company.countryCode)}</span>
-              <h1 className="text-2xl font-bold font-display text-text-primary">
+              <h1 className="text-2xl font-bold font-display text-text-primary" data-testid="company-detail-heading">
                 {company.companyName}
               </h1>
             </div>

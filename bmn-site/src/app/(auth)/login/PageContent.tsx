@@ -106,7 +106,7 @@ export default function LoginPage() {
       )}
 
       {callbackError && (
-        <div className="bg-red-50 border border-red-100 p-4 mb-6 rounded-xl">
+        <div data-testid="callback-error-banner" className="bg-red-50 border border-red-100 p-4 mb-6 rounded-xl">
           <p className="text-sm font-semibold text-red-800">Verification failed</p>
           <p className="text-xs text-red-700 mt-1">Your verification link may have expired. Please sign in and request a new one.</p>
         </div>
