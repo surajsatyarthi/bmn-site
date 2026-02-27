@@ -66,6 +66,9 @@ export default function TopNav({ user, profile }: TopNavProps) {
         <Link href="/" className="text-2xl font-display font-bold text-gradient-primary">
           BMN
         </Link>
+        <span className="text-[10px] font-bold text-white bg-orange-500 px-1.5 py-0.5 rounded-full uppercase tracking-wider leading-none">
+          BETA
+        </span>
 
         {/* Desktop nav links */}
         <nav className="hidden md:flex items-center gap-1 ml-4">
