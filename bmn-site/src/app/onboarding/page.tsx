@@ -57,7 +57,7 @@ export default async function OnboardingPage() {
   }
 
   if (profile.onboardingCompleted) {
-    redirect('/dashboard');
+    redirect('/matches');
   }
 
   return (
