@@ -143,7 +143,7 @@ export async function generateMatchesForUser(userId: string): Promise<ScoredCand
           `);
         }
 
-        const candidates = (queryResult.rows ?? queryResult) as ShipmentRow[];
+        const candidates = queryResult as unknown as ShipmentRow[];
 
         if (candidates.length > 0) {
           const maxCount = Math.max(...candidates.map((c) => Number(c.shipment_count)));
@@ -218,7 +218,7 @@ export async function generateMatchesForUser(userId: string): Promise<ScoredCand
         LIMIT 1
       `);
 
-      const enrichmentRows = (enrichmentRes.rows ?? enrichmentRes) as EnrichmentRow[];
+      const enrichmentRows = enrichmentRes as unknown as EnrichmentRow[];
       if (enrichmentRows.length > 0) {
         enrichedEmail = enrichmentRows[0].india_party_email;
         enrichedPhone = enrichmentRows[0].india_party_phone ?? null;

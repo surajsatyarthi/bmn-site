@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import { db } from '@/lib/db';
 import { generateMatchesForUser } from '@/lib/matching/engine';
 
 export async function POST() {
@@ -12,7 +11,7 @@ export async function POST() {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const matches = await generateMatchesForUser(user.id, db);
+    const matches = await generateMatchesForUser(user.id);
 
     return NextResponse.json({ count: matches?.length || 0 });
   } catch (error) {
