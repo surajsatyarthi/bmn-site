@@ -2100,6 +2100,431 @@ return (
 
 ---
 
+## ENTRY-MOBILE-1 — Mobile UX Bugs: Hamburger Drawer + Scroll
+
+**Tier:** XS
+**Assigned:** 2026-02-28
+**Branch:** `fix/entry-mobile-1-ux`
+**Status:** ASSIGNED TO ANTIGRAVITY
+
+**Two bugs reported by CEO during beta:**
+
+### Bug 1 — Hamburger drawer stays open after navigation
+
+**Root cause (PM verified from code):**
+`DashboardNav` renders `<Link>` elements with no access to `TopNav`'s `setOpen` state. When a user taps a nav link in the mobile drawer, Next.js navigates but the Radix `Dialog.Root` `open` state stays `true`. The drawer never closes.
+
+**Fix — `bmn-site/src/components/dashboard/TopNav.tsx`:**
+Add one `useEffect` that closes the drawer whenever `pathname` changes:
+```tsx
+useEffect(() => {
+  setOpen(false);
+}, [pathname]);
+```
+`pathname` and `useState` are already imported. No other changes to this file.
+
+---
+
+### Bug 2 — Scroll not smooth on mobile
+
+**Root cause A — `globals.css` missing `scroll-behavior`:**
+`html` element has no `scroll-behavior: smooth`. Homepage anchor links scroll instantly on mobile.
+
+**Fix — `bmn-site/src/app/globals.css`:**
+Add to the existing `:root` block (after it, not inside it):
+```css
+html {
+  scroll-behavior: smooth;
+}
+```
+
+**Root cause B — Dashboard layout `p-8` causes mobile overflow:**
+`layout.tsx` line 54: `<main className="flex-1 p-8">` — 32px padding on all sides on mobile. On small screens this causes horizontal overflow and layout thrash.
+
+**Fix — `bmn-site/src/app/(dashboard)/layout.tsx`:**
+```tsx
+// Before:
+<main className="flex-1 p-8">
+// After:
+<main className="flex-1 p-4 md:p-8">
+```
+
+---
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `bmn-site/src/components/dashboard/TopNav.tsx` | Add `useEffect` to close drawer on pathname change |
+| `bmn-site/src/app/globals.css` | Add `html { scroll-behavior: smooth; }` |
+| `bmn-site/src/app/(dashboard)/layout.tsx` | `p-8` → `p-4 md:p-8` |
+
+### Gates Required
+CI, G5, G6 (WAIVED — no logic), G13 (mobile screenshot at 375px required), G14, G12
+
+### G13 Evidence Required
+- Mobile drawer: screenshot showing drawer CLOSED after tapping a nav link
+- Homepage: screenshot at 375px showing no horizontal overflow
+- Dashboard: screenshot at 375px showing correct padding
+
+### Success Criteria
+1. Tap any nav link in mobile drawer → drawer closes immediately
+2. Homepage anchor links scroll smoothly on mobile
+3. Dashboard pages have no horizontal overflow at 375px
+
+---
+
+## ENTRY-QA-2 — Mobile Test Coverage + G16 Browser Matrix Enforcement
+
+**Tier:** M
+**Assigned:** 2026-02-28
+**Status:** ASSIGNED TO ANTIGRAVITY
+**Branch:** `feat/entry-qa2-mobile-testing`
+**Depends on:** ENTRY-MOBILE-1 merged first (tests verify the fixes)
+**Gates required:** CI, G1, G2, G3, G4, G5, G6, G13, G14, G11, G12, G16
+
+**Success Metric:** CI passes on all 3 projects (Desktop Chrome + Pixel 7 + iPhone 14). Hamburger drawer close test passes on mobile. Zero horizontal overflow on key pages at mobile viewport.
+**Failure Signal:** Any test failing on mobile projects that passes on desktop = real mobile bug, do not suppress.
+
+---
+
+### G3 Blueprint — PM APPROVED 2026-02-28
+
+#### Change 1 — `bmn-site/playwright.config.ts`
+
+Replace the `projects` array:
+```typescript
+projects: [
+  { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+  { name: 'mobile-chrome', use: { ...devices['Pixel 7'] } },
+  { name: 'mobile-safari', use: { ...devices['iPhone 14'] } },
+],
+```
+
+Add `isMobile` to the `use` block at the top level so tests can detect which project they're running on:
+```typescript
+use: {
+  baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
+  trace: 'on-first-retry',
+  screenshot: 'only-on-failure',
+},
+```
+(no change to `use` block — `isMobile` is inherited from the device descriptor automatically)
+
+#### Change 2 — `bmn-site/tests/e2e/j8-mobile.spec.ts` — FULL REWRITE
+
+```typescript
+import { test, expect } from '@playwright/test';
+
+/**
+ * J8 — Mobile UX: hamburger drawer + overflow + scroll
+ * Runs on ALL projects. Mobile-specific assertions gated on isMobile.
+ */
+
+test.beforeEach(async ({ page }) => {
+  await page.goto('/login');
+  await page.fill('#email', process.env.TEST_USER_EMAIL!);
+  await page.fill('#password', process.env.TEST_USER_PASSWORD!);
+  await page.click('button[type="submit"]');
+  await page.waitForURL(/\/(onboarding|dashboard|matches)/, { timeout: 20000 });
+});
+
+test('J8a — no horizontal overflow on key pages at mobile viewport', async ({ page, isMobile }) => {
+  if (!isMobile) test.skip();
+
+  const paths = ['/dashboard', '/matches', '/database'];
+  for (const path of paths) {
+    await page.goto(path);
+    await page.waitForLoadState('networkidle');
+    const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    const viewportWidth = page.viewportSize()!.width;
+    expect(scrollWidth, `${path} has horizontal overflow`).toBeLessThanOrEqual(viewportWidth + 1);
+    await expect(page.locator('text=Something went wrong')).not.toBeVisible();
+  }
+});
+
+test('J8b — hamburger drawer opens and closes on mobile', async ({ page, isMobile }) => {
+  if (!isMobile) test.skip();
+
+  await page.goto('/dashboard');
+  await page.waitForLoadState('networkidle');
+
+  // Hamburger button visible on mobile
+  const hamburger = page.locator('[data-testid="mobile-menu-button"]');
+  await expect(hamburger).toBeVisible();
+
+  // Tap hamburger — drawer opens
+  await hamburger.tap();
+  const drawer = page.locator('[data-testid="mobile-nav-drawer"]');
+  await expect(drawer).toBeVisible({ timeout: 3000 });
+
+  // Tap Matches link inside drawer
+  await page.locator('[data-testid="mobile-nav-drawer"] a[href="/matches"]').tap();
+
+  // Drawer closes after navigation
+  await page.waitForURL('/matches', { timeout: 10000 });
+  await expect(drawer).not.toBeVisible({ timeout: 3000 });
+});
+
+test('J8c — desktop nav shows links, no hamburger', async ({ page, isMobile }) => {
+  if (isMobile) test.skip();
+
+  await page.goto('/dashboard');
+  await page.waitForLoadState('networkidle');
+
+  // Desktop nav visible
+  await expect(page.locator('nav a[href="/matches"]').first()).toBeVisible();
+
+  // Hamburger not visible on desktop
+  const hamburger = page.locator('[data-testid="mobile-menu-button"]');
+  await expect(hamburger).not.toBeVisible();
+});
+```
+
+#### Change 3 — `bmn-site/src/components/dashboard/TopNav.tsx`
+
+Add `data-testid` attributes (required by j8b test):
+```tsx
+// Hamburger button — add data-testid
+<button
+  data-testid="mobile-menu-button"
+  className="p-2 -ml-2 text-text-secondary hover:text-text-primary outline-none"
+>
+
+// Dialog.Content — add data-testid
+<Dialog.Content
+  data-testid="mobile-nav-drawer"
+  className="fixed inset-y-0 left-0 ..."
+>
+```
+
+#### Change 4 — `scripts/verify-playwright-matrix.js` (NEW FILE)
+
+```javascript
+#!/usr/bin/env node
+/**
+ * G16 — Browser Matrix Gate
+ * Validates playwright.config.ts has required mobile + desktop projects.
+ * Runs in CI on any PR touching playwright.config.ts or tests/e2e/
+ */
+const fs = require('fs');
+const path = require('path');
+
+const configPath = path.join(__dirname, '..', 'playwright.config.ts');
+const content = fs.readFileSync(configPath, 'utf8');
+
+const errors = [];
+
+if (!content.includes("devices['Desktop Chrome']") && !content.includes('devices["Desktop Chrome"]')) {
+  errors.push('Missing Desktop Chrome project');
+}
+if (!content.includes("devices['Pixel 7']") && !content.includes("devices['Galaxy S9+']") && !content.includes('devices["Pixel 7"]')) {
+  errors.push('Missing mobile Chrome project (add Pixel 7 or Galaxy S9+)');
+}
+if (!content.includes("devices['iPhone 14']") && !content.includes("devices['iPhone 13']") && !content.includes('devices["iPhone 14"]')) {
+  errors.push('Missing mobile Safari project (add iPhone 14 or iPhone 13)');
+}
+
+if (errors.length > 0) {
+  console.error('❌ G16 Browser Matrix Gate FAILED:');
+  errors.forEach(e => console.error(`  - ${e}`));
+  console.error('\nplaywright.config.ts must include Desktop Chrome + mobile Chrome + mobile Safari.');
+  process.exit(1);
+}
+
+console.log('✅ G16 Browser Matrix Gate PASSED: Desktop Chrome + Pixel 7 + iPhone 14 present.');
+process.exit(0);
+```
+
+#### Change 5 — `.github/workflows/playwright.yml`
+
+Add G16 check step before the Playwright run step:
+```yaml
+- name: G16 — Browser Matrix Gate
+  run: node bmn-site/scripts/verify-playwright-matrix.js
+```
+
+#### Change 6 — `bmn-site/docs/research/ENTRY-QA-2-benchmark.md` (G2 evidence)
+
+Must compare browser matrix against Vercel Commerce and Stripe's public configs. Document gap (Desktop Chrome only → fixed with Pixel 7 + iPhone 14).
+
+---
+
+### Gate Status
+
+| Gate | Status |
+|------|--------|
+| G1 — Component Audit | ⬜ Antigravity runs before coding |
+| G2 — Industry Benchmark | ⬜ `docs/research/ENTRY-QA-2-benchmark.md` required |
+| G3 — Blueprint | ✅ PM APPROVED 2026-02-28 |
+| G16 — Browser Matrix | ⬜ Script + CI step required |
+| CI | ⬜ All 3 projects must pass |
+| G13 | ⬜ Screenshots from all 3 projects |
+| G14 | ⬜ Pending PR |
+| G12 | ⬜ `docs/walkthroughs/walkthrough-ENTRY-QA-2.md` |
+
+---
+
+## ENTRY-QA-3 — Visual Regression + Accessibility + Post-Deploy Smoke
+
+**Tier:** M
+**Assigned:** 2026-02-28
+**Status:** ASSIGNED TO ANTIGRAVITY — start after ENTRY-QA-2 merges
+**Branch:** `feat/entry-qa3-faang-testing`
+**Gates required:** CI, G1, G2, G3, G4, G5, G6, G13, G14, G11, G12
+
+**Success Metric:** (1) Visual regression baseline screenshots committed. Any future PR that changes layout fails CI automatically. (2) axe-playwright finds zero critical/serious accessibility violations on 5 key pages. (3) Post-deploy smoke test workflow runs after Vercel deploy and confirms production is up.
+**Failure Signal:** Visual diff CI step passes with obvious layout change (means baselines weren't committed). axe scan not running in CI.
+
+---
+
+### G3 Blueprint — PM APPROVED 2026-02-28
+
+#### Part A — Visual Regression (`@playwright/test` built-in, zero cost)
+
+**How it works:** Playwright has built-in `toHaveScreenshot()` — first run saves baseline PNGs, subsequent runs diff against them. No external service needed.
+
+**New test file: `bmn-site/tests/e2e/j12-visual-regression.spec.ts`**
+```typescript
+import { test, expect } from '@playwright/test';
+
+/**
+ * J12 — Visual Regression
+ * First run: saves baseline screenshots to tests/e2e/snapshots/
+ * Subsequent runs: diffs against baseline. Any layout change = CI fail.
+ * To update baselines intentionally: npx playwright test --update-snapshots
+ */
+
+test.beforeEach(async ({ page }) => {
+  await page.goto('/login');
+  await page.fill('#email', process.env.TEST_USER_EMAIL!);
+  await page.fill('#password', process.env.TEST_USER_PASSWORD!);
+  await page.click('button[type="submit"]');
+  await page.waitForURL(/\/(onboarding|dashboard|matches)/, { timeout: 20000 });
+});
+
+test('J12a — homepage visual baseline', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForLoadState('networkidle');
+  await expect(page).toHaveScreenshot('homepage.png', { maxDiffPixelRatio: 0.02 });
+});
+
+test('J12b — dashboard visual baseline', async ({ page }) => {
+  await page.goto('/dashboard');
+  await page.waitForLoadState('networkidle');
+  await expect(page).toHaveScreenshot('dashboard.png', { maxDiffPixelRatio: 0.02 });
+});
+
+test('J12c — matches visual baseline', async ({ page }) => {
+  await page.goto('/matches');
+  await page.waitForLoadState('networkidle');
+  await expect(page).toHaveScreenshot('matches.png', { maxDiffPixelRatio: 0.02 });
+});
+
+test('J12d — database visual baseline', async ({ page }) => {
+  await page.goto('/database');
+  await page.waitForLoadState('networkidle');
+  await expect(page).toHaveScreenshot('database.png', { maxDiffPixelRatio: 0.02 });
+});
+```
+
+Baseline screenshots go in `tests/e2e/snapshots/` — committed to repo. `maxDiffPixelRatio: 0.02` = allows 2% pixel change (handles anti-aliasing) but fails on real layout shifts.
+
+#### Part B — Accessibility Gate (`axe-playwright`, free)
+
+**Install:** `npm install --save-dev axe-playwright` (one new devDependency)
+
+**New test file: `bmn-site/tests/e2e/j13-accessibility.spec.ts`**
+```typescript
+import { test, expect } from '@playwright/test';
+import { checkA11y, injectAxe } from 'axe-playwright';
+
+/**
+ * J13 — Accessibility Gate
+ * Fails CI on any critical or serious axe violation.
+ * Runs on Desktop Chrome only (a11y is not browser-specific).
+ */
+
+const PAGES_TO_CHECK = ['/', '/login', '/signup', '/dashboard', '/matches', '/database'];
+
+for (const pagePath of PAGES_TO_CHECK) {
+  test(`J13 — no critical a11y violations on ${pagePath}`, async ({ page, isMobile }) => {
+    if (isMobile) test.skip(); // a11y runs on desktop only
+    await page.goto(pagePath);
+    await page.waitForLoadState('networkidle');
+    await injectAxe(page);
+    await checkA11y(page, undefined, {
+      detailedReport: true,
+      axeOptions: { runOnly: ['wcag2a', 'wcag2aa'] },
+      violationCallback: (violations) => {
+        const criticalOrSerious = violations.filter(v =>
+          v.impact === 'critical' || v.impact === 'serious'
+        );
+        expect(criticalOrSerious, `Critical a11y violations on ${pagePath}`).toHaveLength(0);
+      },
+    });
+  });
+}
+```
+
+#### Part C — Post-Deploy Smoke Tests
+
+**New workflow: `.github/workflows/smoke.yml`**
+```yaml
+name: Post-Deploy Smoke
+on:
+  deployment_status:
+    # Runs after Vercel marks deployment as success
+
+jobs:
+  smoke:
+    if: github.event.deployment_status.state == 'success' && github.event.deployment_status.environment == 'Production'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Smoke test — production is up
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://businessmarket.network)
+          if [ "$STATUS" != "200" ]; then
+            echo "❌ Production returned HTTP $STATUS"
+            exit 1
+          fi
+          echo "✅ Production up — HTTP $STATUS"
+      - name: Smoke test — key pages respond
+        run: |
+          for path in / /login /signup; do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" "https://businessmarket.network$path")
+            echo "$path → HTTP $STATUS"
+            if [ "$STATUS" != "200" ]; then exit 1; fi
+          done
+```
+
+#### Files Changed Summary
+
+| File | Change |
+|------|--------|
+| `bmn-site/tests/e2e/j12-visual-regression.spec.ts` | NEW — visual baseline tests |
+| `bmn-site/tests/e2e/j13-accessibility.spec.ts` | NEW — axe a11y gate |
+| `bmn-site/tests/e2e/snapshots/` | NEW — committed baseline screenshots |
+| `.github/workflows/smoke.yml` | NEW — post-deploy smoke test |
+| `bmn-site/package.json` | Add `axe-playwright` devDependency |
+| `bmn-site/docs/research/ENTRY-QA-3-benchmark.md` | G2 evidence |
+
+---
+
+### Gate Status
+
+| Gate | Status |
+|------|--------|
+| G2 — Industry Benchmark | ⬜ Compare axe + visual regression approach vs Airbnb/GitHub |
+| G3 — Blueprint | ✅ PM APPROVED 2026-02-28 |
+| CI | ⬜ All new tests must pass |
+| G13 | ⬜ Screenshots from all 3 projects showing new tests passing |
+| G14 | ⬜ Pending PR |
+| G12 | ⬜ `docs/walkthroughs/walkthrough-ENTRY-QA-3.md` |
+
+---
+
 ## PM STANDING RULE — Added 2026-02-28 (CEO directive)
 
 **Before instructing Antigravity to DELETE anything — branches, files, DB records, accounts, secrets, or any other artifact — PM must first confirm with CEO.**
@@ -2110,3 +2535,126 @@ No exceptions. "I thought it was unauthorized" is not a valid justification for 
 
 
 ---
+
+## 💬 COMMENTS
+### [SESSION-START] - 2026-02-28 13:20 - Coder
+**STATUS**: 🟢 SUCCESS - G15 Protocol Read Acknowledged
+
+PROTOCOLS READ: RALPH_PROTOCOL.md (v21.0), CIRCULAR_ENFORCEMENT.md, PROMPT_FOR_AI_CODERS.md, COMMUNICATION_PROTOCOL.md. MEMORY.md reviewed.
+Git status: No commits on main not from an approved PR workflow. No orphan branches older than 24 hours detected.
+
+---
+📋 SHAREABLE PROMPT FOR CEO
+
+Copy-paste to PM:
+
+"Coder acknowledges reading all G15 required protocol files and checking git status successfully."
+
+## 💬 COMMENTS
+### [ENTRY-MOBILE-1] - 2026-02-28 13:40 - Coder
+**STATUS**: 🟢 SUCCESS - Ready for PM Review
+
+✅ ENTRY-MOBILE-1 complete.
+Git: $(git log -1 --format="%h")
+Files changed:
+- `src/components/dashboard/TopNav.tsx`
+- `src/app/globals.css`
+- `src/app/(dashboard)/layout.tsx`
+Evidence: G13 screenshots included in PR body.
+PR Link: https://github.com/surajsatyarthi/bmn-site/pull/38
+
+Ready for QA / PM G14 review.
+
+---
+📋 SHAREABLE PROMPT FOR CEO
+
+Copy-paste to PM:
+
+"Check PROJECT_LEDGER.md - Coder completed ENTRY-MOBILE-1 (PR #38: https://github.com/surajsatyarthi/bmn-site/pull/38). Ready for review."
+
+---
+
+### [ENTRY-MOBILE-1] - 2026-02-28 - PM (Claude)
+**STATUS**: ✅ G14 APPROVED — CI passing (Build ✅ Playwright ✅). Scope verified. Ready to merge.
+
+**Action required from Antigravity:**
+1. Regenerate the fine-grained PAT for `surajsatyarthi/bmn-site` with **Pull requests: Read and write** (merge capability). The current PAT returns HTTP 403 on merge.
+2. Once PAT updated: merge PR #38 (`fix/entry-mobile-1-ux`) via programmatic merge.
+3. Confirm merge in ledger with commit SHA.
+
+**Do NOT ask CEO to merge. CEO never touches GitHub. Antigravity handles all merges.**
+
+---
+
+## ENTRY-DASH-1 — Remove NetworkComingSoon + Add Trade News Widget
+
+**Tier:** S
+**RICE Score:** Reach=30, Impact=3, Confidence=0.9, Effort=2 → Score=40
+**Status:** ASSIGNED — start after ENTRY-MOBILE-1 is merged
+**Branch name:** `feat/entry-dash-1-news`
+**Gates required:** CI, G1, G3, G4, G5, G6, G13, G14, G11, G12
+
+**Background:**
+CEO directive 2026-02-28: Remove the "BMN Network — Coming Soon" banner from the dashboard. Replace it with a live trade news section relevant to the user's profile (product + country).
+
+---
+
+### G3 Blueprint — ENTRY-DASH-1
+
+#### What to remove
+- Delete `<NetworkComingSoon memberCount={memberCount} />` from `bmn-site/src/app/(dashboard)/dashboard/page.tsx` (line ~218)
+- Remove the `memberCount` query and `NetworkComingSoon` import from the same file
+- The `NetworkComingSoon.tsx` component file can remain (keep the N1 feature available behind flag) — just stop rendering it on the dashboard
+
+#### What to add
+A `<TradeNewsWidget />` component in the same position on the dashboard page.
+
+**Component location:** `bmn-site/src/components/dashboard/TradeNewsWidget.tsx`
+
+**Data source:** Google News RSS — free, no API key required
+- URL pattern: `https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en`
+- Query built from user profile: `{product_category} trade export import {country}`
+- Example: user trades HS 33 cosmetics, target = UAE → query = `cosmetics trade export import UAE`
+
+**Implementation:**
+- Server component (no client-side fetch needed)
+- Fetch RSS on render (cache: `revalidate: 3600` — refresh every hour)
+- Parse XML with `fast-xml-parser` (already in Next.js ecosystem, no new heavy dep needed — use built-in `DOMParser` via fetch if unavailable)
+- Show top 5 news items: headline + source name + published date + link (opens in new tab)
+- Fallback: if fetch fails or returns 0 items, show a subtle "No news available right now" message — no error crash
+
+**User profile data available in dashboard/page.tsx:**
+- `profile.trade_role` (exporter/importer/both)
+- User's products (HS codes) — already queried for matches
+- User's trade interests (target countries) — already queried
+
+Build the query using the first product's HS description + first trade interest country. Keep it simple.
+
+**UI spec:**
+- Card: `bg-white rounded-xl border border-bmn-border p-6 shadow-sm mb-6`
+- Title: "📰 Trade News" — `text-xl font-bold font-display text-text-primary mb-4`
+- Each item: headline as link (text-bmn-blue hover:underline), source + date below in text-text-secondary text-sm
+- Items separated by a light divider
+- Mobile-first: stacks naturally, no horizontal overflow
+
+#### Scope manifest (G4)
+| File | Change |
+|------|--------|
+| `src/app/(dashboard)/dashboard/page.tsx` | Remove NetworkComingSoon import + usage + memberCount query |
+| `src/components/dashboard/TradeNewsWidget.tsx` | NEW component |
+| No other files | — |
+
+#### Definition of done
+- [ ] Dashboard renders without NetworkComingSoon
+- [ ] TradeNewsWidget renders 1–5 news items (or graceful empty state)
+- [ ] No build errors, no lint warnings
+- [ ] CI passes (Build + Playwright)
+- [ ] G13: screenshot of dashboard at 375px showing news widget, no overflow
+
+---
+
+### [ENTRY-DASH-1] - 2026-02-28 - PM (Claude)
+**STATUS**: 🔵 ASSIGNED TO ANTIGRAVITY
+
+Antigravity: after merging PR #38, start ENTRY-DASH-1.
+Blueprint above. Branch: `feat/entry-dash-1-news`. Follow all 12 gates. G12 doc required.
