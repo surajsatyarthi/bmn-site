@@ -66,23 +66,28 @@ export default function TopNav({ user, profile }: TopNavProps) {
         <Link href="/" className="text-2xl font-display font-bold text-gradient-primary">
           BMN
         </Link>
+        <span className="text-[10px] font-bold text-white bg-orange-500 px-1.5 py-0.5 rounded-full uppercase tracking-wider leading-none">
+          BETA
+        </span>
 
         {/* Desktop nav links */}
         <nav className="hidden md:flex items-center gap-1 ml-4">
           {NAV_LINKS.map((link) => {
             const isActive =
               pathname === link.href || pathname.startsWith(link.href + '/');
+            const Icon = link.icon;
             return (
               <Link
                 key={link.name}
                 href={link.href}
                 className={cn(
-                  'px-3 py-2 text-sm font-medium rounded-lg transition-colors',
+                  'flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition-colors',
                   isActive
                     ? 'text-bmn-blue bg-blue-50'
                     : 'text-text-secondary hover:text-text-primary hover:bg-gray-50',
                 )}
               >
+                <Icon className={cn("h-4 w-4", isActive ? "text-bmn-blue" : "text-text-secondary opacity-70")} />
                 {link.name}
               </Link>
             );
