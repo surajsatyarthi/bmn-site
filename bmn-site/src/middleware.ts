@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
   // --- AUTH BYPASS FOR TESTING ---
   let user = null;
   // Allow bypass in dev OR if explicitly enabled via env var (for CI/Product builds running smoke tests)
-  const enableBypass = process.env.NODE_ENV !== 'production' || process.env.NEXT_PUBLIC_TEST_MODE === 'true';
+  const enableBypass = process.env.NODE_ENV !== 'production';
   const bypassHeader = request.headers.get('x-test-auth-bypass');
   const unconfirmedHeader = request.headers.get('x-test-unconfirmed');
   
@@ -59,6 +59,14 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const path = url.pathname;
 
+  function redirectWithCookies(url: URL, cookieSource: NextResponse): NextResponse {
+    const res = NextResponse.redirect(url);
+    cookieSource.cookies.getAll().forEach((cookie) => {
+      res.cookies.set(cookie.name, cookie.value);
+    });
+    return res;
+  }
+
   // Protected Routes: Require Authentication
 
 
@@ -75,17 +83,17 @@ export async function middleware(request: NextRequest) {
     if (isAuthRoute) {
       if (isEmailVerified) {
         url.pathname = '/onboarding';
-        return NextResponse.redirect(url);
+        return redirectWithCookies(url, supabaseResponse);
       } else if (path !== '/verify-email') {
         url.pathname = '/verify-email';
-        return NextResponse.redirect(url);
+        return redirectWithCookies(url, supabaseResponse);
       }
     }
   } else {
     // If user is NOT logged in, redirect protected pages to login
     if (isProtectedRoute) {
       url.pathname = '/login';
-      return NextResponse.redirect(url);
+      return redirectWithCookies(url, supabaseResponse);
     }
   }
 

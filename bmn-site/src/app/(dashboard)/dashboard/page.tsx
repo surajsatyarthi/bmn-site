@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { User, Users, Megaphone, MapPin, ArrowRight, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
+import { NetworkComingSoon } from '@/components/dashboard/NetworkComingSoon';
 
 const tierStyles = {
   best: 'bg-blue-100 text-bmn-blue',
@@ -28,106 +29,138 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardPage() {
-  const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  // --- Auth check (with error handling) ---
+  let user;
+  try {
+    const supabase = await createClient();
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch (err) {
+    console.error('[Dashboard] Auth check failed:', err);
+    redirect('/login?error=service_unavailable');
+  }
 
   if (!user) {
     redirect('/login');
   }
 
-  const profile = await db.query.profiles.findFirst({
-    where: eq(profiles.id, user.id),
-  });
+  // --- Profile check (with error handling) ---
+  let profile;
+  try {
+    profile = await db.query.profiles.findFirst({
+      where: eq(profiles.id, user.id),
+    });
+  } catch (err) {
+    console.error('[Dashboard] Profile query failed:', err);
+    redirect('/login?error=service_unavailable');
+  }
 
   if (!profile) {
-    redirect('/login');
+    // User exists in auth but no profile — onboarding auto-creates it
+    redirect('/onboarding');
   }
 
   if (!profile.onboardingCompleted) {
     redirect('/onboarding');
   }
 
-  // Calculate profile completion
-  const company = await db.query.companies.findFirst({
-    where: eq(companies.profileId, user.id),
-  });
-  
-  const userProducts = await db.select({ count: sql<number>`count(*)::int` })
-    .from(products)
-    .where(eq(products.profileId, user.id));
-  
-  const userInterests = await db.select({ count: sql<number>`count(*)::int` })
-    .from(tradeInterests)
-    .where(eq(tradeInterests.profileId, user.id));
-  
-  const userCerts = await db.select({ count: sql<number>`count(*)::int` })
-    .from(certifications)
-    .where(eq(certifications.profileId, user.id));
+  // --- Dashboard data queries (all wrapped in try-catch) ---
+  // If DB is slow or partially down, we show defaults instead of crashing
+  let company = null;
+  let profileCompletion = 0;
+  let matchCountValue = 0;
+  let transformedMatches: { id: string; counterpartyName: string; counterpartyCountry: string; matchedProducts: { hsCode: string; name: string }[]; matchTier: 'best' | 'great' | 'good' }[] = [];
+  let activeCampaignCountValue = 0;
+  let memberCount = 0;
+  let recentCampaigns: typeof campaigns.$inferSelect[] = [];
+  let activeNotices: typeof adminNotices.$inferSelect[] = [];
 
-  // Profile completion calculation
-  let completionScore = 0;
-  const maxScore = 5;
-  
-  if (profile.tradeRole) completionScore++;
-  if (userProducts[0]?.count > 0) completionScore++;
-  if (userInterests[0]?.count > 0) completionScore++;
-  if (company?.name) completionScore++;
-  if (userCerts[0]?.count > 0) completionScore++;
-  
-  const profileCompletion = Math.round((completionScore / maxScore) * 100);
+  try {
+    // Profile completion data
+    company = await db.query.companies.findFirst({
+      where: eq(companies.profileId, user.id),
+    });
 
-  // Get matches count (score >= 50)
-  const matchCount = await db
-    .select({ count: sql<number>`count(*)::int` })
-    .from(matches)
-    .where(and(
-      eq(matches.profileId, user.id),
-      gte(matches.matchScore, 50)
-    ));
+    const userProducts = await db.select({ count: sql<number>`count(*)::int` })
+      .from(products)
+      .where(eq(products.profileId, user.id));
 
-  // Get recent matches (top 5)
-  const recentMatches = await db
-    .select()
-    .from(matches)
-    .where(eq(matches.profileId, user.id))
-    .orderBy(desc(matches.matchScore))
-    .limit(5);
+    const userInterests = await db.select({ count: sql<number>`count(*)::int` })
+      .from(tradeInterests)
+      .where(eq(tradeInterests.profileId, user.id));
 
-  const transformedMatches = recentMatches.map(match => ({
-    id: match.id,
-    counterpartyName: match.counterpartyName,
-    counterpartyCountry: match.counterpartyCountry,
-    matchedProducts: match.matchedProducts as { hsCode: string; name: string }[],
-    matchTier: match.matchTier as 'best' | 'great' | 'good',
-  }));
+    const userCerts = await db.select({ count: sql<number>`count(*)::int` })
+      .from(certifications)
+      .where(eq(certifications.profileId, user.id));
 
-  // Get active campaigns count
-  const activeCampaignCount = await db
-    .select({ count: sql<number>`count(*)::int` })
-    .from(campaigns)
-    .where(and(
-      eq(campaigns.profileId, user.id),
-      eq(campaigns.status, 'active')
-    ));
+    let completionScore = 0;
+    const maxScore = 5;
+    if (profile.tradeRole) completionScore++;
+    if (userProducts[0]?.count > 0) completionScore++;
+    if (userInterests[0]?.count > 0) completionScore++;
+    if (company?.name) completionScore++;
+    if (userCerts[0]?.count > 0) completionScore++;
+    profileCompletion = Math.round((completionScore / maxScore) * 100);
 
+    // Matches
+    const matchCount = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(matches)
+      .where(and(
+        eq(matches.profileId, user.id),
+        gte(matches.matchScore, 50)
+      ));
+    matchCountValue = matchCount[0]?.count || 0;
 
+    const recentMatches = await db
+      .select()
+      .from(matches)
+      .where(eq(matches.profileId, user.id))
+      .orderBy(desc(matches.matchScore))
+      .limit(5);
 
-  // Get recent campaigns (top 3, active first)
-  const recentCampaigns = await db
-    .select()
-    .from(campaigns)
-    .where(eq(campaigns.profileId, user.id))
-    .orderBy(desc(campaigns.createdAt))
-    .limit(3);
+    transformedMatches = recentMatches.map(match => ({
+      id: match.id,
+      counterpartyName: match.counterpartyName,
+      counterpartyCountry: match.counterpartyCountry,
+      matchedProducts: match.matchedProducts as { hsCode: string; name: string }[],
+      matchTier: match.matchTier as 'best' | 'great' | 'good',
+    }));
 
-  // Get active notices
-  const activeNotices = await db.query.adminNotices.findMany({
-    where: and(
-      eq(adminNotices.userId, user.id),
-      eq(adminNotices.dismissed, false)
-    ),
-    orderBy: desc(adminNotices.createdAt),
-  });
+    // Campaigns
+    const activeCampaignCount = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(campaigns)
+      .where(and(
+        eq(campaigns.profileId, user.id),
+        eq(campaigns.status, 'active')
+      ));
+    activeCampaignCountValue = activeCampaignCount[0]?.count || 0;
+
+    // Member count
+    const memberCountRes = await db.select({ count: sql<number>`count(*)::int` }).from(profiles);
+    memberCount = memberCountRes[0]?.count || 0;
+
+    // Recent campaigns
+    recentCampaigns = await db
+      .select()
+      .from(campaigns)
+      .where(eq(campaigns.profileId, user.id))
+      .orderBy(desc(campaigns.createdAt))
+      .limit(3);
+
+    // Notices
+    activeNotices = await db.query.adminNotices.findMany({
+      where: and(
+        eq(adminNotices.userId, user.id),
+        eq(adminNotices.dismissed, false)
+      ),
+      orderBy: desc(adminNotices.createdAt),
+    });
+  } catch (err) {
+    console.error('[Dashboard] Data queries failed (showing defaults):', err);
+    // Dashboard will render with zero/empty defaults — not crash
+  }
 
   return (
     <div className="space-y-6">
@@ -165,7 +198,7 @@ export default async function DashboardPage() {
             </div>
             <p className="text-sm font-medium text-text-secondary">Matches Found</p>
           </div>
-          <p className="text-3xl font-bold text-text-primary">{matchCount[0]?.count || 0}</p>
+          <p className="text-3xl font-bold text-text-primary">{matchCountValue}</p>
           <p className="text-sm text-text-secondary mt-1">Qualified buyers</p>
         </div>
 
@@ -177,10 +210,12 @@ export default async function DashboardPage() {
             </div>
             <p className="text-sm font-medium text-text-secondary">Active Campaigns</p>
           </div>
-          <p className="text-3xl font-bold text-text-primary">{activeCampaignCount[0]?.count || 0}</p>
+          <p className="text-3xl font-bold text-text-primary">{activeCampaignCountValue}</p>
           <p className="text-sm text-text-secondary mt-1">Outreach in progress</p>
         </div>
       </div>
+
+      <NetworkComingSoon memberCount={memberCount} />
 
       {/* Recent Matches */}
       <div className="bg-white rounded-xl border border-bmn-border shadow-sm">

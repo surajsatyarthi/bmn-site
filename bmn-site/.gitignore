@@ -7,3 +7,14 @@
 .env.production
 *.env.backup
 *.env.bak
+
+# CLI tools — never commit binaries
+gh.zip
+gh_*.zip
+gh_*/
+
+# Legacy debug scripts folder at bmn-site/ root — never commit
+# (does NOT affect src/scripts/ or tests/scripts/ which are legitimate)
+/scripts/
+pr_body*.md
+implementation-plan*.md

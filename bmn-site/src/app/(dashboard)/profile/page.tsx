@@ -5,6 +5,7 @@ import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { Ship, Globe, RefreshCw, ExternalLink, Package, MapPin, Building2, Award, Briefcase } from 'lucide-react';
+import { getMonthlyRevealCount } from '@/lib/credits';
 
 import { Metadata } from 'next';
 
@@ -33,7 +34,7 @@ export default async function ProfilePage() {
   });
 
   if (!profile) {
-    redirect('/login');
+    redirect('/onboarding');
   }
 
   if (!profile.onboardingCompleted) {
@@ -47,6 +48,20 @@ export default async function ProfilePage() {
   };
 
   const Icon = roleIcons[profile.tradeRole as keyof typeof roleIcons] || Globe;
+
+  const revealCount = await getMonthlyRevealCount(user.id);
+  const nextMonth = new Date();
+  nextMonth.setMonth(nextMonth.getMonth() + 1);
+  nextMonth.setDate(1);
+  const resetDateStr = nextMonth.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+  const badgeColors: Record<string, string> = {
+    free: 'bg-gray-100 text-gray-700',
+    hunter: 'bg-blue-100 text-bmn-blue',
+    partner: 'bg-purple-100 text-purple-700',
+  };
+  const badgeClass = badgeColors[profile.plan.toLowerCase()] || badgeColors.free;
+  const planName = profile.plan.charAt(0).toUpperCase() + profile.plan.slice(1);
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 py-8 px-4">
@@ -67,6 +82,43 @@ export default async function ProfilePage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
+        {/* Plan Card */}
+        <div className="bg-white rounded-xl border border-bmn-border p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-4">
+              <h2 className="text-xl font-bold font-display text-text-primary">Your Plan</h2>
+            </div>
+            
+            <div className="mb-6">
+              <span data-testid="plan-badge" className={`px-3 py-1 rounded-full text-sm font-bold tracking-wider ${badgeClass}`}>
+                {planName}
+              </span>
+            </div>
+            
+            <div className="space-y-2 mb-6 text-sm">
+              <div className="flex justify-between">
+                <span className="text-text-secondary">Reveals this month:</span>
+                <span data-testid="credit-balance" className="font-semibold text-text-primary">
+                  {profile.plan.toLowerCase() === 'partner' ? 'Unlimited reveals' : `${revealCount} / ${profile.plan.toLowerCase() === 'hunter' ? 500 : 5}`}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-text-secondary">Resets:</span>
+                <span className="font-semibold text-text-primary">{resetDateStr}</span>
+              </div>
+            </div>
+          </div>
+          
+          {profile.plan.toLowerCase() === 'free' && (
+            <Link 
+              href="/#pricing"
+              className="mt-auto block text-center w-full py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-bmn-blue font-semibold text-sm transition-colors border border-bmn-border"
+            >
+              Upgrade to Hunter &rarr;
+            </Link>
+          )}
+        </div>
+
         {/* Trade Role Card */}
         <div className="bg-white rounded-xl border border-bmn-border p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-4">

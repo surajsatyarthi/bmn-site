@@ -57,13 +57,13 @@ export default async function OnboardingPage() {
   }
 
   if (profile.onboardingCompleted) {
-    redirect('/dashboard');
+    redirect('/matches');
   }
 
   return (
     <OnboardingWizard
       initialStep={profile.onboardingStep || 1}
-      initialData={profile}
+      initialData={JSON.parse(JSON.stringify(profile))}
     />
   );
 }

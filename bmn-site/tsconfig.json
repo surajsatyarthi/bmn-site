@@ -31,5 +31,5 @@
     "**/*.mts",
     "tests"
   ],
-  "exclude": ["node_modules", ".next", "public", "ads", "scripts"]
+  "exclude": ["node_modules", ".next", "public", "ads", "scripts", "test-db-insert.ts", "check-db.ts"]
 }

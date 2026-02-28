@@ -44,6 +44,7 @@ interface OnboardingWizardProps {
 export default function OnboardingWizard({ initialStep, initialData }: OnboardingWizardProps) {
   const [currentStep, setCurrentStep] = useState(initialStep);
   const [loading, setLoading] = useState(false);
+  const [isGeneratingMatches, setIsGeneratingMatches] = useState(false);
   const [formData, setFormData] = useState<OnboardingData>(initialData);
   const router = useRouter();
 
@@ -69,7 +70,13 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
       const nextStep = currentStep + 1;
       
       if (currentStep === 7) { // Final step check (now 7)
-        router.push('/dashboard');
+        setIsGeneratingMatches(true);
+        try {
+          await fetch('/api/matches/generate', { method: 'POST' });
+        } catch {
+          // Non-fatal: generator failure should not block onboarding
+        }
+        router.push('/matches');
         router.refresh(); 
         return;
       }
@@ -170,6 +177,16 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
         return <div>Unknown Step</div>;
     }
   };
+
+  if (isGeneratingMatches) {
+    return (
+      <div className="bg-white rounded-xl border border-bmn-border p-12 shadow-sm flex flex-col items-center justify-center">
+        <div className="animate-spin h-10 w-10 border-4 border-primary border-t-transparent rounded-full mb-6"></div>
+        <h2 className="text-2xl font-display font-bold mb-2">Finding your matches...</h2>
+        <p className="text-gray-500">We&apos;re searching trade records to find your best partners.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">

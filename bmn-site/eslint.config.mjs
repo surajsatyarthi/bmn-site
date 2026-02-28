@@ -14,6 +14,10 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Dev-only CLI scripts — not shipped, looser rules
     "scripts/**",
+    // Leftover diagnostic scripts from import debugging
+    "test-db-insert.ts",
+    "test-db-batch.ts",
+    "check-db.ts",
   ]),
 ]);
 
