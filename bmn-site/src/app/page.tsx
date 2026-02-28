@@ -112,6 +112,7 @@ const PRO_FEATURES = [
   '500 Contact Reveals / month',
   'Unlimited database search',
   'Filter by country + HS code',
+  'Full Network access (after 100 members)',
 ];
 
 
@@ -120,7 +121,7 @@ const PARTNER_FEATURES = [
   'Unlimited Contact Reveals',
   'Unlimited database search',
   'BMN manages your email outreach',
-  'up to 5,000 outreach emails/month',
+  '5,000 emails/month via Manyreach',
 ];
 
 const TESTIMONIALS = [
@@ -225,12 +226,12 @@ const FAQ_ITEMS = [
   {
     question: "What does the Hunter plan include?",
     answer:
-      "Hunter ($199/month) gives you 500 contact reveals per month and unlimited database search. You use your own email tool to reach out — Hunter is about the data, not email management.",
+      "Hunter ($199/month) gives you 500 contact reveals per month, unlimited database search, and full Network access. You use your own email tool to reach out — Hunter is about the data, not email management.",
   },
   {
     question: "What does the Partner plan include?",
     answer:
-      "Partner ($1,500/month) gives you unlimited contact reveals plus BMN manages your outreach campaigns — 5,000 emails per month sent on your behalf. You get the data and the outreach done for you.",
+      "Partner ($1,500/month) gives you unlimited contact reveals plus BMN manages your outreach campaigns via Manyreach — 5,000 emails per month sent on your behalf. You get the data and the outreach done for you.",
   },
   {
     question: "Do credits roll over?",
@@ -594,7 +595,7 @@ export default function HomePage() {
               <p className="text-3xl font-bold text-white mb-4">
                 $1,500<span className="text-base font-normal text-blue-200">/mo</span>
               </p>
-              <p className="text-xs text-blue-200 mb-4 font-medium uppercase tracking-wide">Done-For-You</p>
+              <p className="text-xs text-blue-200 mb-4 font-medium uppercase tracking-wide">Managed Outreach</p>
               <ul className="space-y-3 mb-8 flex-grow">
                 {PARTNER_FEATURES.map((feature) => (
                   <li key={feature} className="flex items-start gap-2 text-sm">
