@@ -9,7 +9,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 import { Menu, X, LayoutDashboard, Search, BarChart3, Database } from 'lucide-react';
 import DashboardNav from './DashboardNav';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
 type Profile = InferSelectModel<typeof profiles>;
@@ -29,6 +29,10 @@ const NAV_LINKS = [
 export default function TopNav({ user, profile }: TopNavProps) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <header className="h-16 bg-white border-b border-bmn-border flex items-center justify-between px-4 md:px-6 sticky top-0 z-30">
