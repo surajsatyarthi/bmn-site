@@ -45,6 +45,12 @@ export default async function DashboardLayout({
   return (
     <div className="min-h-screen flex flex-col bg-bmn-light-bg">
       <TopNav user={user} profile={profile} />
+      <div className="bg-amber-50 border-b border-amber-200 px-4 py-2.5 text-center text-sm text-amber-900">
+        🧪 <strong>Internal Beta</strong> — AI matching is seeded for{' '}
+        <strong>HS Chapter 33 (Cosmetics/Soaps)</strong> and{' '}
+        <strong>HS Chapter 07 (Vegetables)</strong> only.
+        Please select one of these during onboarding to see your AI matches.
+      </div>
       <main className="flex-1 p-8">
         <div className="max-w-6xl mx-auto">
           {children}
