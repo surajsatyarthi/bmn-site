@@ -3,6 +3,24 @@ import logging
 import sys
 import psycopg2
 from psycopg2.extras import DictCursor
+import os
+import re
+
+def get_db_connection():
+    # Try to find .env.local
+    env_path = os.path.join(os.path.dirname(__file__), '../../bmn-site/.env.local')
+    if os.path.exists(env_path):
+        raw = open(env_path).read()
+        db_url = re.search(r'DATABASE_URL="(.+?)"', raw).group(1)
+    else:
+        db_url = os.environ.get('DATABASE_URL')
+        
+    if not db_url:
+        raise ValueError("DATABASE_URL not found in environment or .env.local")
+        
+    # Strip pgbouncer param — psycopg2 doesn't support it and it breaks things
+    db_url = re.sub(r'\?.*', '', db_url)
+    return psycopg2.connect(db_url)
 
 logging.basicConfig(level=logging.INFO, format='%(message)s')
 logger = logging.getLogger(__name__)
@@ -14,7 +32,7 @@ def main():
     args = parser.parse_args()
     
     try:
-        conn = psycopg2.connect("postgresql://postgres:postgres@localhost:5432/postgres")
+        conn = get_db_connection()
         cursor = conn.cursor(cursor_factory=DictCursor)
         
         # Verify pg_trgm extension exists
@@ -28,29 +46,45 @@ def main():
     logger.info("Starting enrichment process...")
     
     try:
-        # 1. Find count of NULL contact emails
-        cursor.execute("SELECT COUNT(*) FROM global_trade_companies WHERE contact_email IS NULL;")
-        null_count = cursor.fetchone()[0]
-        logger.info(f"Companies missing contact email: {null_count}")
+        # Set similarity threshold (0.7) for the % operator
+        cursor.execute("SET pg_trgm.similarity_threshold = 0.7;")
         
-        # 2. Match based on trigram similarity. 
-        match_query = """
-        SELECT 
-            c.id, c.company_name, t.india_party_name, t.india_party_email, t.india_party_phone
-        FROM 
-            global_trade_companies c
-        JOIN 
-            trade_shipments t 
-        ON 
-            similarity(c.company_name, t.india_party_name) > 0.7
-        WHERE 
-            c.contact_email IS NULL AND t.india_party_email IS NOT NULL;
-        """
+        # We process in chunks to avoid Supabase statement timeouts (max 2 minutes)
+        cursor.execute("SELECT id, company_name FROM global_trade_companies WHERE contact_email IS NULL;")
+        blank_companies = cursor.fetchall()
         
-        cursor.execute(match_query)
-        matches = cursor.fetchall()
+        logger.info(f"Companies missing contact email: {len(blank_companies)}")
+        null_count = len(blank_companies)
         
-        logger.info(f"Found {len(matches)} fuzzy matches.")
+        CHUNK_SIZE = 5000
+        matches = []
+        
+        logger.info(f"Processing in chunks of {CHUNK_SIZE} to prevent DB timeouts...")
+        
+        for i in range(0, len(blank_companies), CHUNK_SIZE):
+            chunk = blank_companies[i:i + CHUNK_SIZE]
+            chunk_ids = tuple([c['id'] for c in chunk])
+            
+            logger.info(f"Processing chunk {i//CHUNK_SIZE + 1}/{(len(blank_companies) // CHUNK_SIZE) + 1}...")
+            
+            match_query = """
+            SELECT 
+                c.id, c.company_name, t.india_party_name, t.india_party_email, t.india_party_phone
+            FROM 
+                global_trade_companies c
+            JOIN 
+                trade_shipments t 
+            ON 
+                c.company_name %% t.india_party_name
+            WHERE 
+                c.id = ANY(%s::uuid[]) AND t.india_party_email IS NOT NULL;
+            """
+            
+            cursor.execute(match_query, (list(chunk_ids),))
+            chunk_matches = cursor.fetchall()
+            matches.extend(chunk_matches)
+            
+        logger.info(f"Found {len(matches)} fuzzy matches globally.")
         
         if args.dry_run:
             logger.info("--dry-run specified. Simulated match summary:")
