@@ -37,13 +37,18 @@ export default function TopNav({ user, profile }: TopNavProps) {
         <div className="md:hidden">
           <Dialog.Root open={open} onOpenChange={setOpen}>
             <Dialog.Trigger asChild>
-              <button className="p-2 -ml-2 text-text-secondary hover:text-text-primary outline-none">
+              <button
+                data-testid="mobile-menu-button"
+                className="p-2 -ml-2 text-text-secondary hover:text-text-primary outline-none"
+              >
                 <Menu className="h-5 w-5" />
               </button>
             </Dialog.Trigger>
             <Dialog.Portal>
               <Dialog.Overlay className="fixed inset-0 bg-black/40 z-40 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
-              <Dialog.Content className="fixed inset-y-0 left-0 w-3/4 max-w-sm bg-white z-50 border-r border-bmn-border shadow-2xl flex flex-col data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left">
+              <Dialog.Content
+                data-testid="mobile-nav-drawer"
+                className="fixed inset-y-0 left-0 w-3/4 max-w-sm bg-white z-50 border-r border-bmn-border shadow-2xl flex flex-col data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left">
                 <div className="h-16 border-b border-bmn-border flex items-center justify-between px-6">
                   <Link href="/" className="text-2xl font-display font-bold text-gradient-primary">
                     BMN
@@ -55,7 +60,7 @@ export default function TopNav({ user, profile }: TopNavProps) {
                   </Dialog.Close>
                 </div>
                 <div className="flex-1 overflow-y-auto">
-                  <DashboardNav />
+                  <DashboardNav onNavigate={() => setOpen(false)} />
                 </div>
               </Dialog.Content>
             </Dialog.Portal>

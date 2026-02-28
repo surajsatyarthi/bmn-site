@@ -51,7 +51,7 @@ export default async function DashboardLayout({
         <strong>HS Chapter 07 (Vegetables)</strong> only.
         Please select one of these during onboarding to see your AI matches.
       </div>
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
           {children}
         </div>

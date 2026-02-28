@@ -5,7 +5,11 @@ import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Search, BarChart3, Database } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export default function DashboardNav() {
+interface DashboardNavProps {
+  onNavigate?: () => void;
+}
+
+export default function DashboardNav({ onNavigate }: DashboardNavProps) {
   const pathname = usePathname();
 
   const links = [
@@ -46,6 +50,7 @@ export default function DashboardNav() {
             <Link
               key={link.name}
               href={link.href}
+              onClick={onNavigate}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
                 isActive 
