@@ -595,7 +595,7 @@ export default function HomePage() {
               <p className="text-3xl font-bold text-white mb-4">
                 $1,500<span className="text-base font-normal text-blue-200">/mo</span>
               </p>
-              <p className="text-xs text-blue-200 mb-4 font-medium uppercase tracking-wide">Done-For-You</p>
+              <p className="text-xs text-blue-200 mb-4 font-medium uppercase tracking-wide">Managed Outreach</p>
               <ul className="space-y-3 mb-8 flex-grow">
                 {PARTNER_FEATURES.map((feature) => (
                   <li key={feature} className="flex items-start gap-2 text-sm">

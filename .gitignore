@@ -33,3 +33,4 @@ invoice-generator/
 # Protocol sync (synced from GitHub)
 /.agent
 /.protocol-cache
+bmn-site/docs/walkthroughs/walkthrough-ENTRY-15.0.md
