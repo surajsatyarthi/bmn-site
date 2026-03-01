@@ -19,7 +19,7 @@ test('J7 — profile page shows plan badge and credit balance', async ({ page })
 
   // Navigate to /profile directly
   await page.goto('/profile');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   // Page loads without crash
   await expect(page.locator('text=Something went wrong')).not.toBeVisible();

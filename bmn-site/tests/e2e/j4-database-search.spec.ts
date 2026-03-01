@@ -20,7 +20,7 @@ test('J4 — database search returns results and detail page loads', async ({ pa
 
   // Navigate to /database directly (protected by auth, not by onboarding state)
   await page.goto('/database');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   // Page loads without crash
   await expect(page.locator('text=Something went wrong')).not.toBeVisible();
@@ -28,7 +28,7 @@ test('J4 — database search returns results and detail page loads', async ({ pa
   // Search for a term guaranteed to return results
   await page.fill('[data-testid="search-name"]', 'export');
   await page.keyboard.press('Enter');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   // At least one company result appears
   const firstCard = page.locator('[data-testid="company-card"]').first();
@@ -36,7 +36,7 @@ test('J4 — database search returns results and detail page loads', async ({ pa
 
   // Click first result → detail page loads
   await firstCard.click();
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   // Detail page renders (no crash)
   await expect(page.locator('text=Something went wrong')).not.toBeVisible();

@@ -10,7 +10,7 @@ test('J10 — campaigns page renders correctly', async ({ page }) => {
   // Wait for redirect
   await page.waitForURL(/\/(onboarding|dashboard)/, { timeout: 20000 });
   await page.goto('/campaigns');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   // Page renders correctly without crash
   await expect(page.locator('text=Something went wrong')).not.toBeVisible();

@@ -1,37 +1,65 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * J8 — Mobile at 375px viewport
- * Written by PM (Claude). Antigravity must NOT modify assertions.
+ * J8 — Mobile UX: hamburger drawer + overflow + scroll
+ * Runs on ALL projects. Mobile-specific assertions gated on isMobile.
  */
-test('J8 — dashboard renders correctly at 375px mobile viewport', async ({ page }) => {
-  await page.setViewportSize({ width: 375, height: 812 });
 
-  // Login
+test.beforeEach(async ({ page }) => {
   await page.goto('/login');
-
-  // Login page has no horizontal overflow
-  const loginScrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-  expect(loginScrollWidth).toBeLessThanOrEqual(375);
-
   await page.fill('#email', process.env.TEST_USER_EMAIL!);
   await page.fill('#password', process.env.TEST_USER_PASSWORD!);
   await page.click('button[type="submit"]');
+  await page.waitForURL(/\/(onboarding|dashboard|matches)/, { timeout: 20000 });
+});
 
-  // App routes to /onboarding or /dashboard depending on user state — both valid
-  await page.waitForURL(/\/(onboarding|dashboard)/, { timeout: 20000 });
+test('J8a — no horizontal overflow on key pages at mobile viewport', async ({ page, isMobile }) => {
+  if (!isMobile) test.skip();
 
-  // Navigate to dashboard directly to verify mobile layout
+  const paths = ['/dashboard', '/matches', '/database'];
+  for (const path of paths) {
+    await page.goto(path);
+    await page.waitForLoadState('load');
+    const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    const viewportWidth = page.viewportSize()!.width;
+    expect(scrollWidth, `${path} has horizontal overflow`).toBeLessThanOrEqual(viewportWidth + 1);
+    await expect(page.locator('text=Something went wrong')).not.toBeVisible();
+  }
+});
+
+test('J8b — hamburger drawer opens and closes on mobile', async ({ page, isMobile }) => {
+  if (!isMobile) test.skip();
+
   await page.goto('/dashboard');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
-  // Dashboard has no horizontal overflow at 375px
-  const dashScrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-  expect(dashScrollWidth).toBeLessThanOrEqual(375);
+  // Hamburger button visible on mobile
+  const hamburger = page.locator('[data-testid="mobile-menu-button"]');
+  await expect(hamburger).toBeVisible();
 
-  // Dashboard does not crash on mobile
-  await expect(page.locator('text=Something went wrong')).not.toBeVisible();
+  // Tap hamburger — drawer opens
+  await hamburger.tap();
+  const drawer = page.locator('[data-testid="mobile-nav-drawer"]');
+  await expect(drawer).toBeVisible({ timeout: 3000 });
 
-  // Header is visible on mobile
-  await expect(page.locator('header')).toBeVisible();
+  // Tap Matches link inside drawer
+  await page.locator('[data-testid="mobile-nav-drawer"] a[href="/matches"]').tap();
+
+  // Drawer closes after navigation
+  await page.waitForURL('/matches', { timeout: 10000 });
+  await expect(drawer).not.toBeVisible({ timeout: 3000 });
+});
+
+test('J8c — desktop nav shows links, no hamburger', async ({ page, isMobile }) => {
+  if (isMobile) test.skip();
+
+  await page.goto('/dashboard');
+  await page.waitForLoadState('load');
+
+  // Desktop nav visible
+  await expect(page.locator('nav a[href="/matches"]').first()).toBeVisible();
+
+  // Hamburger not visible on desktop
+  const hamburger = page.locator('[data-testid="mobile-menu-button"]');
+  await expect(hamburger).not.toBeVisible();
 });

@@ -33,6 +33,9 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
+      - name: G16 — Browser Matrix Gate
+        run: node bmn-site/scripts/verify-playwright-matrix.js
+
       - name: Unit Tests
         run: pnpm run test
 

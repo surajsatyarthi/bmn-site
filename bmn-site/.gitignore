@@ -18,3 +18,9 @@ gh_*/
 /scripts/
 pr_body*.md
 implementation-plan*.md
+
+# Playwright
+trace/
+test-results/
+playwright-report/
+data/

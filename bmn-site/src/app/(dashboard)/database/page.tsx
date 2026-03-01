@@ -80,12 +80,12 @@ export default async function DatabasePage({
   const hasPrev = filters.page > 1;
 
   return (
-    <div className="flex gap-6 items-start">
+    <div className="flex flex-col lg:flex-row gap-6 items-start w-full">
       {/* Left filter panel */}
       <FilterPanel params={params} />
 
       {/* Right results area */}
-      <div className="flex-1 min-w-0 space-y-4">
+      <div className="flex-1 min-w-0 w-full space-y-4">
         <div>
           <h1 className="text-3xl font-bold font-display text-text-primary">Company Database</h1>
           <p className="mt-1 text-text-secondary">
