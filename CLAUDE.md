@@ -1,90 +1,34 @@
-# BMN Project - AI Coder Instructions
+# BMN — AI Coder (Antigravity)
 
-## 🤖 Role: AI Coder (Antigravity-Powered)
+## Project
+- Stack: Next.js 15, Supabase SSR, Drizzle ORM, PostgreSQL
+- Package manager: npm (never yarn or pnpm)
+- Working directory: `bmn-site/`
+- Task system: `.agent/PROJECT_LEDGER.md`
+- Gate reference: `.agent/RALPH_PROTOCOL.md`
 
-You are an AI Coder working on the BMN project. You follow the Ralph Protocol (12 quality gates) and Circular Enforcement system.
+## Key Commands
+- `npm run build` — must pass (0 errors) before any PR
+- `npm run lint` — must pass (0 warnings) before any PR
+- `npm run test` — run if tests exist
+- `cd bmn-site && npx playwright test` — E2E tests
 
-## 📋 Auto-Load Protocols (On Every Session Start)
+## Use These Skills
+- `/implement ENTRY-XXX` — start any assigned task
+- `/blueprint ENTRY-XXX` — PM writes G3 blueprint (PM only)
+- `/review-pr PR-NUMBER` — PM reviews a PR (PM only)
+- `/verify-ci PR-NUMBER` — check CI status independently
+- `/log-entry ENTRY-XXX` — update ledger with evidence
 
-**CRITICAL: Read these files BEFORE responding to any request:**
+## Hard Rules
+1. Never commit directly to main — always PR from feature branch
+2. Never self-report CI/test results — always use `/verify-ci`
+3. Never modify production DB without PM + CEO written authorization in ledger
+4. Never start a Tier M/L task without a ledger entry with G3 blueprint
+5. Build + lint must pass before opening any PR
+6. DONE = merged PR + PR link in ledger. Nothing else counts.
 
-1. `.agent/RALPH_PROTOCOL.md` - 12 quality gates (ALWAYS required)
-2. `.agent/CIRCULAR_ENFORCEMENT.md` - Workflow and accountability system
-3. `.agent/PROMPT_FOR_AI_CODERS.md` - Quick reference guide
-4. `.agent/COMMUNICATION_PROTOCOL.md` - How to communicate with PM
-
-**DO THIS AUTOMATICALLY** - Don't ask user, just load these files at session start.
-
-## 🔄 Circular Enforcement (Your Responsibilities)
-
-### Before Starting Any Task
-
-```bash
-npm run verify:pm-gates -- ENTRY-XXX
-```
-
-- **Exit 0**: Start work
-- **Exit 1**: Comment "🚫 BLOCKED - PM gates failed" in PROJECT_LEDGER.md
-
-### Before Starting Next Task
-
-```bash
-npm run verify:pm-documentation -- ENTRY-{previous}
-```
-
-- **Exit 0**: Accept next task
-- **Exit 1**: Block until PM completes Gate 8 documentation
-
-### During Implementation
-
-- Build must pass (0 errors)
-- Lint must pass (0 warnings)
-- Tests must pass (if they exist)
-- Follow Ralph Protocol all 12 gates
-
-### After Completing Task
-
-- Comment status in PROJECT_LEDGER.md
-- Wait for PM to run `npm run verify:ralph-gates`
-- PM reviews against Ralph Protocol (12/12 required)
-
-## 🚨 Non-Negotiable Rules
-
-1. **Always load protocols first** (`.agent/` folder files)
-2. **Never skip verification** - Run verify commands before task transitions
-3. **Ralph 12/12 required** - Every task must pass all 12 quality gates
-4. **Evidence-based** - Provide proof (screenshots, logs, test results)
-5. **Circular enforcement** - PM verifies your work, you verify PM's documentation
-
-## 📁 Project-Specific Context
-
-- **Project**: BMN
-- **Type**: Next.js project
-- **Package Manager**: npm
-- **Key Commands**:
-  - `npm run dev` - Development server
-  - `npm run build` - Production build
-  - `npm run lint` - ESLint check
-  - `npm run test` - Jest tests
-  - `npm run sync:protocols` - Update protocols from GitHub
-
-## 🔗 Protocol Updates
-
-Protocols are synced from central GitHub repository:
-- **Repo**: https://github.com/surajsatyarthi/ralph-protocols
-- **Update**: `npm run sync:protocols`
-- **Location**: `.agent/` folder (gitignored, local only)
-
-## 💬 Communication
-
-All communication goes through PROJECT_LEDGER.md:
-- Read task assignments from ledger
-- Post updates/questions in ledger comments
-- Wait for PM responses in ledger
-- Never communicate outside ledger system
-
----
-
-**Status**: Auto-loaded on every Claude Code session
-**Last Updated**: 2026-02-12
-**Version**: 1.0 (Circular Enforcement Edition)
+## Roles
+- CEO (Suraj): strategy only — never performs technical actions
+- PM (Claude Code): blueprints, reviews, ledger — never writes code
+- Antigravity: ALL implementation, ALL GitHub actions, ALL merges
