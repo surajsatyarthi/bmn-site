@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { User, Users, Megaphone, MapPin, ArrowRight, BarChart3 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AdminNotice } from '@/components/dashboard/AdminNotice';
-import { NetworkComingSoon } from '@/components/dashboard/NetworkComingSoon';
+import { TradeNewsWidget } from '@/components/dashboard/TradeNewsWidget';
 
 const tierStyles = {
   best: 'bg-blue-100 text-bmn-blue',
@@ -71,7 +71,6 @@ export default async function DashboardPage() {
   let matchCountValue = 0;
   let transformedMatches: { id: string; counterpartyName: string; counterpartyCountry: string; matchedProducts: { hsCode: string; name: string }[]; matchTier: 'best' | 'great' | 'good' }[] = [];
   let activeCampaignCountValue = 0;
-  let memberCount = 0;
   let recentCampaigns: typeof campaigns.$inferSelect[] = [];
   let activeNotices: typeof adminNotices.$inferSelect[] = [];
 
@@ -136,10 +135,6 @@ export default async function DashboardPage() {
         eq(campaigns.status, 'active')
       ));
     activeCampaignCountValue = activeCampaignCount[0]?.count || 0;
-
-    // Member count
-    const memberCountRes = await db.select({ count: sql<number>`count(*)::int` }).from(profiles);
-    memberCount = memberCountRes[0]?.count || 0;
 
     // Recent campaigns
     recentCampaigns = await db
@@ -215,7 +210,10 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <NetworkComingSoon memberCount={memberCount} />
+      <TradeNewsWidget 
+        productQuery={transformedMatches[0]?.matchedProducts[0]?.name || "global"} 
+        countryQuery={transformedMatches[0]?.counterpartyCountry || ""} 
+      />
 
       {/* Recent Matches */}
       <div className="bg-white rounded-xl border border-bmn-border shadow-sm">
