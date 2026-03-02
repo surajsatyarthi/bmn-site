@@ -13,7 +13,7 @@ export default function FilterPanel({ params }: FilterPanelProps) {
   const tradeType = typeof params.trade_type === 'string' ? params.trade_type : '';
 
   return (
-    <aside className="w-64 shrink-0">
+    <aside className="w-full lg:w-64 shrink-0">
       <div className="sticky top-[calc(4rem+2rem)] rounded-xl border border-bmn-border bg-white p-5 shadow-sm space-y-5">
         <h2 className="text-sm font-semibold text-text-primary">Filters</h2>
 

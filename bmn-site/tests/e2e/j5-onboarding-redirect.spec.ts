@@ -12,7 +12,7 @@ test('J5 — fully onboarded user is redirected away from /onboarding back to /m
   
   // Navigate explicitly to /onboarding
   await page.goto('/onboarding');
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
 
   // Should automatically be redirected back to /matches because the test user is already onboarded
   await expect(page).toHaveURL(/\/matches/);

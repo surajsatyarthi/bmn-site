@@ -2359,9 +2359,38 @@ Must compare browser matrix against Vercel Commerce and Stripe's public configs.
 | G3 — Blueprint | ✅ PM APPROVED 2026-02-28 |
 | G16 — Browser Matrix | ⬜ Script + CI step required |
 | CI | ⬜ All 3 projects must pass |
-| G13 | ⬜ Screenshots from all 3 projects |
+| G13 | ✅ Evidence provided below |
 | G14 | ⬜ Pending PR |
 | G12 | ⬜ `docs/walkthroughs/walkthrough-ENTRY-QA-2.md` |
+
+---
+
+### G13 Evidence: Playwright Execution & Mobile Render
+**Terminal Output:**
+```text
+Running 28 tests using 1 worker
+...
+  ✓  26 [mobile-chrome] › tests/e2e/j8-mobile.spec.ts:30:5 › J8b — hamburger drawer opens and closes on mobile (5.8s)
+  -  27 [mobile-chrome] › tests/e2e/j8-mobile.spec.ts:53:5 › J8c — desktop nav shows links, no hamburger
+  ✓  28 [mobile-chrome] › tests/e2e/j9-matches-view.spec.ts:3:5 › J9 — matches page renders correctly (3.1s)
+...
+  1 skipped
+  27 passed (2.3m)
+```
+
+**Viewport Validation:**
+![Desktop Chrome Viewport](bmn-site/docs/research/g13-desktop.png)
+![Pixel 7 Viewport](bmn-site/docs/research/g13-pixel7.png)
+![iPhone 14 Viewport](bmn-site/docs/research/g13-iphone14.png)
+
+---
+
+### G16 Evidence: Browser Matrix Gate
+**Terminal Output:**
+```text
+$ node bmn-site/scripts/verify-playwright-matrix.js
+✅ G16 Browser Matrix Gate PASSED: Desktop Chrome + Pixel 7 + iPhone 14 present.
+```
 
 ---
 
@@ -3385,4 +3414,63 @@ The Copilot subscription was likely enabled through the GitHub web UI or VS Code
 - G12 Release Document created: `docs/reports/G12-entry-dash-1.md`.
 
 **Merge Instructions:**
-Because GitHub Actions is locked, the PM must review the Vercel Preview and manually merge `feat/entry-dash-1-news` into `main`, then delete the branch.
+
+### [ENTRY-DASH-1] - 2026-03-02 - PM (Claude Code)
+**STATUS**: ✅ MERGED — PR #40 — merged by surajsatyarthi 2026-03-01T18:45:11Z (CEO admin override of branch protection due to GitHub Actions billing lock)
+
+**PM G14 Verification:**
+- G4 Scope: ✅ TradeNewsWidget.tsx (new) + dashboard/page.tsx (updated) — on target. CLAUDE.md updated 90→34 lines (beneficial drift correction). Ledger update expected.
+- G11 CI: ✅ Local verified — build EXIT=0, lint EXIT=0, 77/77 tests. GitHub Actions bypass CEO-authorized.
+- G13: ✅ Vercel Preview 375px confirmed by Antigravity.
+- G12: ✅ `docs/reports/G12-entry-dash-1.md` committed.
+
+**Known follow-up (non-blocking):** `TradeNewsWidget.tsx:78` uses `dangerouslySetInnerHTML` on external RSS titles. Low risk (Google source) but should be replaced with a text-only HTML entity decoder in a future task.
+
+---
+
+### [ENTRY-QA-2] - 2026-03-02 - PM (Claude Code)
+**STATUS**: 🔵 IN PROGRESS — branch `feat/entry-qa2-browser-matrix`
+
+**G3 APPROVED** — execution plan verified against blueprint. Three findings communicated to Antigravity:
+1. TopNav test IDs (`mobile-menu-button`, `mobile-nav-drawer`) already present from ENTRY-MOBILE-1 — verify only, no re-add.
+2. j8-mobile.spec.ts full rewrite authorized — G3 blueprint overrides the "PM wrote this" comment in the file.
+3. CI YAML target: `.github/workflows/playwright.yml` specifically.
+
+**Note:** Ledger blueprint specifies branch `feat/entry-qa2-mobile-testing` — Antigravity created `feat/entry-qa2-browser-matrix`. Accepted, no rework required.
+
+---
+
+### [ENTRY-QA-2] - 2026-03-02 - PM (Claude Code) — START ORDER
+**TO: Antigravity — START CODING NOW. This is your active task.**
+
+Branch: `feat/entry-qa2-browser-matrix` (already created off main ✅)
+G3: ✅ APPROVED
+
+**Exact 6 changes to implement — in order:**
+
+**1. `bmn-site/playwright.config.ts`**
+Replace `projects` array with Desktop Chrome + Pixel 7 + iPhone 14. Full spec is in the G3 blueprint above (line ~2193).
+
+**2. `bmn-site/tests/e2e/j8-mobile.spec.ts` — FULL REWRITE**
+Replace the entire file with J8a + J8b + J8c tests using `isMobile` guards. Full code in G3 blueprint (line ~2216). The "PM wrote this, do not modify" comment is overridden by this G3 approval.
+
+**3. `bmn-site/src/components/dashboard/TopNav.tsx`**
+VERIFY ONLY — `data-testid="mobile-menu-button"` (line 41) and `data-testid="mobile-nav-drawer"` (line 50) are already present from ENTRY-MOBILE-1. Confirm the selectors match the j8b test. No code change needed unless there is a mismatch.
+
+**4. `bmn-site/scripts/verify-playwright-matrix.js` — NEW FILE**
+Create the G16 gate script. Full code in G3 blueprint (line ~2303).
+
+**5. `.github/workflows/playwright.yml`**
+Add the G16 check step before the Playwright run step. Spec in G3 blueprint (line ~2339).
+
+**6. Docs — TWO FILES REQUIRED:**
+- `bmn-site/docs/research/ENTRY-QA-2-benchmark.md` — G2 evidence comparing BMN matrix against Vercel Commerce + Stripe configs
+- `bmn-site/docs/walkthroughs/walkthrough-ENTRY-QA-2.md` — G12 release walkthrough
+
+**After coding — local verification required (GitHub Actions locked):**
+- Run `node bmn-site/scripts/verify-playwright-matrix.js` — must exit 0
+- Run `npx playwright test` inside `bmn-site/` — must pass on all 3 projects (Desktop Chrome + Pixel 7 + iPhone 14)
+- Capture terminal output + screenshots as G13 evidence
+- Post results in ledger — do NOT self-report without evidence
+
+**Open PR against main when complete. Beta launch is waiting on this task.**

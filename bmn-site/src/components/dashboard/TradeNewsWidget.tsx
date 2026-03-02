@@ -13,7 +13,13 @@ export async function TradeNewsWidget({ productQuery, countryQuery }: TradeNewsW
   let fetchFailed = false;
 
   try {
-    const res = await fetch(url, { next: { revalidate: 3600 } });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    const res = await fetch(url, { 
+      next: { revalidate: 3600 },
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
     if (!res.ok) {
       throw new Error(`Failed to fetch RSS: ${res.statusText}`);
     }
