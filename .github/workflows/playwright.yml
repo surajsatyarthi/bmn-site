@@ -32,6 +32,8 @@ jobs:
         run: cd bmn-site && pnpm install
       - name: Install Playwright browsers
         run: cd bmn-site && npx playwright install --with-deps chromium
+      - name: G16 — Browser Matrix Gate
+        run: node bmn-site/scripts/verify-playwright-matrix.js
       - name: Run Playwright tests
         run: cd bmn-site && npx playwright test
       - uses: actions/upload-artifact@v4
