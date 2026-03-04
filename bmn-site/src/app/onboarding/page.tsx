@@ -49,7 +49,17 @@ export default async function OnboardingPage() {
     }
   } catch (err) {
     console.error('[Onboarding] DB error:', err);
-    redirect('/login?error=service_unavailable');
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] text-center gap-4 px-4">
+        <h2 className="text-xl font-semibold text-gray-800">Service temporarily unavailable</h2>
+        <p className="text-gray-500 max-w-sm text-sm">
+          We had trouble loading your profile. Please refresh the page to try again.
+        </p>
+        <a href="/onboarding" className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700">
+          Refresh
+        </a>
+      </div>
+    );
   }
 
   if (!profile) {
