@@ -13,47 +13,47 @@ export const metadata = {
 
 export default async function OnboardingPage() {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user;
+  try {
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch (err) {
+    console.error('[Onboarding] Auth check failed:', err);
+    redirect('/login?error=service_unavailable');
+  }
 
   if (!user) {
     redirect('/login');
   }
 
-  let profile = await db.query.profiles.findFirst({
-    where: eq(profiles.id, user.id),
-    with: {
-        company: true, // Fetch related company data
-    }
-  });
-
-  // AUTO-CREATE PROFILE: If user is verified but has no profile, create one
-  // This prevents infinite redirect loop between /onboarding and /login
-  if (!profile) {
-    console.log(`[Onboarding] Creating profile for new user: ${user.id}`);
-    
-    await db.insert(profiles).values({
-      id: user.id,
-      fullName: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Anonymous',
-      tradeRole: 'exporter', // Default - will be updated in onboarding
-      onboardingStep: 1,
-      onboardingCompleted: false,
-    });
-
-    // Fetch the newly created profile
+  let profile;
+  try {
     profile = await db.query.profiles.findFirst({
       where: eq(profiles.id, user.id),
-      with: {
-        company: true,
-      }
+      with: { company: true },
     });
 
     if (!profile) {
-      // This should never happen, but safety check
-      console.error('[Onboarding] Failed to create profile');
-      redirect('/login');
+      await db.insert(profiles).values({
+        id: user.id,
+        fullName: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Anonymous',
+        tradeRole: 'exporter',
+        onboardingStep: 1,
+        onboardingCompleted: false,
+      });
+
+      profile = await db.query.profiles.findFirst({
+        where: eq(profiles.id, user.id),
+        with: { company: true },
+      });
     }
+  } catch (err) {
+    console.error('[Onboarding] DB error:', err);
+    redirect('/login?error=service_unavailable');
+  }
+
+  if (!profile) {
+    redirect('/login');
   }
 
   if (profile.onboardingCompleted) {
