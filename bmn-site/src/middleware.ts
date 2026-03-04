@@ -83,6 +83,7 @@ export async function middleware(request: NextRequest) {
     if (isAuthRoute) {
       if (isEmailVerified) {
         url.pathname = '/onboarding';
+        url.search = '';
         return redirectWithCookies(url, supabaseResponse);
       } else if (path !== '/verify-email') {
         url.pathname = '/verify-email';
