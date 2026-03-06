@@ -88,6 +88,8 @@ export default function BusinessDetailsStep({
     name: 'officeLocations',
   });
 
+  const [searchQuery, setSearchQuery] = useState('');
+
   const handleCountryToggle = (countryCode: string) => {
     const updated = selectedExportCountries.includes(countryCode)
       ? selectedExportCountries.filter(c => c !== countryCode)
@@ -96,6 +98,11 @@ export default function BusinessDetailsStep({
     setSelectedExportCountries(updated);
     setValue('currentExportCountries', updated);
   };
+
+  const filteredCountries = COUNTRIES.filter((c) =>
+    c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    c.code.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="space-y-8 pb-32 sm:pb-0">
@@ -256,29 +263,70 @@ export default function BusinessDetailsStep({
         </div>
 
         {/* Currently Exporting To */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           <label className="text-sm font-semibold text-text-secondary">Currently Exporting To *</label>
-          <div className="p-4 rounded-lg border border-bmn-border max-h-60 overflow-y-auto">
-            <div className="grid grid-cols-1 gap-2">
-              {COUNTRIES.map((country) => (
-                <label
-                  key={country.code}
-                  className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-gray-50/50 hover:bg-gray-100 cursor-pointer transition-colors"
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedExportCountries.includes(country.code)}
-                    onChange={() => handleCountryToggle(country.code)}
-                    className="h-4 w-4 rounded border-gray-300 text-bmn-blue focus:ring-bmn-blue shrink-0"
-                  />
-                  <span className="text-sm text-text-secondary font-medium">{country.name}</span>
-                </label>
-              ))}
-            </div>
+          
+          {/* Search Box */}
+          <div className="relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search countries..."
+              className="w-full pl-4 pr-4 py-2.5 rounded-lg border border-bmn-border focus:border-bmn-blue focus:ring-1 focus:ring-bmn-blue text-sm"
+            />
           </div>
+
+          {/* Search Results (Scrollable) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-h-48 overflow-y-auto p-1 border border-bmn-border rounded-lg bg-gray-50/30">
+            {filteredCountries.map((country) => {
+              const isSelected = selectedExportCountries.includes(country.code);
+              return (
+                <button
+                  type="button"
+                  key={country.code}
+                  onClick={() => handleCountryToggle(country.code)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md border text-sm transition-all text-left ${
+                    isSelected 
+                      ? "border-bmn-blue bg-blue-50 text-bmn-blue font-medium ring-1 ring-bmn-blue" 
+                      : "border-gray-200 bg-white text-text-secondary hover:bg-gray-50"
+                  }`}
+                >
+                  <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-sm border ${
+                    isSelected ? "bg-bmn-blue border-bmn-blue text-white" : "border-gray-300 bg-white"
+                  }`}>
+                    {isSelected && <span className="text-[10px]">✓</span>}
+                  </div>
+                  <span className="truncate">{country.name}</span>
+                </button>
+              );
+            })}
+          </div>
+
           {errors.currentExportCountries && <p className="text-xs text-red-500">{errors.currentExportCountries.message}</p>}
+
+          {/* Selected Tags Display */}
           {selectedExportCountries.length > 0 && (
-            <p className="text-xs text-bmn-blue">{selectedExportCountries.length} countries selected</p>
+            <div className="pt-2 border-t border-gray-100">
+              <p className="text-xs text-text-secondary mb-2">Selected ({selectedExportCountries.length}):</p>
+              <div className="flex flex-wrap gap-2">
+                {selectedExportCountries.map((code: string) => {
+                  const country = COUNTRIES.find(c => c.code === code);
+                  return (
+                    <div key={code} className="flex items-center gap-1.5 px-3 py-1 bg-blue-50 rounded-full text-xs font-medium text-bmn-blue border border-blue-100">
+                      <span className="truncate max-w-[120px]">{country?.name}</span>
+                      <button 
+                        type="button"
+                        onClick={() => handleCountryToggle(code)} 
+                        className="text-blue-400 hover:text-bmn-blue transition-colors shrink-0 flex items-center justify-center h-4 w-4 rounded-full hover:bg-blue-100"
+                      >
+                        <X className="h-3 w-3" />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           )}
         </div>
 
