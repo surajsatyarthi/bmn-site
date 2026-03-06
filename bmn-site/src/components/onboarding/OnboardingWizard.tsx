@@ -48,8 +48,6 @@ export default function OnboardingWizard({ initialStep, initialData }: Onboardin
   const [formData, setFormData] = useState<OnboardingData>(initialData);
   const router = useRouter();
 
-  console.log('OnboardingWizard Render:', { currentStep, initialStep, formData }); // DEBUG LOG
-
   const handleStepComplete = async (stepData: Record<string, unknown>) => {
     setLoading(true);
     const updatedData = { ...formData, ...stepData };
