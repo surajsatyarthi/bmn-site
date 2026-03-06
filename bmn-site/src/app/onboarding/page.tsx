@@ -34,13 +34,23 @@ export default async function OnboardingPage() {
     });
 
     if (!profile) {
-      await db.insert(profiles).values({
-        id: user.id,
-        fullName: user.user_metadata?.full_name || user.email?.split('@')[0] || 'Anonymous',
-        tradeRole: 'exporter',
-        onboardingStep: 1,
-        onboardingCompleted: false,
-      });
+      // Use the Supabase client (carries user JWT → satisfies RLS auth.uid() = id)
+      // Raw Drizzle over the transaction pooler has no session context, auth.uid() = NULL
+      const fullName = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Anonymous';
+      const { error: insertError } = await supabase
+        .from('profiles')
+        .insert({
+          id: user.id,
+          full_name: fullName,
+          trade_role: 'exporter',
+          onboarding_step: 1,
+          onboarding_completed: false,
+        });
+
+      if (insertError) {
+        console.error('[Onboarding] Profile insert failed:', insertError);
+        throw insertError;
+      }
 
       profile = await db.query.profiles.findFirst({
         where: eq(profiles.id, user.id),

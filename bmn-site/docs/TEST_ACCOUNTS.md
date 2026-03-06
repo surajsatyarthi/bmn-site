@@ -5,13 +5,16 @@
 
 ---
 
-## 🚨 The Two Rules (Non-Negotiable)
+## 🚨 The Three Rules (Non-Negotiable)
 
 **Rule 1 — NEVER create test accounts via the signup form.**
 The signup form sends a verification email. If the email isn't real and accessible, the account is stuck forever unverified. Use the Supabase Admin API instead — it creates accounts pre-verified.
 
 **Rule 2 — NEVER hardcode `bmn.site` or any domain that isn't the real app.**
 The real app lives on Vercel. Playwright tests run against `localhost:3000` in CI (the `webServer` config starts a dev server). `PLAYWRIGHT_BASE_URL` secret must be `http://localhost:3000` or EMPTY.
+
+**Rule 3 — ALWAYS use Guerrilla Mail for any disposable test email.** 
+URL: `https://www.guerrillamail.com` — inbox loads immediately, no account needed. Use the shown username + domain (e.g. `@sharklasers.com`). Do NOT use `temp-mail.org` (blocked by Cloudflare, `/api` endpoint 404s). Do NOT use any other service without PM approval.
 
 ---
 
@@ -137,6 +140,7 @@ Production deployment (2026-02-26 snapshot): `https://bmn-site-hnmku52h6-bmns-pr
 | Use `@gmail.com` accounts for email+password tests | Gmail accounts via Google OAuth have no password | Use `@businessmarket.network` accounts created via Admin API |
 | Create one-off scripts (`create-test-user.js`, `insert-auth-user.js`, etc.) | Undocumented, duplicated, left as repo clutter | Use `scripts/create-test-account.js` only |
 | Hardcode passwords or emails in test files | Security risk | Use `process.env.TEST_USER_EMAIL` / `process.env.TEST_USER_PASSWORD` |
+| Use `temp-mail.org` or any other disposable email service | Cloudflare-blocked; `/api` 404s | Always use **https://www.guerrillamail.com** |
 
 ---
 
