@@ -87,6 +87,16 @@ export async function generateMatchesForUser(userId: string): Promise<ScoredCand
     return [];
   }
 
+  // Check if pg_trgm is available for similarity matching
+  let pgTrgmEnabled = false;
+  try {
+    const extRes = await db.execute(sql`SELECT 1 FROM pg_extension WHERE extname = 'pg_trgm'`);
+    pgTrgmEnabled = (extRes as unknown[]).length > 0;
+  } catch {
+    pgTrgmEnabled = false;
+  }
+
+
   const allCandidates: ScoredCandidate[] = [];
 
   for (const product of userProducts) {
@@ -205,27 +215,46 @@ export async function generateMatchesForUser(userId: string): Promise<ScoredCand
   );
 
   for (const c of topCandidates) {
-    // Enrichment step
     let enrichedEmail: string | null = null;
     let enrichedPhone: string | null = null;
 
-    try {
-      const enrichmentRes = await db.execute(sql`
-        SELECT india_party_email, india_party_phone
-        FROM trade_shipments
-        WHERE similarity(india_party_name, ${c.companyName}) >= 0.7
-          AND india_party_email IS NOT NULL
-        ORDER BY similarity(india_party_name, ${c.companyName}) DESC
-        LIMIT 1
-      `);
+    if (pgTrgmEnabled) {
+      try {
+        const enrichmentRes = await db.execute(sql`
+          SELECT india_party_email, india_party_phone
+          FROM trade_shipments
+          WHERE similarity(india_party_name, ${c.companyName}) >= 0.7
+            AND india_party_email IS NOT NULL
+          ORDER BY similarity(india_party_name, ${c.companyName}) DESC
+          LIMIT 1
+        `);
 
-      const enrichmentRows = enrichmentRes as unknown as EnrichmentRow[];
-      if (enrichmentRows.length > 0) {
-        enrichedEmail = enrichmentRows[0].india_party_email;
-        enrichedPhone = enrichmentRows[0].india_party_phone ?? null;
+        const enrichmentRows = enrichmentRes as unknown as EnrichmentRow[];
+        if (enrichmentRows.length > 0) {
+          enrichedEmail = enrichmentRows[0].india_party_email;
+          enrichedPhone = enrichmentRows[0].india_party_phone ?? null;
+        }
+      } catch {
+        // Ignore enrichment errors - contact reveal is non-blocking
       }
-    } catch {
-      // Ignore enrichment errors - contact reveal is non-blocking
+    } else {
+      try {
+        const enrichmentRes = await db.execute(sql`
+          SELECT india_party_email, india_party_phone
+          FROM trade_shipments
+          WHERE india_party_name ILIKE ${'%' + c.companyName + '%'}
+            AND india_party_email IS NOT NULL
+          LIMIT 1
+        `);
+
+        const enrichmentRows = enrichmentRes as unknown as EnrichmentRow[];
+        if (enrichmentRows.length > 0) {
+          enrichedEmail = enrichmentRows[0].india_party_email;
+          enrichedPhone = enrichmentRows[0].india_party_phone ?? null;
+        }
+      } catch {
+        // Ignore fallback errors
+      }
     }
 
     let matchTier = 'good';

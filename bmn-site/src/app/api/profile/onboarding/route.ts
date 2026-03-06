@@ -92,11 +92,15 @@ export async function PUT(request: NextRequest) {
       updateData.website = (data.website as string) || undefined;
       updateData.yearEstablished = (data.yearEstablished as string) || undefined;
 
-      const companyDefaults = {
+      const companyValues = {
         entityType: 'other',
-        city: 'Not Provided',
-        state: 'Not Provided',
-        country: (data.country as string) || 'India', // Pass front-end data or fallback
+        street: (data.street as string) || null,
+        city: (data.city as string) || 'Not Provided',
+        state: (data.state as string) || 'Not Provided',
+        country: (data.country as string) || 'India',
+        pinCode: (data.pinCode as string) || null,
+        lastYearExportUsd: (data.lastYearExportUsd as string) || null,
+        currentExportCountries: Array.isArray(data.currentExportCountries) ? (data.currentExportCountries as string[]) : [],
         businessType: ['manufacturer', 'trader', 'both', 'agent'].includes(data.businessType as string) 
           ? (data.businessType as 'manufacturer' | 'trader' | 'both' | 'agent') 
           : 'both',
@@ -109,7 +113,7 @@ export async function PUT(request: NextRequest) {
         name: data.companyName as string,
         website: (data.website as string) || null,
         foundingYear: (data.yearEstablished as string) ? parseInt(data.yearEstablished as string) : null,
-        ...companyDefaults,
+        ...companyValues,
       }).onConflictDoUpdate({
         target: [companies.profileId],
         set: {
@@ -117,7 +121,7 @@ export async function PUT(request: NextRequest) {
           website: (data.website as string) || null,
           foundingYear: (data.yearEstablished as string) ? parseInt(data.yearEstablished as string) : null,
           updatedAt: new Date(),
-          ...companyDefaults,
+          ...companyValues,
         }
       });
     }
@@ -140,26 +144,28 @@ export async function PUT(request: NextRequest) {
 
     // Handle New Step 6: Trade Terms
     if (step === 6) {
-      await db.insert(tradeTerms).values({
-        profileId: user.id,
+      const existing = await db.select().from(tradeTerms).where(eq(tradeTerms.profileId, user.id));
+      
+      const payload = {
         moqValue: typeof data.moqValue === 'number' ? data.moqValue : null,
         moqUnit: (data.moqUnit as string) || null,
         leadTime: (data.leadTime as string) || null,
         productionCapacity: (data.productionCapacity as string) || null,
         paymentTerms: Array.isArray(data.paymentTerms) ? data.paymentTerms : [],
         incoterms: Array.isArray(data.incoterms) ? data.incoterms : [],
-      }).onConflictDoUpdate({
-        target: [tradeTerms.profileId],
-        set: {
-          moqValue: typeof data.moqValue === 'number' ? data.moqValue : null,
-          moqUnit: (data.moqUnit as string) || null,
-          leadTime: (data.leadTime as string) || null,
-          productionCapacity: (data.productionCapacity as string) || null,
-          paymentTerms: Array.isArray(data.paymentTerms) ? data.paymentTerms : [],
-          incoterms: Array.isArray(data.incoterms) ? data.incoterms : [],
+      };
+
+      if (existing.length > 0) {
+        await db.update(tradeTerms).set({
+          ...payload,
           updatedAt: new Date(),
-        }
-      });
+        }).where(eq(tradeTerms.profileId, user.id));
+      } else {
+        await db.insert(tradeTerms).values({
+          profileId: user.id,
+          ...payload,
+        });
+      }
     }
 
     // Update Profile base fields
