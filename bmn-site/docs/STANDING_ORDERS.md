@@ -1,3 +1,15 @@
+## 🔴 STANDING ORDER — Disposable Email for E2E Testing
+
+**ALWAYS use [Guerrilla Mail](https://www.guerrillamail.com) for any disposable/temporary email needed during E2E testing or G-gate sign-up flows.**
+
+- URL: `https://www.guerrillamail.com`
+- No account needed — inbox is shown immediately on load
+- Use the displayed username + `@sharklasers.com` (or other listed domain) as the test email
+- Do NOT use `temp-mail.org` — it is blocked by Cloudflare and its `/api` endpoint 404s
+- Do NOT use any other disposable mail service without PM approval
+
+---
+
 ## 3D. Ralph Protocol Enforcement (Automated ~ 10 Gates)
 
 **"The CEO Magazine Standard"** - adapted for BMN.
