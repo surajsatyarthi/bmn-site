@@ -70,15 +70,22 @@ export default function TradeTermsStep({ initialData, onNext, onBack, loading }:
               Target Lead Time *
             </label>
             <div className="mt-2">
-              <input
-                type="text"
+              <select
                 id="leadTime"
-                placeholder="e.g. 15-30 days"
                 {...register('leadTime')}
-                className={`block w-full rounded-md border-0 py-2.5 pl-3 pr-3 text-slate-900 ring-1 ring-inset ${
+                className={`block w-full rounded-md border-0 py-2.5 pl-3 pr-10 text-slate-900 ring-1 ring-inset ${
                   errors.leadTime ? 'ring-red-300 focus:ring-red-500' : 'ring-slate-300 focus:ring-[#0047FF]'
                 } sm:text-sm sm:leading-6`}
-              />
+              >
+                <option value="">Select Lead Time</option>
+                <option value="Ready to ship">Ready to ship</option>
+                <option value="1-7 days">1-7 days</option>
+                <option value="8-14 days">8-14 days</option>
+                <option value="15-30 days">15-30 days</option>
+                <option value="1-2 months">1-2 months</option>
+                <option value="2-3 months">2-3 months</option>
+                <option value="3+ months">3+ months</option>
+              </select>
               {errors.leadTime && (
                 <p className="mt-2 text-sm text-red-600">{errors.leadTime.message}</p>
               )}
@@ -91,13 +98,19 @@ export default function TradeTermsStep({ initialData, onNext, onBack, loading }:
               Production / Supply Capacity
             </label>
             <div className="mt-2">
-              <input
-                type="text"
+              <select
                 id="productionCapacity"
-                placeholder="e.g. 10,000 units/month"
                 {...register('productionCapacity')}
-                className="block w-full rounded-md border-0 py-2.5 pl-3 pr-3 text-slate-900 ring-1 ring-inset ring-slate-300 placeholder:text-slate-400 focus:ring-2 focus:ring-inset focus:ring-[#0047FF] sm:text-sm sm:leading-6"
-              />
+                className="block w-full rounded-md border-0 py-2.5 pl-3 pr-10 text-slate-900 ring-1 ring-inset ring-slate-300 focus:ring-2 focus:ring-inset focus:ring-[#0047FF] sm:text-sm sm:leading-6"
+              >
+                <option value="">Select Capacity</option>
+                <option value="Under 1,000 / month">Under 1,000 / month</option>
+                <option value="1,000 - 5,000 / month">1,000 - 5,000 / month</option>
+                <option value="5,000 - 10,000 / month">5,000 - 10,000 / month</option>
+                <option value="10,000 - 50,000 / month">10,000 - 50,000 / month</option>
+                <option value="50,000 - 100,000 / month">50,000 - 100,000 / month</option>
+                <option value="100,000+ / month">100,000+ / month</option>
+              </select>
             </div>
           </div>
 
