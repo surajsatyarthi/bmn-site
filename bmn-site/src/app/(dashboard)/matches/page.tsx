@@ -3,6 +3,7 @@ import { db } from '@/lib/db';
 import { profiles, matches } from '@/lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 import MatchesList from './MatchesList';
 
 import { Metadata } from 'next';
@@ -104,12 +105,12 @@ export default async function MatchesPage() {
           <p className="text-text-secondary text-sm max-w-sm mx-auto">
             Our AI is analysing trade shipment records to find your best buyer matches. This usually takes less than a minute — please refresh the page.
           </p>
-          <a
+          <Link
             href="/matches"
             className="inline-block mt-4 px-6 py-2 bg-bmn-blue text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             Refresh Matches
-          </a>
+          </Link>
         </div>
       ) : (
         <>
